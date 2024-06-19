@@ -1,6 +1,5 @@
 function App() {
-   console.log('asd')
-   return <div>Ulutman</div>
+   return <div>Ulutman</div>;
 }
 
-export default App
+export default App;
