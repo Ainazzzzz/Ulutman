@@ -1,9 +1,9 @@
 import { Checkbox } from '@mui/material';
 
-export const CheckBox = ({ type, onChange, checked, ...props }) => {
+export const CheckBox = ({ onChange, checked, ...props }) => {
    return (
       <Checkbox
-         type={type}
+         type="checkbox"
          onChange={onChange}
          checked={checked}
          {...props}
