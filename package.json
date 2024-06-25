@@ -15,8 +15,11 @@
       "@mui/material": "^5.15.20",
       "react": "^18.2.0",
       "react-dom": "^18.2.0",
+<<<<<<< HEAD
       "react-router": "^6.23.1",
       "react-router-dom": "^6.23.1",
+=======
+>>>>>>> ddfa2b8399cc2d42c853f520c1929d9505914334
       "vite-plugin-svgr": "^4.2.0"
    },
    "devDependencies": {
