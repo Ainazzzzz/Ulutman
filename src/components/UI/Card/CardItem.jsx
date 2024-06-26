@@ -13,21 +13,26 @@ export const CardItem = ({
    return (
       <StyledCardContent>
          <img src={img} alt={title} />
-
          <ContainerInfo>
             <FirstBlock>
                <div>
                   <b>{price} ₽</b>
                   <p className="title">{title}</p>
                </div>
+
                <WrapperAddressInfo>
                   <AddressInfo>
-                     <Icons.AddressIcon />
-                     <p>{address}</p>
+                     <div>
+                        <Icons.AddressIcon />
+                     </div>
+                     <p className="address">{address}</p>
                   </AddressInfo>
+
                   <AddressInfo>
-                     <Icons.HomeIcon />
-                     <p>{description}</p>
+                     <div>
+                        <Icons.HomeIcon />
+                     </div>
+                     <p className="address">{description}</p>
                   </AddressInfo>
                </WrapperAddressInfo>
             </FirstBlock>
@@ -65,6 +70,7 @@ const ContainerInfo = styled('article')(({ theme }) => ({
 }));
 
 const FirstBlock = styled('section')(({ theme }) => ({
+   width: '240px',
    display: 'flex',
    flexDirection: 'column',
    gap: theme.spacing(1.25),
@@ -82,7 +88,14 @@ const FirstBlock = styled('section')(({ theme }) => ({
       WebkitBoxOrient: 'vertical',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      WebkitLineClamp: 2,
+      WebkitLineClamp: 1,
+   },
+   '.address': {
+      display: '-webkit-box',
+      WebkitBoxOrient: 'vertical',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      WebkitLineClamp: 1,
    },
    '& > div:first-of-type': {
       display: 'flex',
@@ -120,4 +133,8 @@ const AddressInfo = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'row',
    gap: theme.spacing(0.625),
+   svg: {
+      width: '16px',
+      height: '16px',
+   },
 }));
