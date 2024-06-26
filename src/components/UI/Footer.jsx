@@ -19,7 +19,7 @@ const Footer = () => {
 };
 
 export default Footer;
-const WrapperDiv = styled('div')(() => ({
+const WrapperDiv = styled('footer')(() => ({
    display: 'flex',
    justifyContent: 'center',
    alignItems: 'center',
@@ -27,6 +27,7 @@ const WrapperDiv = styled('div')(() => ({
    gap: '80px',
    height: '118px',
    background: 'rgb(218, 219, 224)',
+   cursor: 'pointer',
 }));
 const ContainerCategory = styled('div')(() => ({
    display: 'flex',
@@ -37,7 +38,7 @@ const ContainerCategory = styled('div')(() => ({
    fontWeight: '400',
    lineHeight: '19px',
 }));
-const TitleUlutman = styled('div')(() => ({
+const TitleUlutman = styled('p')(() => ({
    color: 'rgb(40, 40, 40)',
    fontFamily: 'Inter',
    fontSize: '22px',
