@@ -3,11 +3,16 @@ import Ulutman from '../assets/icons/ulutman.svg?react';
 import HeartLike from '../assets/icons/white-heart.svg?react';
 import UserLogo from '../assets/icons/user.svg?react';
 import RussianFlag from '../assets/icons/russian-flag.svg?react';
+import Plus from '../assets/icons/plus.svg?react';
 import { styled } from '@mui/material';
+import { IconButton } from '../components/IconButton';
+import { Button } from '../components/UI/Button';
 export const Header = () => {
    return (
       <Wrapper>
+         {/* <IconButton> */}
          <Ulutman />
+         {/* </IconButton> */}
          <ContainerBlock>
             <Block>
                <HeartLike />
@@ -23,13 +28,18 @@ export const Header = () => {
                />
                <a to="/">Русский</a>
             </Block>
+            <ButtonStyle>
+               {' '}
+               <Plus />
+               Опубликовать
+            </ButtonStyle>
          </ContainerBlock>
       </Wrapper>
    );
 };
 const Wrapper = styled('div')(() => ({
    heigh: '84px',
-   background: 'gray',
+   background: '#FFF',
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'space-between',
@@ -50,4 +60,11 @@ const Block = styled('div')(() => ({
 const ContainerBlock = styled('div')(() => ({
    display: 'flex',
    gap: '32px',
+}));
+const ButtonStyle = styled(Button)(() => ({
+   display: 'flex',
+   gap: '4px',
+   fontWeight: '500',
+   textTransform: 'inherit',
+   height: '36px',
 }));
