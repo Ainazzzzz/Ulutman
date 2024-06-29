@@ -24,9 +24,9 @@ const AnnouncementsSorter = () => {
             aria-expanded={anchorEl ? 'true' : undefined}
             onClick={handleClick}
          >
-            <ArrowsIcon />
-
             {selectedValue}
+
+            <ArrowsIcon />
          </StyledButton>
 
          <StyledMenu
@@ -73,17 +73,18 @@ const StyledMenu = styled(Menu)(() => ({
 
 const StyledButton = styled(Button)(() => ({
    '&.MuiButton-colorPrimary': {
-      width: '180px',
+      minWidth: '159px',
       backgroundColor: '#B8FF00',
-      height: '39px',
+      minHeight: '39px',
+      textTransform: 'none',
       padding: '10px',
       display: 'flex',
       gap: '5px',
       borderRadius: '10px',
-      fontSize: '13px',
-      fontWeight: '500',
+      fontWeight: '600',
       lineHeight: '19.36px',
       color: '#282828',
+
       '&.Mui-disabled': {
          opacity: '0.5',
       },
