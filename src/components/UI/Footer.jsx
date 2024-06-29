@@ -36,7 +36,6 @@ const WrapperDiv = styled('footer')(({ theme }) => ({
    height: '118px',
    flexWrap: 'wrap',
 
-   cursor: 'pointer',
    [theme.breakpoints.down('md')]: {
       height: 'auto',
       gap: '40px',
