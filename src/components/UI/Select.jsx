@@ -8,7 +8,7 @@ const ReusableSelect = forwardRef(
          <FormControlStyle fullWidth>
             <LabelStyle>{label}</LabelStyle>
             <SelectStyle
-               value={value}
+               value={value || ''}
                onChange={onChange}
                inputRef={ref}
                IconComponent={DownIcon}
@@ -25,11 +25,7 @@ const ReusableSelect = forwardRef(
                   <MenuItem disabled>Здесь пока что нету данных.</MenuItem>
                ) : (
                   options.map(option => (
-                     <MenuItemStyle
-                        key={option.id}
-                        value={option.value}
-                        selectedOption={selectedOption}
-                     >
+                     <MenuItemStyle key={option.id} value={option.value}>
                         {option.label}
                      </MenuItemStyle>
                   ))
