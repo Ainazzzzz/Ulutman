@@ -32,11 +32,29 @@ const getButtonVariantStyles = variant => {
             },
          };
 
+      case 'sort':
+         return {
+            background: '#7E52FF',
+            color: '#FFF',
+            minWidth: '195px',
+            minHeight: '56px',
+            display: 'flex',
+            fontWeight: '400',
+            gap: '5px',
+            fontSize: '18px',
+            lineHeight: '21.78px',
+
+            '&:hover': {
+               background: '#9774FF',
+            },
+         };
+
       case 'contained':
       default:
          return {
             background: '#7E52FF',
             color: '#FFF',
+
             '&:hover': {
                background: '#9774FF',
             },
@@ -66,6 +84,10 @@ export const Button = ({
 };
 
 const StyledButton = styled(MuiButton)(({ variant }) => ({
+   '&.MuiButtonBase-root': {
+      textTransform: 'none',
+   },
+
    borderRadius: '10px',
    fontSize: '1rem',
    fontWeight: '700',
