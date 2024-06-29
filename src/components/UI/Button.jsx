@@ -49,6 +49,33 @@ const getButtonVariantStyles = variant => {
             },
          };
 
+      case 'category-sort':
+         return {
+            minWidth: '159px',
+            backgroundColor: '#B8FF00',
+            minHeight: '39px',
+            textTransform: 'none',
+            padding: '10px',
+            display: 'flex',
+            gap: '5px',
+            borderRadius: '10px',
+            fontWeight: '600',
+            lineHeight: '19.36px',
+            color: '#282828',
+
+            '&:hover': {
+               backgroundColor: '#B8FF00',
+            },
+
+            '&:active': {
+               backgroundColor: '#B8FF00',
+            },
+
+            '&.Mui-disabled': {
+               opacity: '0.5',
+            },
+         };
+
       case 'contained':
       default:
          return {

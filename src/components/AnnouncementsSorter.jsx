@@ -1,8 +1,9 @@
+import { useState } from 'react';
+import { styled } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
-import { Button, styled } from '@mui/material';
 import ArrowsIcon from '../assets/icons/arrows.svg?react';
+import { Button } from './UI/Button';
 
 const AnnouncementsSorter = () => {
    const [anchorEl, setAnchorEl] = useState(null);
@@ -17,7 +18,8 @@ const AnnouncementsSorter = () => {
 
    return (
       <>
-         <StyledButton
+         <Button
+            variant="category-sort"
             id="basic-button"
             aria-controls={anchorEl ? 'basic-menu' : undefined}
             aria-haspopup="true"
@@ -27,7 +29,7 @@ const AnnouncementsSorter = () => {
             {selectedValue}
 
             <ArrowsIcon />
-         </StyledButton>
+         </Button>
 
          <StyledMenu
             id="basic-menu"
@@ -68,25 +70,5 @@ const StyledMenu = styled(Menu)(() => ({
    '& .MuiPopover-paper': {
       borderRadius: '10px',
       left: '0 !important',
-   },
-}));
-
-const StyledButton = styled(Button)(() => ({
-   '&.MuiButton-colorPrimary': {
-      minWidth: '159px',
-      backgroundColor: '#B8FF00',
-      minHeight: '39px',
-      textTransform: 'none',
-      padding: '10px',
-      display: 'flex',
-      gap: '5px',
-      borderRadius: '10px',
-      fontWeight: '600',
-      lineHeight: '19.36px',
-      color: '#282828',
-
-      '&.Mui-disabled': {
-         opacity: '0.5',
-      },
    },
 }));

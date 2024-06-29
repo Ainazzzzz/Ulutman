@@ -1,5 +1,11 @@
+import AnnouncementsSorter from './components/AnnouncementsSorter';
+
 function App() {
-   return <div>Ulutman</div>;
+   return (
+      <div>
+         <AnnouncementsSorter />
+      </div>
+   );
 }
 
 export default App;
