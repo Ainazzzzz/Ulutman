@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, styled } from '@mui/material';
+import { Grid, styled } from '@mui/material';
 import { CardItem } from './CardItem';
 import { SceletonCard } from './SceletonCard';
 
@@ -8,29 +8,51 @@ export const CardList = () => {
    const [cards, setCards] = useState([]);
 
    useEffect(() => {
-      setTimeout(() => {
-         fetch('https://eb1e88b90b215b03.mokky.dev/text')
-            .then(response => response.json())
-            .then(data => {
-               setCards(data);
-               setLoading(false);
-            });
-      }, 1000);
+      const fetchData = async () => {
+         try {
+            const response = await fetch(
+               'https://eb1e88b90b215b03.mokky.dev/text',
+            );
+            const data = await response.json();
+            setCards(data);
+         } catch (error) {
+            console.error('Error fetching data:', error);
+         } finally {
+            setLoading(false);
+         }
+      };
+
+      setTimeout(fetchData, 3000);
    }, []);
 
    return (
-      <StyledCardListBox>
+      <StyledContainer>
          {loading && <SceletonCard cards={8} />}
-         {cards.map(item => (
-            <CardItem key={item.id} {...item} loading={loading} />
-         ))}
-      </StyledCardListBox>
+         <CardListBox container spacing={3}>
+            {cards.map(card => (
+               <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
+                  <CardItem {...card} />
+               </Grid>
+            ))}
+         </CardListBox>
+      </StyledContainer>
    );
 };
 
-const StyledCardListBox = styled(Box)(() => ({
+const StyledContainer = styled('div')(({ theme }) => ({
+   padding: '0 60px',
    display: 'flex',
-   flexWrap: 'wrap',
-   gap: '20px',
    justifyContent: 'center',
+   width: '100%',
+   [theme.breakpoints.down('sm')]: {
+      padding: '0 16px',
+   },
+   [theme.breakpoints.down('xs')]: {
+      padding: '0',
+   },
 }));
+
+const CardListBox = styled(Grid)({
+   marginTop: '20px',
+   width: '100%',
+});
