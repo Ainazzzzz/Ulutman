@@ -42,7 +42,8 @@ export const CardList = () => {
 const StyledContainer = styled('div')(({ theme }) => ({
    padding: '0 60px',
    display: 'flex',
-   justifyContent: 'center',
+   alignItems: 'center',
+   flexDirection: 'column',
    width: '100%',
    [theme.breakpoints.down('sm')]: {
       padding: '0 16px',
@@ -52,7 +53,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
    },
 }));
 
-const CardListBox = styled(Grid)({
+export const CardListBox = styled(Grid)({
    marginTop: '20px',
    width: '100%',
 });

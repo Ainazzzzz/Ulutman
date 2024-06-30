@@ -1,11 +1,5 @@
-import { CardList } from './components/UI/Card/CardList';
-
 function App() {
-   return (
-      <div>
-         <CardList />
-      </div>
-   );
+   return <div>Ulutman</div>;
 }
 
 export default App;

@@ -48,7 +48,7 @@ export const CardItem = ({
    );
 };
 
-const StyledCard = styled(Card)(({ theme }) => ({
+export const StyledCard = styled(Card)(({ theme }) => ({
    width: '100%',
    borderRadius: '10px',
    padding: theme.spacing(2.5),
@@ -64,7 +64,7 @@ const StyledCardMedia = styled(CardMedia)(() => ({
    borderRadius: '8px',
 }));
 
-const ContainerInfo = styled(CardContent)(({ theme }) => ({
+export const ContainerInfo = styled(CardContent)(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
    gap: theme.spacing(1.25),
