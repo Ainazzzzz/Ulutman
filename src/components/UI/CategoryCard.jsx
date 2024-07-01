@@ -5,6 +5,7 @@ import Geolocation from '../../assets/icons/geolocation-icon.svg?react';
 import Home from '../../assets/icons/home-icon.svg?react';
 import GrayHeart from '../../assets/icons/gray-heart-icon.svg?react';
 import GrayMessage from '../../assets/icons/gray-message-icon.svg?react';
+import { IconButton } from '../IconButton';
 
 export const CategoryCard = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
@@ -21,11 +22,15 @@ export const CategoryCard = () => {
                               <Price>
                                  {item.price} <SumIcon />{' '}
                               </Price>
-                              <GrayHeart />
+                              <IconButton>
+                                 <GrayHeart />
+                              </IconButton>
                            </FirstBlock>
                            <RoomStyle>
                               {item.room}х комнатная квартира
-                              <GrayMessage />
+                              <IconButton>
+                                 <GrayMessage />
+                              </IconButton>
                            </RoomStyle>
                            <SecondBlock>
                               <Geolocation />
@@ -55,8 +60,12 @@ export const CategoryCard = () => {
                               {item.price} <SumIcon />{' '}
                            </Price>
                            <div>
-                              <GrayHeart />
-                              <GrayMessage />
+                              <IconButton>
+                                 <GrayHeart />
+                              </IconButton>
+                              <IconButton>
+                                 <GrayMessage />
+                              </IconButton>
                            </div>
                         </FirstBlock>
                         <RoomStyle>{item.room}х комнатная квартира</RoomStyle>
@@ -90,7 +99,7 @@ const ImageStyle = styled('img')(({ theme }) => ({
    top: '20px',
    left: '20px',
    [theme.breakpoints.down('md')]: {
-      width: '100%',
+      width: '303px',
       height: '169px',
       top: '0px',
       left: '0px',
@@ -100,9 +109,9 @@ const Block = styled('div')(({ theme }) => ({
    width: '315px',
    height: '262px',
    borderRadius: '10px',
-   background: '#ffffff',
+   background: '#fff',
    [theme.breakpoints.down('md')]: {
-      width: '100%',
+      width: '325px',
       height: '331px',
       padding: '10px',
       display: 'flex',
@@ -122,6 +131,7 @@ const Price = styled('p')(({ theme }) => ({
    paddingBottom: '10px',
    [theme.breakpoints.down('md')]: {
       fontSize: '22px',
+      paddingBottom: '0px',
    },
 }));
 const RoomStyle = styled('p')(({ theme }) => ({
@@ -132,6 +142,8 @@ const RoomStyle = styled('p')(({ theme }) => ({
       fontSize: '16px',
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingBottom: '0px',
    },
 }));
 const SecondBlock = styled('div')(() => ({
@@ -157,14 +169,12 @@ const Wrapper = styled('div')(() => ({
    display: 'flex',
    gap: '20px',
 }));
-const FirstBlock = styled('div')(({ theme }) => ({
+const FirstBlock = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'space-between',
    div: {
       display: 'flex',
       alignItems: 'center',
-      gap: '14px',
-      [theme.breakpoints.down('md')]: {},
    },
 }));
