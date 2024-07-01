@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Grid, styled } from '@mui/material';
+import { Card, CardContent, CardMedia, styled } from '@mui/material';
 import { Icons } from '../../../assets';
 
 export const CardItem = ({
@@ -16,7 +16,7 @@ export const CardItem = ({
          <ContainerInfo>
             <FirstBlock>
                <div>
-                  <b>{price} ₽</b>
+                  <Price>{price} ₽</Price>
                   <p className="title">{title}</p>
                </div>
 
@@ -49,7 +49,7 @@ export const CardItem = ({
 };
 
 export const StyledCard = styled(Card)(({ theme }) => ({
-   width: '100%',
+   maxWidth: '315px',
    borderRadius: '10px',
    padding: theme.spacing(2.5),
    boxShadow: theme.shadows[2],
@@ -57,6 +57,9 @@ export const StyledCard = styled(Card)(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    gap: theme.spacing(2.5),
+   [theme.breakpoints.down('sm')]: {
+      maxWidth: '253px',
+   },
 }));
 
 const StyledCardMedia = styled(CardMedia)(() => ({
@@ -82,17 +85,6 @@ const FirstBlock = styled('section')(({ theme }) => ({
    justifyContent: 'space-between',
    color: theme.palette.text.primary,
 
-   b: {
-      fontSize: '24px',
-      fontWeight: theme.typography.fontWeightBold,
-      [theme.breakpoints.up('sm')]: {
-         fontSize: '1.375rem', // 22px for screens wider than 600px (sm and up)
-      },
-      [theme.breakpoints.up('md')]: {
-         fontSize: '1.5rem', // 24px for screens wider than 960px (md and up)
-      },
-   },
-
    '.title': {
       fontSize: theme.typography.h6.fontSize,
       fontWeight: theme.typography.fontWeightMedium,
@@ -115,6 +107,14 @@ const FirstBlock = styled('section')(({ theme }) => ({
       display: 'flex',
       flexDirection: 'column',
       gap: theme.spacing(1),
+   },
+}));
+
+const Price = styled('b')(({ theme }) => ({
+   fontSize: '24px',
+   fontWeight: theme.typography.fontWeightBold,
+   [theme.breakpoints.down('sm')]: {
+      fontSize: '22px',
    },
 }));
 
