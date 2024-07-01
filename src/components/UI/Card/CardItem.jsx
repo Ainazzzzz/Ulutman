@@ -1,5 +1,8 @@
 import { Card, CardContent, CardMedia, styled } from '@mui/material';
-import { Icons } from '../../../assets';
+import HomeIcon from '../../../assets/icons/home-icon.svg?react';
+import AddressIcon from '../../../assets/icons/address-icon.svg?react';
+import MessageIcon from '../../../assets/icons/message-icon.svg?react';
+import LikeIcon from '../../../assets/icons/like-icon.svg?react';
 
 export const CardItem = ({
    title,
@@ -13,35 +16,30 @@ export const CardItem = ({
    return (
       <StyledCard>
          <StyledCardMedia image={img} title={title} />
+
          <ContainerInfo>
             <FirstBlock>
                <div>
                   <Price>{price} ₽</Price>
-                  <p className="title">{title}</p>
+                  <Title>{title}</Title>
                </div>
 
                <WrapperAddressInfo>
                   <AddressInfo>
-                     <div>
-                        <Icons.AddressIcon />
-                     </div>
-                     <p className="address">{address}</p>
+                     <AddressIcon />
+                     <AddressText>{address}</AddressText>
                   </AddressInfo>
 
                   <AddressInfo>
-                     <div>
-                        <Icons.HomeIcon />
-                     </div>
-                     <p className="address">{description}</p>
+                     <HomeIcon />
+                     <AddressText>{description}</AddressText>
                   </AddressInfo>
                </WrapperAddressInfo>
             </FirstBlock>
 
             <SecondBlock>
-               <Icons.LikeIcon className={favoriteStatus ? 'like-red' : ''} />
-               <Icons.MessageIcon
-                  className={messageStatus ? 'message-red' : ''}
-               />
+               <LikeIcon className={favoriteStatus ? 'like-red' : ''} />
+               <MessageIcon className={messageStatus ? 'message-red' : ''} />
             </SecondBlock>
          </ContainerInfo>
       </StyledCard>
@@ -54,71 +52,78 @@ export const StyledCard = styled(Card)(({ theme }) => ({
    padding: theme.spacing(2.5),
    boxShadow: theme.shadows[2],
    backgroundColor: theme.palette.background.paper,
+
    display: 'flex',
    flexDirection: 'column',
    gap: theme.spacing(2.5),
-   [theme.breakpoints.down('sm')]: {
-      maxWidth: '253px',
+
+   [theme.breakpoints.down('md')]: {
+      maxWidth: '209px',
+      padding: 0,
+      backgroundColor: 'transparent',
+      boxShadow: 'none',
+      gap: '18px',
    },
 }));
 
-const StyledCardMedia = styled(CardMedia)(() => ({
+const StyledCardMedia = styled(CardMedia)(({ theme }) => ({
    height: '222px',
    borderRadius: '8px',
-}));
 
-export const ContainerInfo = styled(CardContent)(({ theme }) => ({
-   display: 'flex',
-   justifyContent: 'space-between',
-   gap: theme.spacing(1.25),
-   '&.MuiCardContent-root': {
-      padding: '0',
+   [theme.breakpoints.down('md')]: {
+      height: '144px',
    },
 }));
 
-const FirstBlock = styled('section')(({ theme }) => ({
+export const ContainerInfo = styled(CardContent)({
+   display: 'flex',
+   justifyContent: 'space-between',
+   gap: '10px',
+
+   padding: 0,
+});
+
+export const FirstBlock = styled('div')(({ theme }) => ({
    width: '240px',
+
    display: 'flex',
    flexDirection: 'column',
    gap: theme.spacing(1.25),
-   height: '118px',
-   justifyContent: 'space-between',
+
    color: theme.palette.text.primary,
 
-   '.title': {
-      fontSize: theme.typography.h6.fontSize,
-      fontWeight: theme.typography.fontWeightMedium,
-      display: '-webkit-box',
-      WebkitBoxOrient: 'vertical',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      WebkitLineClamp: 1,
+   [theme.breakpoints.down('md')]: {
+      gap: '10px',
    },
+}));
 
-   '.address': {
-      display: '-webkit-box',
-      WebkitBoxOrient: 'vertical',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      WebkitLineClamp: 1,
-   },
+const Title = styled('p')(({ theme }) => ({
+   fontSize: theme.typography.h6.fontSize,
+   fontWeight: theme.typography.fontWeightMedium,
 
-   '& > div:first-of-type': {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(1),
+   display: '-webkit-box',
+   WebkitBoxOrient: 'vertical',
+   overflow: 'hidden',
+   textOverflow: 'ellipsis',
+   WebkitLineClamp: 1,
+
+   [theme.breakpoints.down('md')]: {
+      fontSize: '14px',
+      fontWeight: '500',
    },
 }));
 
 const Price = styled('b')(({ theme }) => ({
    fontSize: '24px',
    fontWeight: theme.typography.fontWeightBold,
-   [theme.breakpoints.down('sm')]: {
-      fontSize: '22px',
+
+   [theme.breakpoints.down('md')]: {
+      fontSize: '16px',
+      fontWeight: '600',
    },
 }));
 
-const SecondBlock = styled('section')(({ theme }) => ({
+export const SecondBlock = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    gap: theme.spacing(1.75),
@@ -132,27 +137,32 @@ const SecondBlock = styled('section')(({ theme }) => ({
    },
 }));
 
-const WrapperAddressInfo = styled('section')(({ theme }) => ({
+export const WrapperAddressInfo = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    gap: theme.spacing(0.75),
-
-   p: {
-      display: '-webkit-box',
-      WebkitBoxOrient: 'vertical',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      WebkitLineClamp: 2,
-   },
 }));
 
-const AddressInfo = styled('div')(({ theme }) => ({
+export const AddressInfo = styled('div')(({ theme }) => ({
    display: 'flex',
-   flexDirection: 'row',
    gap: theme.spacing(0.625),
+   alignItems: 'center',
 
    svg: {
       width: '16px',
       height: '16px',
+   },
+}));
+
+const AddressText = styled('p')(({ theme }) => ({
+   display: '-webkit-box',
+   WebkitBoxOrient: 'vertical',
+   overflow: 'hidden',
+   textOverflow: 'ellipsis',
+   WebkitLineClamp: 1,
+
+   [theme.breakpoints.down('md')]: {
+      fontSize: '10px',
+      fontWeight: '400',
    },
 }));

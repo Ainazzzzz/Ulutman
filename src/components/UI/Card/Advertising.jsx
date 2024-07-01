@@ -1,15 +1,11 @@
 import { CardMedia, styled } from '@mui/material';
 
-export const Advertising = () => {
-   return (
-      <StyledImage
-         src="https://dyatkovo.ru/upload/iblock/50e/mo21t3sui5kmt4me0lqi9vmsr15w5b6g.jpg"
-         alt="afasdfdsf"
-      />
-   );
+export const Advertising = ({ image }) => {
+   return <Image image={image} title="Квартира в Москве" />;
 };
 
-const StyledImage = styled('img')(() => ({
-   width: '253px',
-   height: '331px',
+const Image = styled(CardMedia)(() => ({
+   width: '118px',
+   minHeight: '200px',
+   borderRadius: '8px',
 }));

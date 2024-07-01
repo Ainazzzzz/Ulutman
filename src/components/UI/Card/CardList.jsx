@@ -1,37 +1,49 @@
-import { Grid, styled } from '@mui/material';
+import { Grid, styled, useMediaQuery } from '@mui/material';
 import { CardItem } from './CardItem';
 import { SceletonCard } from './SceletonCard';
+import { Advertising } from './Advertising';
 
 export const CardList = ({ cards, advertising, loading }) => {
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+
    return (
       <StyledContainer>
-         {loading && <SceletonCard cards={8} />}
+         {loading && <SceletonCard />}
 
          <CardListBox container spacing={2.5}>
-            {cards.map(card => (
+            {cards?.map(card => (
                <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
                   <CardItem {...card} />
                </Grid>
             ))}
          </CardListBox>
+
+         {isMobile && (
+            <WrapperAdvertising>
+               {advertising?.map((image, i) => (
+                  <Advertising image={image} key={i} />
+               ))}
+            </WrapperAdvertising>
+         )}
       </StyledContainer>
    );
 };
 
 const StyledContainer = styled('div')(({ theme }) => ({
-   padding: '0 60px',
+   padding: theme.breakpoints.down('md') ? '0' : '0 60px',
    display: 'flex',
-   justifyContent: 'space-between',
+   gap: '10px',
    width: '100%',
-   [theme.breakpoints.down('sm')]: {
-      padding: '0 16px',
-   },
-   [theme.breakpoints.down('xs')]: {
-      padding: '0',
-   },
 }));
 
 export const CardListBox = styled(Grid)({
    marginTop: '20px',
    width: '100%',
+});
+
+const WrapperAdvertising = styled('div')({
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '20px',
+   marginTop: '40px',
 });
