@@ -1,5 +1,11 @@
+import SearchInput from './components/UI/SearchInput';
+
 function App() {
-   return <div>Ulutman</div>;
+   return (
+      <div>
+         <SearchInput />
+      </div>
+   );
 }
 
 export default App;

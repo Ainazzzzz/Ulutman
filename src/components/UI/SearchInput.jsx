@@ -16,14 +16,16 @@ const SearchInput = forwardRef(
             {...rest}
          />
 
-         <Button variant="search">Поиск</Button>
+         <Button className="button" variant="search">
+            Поиск
+         </Button>
       </StyledContainer>
    ),
 );
 
 export default SearchInput;
 
-const StyledContainer = styled(Paper)(() => ({
+const StyledContainer = styled(Paper)(({ theme }) => ({
    width: '100%',
    display: 'flex',
    alignItems: 'center',
@@ -31,6 +33,12 @@ const StyledContainer = styled(Paper)(() => ({
    paddingLeft: '15px',
    borderRadius: '10px',
    boxShadow: 'none',
+
+   [theme.breakpoints.down('md')]: {
+      '& > .button': {
+         display: 'none',
+      },
+   },
 
    '& > .MuiInputBase-colorPrimary': {
       width: '100%',
