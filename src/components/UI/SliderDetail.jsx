@@ -61,23 +61,49 @@ const SliderDetail = ({ slider }) => {
 };
 
 export default SliderDetail;
-const WrapperContainer = styled('div')(() => ({
+const WrapperContainer = styled('div')(({ theme }) => ({
    '.main-slider': {
       width: '760px',
       height: '440px',
+      [theme.breakpoints.down('md')]: {
+         width: '600px',
+         height: '350px',
+      },
+      [theme.breakpoints.down('md')]: {
+         '.main-slider': {
+            width: '100%',
+            height: 'auto',
+         },
+      },
    },
 
    '.thumbs-slider': {
       marginTop: '20px',
+      [theme.breakpoints.down('md')]: {
+         '.swiper-thumbs': {
+            display: 'none',
+         },
+      },
    },
    '.swiper-thumbs': {
       width: '780px',
       padding: '10px',
+      [theme.breakpoints.down('md')]: {
+         width: '600px',
+      },
+      [theme.breakpoints.down('md')]: {
+         width: '100%',
+         padding: '0',
+      },
    },
 
    '.swiper-thumbs .swiper-slide': {
       width: '60px',
       height: '64px',
+      [theme.breakpoints.down('md')]: {
+         width: '50px',
+         height: '54px',
+      },
    },
 
    '.swiper-thumbs .swiper-slide img': {
@@ -88,7 +114,7 @@ const WrapperContainer = styled('div')(() => ({
    },
 }));
 
-const LargeSliderContainer = styled(Swiper)(() => ({
+const LargeSliderContainer = styled(Swiper)(({ theme }) => ({
    borderRadius: '10px',
    background: 'rgb(217, 217, 217)',
    '--swiper-navigation-color': 'black',
@@ -107,6 +133,16 @@ const LargeSliderContainer = styled(Swiper)(() => ({
       '&:after': {
          fontSize: '15px',
          fontWeight: 'bold',
+      },
+      [theme.breakpoints.down('md')]: {
+         width: '40px',
+         height: '40px',
+         display: 'none',
+      },
+   },
+   '.swiper-pagination': {
+      [theme.breakpoints.down('md')]: {
+         display: 'none',
       },
    },
 }));
