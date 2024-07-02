@@ -1,5 +1,15 @@
+import Modal from './components/UI/Modal';
+
 function App() {
-   return <div>Ulutman</div>;
+   const open = true;
+   return (
+      <div>
+         Ulutman
+         <Modal variant="info" open={open}>
+            bermet
+         </Modal>
+      </div>
+   );
 }
 
 export default App;
