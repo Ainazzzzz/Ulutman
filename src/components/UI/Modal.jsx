@@ -42,7 +42,7 @@ export default Modal;
 
 const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
    '& ::-webkit-scrollbar-thumb': {
-      borderRadius: '10px',
+      borderRadius: '0.625rem',
       backgroundColor: theme.palette.secondary.input,
    },
 
@@ -53,10 +53,10 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
 
    '& .MuiDialog-paper': {
       borderRadius: '0.625rem',
-      padding: '40px',
+      padding: '2.5rem',
       overflow: 'visible',
-      width: '376px',
-      height: '207px',
+      width: '23.5rem',
+      height: '12.938rem',
    },
 
    '& .close-button-container': {
@@ -68,9 +68,9 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
       zIndex: 1000,
       display: 'flex',
       bottom: '155px',
-      width: '100px',
-      height: '100px',
-      left: '135px',
+      width: '6.25rem',
+      height: '6.25rem',
+      left: '8.438rem',
       alignItems: 'center',
       justifyContent: 'center',
    },
