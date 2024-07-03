@@ -4,6 +4,10 @@ const CATEGORY_MENU = [
       id: 1,
    },
    {
+      label: 'ПО умолчанию',
+      id: 4,
+   },
+   {
       label: 'Беговая',
       id: 2,
    },
