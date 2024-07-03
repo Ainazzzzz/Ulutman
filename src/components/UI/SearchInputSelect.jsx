@@ -12,7 +12,7 @@ export const SearchInputSelect = ({
    onClick,
    selectValue = 'Aviamotornaya',
    handleChangeSearch,
-   handleSelectChange,
+   onSelectChange,
    options,
    search,
 }) => {
@@ -32,15 +32,17 @@ export const SearchInputSelect = ({
                ),
 
                endAdornment: (
-                  <InputAdornment position="end">
+                  <>
                      {isMobile || (
-                        <StyledSelect
-                           value={selectValue}
-                           options={options}
-                           onChange={handleSelectChange}
-                        />
+                        <InputAdornment position="end">
+                           <StyledSelect
+                              value={selectValue}
+                              options={options}
+                              onChange={onSelectChange}
+                           />
+                        </InputAdornment>
                      )}
-                  </InputAdornment>
+                  </>
                ),
             }}
          />
@@ -56,22 +58,19 @@ export const SearchInputSelect = ({
 const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
    width: '100%',
-   gap: '0',
-   button: {
-      padding: '6px 24px 6px 24px',
-   },
+   height: '56px',
 }));
 
 const StyledInput = styled(TextField)(({ theme }) => ({
    borderRadius: '10px 0px 0px 10px',
-   background: 'white',
+   background: '#fff',
    overflow: 'hidden',
-   // height: '40px',
+
+   display: 'flex',
+   justifyContent: 'center',
 
    [theme.breakpoints.down('md')]: {
       borderRadius: '10px',
-   },
-   '.MuiInputBase-root': {
       height: '40px',
    },
 
@@ -102,7 +101,7 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    ' .MuiInputBase-input': {
       borderLeft: '1px solid gray',
       fontSize: '18px',
-      padding: '25px 0 25px 10px',
+      padding: '18px 0 25px 10px',
    },
 
    '& .MuiOutlinedInput-notchedOutline': {
@@ -112,6 +111,7 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    '&:hover .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
+
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },

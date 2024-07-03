@@ -1,11 +1,5 @@
-import { MainBanner } from './components/main-page/MainBanner';
-
 function App() {
-   return (
-      <div>
-         <MainBanner />
-      </div>
-   );
+   return <div>Ulutman</div>;
 }
 
 export default App;
