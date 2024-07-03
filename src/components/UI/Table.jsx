@@ -1,0 +1,125 @@
+import { memo, useMemo } from 'react';
+import {
+   TableContainer,
+   TableHead,
+   TableRow,
+   TableCell,
+   TableBody,
+   Table as MuiTable,
+   styled,
+   Box,
+} from '@mui/material';
+import { useTable } from 'react-table';
+
+const Table = ({ column: headers, data }) => {
+   const columns = useMemo(() => headers, [headers]);
+
+   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+      useTable({
+         columns,
+         data,
+      });
+
+   if (!data || data.length === 0) {
+      return <StyledAbsence>Пусто</StyledAbsence>;
+   }
+
+   return (
+      <StyledTableContainer>
+         <MuiTable {...getTableProps()}>
+            <TableHead>
+               {headerGroups.map((headerGroup, i) => (
+                  <TableRow
+                     {...headerGroup.getHeaderGroupProps({
+                        style: {
+                           display: 'flex',
+                           width: '100%',
+                           backgroundColor: 'white',
+                        },
+                     })}
+                     key={headerGroup.headers[i].Header}
+                  >
+                     {headerGroup.headers.map(column => (
+                        <TableCell
+                           {...column.getHeaderProps({
+                              style: { ...column.style },
+                           })}
+                           key={column.id}
+                        >
+                           {column.render('Header')}
+                        </TableCell>
+                     ))}
+                  </TableRow>
+               ))}
+            </TableHead>
+
+            <TableBody {...getTableBodyProps()}>
+               {rows.map(row => {
+                  prepareRow(row);
+                  return (
+                     <TableRow
+                        {...row.getRowProps({
+                           style: {
+                              display: 'flex',
+                           },
+                        })}
+                        key={row.id.toString()}
+                        index={row.index}
+                     >
+                        {row.cells.map(cell => (
+                           <TableCell
+                              {...cell.getCellProps({
+                                 style: {
+                                    ...cell.column.style,
+                                    ...cell.column.tdStyle,
+                                 },
+                              })}
+                              key={cell.column.id.toString()}
+                           >
+                              {cell.render('Cell')}
+                           </TableCell>
+                        ))}
+                     </TableRow>
+                  );
+               })}
+            </TableBody>
+         </MuiTable>
+      </StyledTableContainer>
+   );
+};
+
+export default memo(Table);
+
+const StyledTableContainer = styled(TableContainer)({
+   borderRadius: '6px',
+   display: 'flex',
+   justifyContent: 'center',
+
+   '& .MuiTableHead-root': {
+      height: '3.688rem',
+      borderBottom: '1px solid  rgba(224, 224, 224, 1)',
+   },
+
+   '& .MuiTableCell-root': {
+      fontWeight: '600',
+      border: 'none',
+   },
+
+   '& .MuiTableRow-root': {
+      borderBottom: '1px solid  rgba(224, 224, 224, 1)',
+   },
+
+   '& .MuiTableRow-root:last-of-type': {
+      borderBottom: 'none',
+   },
+});
+
+const StyledAbsence = styled(Box)(() => ({
+   display: 'grid',
+   placeItems: 'center',
+
+   '& > img': {
+      width: '600px',
+      height: '600px',
+   },
+}));

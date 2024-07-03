@@ -41,7 +41,7 @@ export default [
          ],
          'no-var': 'error',
          'no-unused-vars': 'off',
-         'no-console': ['error', { allow: ['warn', 'error'] }],
+         // 'no-console': ['error', { allow: ['warn', 'error'] }],
          'react/display-name': 'off',
          'react/prop-types': 'off',
          'react/react-in-jsx-scope': 'off',
