@@ -1,4 +1,4 @@
-export const CARDS_MAIN = [
+const CARDS_MAIN = [
    {
       id: 'e1',
       img: 'https://lh3.googleusercontent.com/proxy/9K0Ks39cEkZzlN9KlE7KzonLX1ISMgsN0CjOSbCZntZXxH1QDWUkKnvxn1yDq4vgGGysKVyjUM6Exi4z_5e1x_GEByCoJK20DsotnzhNTd8cs2-NnnIQxbc97-S_yS1e3kDDkm2tVLWYzBMRpZaf1sfV',
