@@ -5,14 +5,16 @@ import { SearchInputSelect } from '../UI/SearchInputSelect';
 import ReusableSelect from '../UI/Select';
 
 import banner from '../../assets/images/main.png';
+import MobileBanner from '../../assets/images/mobile-banner.png';
 import { categories, metroOptions } from '../../utils/constants/main';
 
 export const MainBanner = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
    const [selectValue, setSelectValue] = useState('select-metro');
 
    return (
-      <MainContainer banner={banner}>
+      <MainContainer banner={mobile ? MobileBanner : banner}>
          <ContentWrapper>
             <Title>Реклама и Услуги для Вашего Бизнеса</Title>
 
@@ -60,10 +62,12 @@ const MainContainer = styled('div')(({ banner, theme }) => ({
    height: '80vh',
    backgroundPosition: 'center',
    backgroundSize: 'cover',
-   [theme.breakpoints.down('md')]: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '23px',
+   backgroundRepeat: 'no-repeat',
+
+   [theme.breakpoints.down('sm')]: {
+      height: '100vh',
+      backgroundSize: 'contain',
+      backgroundPosition: 'top center',
    },
 }));
 
@@ -75,10 +79,12 @@ const ContentWrapper = styled('article')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '54.5px',
+
    [theme.breakpoints.down('md')]: {
       width: '100%',
-      height: '323px',
-      padding: '84px 24px 0 24px',
+      height: 'fit-content',
+      padding: '64px 24px 0 24px',
+      gap: '24px',
    },
 }));
 
