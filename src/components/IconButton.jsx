@@ -9,5 +9,5 @@ export const IconButton = ({ children, type = 'button', onClick }) => {
 };
 
 const StyledButton = styled(MuiIconButton)(() => ({
-   borderRadius: '0.625rem',
+   cursor: 'pointer',
 }));
