@@ -7,9 +7,9 @@ import { CATEGORY_MENU } from '../utils/constants';
 import { styled, TextField } from '@mui/material';
 
 const CategoryMenu = () => {
-   const [anchorEl, setAnchorEl] = useState(null);
    const [selectedCategory, setSelectedCategory] = useState('По умолчанию');
    const [categorySearchText, setCategorySearchText] = useState('');
+   const [anchorEl, setAnchorEl] = useState(null);
 
    const handleClick = event => setAnchorEl(event.currentTarget);
 
@@ -38,10 +38,18 @@ const CategoryMenu = () => {
          <StyledMenu
             id="basic-menu"
             anchorEl={anchorEl}
-            open={anchorEl}
+            open={Boolean(anchorEl)}
             onClose={handleCloseFn}
             MenuListProps={{
                'aria-labelledby': 'basic-button',
+            }}
+            anchorOrigin={{
+               vertical: 'bottom',
+               horizontal: 'left',
+            }}
+            transformOrigin={{
+               vertical: 'top',
+               horizontal: 'left',
             }}
          >
             <StyledInput
@@ -71,7 +79,6 @@ const StyledMenu = styled(Menu)(() => ({
 
    '& .MuiPopover-paper': {
       borderRadius: '10px',
-      left: '0 !important',
    },
 }));
 
@@ -81,6 +88,5 @@ const StyledInput = styled(TextField)(() => ({
       height: '42px',
       borderRadius: '10px',
       border: 'none ',
-      opacity: '0px',
    },
 }));
