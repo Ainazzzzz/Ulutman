@@ -1,15 +1,5 @@
 const CARDS_MAIN = [
    {
-      id: 'e1',
-      img: 'https://lh3.googleusercontent.com/proxy/9K0Ks39cEkZzlN9KlE7KzonLX1ISMgsN0CjOSbCZntZXxH1QDWUkKnvxn1yDq4vgGGysKVyjUM6Exi4z_5e1x_GEByCoJK20DsotnzhNTd8cs2-NnnIQxbc97-S_yS1e3kDDkm2tVLWYzBMRpZaf1sfV',
-      price: '50000',
-      title: '2х комнатная квартира',
-      favoriteStatus: false,
-      messageStatus: true,
-      address: 'Москва, р-н Центральный 2-комн. кв. 59 м² 3/8 этаж',
-      description: '2-комн. кв. 59 м² 3/8 этаж 2-комн. кв. 59 м² 3/8 этаж',
-   },
-   {
       id: 'e2',
       img: 'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
       price: '50000',
@@ -18,6 +8,16 @@ const CARDS_MAIN = [
       messageStatus: true,
       address: 'Москва, р-н Центральный',
       description: '2-комн. кв. 59 м² 3/8 этаж',
+   },
+   {
+      id: 'e1',
+      img: 'https://lh3.googleusercontent.com/proxy/9K0Ks39cEkZzlN9KlE7KzonLX1ISMgsN0CjOSbCZntZXxH1QDWUkKnvxn1yDq4vgGGysKVyjUM6Exi4z_5e1x_GEByCoJK20DsotnzhNTd8cs2-NnnIQxbc97-S_yS1e3kDDkm2tVLWYzBMRpZaf1sfV',
+      price: '50000',
+      title: '2х комнатная квартира',
+      favoriteStatus: false,
+      messageStatus: true,
+      address: 'Москва, р-н Центральный 2-комн. кв. 59 м² 3/8 этаж',
+      description: '2-комн. кв. 59 м² 3/8 этаж 2-комн. кв. 59 м² 3/8 этаж',
    },
 
    {
@@ -97,4 +97,12 @@ const CATEGORY_MENU = [
    },
 ];
 
-export { CATEGORY_MENU, CARDS_MAIN };
+const CARDS = [
+   'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+   'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+   'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+   'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+   'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+];
+
+export { CATEGORY_MENU, CARDS_MAIN, CARDS };

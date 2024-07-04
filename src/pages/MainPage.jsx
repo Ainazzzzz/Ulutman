@@ -1,72 +1,54 @@
 import { styled } from '@mui/material';
-import MainImage from '../assets/images/main-page.png';
-import CategoryMenu from '../components/CategoryMenu';
-import SearchInput from '../components/UI/SearchInput';
-import ReusableSelect from '../components/UI/Select';
+import { MainBanner } from '../components/main-page/MainBanner';
+import AnnouncementsSorter from '../components/AnnouncementsSorter';
+import { Header } from '../layout/Header';
+import AboutUs from '../components/main-page/AboutUs';
+import Footer from '../components/main-page/Footer';
+import { CardItem } from '../components/UI/Card/CardItem';
 import { Button } from '../components/UI/Button';
-
-const options = [{ label: '111', value: '111' }];
+import { CARDS, CARDS_MAIN } from '../utils/constants';
+import { CardList } from '../components/UI/Card/CardList';
 
 export const MainPage = () => {
    return (
-      <>
-         <MainImageWrapper>
-            <img src={MainImage} alt="" />
-         </MainImageWrapper>
-         <MainContainer>
-            <Container>
-               <h2>Реклама и Услуги для Вашего Бизнеса</h2>
-               <div>
-                  <div>
-                     <CategoryMenu selectedCategory="Все категории" />
-                  </div>
-                  <div>
-                     <SearchInputStyle placeholder="Поиск по названию" />
-                  </div>
-                  {/* <ReusableSelect options={options} /> */}
-                  {/* <Button>Поиск</Button> */}
-               </div>
-            </Container>
-         </MainContainer>
-      </>
+      <div>
+         <Header />
+         <MainBanner />
+         <Container>
+            <Block>
+               <Title>Страница объявлений</Title>
+               <AnnouncementsSorter />
+            </Block>
+            <CardList cards={CARDS_MAIN} advertising={CARDS} />
+            <Button variant="category-sort">Посмотреть еще</Button>
+            <AboutUs />
+         </Container>
+         <Footer />
+      </div>
    );
 };
-const MainImageWrapper = styled('div')(() => ({
-   width: '100%',
-   height: '660px',
-   zIndex: '0',
-   overflow: 'hidden',
-   '& > img': {
-      objectFit: 'contain',
-      width: '100%',
-   },
-}));
-const MainContainer = styled('div')(() => ({
-   position: 'absolute',
-   top: '84px',
-   left: '25rem',
-   h2: {
-      fontSize: '72px',
-      fontWeight: '700',
-      width: '808px',
-      textAlign: 'center',
-      color: '#fff',
-   },
-}));
 
-const Container = styled('div')(() => ({
+const Title = styled('p')(({ theme }) => ({
+   fontSize: '34px',
+   fontWeight: '600',
+   [theme.breakpoints.down('md')]: {
+      fontSize: '24px',
+   },
+}));
+const Block = styled('div')(({ theme }) => ({
    display: 'flex',
-   flexDirection: 'column',
-   gap: '50px',
-   div: {
-      display: 'flex',
+   justifyContent: 'space-between',
+   [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
       gap: '10px',
    },
 }));
-const SearchInputStyle = styled(SearchInput)(() => ({
-   width: '308px',
-   height: '55px',
-   '.MuiPaper-root': {
-      borderTopRightRadius: 'Opx',
+const Container = styled('div')(({ theme }) => ({
+   padding: '60px',
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '24px',
+   [theme.breakpoints.down('md')]: {
+      padding: '20px 16px 0px 16px',
    },
 }));

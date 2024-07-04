@@ -18,7 +18,7 @@ const AnnouncementsSorter = () => {
 
    return (
       <>
-         <Button
+         <ButtonStyle
             variant="category-sort"
             id="basic-button"
             aria-controls={anchorEl ? 'basic-menu' : undefined}
@@ -29,7 +29,7 @@ const AnnouncementsSorter = () => {
             {selectedValue}
 
             <ArrowsIcon />
-         </Button>
+         </ButtonStyle>
 
          <StyledMenu
             id="basic-menu"
@@ -70,5 +70,10 @@ const StyledMenu = styled(Menu)(() => ({
    '& .MuiPopover-paper': {
       borderRadius: '10px',
       left: '0 !important',
+   },
+}));
+const ButtonStyle = styled(Button)(({ theme }) => ({
+   [theme.breakpoints.down('md')]: {
+      width: '150px',
    },
 }));

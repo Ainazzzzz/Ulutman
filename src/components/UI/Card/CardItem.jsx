@@ -1,7 +1,7 @@
 import { Card, CardContent, CardMedia, styled } from '@mui/material';
 import HomeIcon from '../../../assets/icons/home-icon.svg?react';
 import AddressIcon from '../../../assets/icons/address-icon.svg?react';
-import MessageIcon from '../../../assets/icons/message-icon.svg?react';
+import MessageIcon from '../../../assets/icons/message-gray-icon.svg?react';
 import LikeIcon from '../../../assets/icons/like-icon.svg?react';
 
 export const CardItem = ({
