@@ -56,6 +56,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
    width: '100vw',
    minHeight: '100vh',
    background: '#F5F6FA',
+   fontFamily: 'Kanit',
 
    padding: '30px',
    paddingRight: '15%',
@@ -71,14 +72,23 @@ const StyledContainer = styled('div')(({ theme }) => ({
    [theme.breakpoints.between('900', '1024')]: {
       paddingRight: '5%',
    },
+
+   h1: {
+      fontSize: '34px',
+      fontWeight: '600',
+      fontFamily: 'Kanit',
+      [theme.breakpoints.down('md')]: {
+         fontSize: '22px',
+      },
+   },
 }));
 
 const Title = styled('h1')(({ theme }) => ({
    fontSize: '34px',
    fontWeight: '600',
-
+   fontFamily: 'Kanit',
    [theme.breakpoints.down('md')]: {
-      fontSize: '22px',
+      fontSize: '20px',
    },
 }));
 
