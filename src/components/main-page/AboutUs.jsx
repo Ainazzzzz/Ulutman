@@ -1,5 +1,5 @@
 import React from 'react';
-import AboutUsImg from '../assets/images/about-us.png';
+import AboutUsImg from '../../assets/images/about-us.png';
 import { Box, Typography, styled } from '@mui/material';
 
 const AboutUs = () => {
