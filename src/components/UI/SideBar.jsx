@@ -3,8 +3,6 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import { useState } from 'react';
 import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react';
 import { styled } from '@mui/material';
@@ -12,52 +10,43 @@ import { styled } from '@mui/material';
 export const SideBar = () => {
    const [open, setOpen] = useState(true);
 
-   const toggleDrawer = newOpen => () => {
-      setOpen(newOpen);
-   };
-
    const DrawerList = (
-      <Box
-         sx={{ width: 250 }}
-         role="presentation"
-         onClick={toggleDrawer(false)}
-      >
+      <Box sx={{ width: 250 }}>
          <UlutmanLogo>
             <Ulutman />
          </UlutmanLogo>
          <List>
-            {[
-               'Dashboard',
-               'Польвователи',
-               'Объявления',
-               'Категории',
-               'Модерация',
-            ].map(text => (
-               <ListItem key={text} disablePadding>
-                  <ListItemButtonStyle>
-                     <ListItemTextStyle primary={text} />
-                  </ListItemButtonStyle>
-               </ListItem>
-            ))}
+            <ListItemStyle>
+               <NavStyle href="#">Dashboard</NavStyle>
+            </ListItemStyle>
+            <ListItemStyle>
+               <NavStyle href="#">Польвователи</NavStyle>
+            </ListItemStyle>
+            <ListItemStyle>
+               <NavStyle href="#">Объявления</NavStyle>
+            </ListItemStyle>
+            <ListItemStyle>
+               <NavStyle href="#">Категории</NavStyle>
+            </ListItemStyle>
+            <ListItemStyle>
+               <NavStyle href="#">Модерация</NavStyle>
+            </ListItemStyle>
          </List>
          <Divider />
          <List>
-            {['Настройки', 'Выйти'].map(text => (
-               <ListItem key={text} disablePadding>
-                  <ListItemButtonStyle>
-                     <ListItemTextStyle primary={text} />
-                  </ListItemButtonStyle>
-               </ListItem>
-            ))}
+            <ListItemStyle>
+               <NavStyle href="#">Настройки</NavStyle>
+            </ListItemStyle>
+            <ListItemStyle>
+               <NavStyle href="#">Выйти</NavStyle>
+            </ListItemStyle>
          </List>
       </Box>
    );
    return (
-      <div>
-         <DrawerStyle open={open} onClose={toggleDrawer(false)}>
-            {DrawerList}
-         </DrawerStyle>
-      </div>
+      <>
+         <DrawerStyle open={open}>{DrawerList}</DrawerStyle>
+      </>
    );
 };
 
@@ -65,7 +54,7 @@ const UlutmanLogo = styled('div')(() => ({
    svg: {
       width: '134px',
       height: '29px',
-      margin: ' 22px 53px 70px 53px',
+      margin: ' 22px 53px 60px 53px',
    },
 }));
 const DrawerStyle = styled(Drawer)(() => ({
@@ -73,28 +62,26 @@ const DrawerStyle = styled(Drawer)(() => ({
       borderRight: '1px solid #e0e0e0',
    },
    '.MuiList-root': {
-      display: 'flex',
-      flexWrap: 'wrap',
-      gap: '10px',
       padding: '0px 24px 0px 24px',
    },
 }));
-const ListItemButtonStyle = styled(ListItemButton)(() => ({
+
+const ListItemStyle = styled(ListItem)(() => ({
+   paddingTop: '0px',
+   paddingBottom: '0px',
+}));
+const NavStyle = styled('a')(() => ({
+   width: '192px',
+   height: '50px',
    borderRadius: '6px',
-   paddingLeft: '49px',
+   textDecoration: 'none',
+   fontWeight: '600',
+   fontSize: '14px',
+   color: '#282828',
+   padding: '16px 0px 16px 30px',
    '&:hover': {
       background: '#7e52ff',
       color: '#fff',
-      borderRadius: '6px',
-   },
-}));
-
-const ListItemTextStyle = styled(ListItemText)(() => ({
-   '.MuiTypography-root': {
-      fontWeight: '600',
-      fontSize: '14px',
-      '&:hover': {
-         color: '#fff',
-      },
+      color: '#fff',
    },
 }));
