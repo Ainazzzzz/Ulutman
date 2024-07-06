@@ -69,7 +69,6 @@ const StyledMenu = styled(Menu)(() => ({
 
    '& .MuiPopover-paper': {
       borderRadius: '10px',
-      left: '0 !important',
    },
 }));
 const ButtonStyle = styled(Button)(({ theme }) => ({
