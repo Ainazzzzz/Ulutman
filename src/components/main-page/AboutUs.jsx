@@ -7,6 +7,7 @@ const AboutUs = () => {
       <Container>
          <Title>О нас</Title>
          <SecondContainer>
+            {/* <div> */}
             <div>
                <SecondTitle>ulutman.ru</SecondTitle>
                <Description>
@@ -22,6 +23,7 @@ const AboutUs = () => {
                   также другие необходимые сервисы.
                </Description>
             </div>
+            {/* </div> */}
             <Image src={AboutUsImg} alt="About Us" />
          </SecondContainer>
       </Container>
@@ -31,8 +33,7 @@ const AboutUs = () => {
 export default AboutUs;
 
 const Container = styled(Box)(({ theme }) => ({
-   padding: '0 3.75rem',
-
+   paddingTop: '60px',
    [theme.breakpoints.down('md')]: {
       padding: '0 1.25rem',
    },
@@ -41,7 +42,7 @@ const Container = styled(Box)(({ theme }) => ({
 const Title = styled(Typography)(({ theme }) => ({
    fontWeight: 700,
    fontSize: '2.125rem',
-   margin: '0 0 1.25rem 0',
+   marginBottom: '-50px',
 
    [theme.breakpoints.down('md')]: {
       margin: '0',

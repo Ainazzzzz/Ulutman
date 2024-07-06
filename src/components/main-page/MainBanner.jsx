@@ -65,7 +65,7 @@ const MainContainer = styled('div')(({ banner, theme }) => ({
    backgroundRepeat: 'no-repeat',
 
    [theme.breakpoints.down('sm')]: {
-      height: '100vh',
+      height: '65vh',
       backgroundSize: 'contain',
       backgroundPosition: 'top center',
    },
