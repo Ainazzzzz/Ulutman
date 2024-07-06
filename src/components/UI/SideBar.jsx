@@ -45,7 +45,18 @@ export const SideBar = () => {
    );
    return (
       <>
-         <DrawerStyle open={open}>{DrawerList}</DrawerStyle>
+         <DrawerStyle
+            open={open}
+            ModalProps={{
+               BackdropProps: {
+                  style: {
+                     backgroundColor: 'transparent',
+                  },
+               },
+            }}
+         >
+            {DrawerList}
+         </DrawerStyle>
       </>
    );
 };
@@ -81,7 +92,6 @@ const NavStyle = styled('a')(() => ({
    padding: '16px 0px 16px 30px',
    '&:hover': {
       background: '#7e52ff',
-      color: '#fff',
       color: '#fff',
    },
 }));
