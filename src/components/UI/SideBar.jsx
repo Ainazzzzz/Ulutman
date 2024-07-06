@@ -32,7 +32,9 @@ export const SideBar = () => {
                <NavStyle href="#">Модерация</NavStyle>
             </ListItemStyle>
          </List>
+         <br />
          <Divider />
+         <br />
          <List>
             <ListItemStyle>
                <NavStyle href="#">Настройки</NavStyle>
@@ -62,6 +64,7 @@ export const SideBar = () => {
 };
 
 const UlutmanLogo = styled('div')(() => ({
+   cursor: 'pointer',
    svg: {
       width: '134px',
       height: '29px',
@@ -90,6 +93,7 @@ const NavStyle = styled('a')(() => ({
    fontSize: '14px',
    color: '#282828',
    padding: '16px 0px 16px 30px',
+   transition: '400ms',
    '&:hover': {
       background: '#7e52ff',
       color: '#fff',
