@@ -18,7 +18,7 @@ export const SignIn = () => {
 
    return (
       <div>
-         <ModalStyle open={isOpen} onClose={handleClose}>
+         <Modal open={isOpen} onClose={handleClose}>
             <IconStyle>
                <CloseIcon onClick={handleClose} />
             </IconStyle>
@@ -31,17 +31,10 @@ export const SignIn = () => {
                   <Button onClick={handleClick}>Получить код</Button>
                )}
             </Box>
-         </ModalStyle>
+         </Modal>
       </div>
    );
 };
-
-const ModalStyle = styled(Modal)(({ theme }) => ({
-   //    '& .MuiDialog-paper': {
-   width: '300px', // Пример задания ширины
-   //   padding: '20px', // Пример задания отступов
-   //    },
-}));
 
 const Box = styled('div')(({ theme }) => ({
    display: 'flex',
