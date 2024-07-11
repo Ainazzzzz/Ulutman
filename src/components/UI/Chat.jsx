@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { backdropClasses, styled } from '@mui/material';
 import { chat } from '../../utils/constants/chat';
 
 export const Chat = () => {
@@ -30,6 +30,14 @@ const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
    gap: '14px',
    alignItems: 'center',
+   cursor: 'pointer',
+
+   transition: '250ms',
+
+   ':hover': {
+      backgroundColor: '#cacaca',
+   },
+
    [theme.breakpoints.down('md')]: {
       width: '343px',
       height: '94px',
