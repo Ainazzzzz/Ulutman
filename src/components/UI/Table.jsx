@@ -90,7 +90,7 @@ const Table = ({ column: headers, data }) => {
 
 export default memo(Table);
 
-const StyledTableContainer = styled(TableContainer)({
+const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
    borderRadius: '6px',
    display: 'flex',
    justifyContent: 'center',
@@ -112,7 +112,17 @@ const StyledTableContainer = styled(TableContainer)({
    '& .MuiTableRow-root:last-of-type': {
       borderBottom: 'none',
    },
-});
+
+   '& .MuiTableCell-head': {
+      fontSize: '0.8rem',
+      fontWeight: '800',
+   },
+
+   [theme.breakpoints.down('md')]: {
+      // padding: '16px',
+      // height: '59px',
+   },
+}));
 
 const StyledAbsence = styled(Box)(() => ({
    display: 'grid',
