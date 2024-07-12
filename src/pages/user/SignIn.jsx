@@ -9,11 +9,28 @@ import { ConditionConsent } from './ConditionConsent';
 export const SignIn = () => {
    const [isOpen, setIsOpen] = useState(true);
    const [open, setOpen] = useState(false);
+   const [emailError, setEmailError] = useState('');
+   const [email, setEmail] = useState('');
 
    const handleClose = () => setIsOpen(!isOpen);
+
+   const validateEmail = email => {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailPattern.test(email);
+   };
+
+   const handleEmailChange = event => {
+      setEmail(event.target.value);
+   };
+
    const handleClick = () => {
-      setIsOpen(!isOpen);
-      setOpen(!open);
+      if (validateEmail(email)) {
+         setIsOpen(!isOpen);
+         setOpen(!open);
+         setEmailError(''); // Очистить ошибку, если email валидный
+      } else {
+         setEmailError('Введите корректный email');
+      }
    };
 
    return (
@@ -24,7 +41,12 @@ export const SignIn = () => {
             </IconStyle>
             <Box>
                <h2>Войти или зарегистрироваться</h2>
-               <Input placeholder="Введите email" />
+               <Input
+                  placeholder="Введите email"
+                  value={email}
+                  onChange={handleEmailChange}
+               />
+               {emailError && <ErrorText>{emailError}</ErrorText>}
                {open ? (
                   <ConditionConsent />
                ) : (
@@ -58,3 +80,8 @@ const IconStyle = styled('div')(() => ({
       cursor: 'pointer',
    },
 }));
+
+const ErrorText = styled('p')({
+   color: 'red',
+   fontSize: '12px',
+});

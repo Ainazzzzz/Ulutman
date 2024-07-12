@@ -5,6 +5,7 @@ import Modal from '../../components/UI/Modal';
 import { styled } from '@mui/material';
 import CloseIcon from '../../assets/icons/cross-icon.svg?react';
 import { AccountSelection } from './AccountSelection';
+import { SignIn } from './SignIn';
 
 export const LoginConfirmation = () => {
    const [isOpen, setIsOpen] = useState(true);
@@ -12,6 +13,7 @@ export const LoginConfirmation = () => {
    const [error, setError] = useState('');
    const [resendTimeout, setResendTimeout] = useState(0);
    const [openAccount, setOpenAccount] = useState(false);
+   const [openSignIn, setOpenSignIn] = useState(false);
 
    const handleClose = () => setIsOpen(!isOpen);
 
@@ -28,6 +30,8 @@ export const LoginConfirmation = () => {
    };
 
    const handleResendCode = () => setResendTimeout(30);
+
+   const handleOpenSignIn = () => setOpenSignIn(!openSignIn);
 
    useEffect(() => {
       if (resendTimeout > 0) {
@@ -49,7 +53,12 @@ export const LoginConfirmation = () => {
                   Код подтверждения отправлен на ваш электронный адрес.
                   Проверьте почту и введите код ниже
                </p>
-               <span>Изменить почту</span>
+
+               {openSignIn ? (
+                  <SignIn />
+               ) : (
+                  <span onClick={handleOpenSignIn}>Изменить почту</span>
+               )}
             </Block>
             <BlockInput>
                <Input
@@ -57,6 +66,7 @@ export const LoginConfirmation = () => {
                   onChange={handleCheckBoxChange}
                   value={code}
                   error={error}
+                  type="number"
                />
                {error && <ErrorMessage>{error}</ErrorMessage>}
                <>
