@@ -1,5 +1,11 @@
-function App() {
-   return <div>Ulutman</div>;
-}
+import { AppRoutes } from './routes/AppRoutes';
+
+const App = () => {
+   return (
+      <>
+         <AppRoutes />
+      </>
+   );
+};
 
 export default App;
