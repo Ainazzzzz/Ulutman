@@ -50,8 +50,6 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
       padding: '2.5rem',
       paddingTop: variant === 'custom' ? '2.5rem' : '3.8rem',
       overflow: 'visible',
-      width: '23.5rem',
-      height: '12.938rem',
    },
 
    '& .close-button-container': {
