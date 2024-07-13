@@ -27,7 +27,7 @@ export const SignIn = () => {
       if (validateEmail(email)) {
          setIsOpen(!isOpen);
          setOpen(!open);
-         setEmailError(''); // Очистить ошибку, если email валидный
+         setEmailError('');
       } else {
          setEmailError('Введите корректный email');
       }

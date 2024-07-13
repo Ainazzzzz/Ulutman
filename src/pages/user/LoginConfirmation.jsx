@@ -41,6 +41,7 @@ export const LoginConfirmation = () => {
          return () => clearInterval(timer);
       }
    }, [resendTimeout]);
+
    return (
       <Modal open={isOpen} onClose={handleClose}>
          <IconStyle>
