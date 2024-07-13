@@ -9,9 +9,10 @@ import { MainLayout } from '../layout/RouteWrapper/MainLayout';
 import { AdminLayout } from '../layout/RouteWrapper/AdminLayout';
 import { PrivateAuthRouter } from './private/PrivateAuthRoute';
 import { UserRoutes } from './UserRoutes';
+import { useSelector } from 'react-redux';
 
 export const AppRoutes = () => {
-   const role = 'GUEST';
+   const { role } = useSelector(state => state.auth);
 
    const pathsByRole = {
       ADMIN: '/admin',
