@@ -48,7 +48,10 @@ export const SignIn = () => {
                />
                {emailError && <ErrorText>{emailError}</ErrorText>}
                {open ? (
-                  <ConditionConsent />
+                  <ConditionConsent
+                     signInModal={setIsOpen}
+                     conditionModal={setOpen}
+                  />
                ) : (
                   <Button onClick={handleClick}>Получить код</Button>
                )}

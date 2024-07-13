@@ -6,7 +6,7 @@ import Modal from '../../components/UI/Modal';
 import { useState } from 'react';
 import { LoginConfirmation } from './LoginConfirmation';
 
-export const ConditionConsent = () => {
+export const ConditionConsent = ({ signInModal, conditionModal }) => {
    const [isOpen, setIsOpen] = useState(true);
    const [isChecked, setIsChecked] = useState(false);
    const [isShow, setIsShow] = useState(false);
@@ -18,6 +18,11 @@ export const ConditionConsent = () => {
    };
    const handleCheckBoxChange = event => setIsChecked(event.target.checked);
 
+   const handleBack = () => {
+      signInModal(true);
+      conditionModal(false);
+   };
+
    return (
       <div>
          <Modal open={isOpen} onClose={handleClose}>
@@ -25,7 +30,7 @@ export const ConditionConsent = () => {
                <CloseIcon onClick={handleClose} />
             </IconStyle>
             <Box>
-               <h2>Дайте согласие,  чтобы продолжить</h2>
+               <h2>Дайте согласие, чтобы продолжить</h2>
                <div>
                   <CheckBox
                      label="Принимаю условия"
@@ -38,13 +43,13 @@ export const ConditionConsent = () => {
                </div>
                <Block>
                   {isShow ? (
-                     <LoginConfirmation />
+                     <LoginConfirmation handleBack={handleBack} />
                   ) : (
                      <Button disabled={!isChecked} onClick={handleOpenModal}>
                         Продолжить
                      </Button>
                   )}
-                  <Button>Назад</Button>
+                  <Button onClick={handleBack}>Назад</Button>
                </Block>
             </Box>
          </Modal>

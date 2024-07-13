@@ -7,13 +7,12 @@ import CloseIcon from '../../assets/icons/cross-icon.svg?react';
 import { AccountSelection } from './AccountSelection';
 import { SignIn } from './SignIn';
 
-export const LoginConfirmation = () => {
+export const LoginConfirmation = ({ handleBack }) => {
    const [isOpen, setIsOpen] = useState(true);
    const [code, setCode] = useState('');
    const [error, setError] = useState('');
    const [resendTimeout, setResendTimeout] = useState(0);
    const [openAccount, setOpenAccount] = useState(false);
-   const [openSignIn, setOpenSignIn] = useState(false);
 
    const handleClose = () => setIsOpen(!isOpen);
 
@@ -31,7 +30,7 @@ export const LoginConfirmation = () => {
 
    const handleResendCode = () => setResendTimeout(30);
 
-   const handleOpenSignIn = () => setOpenSignIn(!openSignIn);
+   const handleOpenSignIn = () => handleBack();
 
    useEffect(() => {
       if (resendTimeout > 0) {
@@ -55,11 +54,7 @@ export const LoginConfirmation = () => {
                   Проверьте почту и введите код ниже
                </p>
 
-               {openSignIn ? (
-                  <SignIn />
-               ) : (
-                  <span onClick={handleOpenSignIn}>Изменить почту</span>
-               )}
+               <span onClick={handleOpenSignIn}>Изменить почту</span>
             </Block>
             <BlockInput>
                <Input
