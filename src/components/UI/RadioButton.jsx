@@ -7,19 +7,19 @@ const RadioButton = ({
    label,
    checked,
    options,
+   type,
    ...props
 }) => {
    return (
       <div>
-         <RadioGroup value={value} onChange={onChange} {...props}>
-            <FormControlLabel
-               key={value}
-               value={value}
-               control={<StyledRadio />}
-               label={label}
-               labelPlacement="end"
-            />
-         </RadioGroup>
+         <FormControlLabel
+            key={value}
+            value={value}
+            control={<StyledRadio />}
+            label={label}
+            labelPlacement="end"
+            type={type}
+         />
       </div>
    );
 };

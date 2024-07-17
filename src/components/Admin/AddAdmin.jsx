@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Search from '../../assets/icons/searchgreyinput.svg?react';
-import { InputBase, styled } from '@mui/material';
+import { InputBase, RadioGroup, styled } from '@mui/material';
 import { CheckBox } from '../UI/Checkbox';
 import ArrowPurpul from '../../assets/icons/arrowpurpul.svg?react';
 import { Button } from '../UI/Button';
 import RadioButton from '../UI/RadioButton';
 
 const AddAdmin = () => {
+   const [selectedOption, setSelectedOption] = useState('');
+
+   const handleOptionChange = event => {
+      setSelectedOption(event.target.value);
+   };
    return (
       <div>
          <ContainerTitleArrow>
@@ -21,10 +26,22 @@ const AddAdmin = () => {
                <Search />
                <InputBase placeholder="Поиск" />
             </InputStyle>
-            <RadioButtonStyle>
-               <RadioButton label="Выбрать все" />
-               <RadioButton label="Некоторые" />
-            </RadioButtonStyle>
+
+            <RadioGroup>
+               <RadioButtonStyle>
+                  <RadioButton
+                     label="Выбрать все"
+                     value="all"
+                     checked={selectedOption === 'all'}
+                  />
+                  <RadioButton
+                     label="Некоторые"
+                     value="some"
+                     checked={selectedOption === 'some'}
+                  />
+               </RadioButtonStyle>
+            </RadioGroup>
+
             <CheckboxStyle>
                <CheckboxFive type="checkbox" label="Dashboard" />
                <CheckboxFive
