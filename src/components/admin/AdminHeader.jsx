@@ -124,7 +124,6 @@ const AdminHeader = () => {
                         <User />
                      </ProfileLogo>
                      <TitleAdmin>Tezekbaev </TitleAdmin>
-                     <SelectStyle />
                   </ContainerProfileTitle>
                </MiddleContainerBox>
             </SehondBigContainer>
