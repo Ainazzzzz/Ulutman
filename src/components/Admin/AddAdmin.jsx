@@ -8,7 +8,6 @@ import RadioButton from '../UI/RadioButton';
 
 const AddAdmin = () => {
    const [selectedOption, setSelectedOption] = useState('');
-
    const handleOptionChange = event => {
       setSelectedOption(event.target.value);
    };
@@ -26,7 +25,6 @@ const AddAdmin = () => {
                <Search />
                <InputBase placeholder="Поиск" />
             </InputStyle>
-
             <RadioGroup>
                <RadioButtonStyle>
                   <RadioButton
@@ -41,7 +39,6 @@ const AddAdmin = () => {
                   />
                </RadioButtonStyle>
             </RadioGroup>
-
             <CheckboxStyle>
                <CheckboxFive type="checkbox" label="Dashboard" />
                <CheckboxFive
