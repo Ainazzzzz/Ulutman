@@ -140,7 +140,6 @@ const WrapperAdminHeader = styled('div')(({ theme }) => ({
    height: '70px',
    display: 'flex',
    justifyContent: 'space-around',
-   cursor: 'pointer',
    paddingTop: '17px',
    [theme.breakpoints.down('md')]: {
       height: '60px',
