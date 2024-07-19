@@ -5,34 +5,98 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import DatePickerIcon from '../../assets/icons/black-down.svg?react';
 import { styled } from '@mui/material';
 import { Button } from './Button';
+import { useState } from 'react';
 
 const CustomDatePicker = props => (
    <Box>
       {props.children}
       <>
          <p>*Вы можете выбрать несколько дат</p>
-         <ButtonStyle variant="contained" color="primary">
+         <ButtonStyle
+            variant="contained"
+            color="primary"
+            onClick={props.onApply}
+         >
             Применить
          </ButtonStyle>
       </>
    </Box>
 );
 export const BasicDatePicker = () => {
+   const [open, setOpen] = useState(false);
+
+   const [selectedDates, setSelectedDates] = useState([]);
+
+   const handleDateChange = newDate => {
+      setSelectedDates(prevDates => {
+         const dateExists = prevDates.some(date => date.isSame(newDate, 'day'));
+         if (dateExists) {
+            return prevDates.filter(date => !date.isSame(newDate, 'day'));
+         } else {
+            return [...prevDates, newDate];
+         }
+      });
+   };
+
+   const handleOpen = () => setOpen(true);
+
+   const handleApply = () => {
+      const formattedDates = selectedDates.map(date =>
+         date.format('DD.MM.YYYY'),
+      );
+      console.log(formattedDates);
+   };
+
+   const renderDay = day => {
+      const isSelected = selectedDates.some(date => date.isSame(day, 'day'));
+      return (
+         <Box
+            onClick={() => handleDateChange(day)}
+            sx={{
+               backgroundColor: isSelected ? '#7e52ff' : 'transparent',
+               color: isSelected ? 'white' : 'inherit',
+               borderRadius: '50%',
+               display: 'inline-block',
+               width: '36px',
+               height: '36px',
+               lineHeight: '36px',
+               textAlign: 'center',
+               cursor: 'pointer',
+            }}
+         >
+            {day.date()}
+         </Box>
+      );
+   };
+
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-         <DemoContainer components={['DatePicker']}>
+         <DemoContainer components={['DateCalendar']}>
             <DatePickerStyle
                label="Дата"
+               // slots={{
+               //    openPickerIcon: DatePickerIcon,
+               //    layout: CustomDatePicker,
+               // }}
+               value={null}
+               onChange={handleDateChange}
+               open={open}
+               onOpen={handleOpen}
+               renderDay={renderDay}
                slots={{
                   openPickerIcon: DatePickerIcon,
-                  layout: CustomDatePicker,
+                  layout: props => (
+                     <CustomDatePicker {...props} onApply={handleApply} />
+                  ),
                }}
                slotProps={{
                   desktopPaper: {
                      sx: {
-                        '.MuiPickersDay-root:focus.Mui-selected': {
-                           background: '#7e52ff',
-                           color: '#fff',
+                        '& .MuiPickersDay-root': {
+                           '&.Mui-selected': {
+                              backgroundColor: '#7e52ff',
+                              color: '#fff',
+                           },
                         },
                      },
                   },
