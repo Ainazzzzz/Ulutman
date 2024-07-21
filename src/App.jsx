@@ -1,12 +1,5 @@
-import { Ads } from './components/Admin/Ads';
-
 function App() {
-   return (
-      <div>
-         Ulutman
-         <Ads />
-      </div>
-   );
+   return <div>Ulutman</div>;
 }
 
 export default App;
