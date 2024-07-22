@@ -129,9 +129,16 @@ export const Ads = () => {
                         ? 'Категория'
                         : options.find(option => option.value === value)?.label
                   }
-                  defaultValue="data"
                />
-               <SelectStyle />
+               <SelectStyle
+                  value={selectedValue}
+                  options={options}
+                  renderValue={value =>
+                     value
+                        ? 'Статус'
+                        : options.find(option => option.value === value)?.label
+                  }
+               />
                <SecondMiniBlock>
                   <Replay />
                   <p>Сбросить фильтр</p>

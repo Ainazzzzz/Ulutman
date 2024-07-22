@@ -3,25 +3,38 @@ import Modal from '../../UI/Modal';
 import { styled } from '@mui/material';
 import { toast } from 'react-toastify';
 import Toastify from '../../UI/Toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const WaitingModal = () => {
    const [isOpen, setIsOpen] = useState(true);
 
-   const handleCloseModal = () => setIsOpen(!isOpen);
+   const handleCloseModal = () => {
+      setIsOpen(false);
+   };
 
-   const notifySucces = () => toast.success('Успешно');
-   const notifyError = () => toast.error('Ошибка');
+   const notifySuccess = () => {
+      toast.success('Одобрено');
+      handleCloseModal();
+   };
+
+   const notifyError = () => {
+      toast.error('Ошибка');
+      handleCloseModal();
+   };
+
    return (
-      <Modal open={isOpen} onClose={handleCloseModal} variant="info">
-         <Container>
-            <Title>Вы уверены, что хотите изменить?</Title>
-            <div>
-               <FirstButton onClick={notifySucces}>Одобрить</FirstButton>
-               <SecondButton onClick={notifyError}>Отклонить</SecondButton>
-            </div>
-         </Container>
+      <>
+         <Modal open={isOpen} handleClose={handleCloseModal} variant="info">
+            <Container>
+               <Title>Вы уверены, что хотите изменить?</Title>
+               <div>
+                  <FirstButton onClick={notifySuccess}>Одобрить</FirstButton>
+                  <SecondButton onClick={notifyError}>Отклонить</SecondButton>
+               </div>
+            </Container>
+         </Modal>
          <Toastify />
-      </Modal>
+      </>
    );
 };
 

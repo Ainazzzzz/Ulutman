@@ -6,12 +6,14 @@ export const AdsDeleteModal = () => {
    const [isOpen, setIsOpen] = useState(true);
 
    const handleCloseModal = () => setIsOpen(!isOpen);
+
+   const handleClick = () => setIsOpen(!isOpen);
    return (
-      <Modal open={isOpen} onClose={handleCloseModal} variant="delete">
+      <Modal open={isOpen} handleClose={handleCloseModal} variant="delete">
          <Container>
             <Title>Вы уверены, что хотите удалить?</Title>
             <div>
-               <FirstButton>Отменить</FirstButton>
+               <FirstButton onClick={handleClick}>Отменить</FirstButton>
                <SecondButton>Удалить</SecondButton>
             </div>
          </Container>
@@ -30,10 +32,13 @@ const Container = styled('div')(() => ({
    },
 }));
 
-const Title = styled('p')(() => ({
+const Title = styled('p')(({ theme }) => ({
    fontWeight: '500',
    fontSize: '17px',
    color: '#202020',
+   [theme.breakpoints.down('md')]: {
+      fontSize: '16px',
+   },
 }));
 const FirstButton = styled('button')(() => ({
    fontWeight: '500',
