@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import {
    TableContainer,
    TableHead,
@@ -10,8 +10,12 @@ import {
    Box,
 } from '@mui/material';
 import { useTable } from 'react-table';
+import Pagination from './Pagination';
 
 const Table = ({ column: headers, data }) => {
+   const [page, setPage] = useState(1);
+   const [rowsPerPage, setRowsPerPage] = useState(9);
+
    const columns = useMemo(() => headers, [headers]);
 
    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -26,64 +30,67 @@ const Table = ({ column: headers, data }) => {
 
    return (
       <StyledTableContainer>
-         <MuiTable {...getTableProps()}>
-            <TableHead>
-               {headerGroups.map((headerGroup, i) => (
-                  <TableRow
-                     {...headerGroup.getHeaderGroupProps({
-                        style: {
-                           display: 'flex',
-                           width: '100%',
-                           backgroundColor: 'white',
-                        },
-                     })}
-                     key={headerGroup.headers[i].Header}
-                  >
-                     {headerGroup.headers.map(column => (
-                        <TableCell
-                           {...column.getHeaderProps({
-                              style: { ...column.style },
-                           })}
-                           key={column.id}
-                        >
-                           {column.render('Header')}
-                        </TableCell>
-                     ))}
-                  </TableRow>
-               ))}
-            </TableHead>
-
-            <TableBody {...getTableBodyProps()}>
-               {rows.map(row => {
-                  prepareRow(row);
-                  return (
+         <TableCont>
+            <MuiTable {...getTableProps()}>
+               <TableHead>
+                  {headerGroups.map((headerGroup, i) => (
                      <TableRow
-                        {...row.getRowProps({
-                           style: {
-                              display: 'flex',
-                           },
-                        })}
-                        key={row.id.toString()}
-                        index={row.index}
+                        {...headerGroup.getHeaderGroupProps()}
+                        key={headerGroup.headers[i].Header}
                      >
-                        {row.cells.map(cell => (
+                        {headerGroup.headers.map(column => (
                            <TableCell
-                              {...cell.getCellProps({
-                                 style: {
-                                    ...cell.column.style,
-                                    ...cell.column.tdStyle,
-                                 },
+                              {...column.getHeaderProps({
+                                 style: { ...column.style },
                               })}
-                              key={cell.column.id.toString()}
+                              key={column.id}
+                              align="left"
                            >
-                              {cell.render('Cell')}
+                              {column.render('Header')}
                            </TableCell>
                         ))}
                      </TableRow>
-                  );
-               })}
-            </TableBody>
-         </MuiTable>
+                  ))}
+               </TableHead>
+
+               <TableBody {...getTableBodyProps()}>
+                  {rows
+                     .slice((page - 1) * rowsPerPage, page * rowsPerPage)
+                     .map(row => {
+                        prepareRow(row);
+                        return (
+                           <TableRow
+                              {...row.getRowProps()}
+                              key={row.id.toString()}
+                              index={row.index}
+                           >
+                              {row.cells.map(cell => (
+                                 <TableCell
+                                    {...cell.getCellProps({
+                                       style: {
+                                          ...cell.column.style,
+                                          ...cell.column.tdStyle,
+                                       },
+                                    })}
+                                    key={cell.column.id.toString()}
+                                    align="left"
+                                 >
+                                    {cell.render('Cell')}
+                                 </TableCell>
+                              ))}
+                           </TableRow>
+                        );
+                     })}
+               </TableBody>
+            </MuiTable>
+         </TableCont>
+
+         <Pagination
+            page={page}
+            setPage={setPage}
+            rowsPerPage={rowsPerPage}
+            totalItems={rows.length}
+         />
       </StyledTableContainer>
    );
 };
@@ -92,11 +99,14 @@ export default memo(Table);
 
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
    borderRadius: '6px',
+
    display: 'flex',
-   justifyContent: 'center',
+   flexDirection: 'column',
+   justifyContent: 'space-between',
+   alignItems: 'center',
+   gap: '100px',
 
    '& .MuiTableHead-root': {
-      height: '3.688rem',
       borderBottom: '1px solid  rgba(224, 224, 224, 1)',
    },
 
@@ -114,14 +124,18 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
    },
 
    '& .MuiTableCell-head': {
-      fontSize: '0.8rem',
+      backgroundColor: 'white',
       fontWeight: '800',
+      fontSize: '14px',
+      padding: '10px',
    },
+}));
 
-   [theme.breakpoints.down('md')]: {
-      // padding: '16px',
-      // height: '59px',
-   },
+const TableCont = styled('div')(() => ({
+   height: '520px',
+   width: '100%',
+
+   overflowX: 'auto',
 }));
 
 const StyledAbsence = styled(Box)(() => ({
