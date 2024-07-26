@@ -50,6 +50,7 @@ export const Label = styled('label')(() => ({
    alignItems: 'center',
    justifyContent: 'center',
    flexDirection: 'column-reverse',
+
    gap: '15px',
    width: '255px',
    height: '199px',
@@ -57,6 +58,9 @@ export const Label = styled('label')(() => ({
    cursor: 'pointer',
    background: '#7E52FF1A',
    marginBottom: '30px',
+
+   position: 'relative',
+
    b: {
       color: '#282828',
       fontWeight: '600',
@@ -68,6 +72,19 @@ export const Label = styled('label')(() => ({
       fontSize: '14px',
       fontWeight: '400',
    },
+   // ' &.svg': {
+   //    position: 'absolute',
+   //    top: '15px',
+   // },
+
+   // '.close': {
+   //    width: '16px',
+   //    height: '16px',
+   //    position: 'absolute',
+   //    top: '-11px',
+   //    right: '5px',
+   //    zIndex: '10',
+   // },
 }));
 
 export const StyledButton = styled(Button)(({ theme }) => ({
@@ -120,4 +137,11 @@ export const DownloadTitle = styled('p')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '14px',
    },
+}));
+
+export const ImagePreview = styled('img')(() => ({
+   width: '100%',
+   height: 'auto',
+   marginTop: '10px',
+   paddingTop: '20px',
 }));
