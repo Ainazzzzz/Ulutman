@@ -22,6 +22,9 @@ export const WrapperInputSelect = styled('div')(({ theme }) => ({
    },
 }));
 
+export const StyledDropzone = styled('div')(() => ({
+   width: '255px',
+}));
 export const InputFile = styled('input')({
    display: 'none',
 });
@@ -43,6 +46,13 @@ export const Container = styled('div')(({ theme }) => ({
       display: 'flex',
       justifyContent: 'center',
    },
+
+   '.close': {
+      position: 'absolute',
+      top: '-12px',
+      right: '-28px',
+      cursor: 'pointer',
+   },
 }));
 
 export const Label = styled('label')(() => ({
@@ -57,7 +67,6 @@ export const Label = styled('label')(() => ({
    borderRadius: '4px',
    cursor: 'pointer',
    background: '#7E52FF1A',
-   marginBottom: '30px',
 
    position: 'relative',
 
@@ -72,23 +81,11 @@ export const Label = styled('label')(() => ({
       fontSize: '14px',
       fontWeight: '400',
    },
-   // ' &.svg': {
-   //    position: 'absolute',
-   //    top: '15px',
-   // },
-
-   // '.close': {
-   //    width: '16px',
-   //    height: '16px',
-   //    position: 'absolute',
-   //    top: '-11px',
-   //    right: '5px',
-   //    zIndex: '10',
-   // },
 }));
 
 export const StyledButton = styled(Button)(({ theme }) => ({
    width: '144px',
+   marginTop: '30px',
    [theme.breakpoints.down('md')]: {
       width: '100%',
       maxWidth: '343px',
@@ -141,7 +138,8 @@ export const DownloadTitle = styled('p')(({ theme }) => ({
 
 export const ImagePreview = styled('img')(() => ({
    width: '100%',
-   height: 'auto',
+   height: 'fit-content',
+   objectFit: 'cover',
    marginTop: '10px',
    paddingTop: '20px',
 }));
