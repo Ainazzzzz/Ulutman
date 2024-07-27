@@ -45,18 +45,28 @@ const FileUpload = ({ setFieldValue, touched, errors }) => {
       <StyledDropzone {...getRootProps({ className: 'dropzone' })}>
          <input {...getInputProps()} />
          <Label>
+            {imagePreview && (
+               <CloseIcon className="close" onClick={handleRemoveImage} />
+            )}
+
             <Container>
                {imagePreview ? (
-                  <div style={{ position: 'relative' }}>
+                  <div
+                     style={{
+                        position: 'relative',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                     }}
+                  >
                      <ImagePreview src={imagePreview} alt="Selected Image" />
-                     <CloseIcon className="close" onClick={handleRemoveImage} />
                   </div>
                ) : (
-                  <>
-                     <b>Добавьте фото</b>
+                  <div className='block'>
                      <CameraIcon />
+                     <b>Добавьте фото</b>
                      <p>Для добавления картинки щелкните или перетащите его</p>
-                  </>
+                  </div>
                )}
                <div className="container-error">
                   {touched && errors ? (

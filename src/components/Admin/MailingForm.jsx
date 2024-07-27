@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import ReusableSelect from '../UI/Select';
 import Input from '../UI/Input';
@@ -67,6 +66,7 @@ export const MailingForm = ({ mailingType, recipients }) => {
 
             <Container>
                <ReusableSelect
+                  name="typeMailing"
                   value={formik.values.typeMailing}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -83,6 +83,7 @@ export const MailingForm = ({ mailingType, recipients }) => {
 
             <Container>
                <ReusableSelect
+                  name="recipientsAllValue"
                   value={formik.values.recipientsAllValue}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

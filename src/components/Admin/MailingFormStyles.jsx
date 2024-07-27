@@ -37,6 +37,7 @@ export const CameraIcon = styled(CameraAltIcon)({
 export const Container = styled('div')(({ theme }) => ({
    width: '100%',
    position: 'relative',
+
    [theme.breakpoints.down('md')]: {
       '.MuiInputBase-root': {
          width: '100%',
@@ -46,12 +47,12 @@ export const Container = styled('div')(({ theme }) => ({
       display: 'flex',
       justifyContent: 'center',
    },
-
-   '.close': {
-      position: 'absolute',
-      top: '-12px',
-      right: '-28px',
-      cursor: 'pointer',
+   '.block': {
+      display: 'flex',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '10px',
    },
 }));
 
@@ -60,7 +61,12 @@ export const Label = styled('label')(() => ({
    alignItems: 'center',
    justifyContent: 'center',
    flexDirection: 'column-reverse',
-
+   '.close': {
+      position: 'absolute',
+      top: '-12px',
+      right: '-28px',
+      cursor: 'pointer',
+   },
    gap: '15px',
    width: '255px',
    height: '199px',
@@ -137,9 +143,10 @@ export const DownloadTitle = styled('p')(({ theme }) => ({
 }));
 
 export const ImagePreview = styled('img')(() => ({
-   width: '100%',
-   height: 'fit-content',
-   objectFit: 'cover',
-   marginTop: '10px',
-   paddingTop: '20px',
+   maxWidth: '100%',
+   height: '200px',
+   objectFit: 'contain',
+   // marginTop: '10px',
+   // paddingTop: '20px',
+   padding: '5px',
 }));
