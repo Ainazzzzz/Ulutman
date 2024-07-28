@@ -1,20 +1,45 @@
 import React, { useMemo, useState } from 'react';
-import Filter from '../../assets/icons/filter.svg?react';
+import Table from '../../UI/Table';
 import { styled } from '@mui/material';
-import Wait from '../../assets/icons/wait-icon.svg?react';
-import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react';
-import Table from '../UI/Table';
-import { green, red } from '@mui/material/colors';
-import ReusableSelect from '../UI/Select';
-import Replay from '../../assets/icons/replay-icon.svg?react';
-import { AdsDeleteModal } from '../Admin/ads/AdsDeleteModal';
-import { WaitingModal } from '../Admin/ads/WaitingModal';
-import { Button } from '../UI/Button';
-import Plus from '../../assets/icons/plus.svg?react';
-const CategoryAdmin = () => {
+import Wait from '../../../assets/icons/wait-icon.svg?react';
+import { green, red, orange } from '@mui/material/colors';
+import Filter from '../../../assets/icons/filter-icon.svg?react';
+import Replay from '../../../assets/icons/replay-icon.svg?react';
+import RedDeleteIcon from '../../../assets/icons/red-delete-icon.svg?react';
+import ReusableSelect from '../../UI/Select';
+import { AdsDeleteModal } from './AdsDeleteModal';
+import { WaitingModal } from './WaitingModal';
+export const Ads = () => {
    const [open, setOpen] = useState(false);
    const [isOpen, setIsOpen] = useState(false);
    const [selectedValue, setSelectedValue] = useState('Категория');
+
+   const ads = [
+      {
+         id: 1,
+         name: 'Jaka',
+         email: 'jaka-imanaliev@mail.ru',
+         category: 'Услуги',
+         date: '19.01.2023',
+         status: 'Одобрен',
+      },
+      {
+         id: 2,
+         name: 'Jaka',
+         email: 'jaka-imanaliev@mail.ru',
+         category: 'Админ',
+         date: '19.01.2023',
+         status: 'Отклонен',
+      },
+      {
+         id: 3,
+         name: 'Jaka',
+         email: 'jaka-imanaliev@mail.ru',
+         category: 'Админ',
+         date: '19.01.2023',
+         status: 'Ожидает',
+      },
+   ];
 
    const handleOpenDeleteModal = () => setOpen(true);
    const handleOpenWaitingModal = () => setIsOpen(true);
@@ -27,16 +52,16 @@ const CategoryAdmin = () => {
             accessor: 'name',
          },
          {
-            Header: 'Название',
-            accessor: 'title',
+            Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
+            accessor: 'email',
          },
          {
-            Header: 'Описание',
-            accessor: 'description',
+            Header: 'КАТЕГОРИЯ',
+            accessor: 'category',
          },
          {
-            Header: 'Количество объявлений',
-            accessor: 'amount',
+            Header: 'ДАТА СОЗДАНИЯ',
+            accessor: 'date',
          },
 
          {
@@ -46,13 +71,16 @@ const CategoryAdmin = () => {
                let color, Icon;
 
                switch (value) {
-                  case 'Активно':
+                  case 'Одобрен':
                      color = green[500];
                      break;
-                  case 'Неактивно':
+                  case 'Отклонен':
                      color = red[500];
                      break;
-
+                  case 'Ожидает':
+                     color = orange[500];
+                     Icon = Wait;
+                     break;
                   default:
                      color = 'inherit';
                      Icon = null;
@@ -84,55 +112,21 @@ const CategoryAdmin = () => {
       { id: 2, value: 'option2', label: 'Option 2' },
    ];
 
-   const ads = [
-      {
-         id: 1,
-         name: 'Jaka',
-         title: 'квартира',
-         description: 'Премиум класса 2х ком квартира',
-         amount: '1111',
-         status: 'Активно',
-      },
-      {
-         id: 2,
-         name: 'Jaka',
-         title: 'квартира',
-         description: 'Премиум класса 2х ком квартира',
-         amount: '11',
-         status: 'Неактивно',
-      },
-      {
-         id: 3,
-         name: 'Jaka',
-         title: 'квартира',
-         description: 'Премиум класса 2х ком квартира',
-         amount: '1',
-         status: 'Неактивно',
-      },
-   ];
-
    return (
       <Wrapper>
-         <TitleButton>
-            <Description>Управление категориями и подкатегориями</Description>
-            <ButtunStyle>
-               <Plus />
-               Добавить
-            </ButtunStyle>
-         </TitleButton>
-
+         <Description>Управление объявлениями</Description>
          <Container>
             <FirstBlock>
                <FilterStyle>
                   <Filter />
                </FilterStyle>
-               <Title>По названию</Title>
+               <Title>По имени</Title>
                <SelectStyle
                   value={selectedValue}
                   options={options}
                   renderValue={value =>
                      value
-                        ? 'По количеству'
+                        ? 'Категория'
                         : options.find(option => option.value === value)?.label
                   }
                />
@@ -161,15 +155,12 @@ const CategoryAdmin = () => {
    );
 };
 
-export default CategoryAdmin;
 const Description = styled('h2')(({ theme }) => ({
    fontWeight: '600',
-
    fontSize: '34px',
    color: '#202224',
    [theme.breakpoints.down('md')]: {
       fontSize: '22px',
-      paddingBottom: '15px',
    },
 }));
 const Wrapper = styled('div')(({ theme }) => ({
@@ -179,24 +170,6 @@ const Wrapper = styled('div')(({ theme }) => ({
    padding: '30px',
    [theme.breakpoints.down('md')]: {
       overflowX: 'scroll',
-   },
-}));
-const TitleButton = styled('div')(({ theme }) => ({
-   display: 'flex',
-   justifyContent: 'space-between',
-   fontFamily: 'Inter',
-   fontWeight: '500',
-
-   [theme.breakpoints.down('md')]: {
-      flexDirection: 'column',
-   },
-}));
-const ButtunStyle = styled(Button)(({ theme }) => ({
-   fontFamily: 'Inter',
-   fontWeight: '500',
-   borderRadius: '15px',
-   [theme.breakpoints.down('md')]: {
-      width: '345px',
    },
 }));
 
