@@ -24,10 +24,14 @@ const CustomDatePicker = props => (
 );
 export const BasicDatePicker = () => {
    const [open, setOpen] = useState(false);
+   const [dates, setDates] = useState([]);
 
    const [selectedDates, setSelectedDates] = useState([]);
 
    const handleDateChange = newDate => {
+      setDates(prev => [...prev, newDate]);
+
+      console.log(dates);
       setSelectedDates(prevDates => {
          const dateExists = prevDates.some(date => date.isSame(newDate, 'day'));
          if (dateExists) {
