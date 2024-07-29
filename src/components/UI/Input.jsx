@@ -1,16 +1,24 @@
-import { Box, FormControl, TextField, styled } from '@mui/material';
+import { Box, TextField, styled } from '@mui/material';
 import React, { forwardRef } from 'react';
 
-const Input = forwardRef(({ label = '', required = false, ...props }, ref) => {
-   return (
-      <Container>
-         <StyledLabel required={required} htmlFor={label}>
-            {label}
-         </StyledLabel>
-         <StyledInput id={label} ref={ref} {...props} />
-      </Container>
-   );
-});
+const Input = forwardRef(
+   ({ label, required = false, onChange, value, type, ...props }, ref) => {
+      return (
+         <Container>
+            <StyledLabel required={required} htmlFor={label}>
+               {label}
+            </StyledLabel>
+            <StyledInput
+               id={label}
+               value={value}
+               onChange={onChange}
+               ref={ref}
+               {...props}
+            />
+         </Container>
+      );
+   },
+);
 
 export default Input;
 
