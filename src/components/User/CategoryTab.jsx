@@ -11,6 +11,7 @@ import { CARDS, CARDS_MAIN } from '../../utils/constants';
 import { AdvertisingCategory } from './AdvertisingCategory';
 import AnnouncementsSorter from '../AnnouncementsSorter';
 import { CardList } from '../UI/Card/CardList';
+import { CategoryModal } from './CategoryModal';
 
 export const CategoryTab = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
@@ -65,7 +66,9 @@ export const CategoryTab = () => {
                <TabPanel value="2"></TabPanel>
                <TabPanel value="3"></TabPanel>
                <TabPanel value="4"></TabPanel>
-               <TabPanel value="5"></TabPanel>
+               <TabPanel value="5">
+                  <CategoryModal />
+               </TabPanel>
             </TabContext>
          </Box>
       </div>
