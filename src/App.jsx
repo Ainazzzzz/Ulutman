@@ -1,9 +1,11 @@
+import DetailInfo from './pages/user/DetailInfo';
 import { AppRoutes } from './routes/AppRoutes';
 
 const App = () => {
    return (
       <>
-         <AppRoutes />
+         {/* <AppRoutes /> */}
+         <DetailInfo />
       </>
    );
 };
