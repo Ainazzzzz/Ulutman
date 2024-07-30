@@ -62,7 +62,7 @@ const FileUpload = ({ setFieldValue, touched, errors }) => {
                      <ImagePreview src={imagePreview} alt="Selected Image" />
                   </div>
                ) : (
-                  <div className='block'>
+                  <div className="block">
                      <CameraIcon />
                      <b>Добавьте фото</b>
                      <p>Для добавления картинки щелкните или перетащите его</p>
