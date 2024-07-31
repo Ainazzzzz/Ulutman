@@ -1,57 +1,27 @@
-import { useReducer } from 'react';
-import { Button } from '../UI/Button';
-import Input from '../UI/Input';
-import ReusableSelect from '../UI/Select';
-import FileUpload from '../Admin/FileUpload';
-import {
-   Container,
-   StyledWriting,
-   WrapperInputSelect,
-} from '../Admin/MailingFormStyles';
+import { useState } from 'react';
 import { styled } from '@mui/material';
 import { useFormik } from 'formik';
+import FileUpload from '../Admin/FileUpload';
+import { Button } from '../UI/Button';
 import { validationAdForm } from '../../utils/constants/validationMailing';
+import { CategoryModal } from './CategoryModal';
+import {
+   InputField,
+   CategoryField,
+   DescriptionField,
+   SelectField,
+} from './FormFields';
+import { WrapperInputSelect } from '../Admin/MailingFormStyles';
 
 const options = [
-   {
-      id: 'e1',
-      label: 'Москва',
-      value: 'moscow',
-   },
-   {
-      id: 'e2',
-      label: 'Казань',
-      value: 'kazan',
-   },
-   {
-      id: 'e3',
-      label: 'Грозный',
-      value: 'groznyi',
-   },
+   { id: 2, value: 'option1', label: 'Option 1' },
+   { id: 3, value: 'option2', label: 'Option 2' },
 ];
 
-const reducer = (state, action) => {
-   switch (action.type) {
-      case 'SET_INPUT':
-         return { ...state, [action.field]: action.value };
-      default:
-         return state;
-   }
-};
-
-const initialState = {
-   name: '',
-   phone: '',
-   category: '',
-   photo: '',
-   description: '',
-   city: 'Выберите город',
-   address: 'Выберите метро',
-   metro: 'Улица Крылова дом 1',
-};
-
 export const CreateAdForm = () => {
-   const [state, dispatch] = useReducer(reducer, initialState);
+   const [isOpen, setIsOpen] = useState(false);
+
+   const handleOpenCategoryModal = () => setIsOpen(!isOpen);
 
    const formik = useFormik({
       initialValues: {
@@ -60,110 +30,153 @@ export const CreateAdForm = () => {
          category: '',
          photo: '',
          description: '',
-         city: '',
+         files: '',
+         city: 'city',
          address: '',
-         metro: '',
+         metro: 'metro',
       },
       validationSchema: validationAdForm,
       onSubmit: values => {
          console.log(values);
       },
    });
+
+   const handleCategorySubmit = title => {
+      formik.setFieldValue('category', title);
+      handleOpenCategoryModal();
+   };
+
    return (
       <Form onSubmit={formik.handleSubmit}>
-         <StyledWrapperInputSelect>
-            <Input
+         <WrapperInputSelect>
+            <InputField
                name="name"
                value={formik.values.name}
                onChange={formik.handleChange}
                placeholder="Иван"
                label="Имя"
                required
-               error={formik.touched.name && formik.errors.name}
+               touched={formik.touched.name}
+               error={formik.errors.name}
             />
-            <Input
+            <InputField
                name="phone"
                value={formik.values.phone}
                onChange={formik.handleChange}
                placeholder="+7 xxx xxxxxxx"
                label="Телефон"
                required
-               error={formik.touched.phone && formik.errors.phone}
+               touched={formik.touched.phone}
+               error={formik.errors.phone}
             />
-         </StyledWrapperInputSelect>
-         <Category>Выбрать</Category>
-         <FileUpload />
-         <StyledContainer>
-            <label htmlFor="writing">Описание рассылки</label>
-            <StyledWriting
-               name="description"
-               id="writing"
-               placeholder="Горячие акции: Скидка 20% на премиум-размещение: Разместите ваше объявление в топе и привлеките больше внимания! Предложение действует до [Дата]."
-               value={formik.values.description}
-               onChange={formik.handleChange}
-               required
-               error={formik.touched.description && formik.errors.description}
+         </WrapperInputSelect>
+
+         <CategoryField
+            category={formik.values.category}
+            touched={formik.touched.category}
+            error={formik.errors.category}
+            handleOpenCategoryModal={handleOpenCategoryModal}
+         />
+
+         <ContainerFile>
+            <Label>Загрузите фото</Label>
+            <FileUpload
+               setFieldValue={formik.setFieldValue}
+               touched={formik.touched.files}
+               errors={formik.errors.files}
             />
-         </StyledContainer>
-         <StyledWrapperInputSelect>
-            <ReusableSelect
+         </ContainerFile>
+
+         <DescriptionField
+            description={formik.values.description}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            touched={formik.touched.description}
+            error={formik.errors.description}
+         />
+
+         <WrapperInputSelect>
+            <SelectField
+               name="city"
                label="Город"
-               options={options}
                value={formik.values.city}
-               onChange={value => formik.setFieldValue('city', value)}
-               required
-               error={formik.touched.city && formik.errors.city}
+               options={[
+                  {
+                     id: 1,
+                     value: 'city',
+                     label: 'Выберите город',
+                     disabled: true,
+                  },
+                  ...options,
+               ]}
+               setFieldValue={formik.setFieldValue}
+               onBlur={formik.handleBlur}
+               touched={formik.touched.city}
+               error={formik.errors.city}
             />
-            <ReusableSelect
+            <SelectField
+               name="metro"
                label="Метро"
-               options={options}
                value={formik.values.metro}
-               onChange={value => formik.setFieldValue('metro', value)}
-               required
-               error={formik.touched.metro && formik.errors.metro}
+               options={[
+                  {
+                     id: 1,
+                     value: 'metro',
+                     label: 'Выберите метро',
+                     disabled: true,
+                  },
+                  ...options,
+               ]}
+               setFieldValue={formik.setFieldValue}
+               onBlur={formik.handleBlur}
+               touched={formik.touched.metro}
+               error={formik.errors.metro}
             />
-            <Input
+            <InputField
                name="address"
                value={formik.values.address}
                onChange={formik.handleChange}
                placeholder="Улица Крылова дом 1"
                label="Адреc"
                required
-               error={formik.touched.address && formik.errors.address}
+               touched={formik.touched.address}
+               error={formik.errors.address}
             />
-         </StyledWrapperInputSelect>
+         </WrapperInputSelect>
+
          <StyledButton type="submit">Создать</StyledButton>
+
+         <CategoryModal
+            open={isOpen}
+            onClose={handleOpenCategoryModal}
+            onCategorClick={handleCategorySubmit}
+         />
       </Form>
    );
 };
 
-const StyledContainer = styled(Container)(() => ({
-   display: 'flex',
-   flexDirection: 'column',
-
-   label: {
-      fontSize: '18px',
-      fontWeight: '600',
-      '::after': {
-         content: '"*"',
-         color: '#ff0000',
-      },
-   },
-}));
-
-const Category = styled('div')(() => ({}));
-
-const Form = styled('form')(() => ({
+const Form = styled('form')({
    display: 'flex',
    flexDirection: 'column',
    padding: '8px',
    gap: '24px',
-}));
+});
 
-const StyledWrapperInputSelect = styled(WrapperInputSelect)(() => ({
-   padding: '0',
-}));
+const Label = styled('p')({
+   fontSize: '18px',
+   fontWeight: '600',
+   '::after': {
+      content: '" *"',
+      color: '#ff0000',
+   },
+});
 
-const StyledButton = styled(Button)(() => ({
+const ContainerFile = styled('div')({
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '8px',
+});
+
+const StyledButton = styled(Button)({
    width: '123px',
-}));
+});

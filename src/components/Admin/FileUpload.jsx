@@ -10,7 +10,7 @@ import {
    StyledDropzone,
 } from './MailingFormStyles';
 
-const FileUpload = ({ setFieldValue, touched, errors }) => {
+const FileUpload = ({ setFieldValue, touched, errors, id }) => {
    const [imagePreview, setImagePreview] = useState(null);
 
    const onDrop = acceptedFiles => {
@@ -32,7 +32,7 @@ const FileUpload = ({ setFieldValue, touched, errors }) => {
       setFieldValue('files', null);
    };
 
-   const { getRootProps, getInputProps, isDragActive } = useDropzone({
+   const { getRootProps, getInputProps } = useDropzone({
       accept: {
          'image/*': ['.jpeg', '.jpg', '.png'],
          'application/pdf': ['.pdf'],
@@ -43,7 +43,7 @@ const FileUpload = ({ setFieldValue, touched, errors }) => {
 
    return (
       <StyledDropzone {...getRootProps({ className: 'dropzone' })}>
-         <input {...getInputProps()} />
+         <input {...getInputProps()} id={id} />
          <Label>
             {imagePreview && (
                <CloseIcon className="close" onClick={handleRemoveImage} />

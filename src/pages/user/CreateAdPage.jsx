@@ -16,7 +16,7 @@ export const CreateAdPage = () => {
    );
 };
 
-const Container = styled('div')(({ theme }) => ({
+const Container = styled('div')(() => ({
    padding: '24px 52px 52px',
 
    h1: {

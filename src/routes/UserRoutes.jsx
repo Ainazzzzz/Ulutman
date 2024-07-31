@@ -19,7 +19,7 @@ export const UserRoutes = role => {
          element: (
             <PrivateAuthRouteByRole
                role={role}
-               roles={['USER', 'GUEST']}
+               roles={['USER']}
                fallBackPath="/user"
                RouteComponent={<CreateAdPage />}
             />

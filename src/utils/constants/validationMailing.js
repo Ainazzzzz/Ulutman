@@ -14,5 +14,7 @@ export const validationAdForm = Yup.object({
    description: Yup.string().required('Описание обязательно'),
    city: Yup.string().required('Город обязателен'),
    address: Yup.string().required('Адрес обязателен'),
+   category: Yup.string().required('Категория обязателен'),
    metro: Yup.string().required('Метро обязательно'),
+   files: Yup.mixed().required('Загрузите фото'),
 });
