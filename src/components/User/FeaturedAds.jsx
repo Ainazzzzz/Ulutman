@@ -12,6 +12,7 @@ export const FeaturedAds = () => {
       { url: '/', title: 'Главная' },
       { url: 'featuredAds', title: 'Избранные объявления' },
    ];
+
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    return (
       <Wrapper>
@@ -27,11 +28,12 @@ export const FeaturedAds = () => {
                {isMobile ? <DeleteMobile /> : <DeleteAll />}
             </SecondBlock>
 
-            <CardList cards={CARDS_MAIN} />
+            {isMobile ? <CategoryCard /> : <CardList cards={CARDS_MAIN} />}
          </Container>
       </Wrapper>
    );
 };
+
 const FirstBlock = styled('div')(({ theme }) => ({
    display: 'flex',
    alignItems: 'center',
