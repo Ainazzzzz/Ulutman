@@ -1,4 +1,4 @@
-import { Box, Typography, styled } from '@mui/material';
+import { Box, Rating, Typography, styled } from '@mui/material';
 import Breadcrumbs from '../../components/UI/Breadcrumbs';
 import LocationIcon from '../../assets/icons/address-icon.svg?react';
 import ClockIcon from '../../assets/icons/clock-icon.svg?react';
@@ -19,6 +19,10 @@ import seventhImage from '../../assets/images/slider-images/seventh.png';
 import eightImage from '../../assets/images/slider-images/eight.png';
 import ninthImage from '../../assets/images/slider-images/ninth.png';
 import tenthImage from '../../assets/images/slider-images/tenth.png';
+import Like from '../../assets/icons/like-product-icon.svg?react';
+import ArrowIcon from '../../assets/icons/arrowpurpul.svg?react';
+import { Button } from '../../components/UI/Button';
+import UserIcon from '../../assets/icons/user.svg?react';
 
 const DetailInfo = () => {
    const path = [
@@ -41,7 +45,14 @@ const DetailInfo = () => {
 
    return (
       <StyledContainer>
-         <Breadcrumbs path={path} />
+         <Box className="breadcrumbs-box">
+            <Breadcrumbs path={path} />
+
+            <Typography className="go-back">
+               <ArrowIcon />
+               назад
+            </Typography>
+         </Box>
 
          <Box className="locatio-time-box">
             <Typography>
@@ -59,7 +70,7 @@ const DetailInfo = () => {
                3х комнатная квартира
             </Typography>
 
-            <Box>
+            <Box className="fist-part_container">
                <Box className="slider">
                   <Swiper
                      cssMode={true}
@@ -72,12 +83,75 @@ const DetailInfo = () => {
                   >
                      {slides.map(slide => (
                         <SwiperSlide key={slide.id}>
-                           <img src={slide.image} alt={`Slide ${slide.id}`} />
+                           <img
+                              className="slide-image"
+                              src={slide.image}
+                              alt={`Slide ${slide.id}`}
+                           />
                         </SwiperSlide>
                      ))}
                   </Swiper>
+
+                  <Box className="images">
+                     {slides.map(item => (
+                        <img
+                           key={item.id}
+                           src={item.image}
+                           alt={`Slide ${item.id}`}
+                        />
+                     ))}
+                  </Box>
                </Box>
-               <Box></Box>
+
+               {/*второй блок   */}
+               <Box className="second-block">
+                  <Box className="second_box">
+                     <Box className="main-info">
+                        <Typography>50 000 ₽/мес.</Typography>
+
+                        <Like />
+                     </Box>
+
+                     <Box>
+                        <Typography>
+                           Оплата ЖКХ <Box className="line" /> включена (без
+                           счётчиков)
+                        </Typography>
+                        <Typography>
+                           Залог <Box className="line" /> 70 000 ₽
+                        </Typography>
+                        <Typography>
+                           Комиссия <Box className="line" /> 55%
+                        </Typography>
+                        <Typography>
+                           Предоплата
+                           <Box className="line" />1 месяц
+                        </Typography>
+                        <Typography>
+                           Срок аренды
+                           <Box className="line" />
+                           от года
+                        </Typography>
+                     </Box>
+                     <Box className="btns-container">
+                        <Button>Показать телефон</Button>
+
+                        <Button variant="text">Написать</Button>
+                     </Box>
+                  </Box>
+
+                  {/* second */}
+                  <Box>
+                     <Box>
+                        <UserIcon />
+                     </Box>
+                     <Box>
+                        <Typography>Риелтор</Typography>
+                        <Typography>Екатерина Орлова</Typography>
+                        <Rating value={5} readOnly />
+                     </Box>
+                  </Box>
+               </Box>
             </Box>
          </Box>
       </StyledContainer>
@@ -101,6 +175,41 @@ const StyledContainer = styled(Box)(() => ({
          gap: '0.5rem',
       },
    },
+   '& .breadcrumbs-box': {
+      display: 'flex',
+      justifyContent: 'space-between',
+
+      '& > .go-back': {
+         display: 'flex',
+         alignItems: 'center',
+         gap: '10px',
+         color: ' #7E52FF',
+         fontSize: '14px',
+      },
+   },
+
+   '& .second-block': {},
+
+   '& .second_box': {
+      borderRadius: '10px',
+      width: '460px',
+      padding: '10px',
+      height: '350px',
+      boxShadow: ' 0px 7px 12px 1px rgba(34, 60, 80, 0.14)',
+      backgroundColor: 'white',
+   },
+
+   '& .btns-container': {
+      display: 'flex',
+      flexDirection: 'column',
+   },
+
+   '& .line': {},
+
+   '& .slide-image': {
+      width: '760px !important',
+      height: '446px !important',
+   },
 
    '& .location-icon': {
       svg: {
@@ -112,15 +221,38 @@ const StyledContainer = styled(Box)(() => ({
       },
    },
 
+   '& .fist-part_container': {
+      display: 'flex',
+      justifyContent: 'space-between',
+   },
+
    '& .slider': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      width: '760px !important',
+
+      '& .images': {
+         display: 'flex',
+         gap: '1rem',
+      },
+
       '& .swiper': {
-         width: '50%',
+         width: '760px !important',
+         display: 'flex',
+         borderRadius: '10px',
+         justifyContent: 'start',
+      },
+
+      '& .swiper-initialized': {
+         margin: '0 !important',
       },
 
       '& .swiper-slide': {
          display: 'flex',
-         justifyContent: 'center',
-         alignItems: 'center',
+         justifyContent: 'start',
+         width: '760px !important',
+         height: '446px !important',
       },
 
       '& .swiper-slide img': {
