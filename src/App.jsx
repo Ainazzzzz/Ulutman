@@ -1,5 +1,11 @@
+import { BasicDatePicker } from './components/UI/DatePicker';
+
 function App() {
-   return <div>Ulutman</div>;
+   return (
+      <div>
+         <BasicDatePicker />
+      </div>
+   );
 }
 
 export default App;

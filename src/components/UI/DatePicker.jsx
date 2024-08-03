@@ -3,25 +3,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import DatePickerIcon from '../../assets/icons/black-down.svg?react';
-import { styled } from '@mui/material';
+import { styled, Typography } from '@mui/material';
 import { Button } from './Button';
 import { useState } from 'react';
 
-const CustomDatePicker = props => (
-   <Box>
-      {props.children}
-      <>
-         <p>*Вы можете выбрать несколько дат</p>
-         <ButtonStyle
-            variant="contained"
-            color="primary"
-            onClick={props.onApply}
-         >
-            Применить
-         </ButtonStyle>
-      </>
-   </Box>
-);
 export const BasicDatePicker = () => {
    const [open, setOpen] = useState(false);
    const [dates, setDates] = useState([]);
@@ -29,9 +14,7 @@ export const BasicDatePicker = () => {
    const [selectedDates, setSelectedDates] = useState([]);
 
    const handleDateChange = newDate => {
-      setDates(prev => [...prev, newDate]);
-
-      console.log(dates);
+      setDates(prev => [...prev, newDate.format('DD.MM.YY')]);
       setSelectedDates(prevDates => {
          const dateExists = prevDates.some(date => date.isSame(newDate, 'day'));
          if (dateExists) {
@@ -42,14 +25,42 @@ export const BasicDatePicker = () => {
       });
    };
 
+   const deleteDate = date => {
+      const updatedDate = dates.filter(item => item !== date);
+      setDates(updatedDate);
+   };
+
    const handleOpen = () => setOpen(true);
 
    const handleApply = () => {
-      const formattedDates = selectedDates.map(date =>
-         date.format('DD.MM.YYYY'),
-      );
-      console.log(formattedDates);
+      const formattedDates = dates;
    };
+
+   const CustomDatePicker = props => (
+      <Box>
+         {props.children}
+         <>
+            {dates && dates.length !== 0 ? (
+               <DateContainer>
+                  {dates.map(item => (
+                     <Date onClick={() => deleteDate(item)} key={item}>
+                        {item}
+                     </Date>
+                  ))}
+               </DateContainer>
+            ) : (
+               <p>*Вы можете выбрать несколько дат</p>
+            )}
+            <ButtonStyle
+               variant="contained"
+               color="primary"
+               onClick={props.onApply}
+            >
+               Применить
+            </ButtonStyle>
+         </>
+      </Box>
+   );
 
    const renderDay = day => {
       const isSelected = selectedDates.some(date => date.isSame(day, 'day'));
@@ -107,9 +118,8 @@ export const BasicDatePicker = () => {
                   popper: {
                      sx: {
                         '& .MuiPaper-root': {
-                           paddingTop: '24px',
+                           padding: '24px 0',
                            width: '330px',
-                           height: '490px',
                            borderRadius: '20px',
                         },
 
@@ -186,4 +196,25 @@ const Box = styled('div')(() => ({
 const ButtonStyle = styled(Button)(() => ({
    textTransform: 'inherit',
    fontWeight: '500',
+}));
+
+const DateContainer = styled('div')(() => ({
+   display: 'flex',
+   gap: '10px',
+   margin: '0 0 10px 0',
+   flexWrap: 'wrap',
+   justifyContent: 'center',
+   padding: '0 10px',
+   maxHeight: '190px',
+   overflow: 'hidden',
+   overflowY: 'auto',
+   alignItems: 'start',
+}));
+
+const Date = styled(Typography)(() => ({
+   margin: 0,
+   padding: '8px !important',
+   border: '1px solid gray',
+   borderRadius: '10px',
+   cursor: 'pointer',
 }));
