@@ -5,7 +5,6 @@ import ChevronLeft from '../../assets/icons/chevron-left.svg?react';
 import { styled, useMediaQuery } from '@mui/material';
 import { CardList } from '../UI/Card/CardList';
 import { CARDS_MAIN } from '../../utils/constants';
-import { CategoryCard } from '../UI/CategoryCard';
 
 export const FeaturedAds = () => {
    const breadCrumbs = [
@@ -27,8 +26,7 @@ export const FeaturedAds = () => {
                <h3>Избранные объявления</h3>
                {isMobile ? <DeleteMobile /> : <DeleteAll />}
             </SecondBlock>
-
-            {isMobile ? <CategoryCard /> : <CardList cards={CARDS_MAIN} />}
+            <CardList cards={CARDS_MAIN} />
          </Container>
       </Wrapper>
    );
@@ -77,6 +75,7 @@ const Container = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
+   alignItems: 'center',
 }));
 
 const Wrapper = styled('div')(({ theme }) => ({
