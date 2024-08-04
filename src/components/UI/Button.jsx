@@ -32,11 +32,56 @@ const getButtonVariantStyles = variant => {
             },
          };
 
+      case 'sort':
+         return {
+            background: '#7E52FF',
+            color: '#FFF',
+            minWidth: '195px',
+            minHeight: '56px',
+            display: 'flex',
+            fontWeight: '400',
+            gap: '5px',
+            fontSize: '18px',
+            lineHeight: '21.78px',
+
+            '&:hover': {
+               background: '#9774FF',
+            },
+         };
+
+      case 'category-sort':
+         return {
+            minWidth: '159px',
+            backgroundColor: '#B8FF00',
+            minHeight: '39px',
+            textTransform: 'none',
+            padding: '10px',
+            display: 'flex',
+            gap: '5px',
+            borderRadius: '10px',
+            fontWeight: '600',
+            lineHeight: '19.36px',
+            color: '#282828',
+
+            '&:hover': {
+               backgroundColor: '#B8FF00',
+            },
+
+            '&:active': {
+               backgroundColor: '#B8FF00',
+            },
+
+            '&.Mui-disabled': {
+               opacity: '0.5',
+            },
+         };
+
       case 'contained':
       default:
          return {
             background: '#7E52FF',
             color: '#FFF',
+
             '&:hover': {
                background: '#9774FF',
             },
@@ -66,6 +111,10 @@ export const Button = ({
 };
 
 const StyledButton = styled(MuiButton)(({ variant }) => ({
+   '&.MuiButtonBase-root': {
+      textTransform: 'none',
+   },
+
    borderRadius: '10px',
    fontSize: '1rem',
    fontWeight: '700',

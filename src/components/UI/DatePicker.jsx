@@ -1,13 +1,13 @@
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers/DatePicker';
 import DatePickerIcon from '../../assets/icons/black-down.svg?react';
 import { styled, Typography } from '@mui/material';
 import { Button } from './Button';
 import { useState } from 'react';
 
-export const BasicDatePicker = () => {
+export const DatePicker = ({ setDate }) => {
    const [open, setOpen] = useState(false);
    const [dates, setDates] = useState([]);
 
@@ -34,6 +34,7 @@ export const BasicDatePicker = () => {
 
    const handleApply = () => {
       const formattedDates = dates;
+      setDate(formattedDates);
    };
 
    const CustomDatePicker = props => (
@@ -167,7 +168,7 @@ export const BasicDatePicker = () => {
    );
 };
 
-const DatePickerStyle = styled(DatePicker)(() => ({
+const DatePickerStyle = styled(MuiDatePicker)(() => ({
    '.MuiSvgIcon-root': {
       display: 'none',
    },

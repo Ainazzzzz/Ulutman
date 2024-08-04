@@ -1,11 +1,11 @@
-import { BasicDatePicker } from './components/UI/DatePicker';
+import { AppRoutes } from './routes/AppRoutes';
 
-function App() {
+const App = () => {
    return (
-      <div>
-         <BasicDatePicker />
-      </div>
+      <>
+         <AppRoutes />
+      </>
    );
-}
+};
 
 export default App;

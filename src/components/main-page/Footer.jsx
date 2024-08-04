@@ -28,7 +28,7 @@ const Footer = () => {
 export default Footer;
 const WrapperDiv = styled('footer')(({ theme }) => ({
    display: 'flex',
-
+   background: '#fff',
    justifyContent: 'space-around',
    alignItems: 'center',
    width: '100%',

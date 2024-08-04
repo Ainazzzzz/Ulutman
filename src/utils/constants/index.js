@@ -1,0 +1,108 @@
+const CARDS_MAIN = [
+   {
+      id: 'e2',
+      img: 'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+      price: '50000',
+      title: '2х комнатная квартира',
+      favoriteStatus: true,
+      messageStatus: true,
+      address: 'Москва, р-н Центральный',
+      description: '2-комн. кв. 59 м² 3/8 этаж',
+   },
+   {
+      id: 'e1',
+      img: 'https://lh3.googleusercontent.com/proxy/9K0Ks39cEkZzlN9KlE7KzonLX1ISMgsN0CjOSbCZntZXxH1QDWUkKnvxn1yDq4vgGGysKVyjUM6Exi4z_5e1x_GEByCoJK20DsotnzhNTd8cs2-NnnIQxbc97-S_yS1e3kDDkm2tVLWYzBMRpZaf1sfV',
+      price: '50000',
+      title: '2х комнатная квартира',
+      favoriteStatus: false,
+      messageStatus: true,
+      address: 'Москва, р-н Центральный 2-комн. кв. 59 м² 3/8 этаж',
+      description: '2-комн. кв. 59 м² 3/8 этаж 2-комн. кв. 59 м² 3/8 этаж',
+   },
+
+   {
+      id: 'e3',
+      img: 'https://zovrus.ru/files/_cache/salon/mg_8337.resize1200x1200w.jpg',
+      price: '50000',
+      title: '2х комнатная квартира',
+      favoriteStatus: true,
+      messageStatus: true,
+      address: 'Москва, р-н Центральный',
+      description: '2-комн. кв. 59 м² 3/8 этаж',
+   },
+   {
+      id: 'e4',
+      img: 'https://www.obiva.ru/template/img/home-baner_small.jpg',
+      price: '50000',
+      title: '2х комнатная квартира',
+      favoriteStatus: true,
+      messageStatus: true,
+      address: 'Москва, р-н Центральный',
+      description: '2-комн. кв. 59 м² 3/8 этаж',
+   },
+   {
+      id: 'e5',
+      img: 'https://dyatkovo.ru/upload/iblock/50e/mo21t3sui5kmt4me0lqi9vmsr15w5b6g.jpg',
+      price: '50000',
+      title: '2х комнатная квартира',
+      favoriteStatus: true,
+      messageStatus: true,
+      address: 'Москва, р-н Центральный',
+      description: '2-комн. кв. 59 м² 3/8 этаж',
+   },
+   {
+      id: 'e6',
+      img: 'https://static.tildacdn.com/tild6534-3633-4234-b738-326536303062/Hidden-wardrobe-4-de.jpg',
+      price: '50000',
+      title: '2х комнатная квартира',
+      favoriteStatus: true,
+      messageStatus: true,
+      address: 'Москва, р-н Центральный',
+      description: '2-комн. кв. 59 м² 3/8 этаж',
+   },
+   {
+      id: 'e7',
+      img: 'https://sun9-64.userapi.com/impg/LZazwh6ki7LPIXejOOtkxUPen8s6rcFqygbPqA/jF9Y9IviO3k.jpg?size=453x604&quality=96&sign=2f7beabb853c262bbe7c24103db21079&c_uniq_tag=Ib1QFK081YrkujuA60exbwtoxhGcdRtab4wGZb9zf1o&type=album',
+      price: '50000',
+      title: '2х комнатная квартира',
+      favoriteStatus: true,
+      messageStatus: true,
+      address: 'Москва, р-н Центральный',
+      description: '2-комн. кв. 59 м² 3/8 этаж',
+   },
+   {
+      id: 'e8',
+      img: 'https://www.potolkoff.ru/wp-content/uploads/2020/12/67.jpg',
+      price: '50000',
+      title: '2х комнатная квартира',
+      favoriteStatus: true,
+      messageStatus: true,
+      address: 'Москва, р-н Центральный',
+      description: '2-комн. кв. 59 м² 3/8 этаж',
+   },
+];
+
+const CATEGORY_MENU = [
+   {
+      label: 'Все категории',
+      id: 1,
+   },
+   {
+      label: 'Беговая',
+      id: 2,
+   },
+   {
+      label: 'Авиамоторная',
+      id: 3,
+   },
+];
+
+const CARDS = [
+   'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+   'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+   'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+   'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+   'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
+];
+
+export { CATEGORY_MENU, CARDS_MAIN, CARDS };
