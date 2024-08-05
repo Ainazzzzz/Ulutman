@@ -12,18 +12,31 @@
    "dependencies": {
       "@emotion/react": "^11.11.4",
       "@emotion/styled": "^11.11.5",
+<<<<<<< HEAD
       "@mui/lab": "^5.0.0-alpha.173",
       "@mui/material": "^5.15.20",
+=======
+      "@mui/lab": "^5.0.0-alpha.170",
+      "@mui/material": "^5.15.21",
+      "@mui/x-date-pickers": "^7.8.0",
+      "dayjs": "^1.11.11",
+>>>>>>> 50f105688fd8f8bd5c838d92372e569e8684533e
       "@reduxjs/toolkit": "^2.2.6",
+      "formik": "^2.4.6",
+      "lru-cache": "^11.0.0",
       "react": "^18.2.0",
+      "react-datepicker": "^7.3.0",
       "react-dom": "^18.2.0",
+      "react-multi-date-picker": "^4.5.2",
+      "react-dropzone": "^14.2.3",
       "react-loading-skeleton": "^3.4.0",
       "react-redux": "^9.1.2",
       "react-router-dom": "^6.24.1",
       "react-table": "^7.8.0",
       "react-toastify": "^10.0.5",
       "swiper": "^11.1.4",
-      "vite-plugin-svgr": "^4.2.0"
+      "vite-plugin-svgr": "^4.2.0",
+      "yup": "^1.4.0"
    },
    "devDependencies": {
       "@types/react": "^18.2.66",
