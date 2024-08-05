@@ -1,22 +1,25 @@
 import { styled, Tab, Tabs } from '@mui/material';
 import React from 'react';
 
-const ReusableTabs = () => {
+const TabsUi = ({ tabLabels }) => {
    return (
       <div>
-         <Tabs>
-            <TabsStyle label="Профиль" />
-            <TabsStyle label="Избранное" />
-            <TabsStyle label="Сообщения" />
-            <TabsStyle label="Мои объявления" />
+         <Tabs
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs"
+         >
+            {tabLabels.map((label, index) => (
+               <TabsStyle key={index} label={label} />
+            ))}
          </Tabs>
       </div>
    );
 };
 
-export default ReusableTabs;
+export default TabsUi;
 
-const TabsStyle = styled(Tab)(() => ({
+const TabsStyle = styled(Tab)(({ theme }) => ({
    color: '#282828',
    fontFamily: 'Inter',
    fontWeight: '500',
@@ -34,5 +37,8 @@ const TabsStyle = styled(Tab)(() => ({
       transform: 'translateX(-50%)',
       width: '80%',
       borderBottom: '2px solid #7E52FF',
+   },
+   [theme.breakpoints.down('md')]: {
+      fontSize: '18px',
    },
 }));
