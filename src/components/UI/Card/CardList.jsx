@@ -18,7 +18,7 @@ export const CardList = ({ cards, advertising, loading }) => {
             ))}
          </CardListBox>
 
-         {isMobile && (
+         {isMobile && advertising && (
             <WrapperAdvertising>
                {advertising?.map((image, i) => (
                   <Advertising image={image} key={i} />
@@ -39,6 +39,14 @@ const StyledContainer = styled('div')(({ theme }) => ({
 export const CardListBox = styled(Grid)({
    marginTop: '20px',
    width: '100%',
+
+   '.MuiPaper-root': {
+      maxWidth: '100%',
+
+      '.MuiCardMedia-root': {
+         height: '250px',
+      },
+   },
 });
 
 const WrapperAdvertising = styled('div')({
