@@ -1,30 +1,23 @@
-import { useState } from 'react';
 import Modal from '../../UI/Modal';
 import { styled } from '@mui/material';
 import { toast } from 'react-toastify';
 import Toastify from '../../UI/Toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const WaitingModal = () => {
-   const [isOpen, setIsOpen] = useState(true);
-
-   const handleCloseModal = () => {
-      setIsOpen(false);
-   };
-
+export const WaitingModal = ({ onClose, isOpen }) => {
    const notifySuccess = () => {
       toast.success('Одобрено');
-      handleCloseModal();
+      onClose();
    };
 
    const notifyError = () => {
       toast.error('Ошибка');
-      handleCloseModal();
+      onClose();
    };
 
    return (
       <>
-         <Modal open={isOpen} handleClose={handleCloseModal} variant="info">
+         <Modal open={isOpen} handleClose={onClose} variant="info">
             <Container>
                <Title>Вы уверены, что хотите изменить?</Title>
                <div>

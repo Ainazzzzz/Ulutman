@@ -1,10 +1,9 @@
 import { styled } from '@mui/material';
-import DatePicker from '../DatePicker';
 import ReusableSelect from '../UI/Select';
-
 import Filter from '../../assets/icons/filter-icon.svg?react';
 import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react';
 import ReplayIcon from '../../assets/icons/replay-icon.svg?react';
+import { DatePicker } from '../UI/DatePicker';
 
 export const AdminHeaderFilter = ({
    selectedValues = {},
@@ -13,64 +12,76 @@ export const AdminHeaderFilter = ({
    inputData,
    selectsConfig = [],
    onResetFilter,
+   handleDateChange,
    handleChange,
    value,
 }) => {
    return (
       <Container>
-         <TopSection>
-            <FilterWrapper>
-               <Filter />
-            </FilterWrapper>
+         <InputsWrapper>
+            <TopSection>
+               <FilterWrapper>
+                  <Filter />
+               </FilterWrapper>
 
-            {inputData?.map((header, index) => (
-               <label key={index} htmlFor={`input-${header.id}`}>
-                  <StyledInput
-                     id={`input-${header.id}`}
-                     name={`input-${header.id}`}
-                     type="text"
-                     placeholder={header.value}
-                     value={value[header.id] || ''}
-                     onChange={e => handleChange(header.id, e.target.value)}
-                  />
-               </label>
-            ))}
-
-            {selectsConfig?.map((select, index) => (
-               <div key={select.label}>
-                  {select.label === 'data' ? (
-                     <DatePicker />
-                  ) : (
-                     <StyledSelect
-                        key={index}
-                        value={selectedValues[select.label]}
-                        onChange={e =>
-                           onSelectChange(select.label, e.target.value)
-                        }
-                        options={select.options}
+               {inputData?.map((header, index) => (
+                  <label key={index} htmlFor={`input-${header.id}`}>
+                     <StyledInput
+                        id={`input-${header.id}`}
+                        name={`input-${header.id}`}
+                        type="text"
+                        placeholder={header.value}
+                        value={value[header.id] || ''}
+                        onChange={e => handleChange(header.id, e.target.value)}
                      />
-                  )}
-               </div>
-            ))}
+                  </label>
+               ))}
 
-            <FilterResetSection onClick={onResetFilter}>
-               <ReplayIcon />
-               <p>Сбросить фильтр</p>
-            </FilterResetSection>
-         </TopSection>
+               {selectsConfig?.map(select => (
+                  <div key={select.label}>
+                     {select.label === 'data' ? (
+                        <StyledDatePickerWrapper>
+                           <DatePicker setDate={handleDateChange} />
+                        </StyledDatePickerWrapper>
+                     ) : (
+                        <StyledSelect
+                           value={selectedValues[select.label]}
+                           onChange={e =>
+                              onSelectChange(select.label, e.target.value)
+                           }
+                           options={select.options}
+                        />
+                     )}
+                  </div>
+               ))}
 
-         <div>
-            <RedDeleteIcon onClick={onDeleteModal} />
-         </div>
+               <FilterResetSection onClick={onResetFilter}>
+                  <ReplayIcon />
+                  <p>Сбросить фильтр</p>
+               </FilterResetSection>
+            </TopSection>
+
+            <div>
+               <RedDeleteIcon onClick={onDeleteModal} />
+            </div>
+         </InputsWrapper>
       </Container>
    );
 };
-
 const Container = styled('div')(({ theme }) => ({
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'space-between',
    gap: '10px',
+   width: '100%',
+   overflowX: 'auto',
+
+   '::-webkit-scrollbar': {
+      display: 'none',
+   },
+
+   scrollbarWidth: 'none',
+
    svg: {
       cursor: 'pointer',
    },
@@ -78,6 +89,41 @@ const Container = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       gap: '24px',
       alignItems: 'inherit',
+   },
+}));
+
+const InputsWrapper = styled('div')(() => ({
+   display: 'flex',
+   flexDirection: 'row',
+   gap: '10px',
+   flexWrap: 'nowrap',
+   overflowX: 'auto',
+
+   '::-webkit-scrollbar': {
+      display: 'none',
+   },
+
+   scrollbarWidth: 'none',
+}));
+
+const TopSection = styled('div')(() => ({
+   display: 'flex',
+   alignItems: 'center',
+   flexWrap: 'nowrap',
+
+   div: {
+      width: '200px',
+      height: '70px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '8px',
+
+      p: {
+         color: '#ea0234',
+         fontWeight: '600',
+         fontSize: '14px',
+      },
    },
 }));
 
@@ -116,6 +162,11 @@ const FilterWrapper = styled('p')(() => ({
    svg: {
       cursor: 'pointer',
    },
+}));
+
+const StyledDatePickerWrapper = styled('div')(() => ({
+   paddingBottom: '8px',
+   border: '1px solid #d5d5d5',
 }));
 
 const StyledSelect = styled(ReusableSelect)(() => ({
@@ -167,27 +218,6 @@ const FilterResetSection = styled('div')(() => ({
       p: {
          transform: 'scale(0.9)',
          transition: '0.5s',
-      },
-   },
-}));
-
-const TopSection = styled('div')(() => ({
-   display: 'flex',
-   alignItems: 'center',
-
-   div: {
-      width: '200px',
-      height: '70px',
-
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '8px',
-
-      p: {
-         color: '#ea0234',
-         fontWeight: '600',
-         fontSize: '14px',
       },
    },
 }));

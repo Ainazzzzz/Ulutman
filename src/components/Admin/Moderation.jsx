@@ -1,7 +1,6 @@
 import { useMemo, useReducer } from 'react';
 import { styled } from '@mui/material';
 
-import { getAdminTableHeaders } from './AdminTableHeader';
 import Table from '../UI/Table';
 import { AdsDeleteModal } from './ads/AdsDeleteModal';
 import { WaitingModal } from './ads/WaitingModal';
@@ -10,6 +9,7 @@ import {
    MODERATION_DATA,
 } from '../../utils/constants/moderation';
 import { AdminHeaderFilter } from './AdminHeaderFilter';
+import { getAdminTableHeaders } from './AdminTableHeader';
 
 const inputData = [
    {
@@ -52,7 +52,7 @@ const initialState = {
    inputValues: {
       name: '',
       search: '',
-      data: null,
+      date: [],
    },
 
    selectedValues: {
@@ -68,6 +68,11 @@ const reducer = (state, action) => {
       case 'TOGGLE_WAITING_MODAL':
          return { ...state, waitingModal: !state.waitingModal };
       case 'SET_INPUT_VALUES':
+         return {
+            ...state,
+            inputValues: { ...state.inputValues, ...action.payload },
+         };
+      case 'SET_DATE_VALUES':
          return {
             ...state,
             inputValues: { ...state.inputValues, ...action.payload },
@@ -112,6 +117,10 @@ export const Moderation = () => {
       dispatch({ type: 'SET_SELECTED_VALUES', payload: { [label]: value } });
    };
 
+   const handleDateChange = label => {
+      dispatch({ type: 'SET_DATE_VALUES', payload: { date: label } });
+   };
+
    const headers = useMemo(
       () => getAdminTableHeaders(handleOpenWaitingModal, MODERATION_COLUMNS),
       [handleOpenWaitingModal],
@@ -130,18 +139,19 @@ export const Moderation = () => {
             handleChange={handleInputChange}
             onResetFilter={handleResetFilter}
             value={state.inputValues}
+            handleDateChange={handleDateChange}
          />
 
          <Table data={MODERATION_DATA} column={headers} />
 
          <AdsDeleteModal
-            open={state.deleteAllModal}
-            handleCloseModal={handleDeleteModal}
+            isOpen={state.deleteAllModal}
+            onClose={handleDeleteModal}
          />
 
          <WaitingModal
             isOpen={state.waitingModal}
-            handleCloseModal={handleOpenWaitingModal}
+            onClose={handleOpenWaitingModal}
          />
       </Wrapper>
    );
