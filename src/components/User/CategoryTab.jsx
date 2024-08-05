@@ -63,9 +63,9 @@ export const CategoryTab = () => {
                      </>
                   )}
                </TabPanelStyle>
-               <TabPanel value="2"></TabPanel>
-               <TabPanel value="3"></TabPanel>
-               <TabPanel value="4"></TabPanel>
+               <TabPanel value="2">нет данных</TabPanel>
+               <TabPanel value="3">нет данных</TabPanel>
+               <TabPanel value="4">нет данных</TabPanel>
                <TabPanel value="5">
                   <CategoryModal />
                </TabPanel>
@@ -101,6 +101,7 @@ const TabStyle = styled(Tab)(({ theme }) => ({
    '&.Mui-selected': {
       color: '#fff',
       backgroundColor: '#7e52ff',
+      stroke: '#fff',
    },
    span: {
       display: 'flex',
