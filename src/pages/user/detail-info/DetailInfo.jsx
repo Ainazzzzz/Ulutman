@@ -1,7 +1,7 @@
 import { Box, Rating, Typography, styled } from '@mui/material';
-import Breadcrumbs from '../../components/UI/Breadcrumbs';
-import LocationIcon from '../../assets/icons/address-icon.svg?react';
-import ClockIcon from '../../assets/icons/clock-icon.svg?react';
+import Breadcrumbs from '../../../components/UI/Breadcrumbs';
+import LocationIcon from '../../../assets/icons/address-icon.svg?react';
+import ClockIcon from '../../../assets/icons/clock-icon.svg?react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css';
@@ -9,20 +9,20 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 import { useState } from 'react';
-import firstImage from '../../assets/images/slider-images/first.png';
-import secondthImage from '../../assets/images/slider-images/second.png';
-import thirdImage from '../../assets/images/slider-images/third.png';
-import fourthImage from '../../assets/images/slider-images/fourth.png';
-import fifthImage from '../../assets/images/slider-images/fifth.png';
-import sixthImage from '../../assets/images/slider-images/sixth.png';
-import seventhImage from '../../assets/images/slider-images/seventh.png';
-import eightImage from '../../assets/images/slider-images/eight.png';
-import ninthImage from '../../assets/images/slider-images/ninth.png';
-import tenthImage from '../../assets/images/slider-images/tenth.png';
-import Like from '../../assets/icons/like-product-icon.svg?react';
-import ArrowIcon from '../../assets/icons/arrowpurpul.svg?react';
-import { Button } from '../../components/UI/Button';
-import UserIcon from '../../assets/icons/user.svg?react';
+import firstImage from '../../../assets/images/slider-images/first.png';
+import secondthImage from '../../../assets/images/slider-images/second.png';
+import thirdImage from '../../../assets/images/slider-images/third.png';
+import fourthImage from '../../../assets/images/slider-images/fourth.png';
+import fifthImage from '../../../assets/images/slider-images/fifth.png';
+import sixthImage from '../../../assets/images/slider-images/sixth.png';
+import seventhImage from '../../../assets/images/slider-images/seventh.png';
+import eightImage from '../../../assets/images/slider-images/eight.png';
+import ninthImage from '../../../assets/images/slider-images/ninth.png';
+import tenthImage from '../../../assets/images/slider-images/tenth.png';
+import Like from '../../../assets/icons/like-product-icon.svg?react';
+import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react';
+import { Button } from '../../../components/UI/Button';
+import UserIcon from '../../../assets/icons/user.svg?react';
 
 const DetailInfo = () => {
    const path = [
@@ -103,36 +103,40 @@ const DetailInfo = () => {
                   </Box>
                </Box>
 
-               {/*второй блок   */}
                <Box className="second-block">
                   <Box className="second_box">
                      <Box className="main-info">
-                        <Typography>50 000 ₽/мес.</Typography>
+                        <Typography className="price">50 000 ₽/мес.</Typography>
 
                         <Like />
                      </Box>
 
-                     <Box>
-                        <Typography>
-                           Оплата ЖКХ <Box className="line" /> включена (без
+                     <Box className="info-box-container">
+                        <Typography className="info-part">
+                           Оплата ЖКХ <hr className="line" /> включена (без
                            счётчиков)
                         </Typography>
-                        <Typography>
-                           Залог <Box className="line" /> 70 000 ₽
+
+                        <Typography className="info-part">
+                           Залог <hr className="line" /> 70 000 ₽
                         </Typography>
-                        <Typography>
-                           Комиссия <Box className="line" /> 55%
+
+                        <Typography className="info-part">
+                           Комиссия <hr className="line" /> 55%
                         </Typography>
-                        <Typography>
+
+                        <Typography className="info-part">
                            Предоплата
-                           <Box className="line" />1 месяц
+                           <hr className="line" />1 месяц
                         </Typography>
-                        <Typography>
+
+                        <Typography className="info-part">
                            Срок аренды
-                           <Box className="line" />
+                           <hr className="line" />
                            от года
                         </Typography>
                      </Box>
+
                      <Box className="btns-container">
                         <Button>Показать телефон</Button>
 
@@ -140,9 +144,8 @@ const DetailInfo = () => {
                      </Box>
                   </Box>
 
-                  {/* second */}
-                  <Box>
-                     <Box>
+                  <Box className="rieltor-info">
+                     <Box className="user-icon-container">
                         <UserIcon />
                      </Box>
                      <Box>
@@ -153,6 +156,23 @@ const DetailInfo = () => {
                   </Box>
                </Box>
             </Box>
+         </Box>
+
+         <Box className="description-container">
+            <Typography variant="h3" className="description">
+               Описания объявления
+            </Typography>
+            <Typography className="descriptioon-text">
+               ЖК "Водный", предлогается 2-х комнатная квартира с новым
+               ремонтом.Кухня -гостиная, спальня, балкон. Имеется вся мебель и
+               бытовая техника включая кондиционер. Есть возможность аренды
+               машино-место.
+            </Typography>
+
+            <Typography className="read-more-text">
+               Читать дальше
+               <ArrowIcon className="arrow-down" />
+            </Typography>
          </Box>
       </StyledContainer>
    );
@@ -175,6 +195,51 @@ const StyledContainer = styled(Box)(() => ({
          gap: '0.5rem',
       },
    },
+
+   '& .description-container': {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.5rem',
+      width: '750px',
+
+      '& > .descriptioon-text': {
+         marginTop: '0.6rem',
+         fontSize: '18px',
+         lineHeight: '23.4px',
+      },
+
+      '& > .read-more-text': {
+         color: '#7E52FF',
+         display: 'flex',
+         alignItems: 'flex-end',
+         gap: '0.5rem',
+
+         '& > .arrow-down': {
+            transform: 'rotate(-90deg)',
+         },
+      },
+   },
+
+   '& .rieltor-info': {
+      display: 'flex',
+      backgroundColor: 'white',
+      boxShadow: ' 0px 7px 12px 1px rgba(34, 60, 80, 0.14)',
+      borderRadius: '10px',
+      padding: '20px',
+      gap: '1rem',
+
+      '& > .user-icon-container': {
+         width: '76px',
+         height: '76px',
+         display: 'flex',
+         alignItems: 'center',
+         justifyContent: 'center',
+         borderRadius: '4px',
+         border: '1px solid #b2b0b0',
+         backgroundColor: '#CED1D7',
+      },
+   },
+
    '& .breadcrumbs-box': {
       display: 'flex',
       justifyContent: 'space-between',
@@ -188,23 +253,65 @@ const StyledContainer = styled(Box)(() => ({
       },
    },
 
-   '& .second-block': {},
+   '& .second-block': {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '2.5rem',
+   },
 
    '& .second_box': {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.5rem',
       borderRadius: '10px',
       width: '460px',
-      padding: '10px',
+      padding: '15px',
+      paddingTop: '20px',
       height: '350px',
       boxShadow: ' 0px 7px 12px 1px rgba(34, 60, 80, 0.14)',
       backgroundColor: 'white',
+
+      '& .main-info': {
+         display: 'flex',
+         justifyContent: 'space-between',
+         alignItems: 'center',
+
+         '& > .price': {
+            fontSize: '28px',
+            fontWeight: '700',
+            lineHeight: '36px',
+            color: '#282828',
+         },
+      },
+
+      '& > .info-box-container': {
+         display: 'flex',
+         flexDirection: 'column',
+         width: '100%',
+         gap: '0.7rem',
+
+         '& > .info-part': {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            fontSize: '14px',
+            fontWeight: '400',
+            lineHeight: '20px',
+            color: '#282828',
+
+            '& .line': {
+               border: '1px dotted #909090',
+               width: '30%',
+            },
+         },
+      },
    },
 
    '& .btns-container': {
       display: 'flex',
+      gap: '0.8rem',
       flexDirection: 'column',
    },
-
-   '& .line': {},
 
    '& .slide-image': {
       width: '760px !important',
@@ -231,10 +338,11 @@ const StyledContainer = styled(Box)(() => ({
       flexDirection: 'column',
       alignItems: 'flex-start',
       width: '760px !important',
+      gap: '1rem',
 
       '& .images': {
          display: 'flex',
-         gap: '1rem',
+         gap: '1.1rem',
       },
 
       '& .swiper': {
@@ -267,5 +375,12 @@ const StyledContainer = styled(Box)(() => ({
       fontSize: '34px',
       fontWeight: '500',
       lineHeight: '41.15px',
+   },
+
+   '& .description': {
+      fontFamily: 'Kanit sans-serif',
+      fontSize: '30px',
+      fontWeight: '900',
+      lineHeight: '36px',
    },
 }));
