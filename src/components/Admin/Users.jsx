@@ -1,12 +1,12 @@
-import { green, orange, red } from '@mui/material/colors';
+import { green, red } from '@mui/material/colors';
 import React, { useMemo, useState } from 'react';
-import Wait from '../../assets/icons/wait-icon.svg?react';
 import { styled } from '@mui/material';
 import ReusableSelect from '../UI/Select';
 import Filter from '../../assets/icons/filter-icon.svg?react';
 import Replay from '../../assets/icons/replay-icon.svg?react';
 import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react';
 import Table from '../UI/Table';
+import { DatePicker } from '../UI/DatePicker.jsx';
 
 const Users = () => {
    const [open, setOpen] = useState(false);
@@ -20,7 +20,7 @@ const Users = () => {
          email: 'jaka-imanaliev@mail.ru',
          category: 'Услуги',
          date: '19.01.2023',
-         status: 'Одобрен',
+         status: 'Заблокирован',
          role: 'Админ',
       },
       {
@@ -29,7 +29,7 @@ const Users = () => {
          email: 'jaka-imanaliev@mail.ru',
          category: 'Админ',
          date: '19.01.2023',
-         status: 'Отклонен',
+         status: 'Заблокирован',
          role: 'Админ',
       },
       {
@@ -38,7 +38,7 @@ const Users = () => {
          email: 'jaka-imanaliev@mail.ru',
          category: 'Админ',
          date: '19.01.2023',
-         status: 'Ожидает',
+         status: 'Активный',
          role: 'Админ',
       },
    ];
@@ -73,15 +73,11 @@ const Users = () => {
                let color, Icon;
 
                switch (value) {
-                  case 'Одобрен':
+                  case 'Активный':
                      color = green[500];
                      break;
-                  case 'Отклонен':
+                  case 'Заблокирован':
                      color = red[500];
-                     break;
-                  case 'Ожидает':
-                     color = orange[500];
-                     Icon = Wait;
                      break;
                   default:
                      color = 'inherit';
@@ -122,16 +118,21 @@ const Users = () => {
                <FilterStyle>
                   <Filter />
                </FilterStyle>
+
                <Title>По имени</Title>
+
                <SelectStyle
                   value={selectedValue}
                   options={options}
                   renderValue={value =>
                      value
-                        ? 'Категория'
+                        ? 'Роль'
                         : options.find(option => option.value === value)?.label
                   }
                />
+
+               <DatePicker />
+
                <SelectStyle
                   value={selectedValue}
                   options={options}
