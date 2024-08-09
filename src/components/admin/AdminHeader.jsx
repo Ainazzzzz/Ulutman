@@ -55,9 +55,11 @@ const AdminHeader = () => {
 
    return (
       <WrapperAdminHeader>
-         <LogoMobile>
-            <UlutmanLogoStyle />
-         </LogoMobile>
+         {isMobile && (
+            <LogoMobile>
+               <UlutmanLogoStyle />
+            </LogoMobile>
+         )}
          {isMobile ? (
             <div>
                <MobileSearch>
@@ -102,7 +104,7 @@ const AdminHeader = () => {
                   <SearchIconStyle>
                      <SearchIcon />
                   </SearchIconStyle>
-                  <InputBase placeholder="Поиск" />
+                  <InputBase placeholder="Поиск" sx={{ width: '100%' }} />
                </InputStyle>
 
                <MiddleContainerBox>
@@ -149,10 +151,12 @@ const WrapperAdminHeader = styled('div')(({ theme }) => ({
 }));
 const SehondBigContainer = styled('div')(() => ({
    display: 'flex',
-   gap: '351px',
+   justifyContent: 'space-around',
+   width: '100%',
 }));
 const MobileSearch = styled('div')(({ theme }) => ({
    display: 'flex',
+   alignItems: 'center',
    gap: '27px',
    [theme.breakpoints.down('md')]: {
       paddingLeft: '110px',
@@ -163,14 +167,12 @@ const UlutmanLogoStyle = styled(UlutmanLogo)(({ theme }) => ({
    width: '134px',
    height: '29px',
 
-   [theme.breakpoints.down('md')]: {
-      width: '134px',
-      height: '29px',
-   },
+   [theme.breakpoints.down('md')]: {},
 }));
 const LogoMobile = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       display: 'flex',
+      alignItems: 'center',
    },
 }));
 

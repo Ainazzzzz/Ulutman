@@ -1,15 +1,11 @@
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
-import { useState } from 'react';
 import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react';
-import { styled } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 
 export const SideBar = () => {
-   const [open, setOpen] = useState(true);
-
    const DrawerList = (
       <Box sx={{ width: 250 }}>
          <UlutmanLogo>
@@ -17,19 +13,22 @@ export const SideBar = () => {
          </UlutmanLogo>
          <List>
             <ListItemStyle>
-               <NavStyle href="#">Dashboard</NavStyle>
+               <NavStyle href="dashboard">Dashboard</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <NavStyle href="#">Польвователи</NavStyle>
+               <NavStyle href="users">Пользователи</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <NavStyle href="#">Объявления</NavStyle>
+               <NavStyle href="ads">Объявления</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <NavStyle href="#">Категории</NavStyle>
+               <NavStyle href="categories">Категории</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <NavStyle href="#">Модерация</NavStyle>
+               <NavStyle href="moderation">Модерация</NavStyle>
+            </ListItemStyle>
+            <ListItemStyle>
+               <NavStyle href="add-mailing">Рассылки</NavStyle>
             </ListItemStyle>
          </List>
          <br />
@@ -45,22 +44,8 @@ export const SideBar = () => {
          </List>
       </Box>
    );
-   return (
-      <>
-         <DrawerStyle
-            open={open}
-            ModalProps={{
-               BackdropProps: {
-                  style: {
-                     backgroundColor: 'transparent',
-                  },
-               },
-            }}
-         >
-            {DrawerList}
-         </DrawerStyle>
-      </>
-   );
+
+   return <DrawerStyle>{DrawerList}</DrawerStyle>;
 };
 
 const UlutmanLogo = styled('div')(() => ({
@@ -71,13 +56,13 @@ const UlutmanLogo = styled('div')(() => ({
       margin: ' 22px 53px 60px 53px',
    },
 }));
-const DrawerStyle = styled(Drawer)(() => ({
-   '& .MuiDrawer-paper': {
-      borderRight: '1px solid #e0e0e0',
-   },
-   '.MuiList-root': {
-      padding: '0px 24px 0px 24px',
-   },
+const DrawerStyle = styled(Box)(() => ({
+   width: '250px',
+   height: '100vh',
+   position: 'sticky',
+   background: '#fff',
+   top: '0',
+   left: '0',
 }));
 
 const ListItemStyle = styled(ListItem)(() => ({

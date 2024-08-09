@@ -9,6 +9,7 @@ import RedDeleteIcon from '../../../assets/icons/red-delete-icon.svg?react';
 import ReusableSelect from '../../UI/Select';
 import { AdsDeleteModal } from './AdsDeleteModal';
 import { WaitingModal } from './WaitingModal';
+
 export const Ads = () => {
    const [open, setOpen] = useState(false);
    const [isOpen, setIsOpen] = useState(false);

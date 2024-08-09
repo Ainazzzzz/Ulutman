@@ -53,7 +53,7 @@ export const Dashboard = () => {
 };
 
 const StyledContainer = styled('div')(({ theme }) => ({
-   width: '100vw',
+   width: '100%',
    minHeight: '100vh',
    background: '#F5F6FA',
    fontFamily: 'Kanit',
@@ -76,7 +76,6 @@ const StyledContainer = styled('div')(({ theme }) => ({
    h1: {
       fontSize: '34px',
       fontWeight: '600',
-      fontFamily: 'Kanit',
       [theme.breakpoints.down('md')]: {
          fontSize: '22px',
       },
@@ -86,7 +85,6 @@ const StyledContainer = styled('div')(({ theme }) => ({
 const Title = styled('h1')(({ theme }) => ({
    fontSize: '34px',
    fontWeight: '600',
-   fontFamily: 'Kanit',
    [theme.breakpoints.down('md')]: {
       fontSize: '20px',
    },

@@ -11,6 +11,10 @@ body {
    background-color: #f4f7fa;
 }
 
+h1 {
+   font-family: 'Inter', sans-serif;
+}
+
 ul,
 ol,
 li {

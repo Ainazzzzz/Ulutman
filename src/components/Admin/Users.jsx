@@ -112,7 +112,7 @@ const Users = () => {
 
    return (
       <Wrapper>
-         <Description>Управление объявлениями</Description>
+         <Description>Управление пользователями</Description>
          <Container>
             <FirstBlock>
                <FilterStyle>
