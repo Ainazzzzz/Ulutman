@@ -43,9 +43,9 @@ const ReusableSelect = forwardRef(
 export default ReusableSelect;
 
 const SelectStyle = styled(Select)(() => ({
-   '.MuiSelect-select': {
-      paddingTop: '8px',
-   },
+   // '.MuiSelect-select': {
+   //    paddingTop: '8px',
+   // },
    '& .MuiOutlinedInput-notchedOutline': {
       border: '1px solid #cfcfcf',
       borderRadius: '10px',

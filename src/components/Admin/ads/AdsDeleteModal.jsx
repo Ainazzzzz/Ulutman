@@ -2,18 +2,13 @@ import { useState } from 'react';
 import Modal from '../../UI/Modal';
 import { styled } from '@mui/material';
 
-export const AdsDeleteModal = () => {
-   const [isOpen, setIsOpen] = useState(true);
-
-   const handleCloseModal = () => setIsOpen(!isOpen);
-
-   const handleClick = () => setIsOpen(!isOpen);
+export const AdsDeleteModal = ({ isOpen, onClose }) => {
    return (
-      <Modal open={isOpen} handleClose={handleCloseModal} variant="delete">
+      <Modal open={isOpen} handleClose={onClose} variant="delete">
          <Container>
             <Title>Вы уверены, что хотите удалить?</Title>
             <div>
-               <FirstButton onClick={handleClick}>Отменить</FirstButton>
+               <FirstButton onClick={onClose}>Отменить</FirstButton>
                <SecondButton>Удалить</SecondButton>
             </div>
          </Container>
