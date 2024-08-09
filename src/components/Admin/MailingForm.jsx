@@ -71,7 +71,7 @@ export const MailingForm = ({ mailingType, recipients }) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   touched={formik.touched.typeMailing?.toString()}
-                  errors={formik.errors.typeMailing}
+                  error={formik.errors.typeMailing}
                   label="Тип рассылки"
                   options={mailingType}
                />
