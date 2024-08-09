@@ -148,10 +148,13 @@ export const Ads = () => {
             <div>
                <RedDeleteIcon onClick={handleOpenDeleteModal} />
             </div>
-            {open && <AdsDeleteModal />}
+            <AdsDeleteModal
+               isOpen={open}
+               handleOpenDeleteModal={handleOpenDeleteModal}
+            />
          </Container>
          <Table data={ads} column={headers} />
-         {isOpen && <WaitingModal onClose={handleCloseWaitingModal} />}
+         <WaitingModal isOpen={isOpen} onClose={handleCloseWaitingModal} />
       </Wrapper>
    );
 };

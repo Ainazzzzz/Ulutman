@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { Dashboard } from '../components/Admin/Dashboard';
 import Users from '../components/Admin/Users';
 import { AddMailingPage } from '../pages/Admin/AddMailingPage';
+import { ModerationPage } from '../pages/Admin/ModerationPage';
 import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole';
 import { Ads } from '../components/Admin/ads/Ads';
 
