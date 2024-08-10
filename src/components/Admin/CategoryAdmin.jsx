@@ -11,6 +11,7 @@ import { AdsDeleteModal } from '../Admin/ads/AdsDeleteModal';
 import { WaitingModal } from '../Admin/ads/WaitingModal';
 import { Button } from '../UI/Button';
 import Plus from '../../assets/icons/plus.svg?react';
+
 const CategoryAdmin = () => {
    const [open, setOpen] = useState(false);
    const [isOpen, setIsOpen] = useState(false);
