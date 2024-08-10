@@ -5,8 +5,14 @@ import ListItem from '@mui/material/ListItem';
 import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react';
 import { styled, Typography, useMediaQuery } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import LogOutModal from './LogOutModal';
 
 export const SideBar = () => {
+   const [openModal, setOpenModal] = useState(false);
+
+   const toggleModal = () => setOpenModal(prev => !prev);
+
    const DrawerList = (
       <Box sx={{ width: 250 }}>
          <UlutmanLogo>
@@ -40,13 +46,18 @@ export const SideBar = () => {
                <NavStyle to={'settings'}>Настройки</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <LogOutBtn>Выйти</LogOutBtn>
+               <LogOutBtn onClick={toggleModal}>Выйти</LogOutBtn>
             </ListItemStyle>
          </List>
       </Box>
    );
 
-   return <DrawerStyle>{DrawerList}</DrawerStyle>;
+   return (
+      <>
+         <DrawerStyle>{DrawerList}</DrawerStyle>
+         <LogOutModal open={openModal} onClose={toggleModal} />
+      </>
+   );
 };
 
 const UlutmanLogo = styled('div')(() => ({

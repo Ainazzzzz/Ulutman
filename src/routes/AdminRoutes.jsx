@@ -5,6 +5,7 @@ import { AddMailingPage } from '../pages/Admin/AddMailingPage';
 import { ModerationPage } from '../pages/Admin/ModerationPage';
 import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole';
 import { Ads } from '../components/Admin/ads/Ads';
+import CategoryAdmin from '../components/Admin/CategoryAdmin';
 
 export const AdminRoutes = role => {
    const adminRoutes = [
@@ -46,6 +47,17 @@ export const AdminRoutes = role => {
          ),
       },
       {
+         path: 'categories',
+         element: (
+            <PrivateAuthRouteByRole
+               role={role}
+               roles={['ADMIN']}
+               fallBackPath="/"
+               RouteComponent={<CategoryAdmin />}
+            />
+         ),
+      },
+      {
          path: 'moderation',
          element: (
             <PrivateAuthRouteByRole
@@ -64,6 +76,17 @@ export const AdminRoutes = role => {
                roles={['ADMIN']}
                fallBackPath="/"
                RouteComponent={<AddMailingPage />}
+            />
+         ),
+      },
+      {
+         path: 'settings',
+         element: (
+            <PrivateAuthRouteByRole
+               role={role}
+               roles={['ADMIN']}
+               fallBackPath="/"
+               RouteComponent={<h1>Settings Page</h1>}
             />
          ),
       },
