@@ -25,7 +25,11 @@ const ReusableSelect = forwardRef(
                   <MenuItem disabled>Здесь пока что нету данных.</MenuItem>
                ) : (
                   options?.map(option => (
-                     <MenuItemStyle key={option.id} value={option.value}>
+                     <MenuItemStyle
+                        key={option.id}
+                        value={option.value}
+                        disabled={option.disabled}
+                     >
                         {option.label}
                      </MenuItemStyle>
                   ))
@@ -39,9 +43,9 @@ const ReusableSelect = forwardRef(
 export default ReusableSelect;
 
 const SelectStyle = styled(Select)(() => ({
-   '.MuiSelect-select': {
-      paddingTop: '8px',
-   },
+   // '.MuiSelect-select': {
+   //    paddingTop: '8px',
+   // },
    '& .MuiOutlinedInput-notchedOutline': {
       border: '1px solid #cfcfcf',
       borderRadius: '10px',

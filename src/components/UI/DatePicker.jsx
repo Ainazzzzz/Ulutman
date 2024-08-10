@@ -31,10 +31,12 @@ export const DatePicker = ({ setDate }) => {
    };
 
    const handleOpen = () => setOpen(true);
+   const handleClose = () => setOpen(false);
 
    const handleApply = () => {
       const formattedDates = dates;
       setDate(formattedDates);
+      handleClose();
    };
 
    const CustomDatePicker = props => (
@@ -98,6 +100,7 @@ export const DatePicker = ({ setDate }) => {
                onChange={handleDateChange}
                open={open}
                onOpen={handleOpen}
+               onClose={handleClose}
                renderDay={renderDay}
                slots={{
                   openPickerIcon: DatePickerIcon,

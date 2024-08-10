@@ -1,15 +1,14 @@
+import { green, red } from '@mui/material/colors';
 import React, { useMemo, useState } from 'react';
-import Table from '../../UI/Table';
 import { styled } from '@mui/material';
-import Wait from '../../../assets/icons/wait-icon.svg?react';
-import { green, red, orange } from '@mui/material/colors';
-import Filter from '../../../assets/icons/filter-icon.svg?react';
-import Replay from '../../../assets/icons/replay-icon.svg?react';
-import RedDeleteIcon from '../../../assets/icons/red-delete-icon.svg?react';
-import ReusableSelect from '../../UI/Select';
-import { AdsDeleteModal } from './AdsDeleteModal';
-import { WaitingModal } from './WaitingModal';
-export const Ads = () => {
+import ReusableSelect from '../UI/Select';
+import Filter from '../../assets/icons/filter-icon.svg?react';
+import Replay from '../../assets/icons/replay-icon.svg?react';
+import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react';
+import Table from '../UI/Table';
+import { DatePicker } from '../UI/DatePicker.jsx';
+
+const Users = () => {
    const [open, setOpen] = useState(false);
    const [isOpen, setIsOpen] = useState(false);
    const [selectedValue, setSelectedValue] = useState('Категория');
@@ -21,7 +20,8 @@ export const Ads = () => {
          email: 'jaka-imanaliev@mail.ru',
          category: 'Услуги',
          date: '19.01.2023',
-         status: 'Одобрен',
+         status: 'Заблокирован',
+         role: 'Админ',
       },
       {
          id: 2,
@@ -29,7 +29,8 @@ export const Ads = () => {
          email: 'jaka-imanaliev@mail.ru',
          category: 'Админ',
          date: '19.01.2023',
-         status: 'Отклонен',
+         status: 'Заблокирован',
+         role: 'Админ',
       },
       {
          id: 3,
@@ -37,7 +38,8 @@ export const Ads = () => {
          email: 'jaka-imanaliev@mail.ru',
          category: 'Админ',
          date: '19.01.2023',
-         status: 'Ожидает',
+         status: 'Активный',
+         role: 'Админ',
       },
    ];
 
@@ -56,11 +58,11 @@ export const Ads = () => {
             accessor: 'email',
          },
          {
-            Header: 'КАТЕГОРИЯ',
-            accessor: 'category',
+            Header: 'РОЛЬ',
+            accessor: 'role',
          },
          {
-            Header: 'ДАТА СОЗДАНИЯ',
+            Header: 'ДАТА РЕГИСТРАЦИИ',
             accessor: 'date',
          },
 
@@ -71,15 +73,11 @@ export const Ads = () => {
                let color, Icon;
 
                switch (value) {
-                  case 'Одобрен':
+                  case 'Активный':
                      color = green[500];
                      break;
-                  case 'Отклонен':
+                  case 'Заблокирован':
                      color = red[500];
-                     break;
-                  case 'Ожидает':
-                     color = orange[500];
-                     Icon = Wait;
                      break;
                   default:
                      color = 'inherit';
@@ -120,16 +118,21 @@ export const Ads = () => {
                <FilterStyle>
                   <Filter />
                </FilterStyle>
+
                <Title>По имени</Title>
+
                <SelectStyle
                   value={selectedValue}
                   options={options}
                   renderValue={value =>
                      value
-                        ? 'Категория'
+                        ? 'Роль'
                         : options.find(option => option.value === value)?.label
                   }
                />
+
+               <DatePicker />
+
                <SelectStyle
                   value={selectedValue}
                   options={options}
@@ -147,16 +150,15 @@ export const Ads = () => {
             <div>
                <RedDeleteIcon onClick={handleOpenDeleteModal} />
             </div>
-            <AdsDeleteModal
-               isOpen={open}
-               handleOpenDeleteModal={handleOpenDeleteModal}
-            />
+            {open && <AdsDeleteModal />}
          </Container>
          <Table data={ads} column={headers} />
-         <WaitingModal isOpen={isOpen} onClose={handleCloseWaitingModal} />
+         {isOpen && <WaitingModal onClose={handleCloseWaitingModal} />}
       </Wrapper>
    );
 };
+
+export default Users;
 
 const Description = styled('h2')(({ theme }) => ({
    fontWeight: '600',

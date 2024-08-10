@@ -11,7 +11,7 @@ import { CARDS, CARDS_MAIN } from '../../utils/constants';
 import { AdvertisingCategory } from './AdvertisingCategory';
 import AnnouncementsSorter from '../AnnouncementsSorter';
 import { CardList } from '../UI/Card/CardList';
-import { CategoryModal } from './CategoryModal';
+import { FilterModal } from './FilterModal';
 
 export const CategoryTab = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
@@ -67,7 +67,7 @@ export const CategoryTab = () => {
                <TabPanel value="3">нет данных</TabPanel>
                <TabPanel value="4">нет данных</TabPanel>
                <TabPanel value="5">
-                  <CategoryModal />
+                  <FilterModal />
                </TabPanel>
             </TabContext>
          </Box>
