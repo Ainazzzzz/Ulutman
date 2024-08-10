@@ -5,7 +5,8 @@ import { styled, useMediaQuery } from '@mui/material';
 import Input from '../UI/Input';
 import ResetFilter from '../../assets/icons/reset-filter.svg?react';
 import { Button } from '../../components/UI/Button';
-export const CategoryModal = () => {
+
+export const FilterModal = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
    const [open, setOpen] = useState(true);
