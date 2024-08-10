@@ -3,7 +3,8 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react';
-import { styled, useMediaQuery } from '@mui/material';
+import { styled, Typography, useMediaQuery } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 export const SideBar = () => {
    const DrawerList = (
@@ -13,22 +14,22 @@ export const SideBar = () => {
          </UlutmanLogo>
          <List>
             <ListItemStyle>
-               <NavStyle href="dashboard">Dashboard</NavStyle>
+               <NavStyle to="dashboard">Статистика</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <NavStyle href="users">Пользователи</NavStyle>
+               <NavStyle to="users">Пользователи</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <NavStyle href="ads">Объявления</NavStyle>
+               <NavStyle to="ads">Объявления</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <NavStyle href="categories">Категории</NavStyle>
+               <NavStyle to="categories">Категории</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <NavStyle href="moderation">Модерация</NavStyle>
+               <NavStyle to="moderation">Модерация</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <NavStyle href="add-mailing">Рассылки</NavStyle>
+               <NavStyle to="add-mailing">Рассылки</NavStyle>
             </ListItemStyle>
          </List>
          <br />
@@ -36,10 +37,10 @@ export const SideBar = () => {
          <br />
          <List>
             <ListItemStyle>
-               <NavStyle href="#">Настройки</NavStyle>
+               <NavStyle to={'settings'}>Настройки</NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <NavStyle href="#">Выйти</NavStyle>
+               <LogOutBtn>Выйти</LogOutBtn>
             </ListItemStyle>
          </List>
       </Box>
@@ -69,7 +70,7 @@ const ListItemStyle = styled(ListItem)(() => ({
    paddingTop: '0px',
    paddingBottom: '0px',
 }));
-const NavStyle = styled('a')(() => ({
+const NavStyle = styled(NavLink)(() => ({
    width: '192px',
    height: '50px',
    borderRadius: '6px',
@@ -83,4 +84,26 @@ const NavStyle = styled('a')(() => ({
       background: '#7e52ff',
       color: '#fff',
    },
+
+   '&.active': {
+      background: '#7e52ff',
+      color: '#fff',
+   },
+}));
+
+const LogOutBtn = styled(Typography)(() => ({
+   width: '192px',
+   height: '50px',
+   borderRadius: '6px',
+   textDecoration: 'none',
+   fontWeight: '600',
+   fontSize: '14px',
+   color: '#282828',
+   padding: '16px 0px 16px 30px',
+   transition: '400ms',
+   '&:hover': {
+      background: '#7e52ff',
+      color: '#fff',
+   },
+   cursor: 'pointer',
 }));

@@ -46,6 +46,17 @@ export const AdminRoutes = role => {
          ),
       },
       {
+         path: 'moderation',
+         element: (
+            <PrivateAuthRouteByRole
+               role={role}
+               roles={['ADMIN']}
+               fallBackPath="/"
+               RouteComponent={<ModerationPage />}
+            />
+         ),
+      },
+      {
          path: 'add-mailing',
          element: (
             <PrivateAuthRouteByRole

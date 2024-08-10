@@ -23,7 +23,7 @@ const customBackgroundColor = (title, value) => ({
 export const Dashboard = () => {
    return (
       <StyledContainer>
-         <Title>Dashboard</Title>
+         <Title>Статистика</Title>
 
          <StyledBox>
             <Typography variant="h1">Популярность категории</Typography>
