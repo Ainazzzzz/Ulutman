@@ -1,23 +1,54 @@
-import { styled, Tab, Tabs } from '@mui/material';
-import React from 'react';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { Box, styled, Tab } from '@mui/material';
+import React, { useState } from 'react';
 
-const TabsUi = ({ tabLabels }) => {
+const TabsUi = ({ tabs }) => {
+   const [value, setValue] = useState('1');
+
+   const handleChange = (event, newValue) => {
+      setValue(newValue);
+   };
    return (
-      <div>
-         <Tabs
-            variant="scrollable"
-            scrollButtons="auto"
-            aria-label="scrollable auto tabs"
-         >
-            {tabLabels.map((label, index) => (
-               <TabsStyle key={index} label={label} />
+      <BoxStyle>
+         <TabContext value={value}>
+            <ScrollableTabList
+               onChange={handleChange}
+               aria-label="scrollable auto tabs example"
+               variant="scrollable"
+               scrollButtons="auto"
+            >
+               {tabs.map(tab => (
+                  <TabsStyle
+                     key={tab.value}
+                     label={tab.label}
+                     value={tab.value}
+                  />
+               ))}
+            </ScrollableTabList>
+
+            {tabs.map(tab => (
+               <TabPanel key={tab.value} value={tab.value}>
+                  {tab.content}
+               </TabPanel>
             ))}
-         </Tabs>
-      </div>
+         </TabContext>
+      </BoxStyle>
    );
 };
 
 export default TabsUi;
+const BoxStyle = styled(Box)(({ theme }) => ({
+   width: '100%',
+}));
+
+const ScrollableTabList = styled(TabList)(({ theme }) => ({
+   [theme.breakpoints.down('md')]: {
+      overflowX: 'auto',
+   },
+   '& .MuiTabs-flexContainer': {
+      display: 'flex',
+   },
+}));
 
 const TabsStyle = styled(Tab)(({ theme }) => ({
    color: '#282828',
@@ -25,6 +56,11 @@ const TabsStyle = styled(Tab)(({ theme }) => ({
    fontWeight: '500',
    fontSize: '22px',
    textTransform: 'inherit',
+   cursor: 'pointer',
+   '.css-foga8i-MuiButtonBase-root-MuiTab-root.Mui-selected': {
+      color: '#5a1e1e',
+   },
+
    ':hover': {
       color: '#7E52FF',
    },
@@ -38,6 +74,7 @@ const TabsStyle = styled(Tab)(({ theme }) => ({
       width: '80%',
       borderBottom: '2px solid #7E52FF',
    },
+
    [theme.breakpoints.down('md')]: {
       fontSize: '18px',
    },
