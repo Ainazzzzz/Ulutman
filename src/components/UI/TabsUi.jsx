@@ -1,5 +1,5 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, styled, Tab } from '@mui/material';
+import { Box, colors, styled, Tab } from '@mui/material';
 import React, { useState } from 'react';
 
 const TabsUi = ({ tabs }) => {
@@ -48,6 +48,10 @@ const ScrollableTabList = styled(TabList)(({ theme }) => ({
    '& .MuiTabs-flexContainer': {
       display: 'flex',
    },
+
+   '& .MuiTabs-indicator': {
+      display: 'none',
+   },
 }));
 
 const TabsStyle = styled(Tab)(({ theme }) => ({
@@ -57,14 +61,10 @@ const TabsStyle = styled(Tab)(({ theme }) => ({
    fontSize: '22px',
    textTransform: 'inherit',
    cursor: 'pointer',
-   '.css-foga8i-MuiButtonBase-root-MuiTab-root.Mui-selected': {
-      color: '#5a1e1e',
-   },
 
    ':hover': {
       color: '#7E52FF',
    },
-
    ':hover::after': {
       content: '""',
       position: 'absolute',
@@ -77,5 +77,8 @@ const TabsStyle = styled(Tab)(({ theme }) => ({
 
    [theme.breakpoints.down('md')]: {
       fontSize: '18px',
+   },
+   '&.Mui-selected': {
+      color: 'black',
    },
 }));
