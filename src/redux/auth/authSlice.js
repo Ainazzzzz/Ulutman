@@ -22,7 +22,7 @@ const getInitialState = () => {
       lastName: '',
       email: '',
       token: '',
-      role: 'GUEST',
+      role: 'ADMIN',
       isAuth: true,
       isLoading: false,
       error: null,
