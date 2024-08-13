@@ -65,7 +65,8 @@ const AddAdmin = () => {
 export default AddAdmin;
 const ContainerTitleArrow = styled('div')(() => ({
    display: 'flex',
-   justifyContent: 'space-around',
+   justifyContent: 'space-between',
+   padding: '0 60px 0 30px',
 }));
 const ArrowBox = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -75,7 +76,7 @@ const ArrowBox = styled('div')(({ theme }) => ({
    },
 }));
 const SehondBigContainer = styled('div')(({ theme }) => ({
-   paddingLeft: '260px',
+   paddingLeft: '30px',
    [theme.breakpoints.down('md')]: {
       paddingLeft: '30px',
    },

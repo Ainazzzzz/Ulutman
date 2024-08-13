@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Modal from '../../UI/Modal';
 import { styled } from '@mui/material';
 
@@ -31,6 +30,8 @@ const Title = styled('p')(({ theme }) => ({
    fontWeight: '500',
    fontSize: '17px',
    color: '#202020',
+   textAlign: 'center',
+
    [theme.breakpoints.down('md')]: {
       fontSize: '16px',
    },

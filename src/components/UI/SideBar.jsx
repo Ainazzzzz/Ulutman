@@ -3,7 +3,7 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react';
-import { styled, Typography, useMediaQuery } from '@mui/material';
+import { styled, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import LogOutModal from './LogOutModal';
@@ -75,6 +75,7 @@ const DrawerStyle = styled(Box)(() => ({
    background: '#fff',
    top: '0',
    left: '0',
+   zIndex: '100',
 }));
 
 const ListItemStyle = styled(ListItem)(() => ({

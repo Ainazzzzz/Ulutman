@@ -45,6 +45,7 @@ const Container = styled('div')(() => ({
 const Title = styled('p')(() => ({
    fontWeight: '500',
    color: '#202020',
+   textAlign: 'center',
 }));
 const FirstButton = styled('button')(() => ({
    fontWeight: '500',

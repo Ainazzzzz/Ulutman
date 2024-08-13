@@ -1,23 +1,23 @@
 import { useMemo, useReducer } from 'react';
 import { styled } from '@mui/material';
-
-import Table from '../UI/Table';
-import { AdsDeleteModal } from './ads/AdsDeleteModal';
-import { WaitingModal } from './ads/WaitingModal';
+import { getAdminTableHeaders } from '../../components/Admin/AdminTableHeader';
+import { AdminHeaderFilter } from '../../components/Admin/AdminHeaderFilter';
+import Table from '../../components/UI/Table';
+import { AdsDeleteModal } from '../../components/Admin/ads/AdsDeleteModal';
+import { WaitingModal } from '../../components/Admin/ads/WaitingModal';
 import {
-   MODERATION_COLUMNS,
-   MODERATION_DATA,
+   MODERATION_COMPLAINTS,
+   MODERATION_COMPLAINTS_DATA,
 } from '../../utils/constants/moderation';
-import { AdminHeaderFilter } from './AdminHeaderFilter';
-import { getAdminTableHeaders } from './AdminTableHeader';
 
-const inputData = [
-   { id: 'name', value: 'По имени' },
-   { id: 'search', value: 'Поиск по тексту' },
-];
+const inputData = [{ id: 'user', value: 'Пользователь' }];
 
 const selectsConfig = [
    { label: 'date', options: [{ id: 'e1', value: 'date', label: 'Дата' }] },
+   {
+      label: 'complaints',
+      options: [{ id: 'e1', value: 'complaints', label: 'Тип жалобы' }],
+   },
    {
       label: 'status',
       options: [{ id: 'e3', value: 'status', label: 'Cтатус' }],
@@ -27,49 +27,28 @@ const selectsConfig = [
 const initialState = {
    deleteAllModal: false,
    waitingModal: false,
-   inputValues: { name: '', search: '', date: [] },
-   selectedValues: { date: 'date', status: 'status' },
+   inputValues: { user: '', date: [] },
+   selectedValues: { date: 'date', status: 'status', complaints: 'complaints' },
 };
 
 const reducer = (state, action) => {
    switch (action.type) {
       case 'TOGGLE_DELETE_MODAL':
-         return {
-            ...state,
-            deleteAllModal: !state.deleteAllModal,
-         };
+         return { ...state, deleteAllModal: !state.deleteAllModal };
       case 'TOGGLE_WAITING_MODAL':
-         return {
-            ...state,
-            waitingModal: !state.waitingModal,
-         };
+         return { ...state, waitingModal: !state.waitingModal };
       case 'SET_INPUT_VALUES':
-         return {
-            ...state,
-            inputValues: { ...state.inputValues, ...action.payload },
-         };
       case 'SET_DATE_VALUES':
-         return {
-            ...state,
-            inputValues: { ...state.inputValues, date: action.payload },
-         };
       case 'SET_SELECTED_VALUES':
-         return {
-            ...state,
-            selectedValues: { ...state.selectedValues, ...action.payload },
-         };
+         return { ...state, ...action.payload };
       case 'RESET_FILTER':
-         return {
-            ...state,
-            inputValues: { name: '', search: '', date: [] },
-            selectedValues: { date: 'date', status: 'status' },
-         };
+         return initialState;
       default:
          return state;
    }
 };
 
-export const Moderation = () => {
+export const ComplaintsModerationPage = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
 
    const handleToggle = type => dispatch({ type });
@@ -77,33 +56,33 @@ export const Moderation = () => {
    const handleInputChange = (index, value) => {
       dispatch({
          type: 'SET_INPUT_VALUES',
-         payload: { [index]: value },
+         payload: { inputValues: { [index]: value } },
       });
    };
 
    const handleSelectChange = (label, value) => {
       dispatch({
          type: 'SET_SELECTED_VALUES',
-         payload: { [label]: value },
+         payload: { selectedValues: { [label]: value } },
       });
    };
 
    const handleDateChange = date => {
-      dispatch({ type: 'SET_DATE_VALUES', payload: date });
+      dispatch({ type: 'SET_DATE_VALUES', payload: { inputValues: { date } } });
    };
 
    const headers = useMemo(
       () =>
          getAdminTableHeaders(
             () => handleToggle('TOGGLE_WAITING_MODAL'),
-            MODERATION_COLUMNS,
+            MODERATION_COMPLAINTS,
          ),
       [],
    );
 
    return (
       <Wrapper>
-         <Description>Модерация комментариев и сообщений</Description>
+         <Description>Управление жалобами и нарушениями</Description>
 
          <AdminHeaderFilter
             selectedValues={state.selectedValues}
@@ -117,7 +96,7 @@ export const Moderation = () => {
             handleDateChange={handleDateChange}
          />
 
-         <Table data={MODERATION_DATA} column={headers} />
+         <Table data={MODERATION_COMPLAINTS_DATA} column={headers} />
 
          <AdsDeleteModal
             isOpen={state.deleteAllModal}

@@ -6,6 +6,9 @@ import { ModerationPage } from '../pages/Admin/ModerationPage';
 import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole';
 import { Ads } from '../components/Admin/ads/Ads';
 import CategoryAdmin from '../components/Admin/CategoryAdmin';
+import AddAdmin from '../components/Admin/AddAdmin';
+import { ComplaintsModerationPage } from '../pages/Admin/ComplaintsModerationPage';
+import { MediaFilesModerationPage } from '../pages/Admin/MediaFilesModerationPage';
 
 export const AdminRoutes = role => {
    const adminRoutes = [
@@ -69,6 +72,28 @@ export const AdminRoutes = role => {
          ),
       },
       {
+         path: 'media-files',
+         element: (
+            <PrivateAuthRouteByRole
+               role={role}
+               roles={['ADMIN']}
+               fallBackPath="/"
+               RouteComponent={<MediaFilesModerationPage />}
+            />
+         ),
+      },
+      {
+         path: 'complaints',
+         element: (
+            <PrivateAuthRouteByRole
+               role={role}
+               roles={['ADMIN']}
+               fallBackPath="/"
+               RouteComponent={<ComplaintsModerationPage />}
+            />
+         ),
+      },
+      {
          path: 'add-mailing',
          element: (
             <PrivateAuthRouteByRole
@@ -76,6 +101,17 @@ export const AdminRoutes = role => {
                roles={['ADMIN']}
                fallBackPath="/"
                RouteComponent={<AddMailingPage />}
+            />
+         ),
+      },
+      {
+         path: 'add-administrator',
+         element: (
+            <PrivateAuthRouteByRole
+               role={role}
+               roles={['ADMIN']}
+               fallBackPath="/"
+               RouteComponent={<AddAdmin />}
             />
          ),
       },
