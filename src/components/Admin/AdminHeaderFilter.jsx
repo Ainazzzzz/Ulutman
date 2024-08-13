@@ -39,7 +39,7 @@ export const AdminHeaderFilter = ({
 
                {selectsConfig?.map(select => (
                   <div key={select.label}>
-                     {select.label === 'data' ? (
+                     {select.label === 'date' ? (
                         <StyledDatePickerWrapper>
                            <DatePicker setDate={handleDateChange} />
                         </StyledDatePickerWrapper>
@@ -199,7 +199,7 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    },
 
    '.MuiSelect-select': {
-      paddingTop: '23px',
+      paddingTop: '23.5px',
    },
 }));
 

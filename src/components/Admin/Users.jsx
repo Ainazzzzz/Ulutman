@@ -1,159 +1,104 @@
-import { green, red } from '@mui/material/colors';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useReducer, useCallback } from 'react';
 import { styled } from '@mui/material';
-import ReusableSelect from '../UI/Select';
-import Filter from '../../assets/icons/filter-icon.svg?react';
-import Replay from '../../assets/icons/replay-icon.svg?react';
-import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react';
 import Table from '../UI/Table';
-import { DatePicker } from '../UI/DatePicker.jsx';
+import { getAdminTableHeaders } from './AdminTableHeader.jsx';
+import { USERS_COLUMNS, USERS_DATA } from '../../utils/constants/moderation.js';
+import { AdsDeleteModal } from './ads/AdsDeleteModal.jsx';
+import { AdminHeaderFilter } from './AdminHeaderFilter.jsx';
+import { WaitingModal } from './ads/WaitingModal.jsx';
+import { Button } from '../UI/Button.jsx';
+import Plus from '../../assets/icons/plus.svg?react';
+import { useNavigate } from 'react-router-dom';
+
+const inputData = [{ id: 'name', value: 'По имени' }];
+
+const selectsConfig = [
+   { label: 'role', options: [{ id: 'e1', value: 'role', label: 'Роль' }] },
+   { label: 'date', options: [{ id: 'e2', value: 'date', label: 'Дата' }] },
+   {
+      label: 'status',
+      options: [{ id: 'e3', value: 'status', label: 'Cтатус' }],
+   },
+];
+
+const initialState = {
+   deleteAllModal: false,
+   waitingModal: false,
+   inputValues: { name: '', date: [] },
+   selectedValues: { role: 'role', date: 'date', status: 'status' },
+};
+
+const reducer = (state, action) => {
+   switch (action.type) {
+      case 'TOGGLE_MODAL':
+         return { ...state, [action.payload]: !state[action.payload] };
+      case 'SET_VALUES':
+         return {
+            ...state,
+            [action.field]: { ...state[action.field], ...action.payload },
+         };
+      case 'RESET_FILTER':
+         return initialState;
+      default:
+         return state;
+   }
+};
 
 const Users = () => {
-   const [open, setOpen] = useState(false);
-   const [isOpen, setIsOpen] = useState(false);
-   const [selectedValue, setSelectedValue] = useState('Категория');
+   const [state, dispatch] = useReducer(reducer, initialState);
+   const navigate = useNavigate();
 
-   const ads = [
-      {
-         id: 1,
-         name: 'Jaka',
-         email: 'jaka-imanaliev@mail.ru',
-         category: 'Услуги',
-         date: '19.01.2023',
-         status: 'Заблокирован',
-         role: 'Админ',
-      },
-      {
-         id: 2,
-         name: 'Jaka',
-         email: 'jaka-imanaliev@mail.ru',
-         category: 'Админ',
-         date: '19.01.2023',
-         status: 'Заблокирован',
-         role: 'Админ',
-      },
-      {
-         id: 3,
-         name: 'Jaka',
-         email: 'jaka-imanaliev@mail.ru',
-         category: 'Админ',
-         date: '19.01.2023',
-         status: 'Активный',
-         role: 'Админ',
-      },
-   ];
+   const toggleModal = useCallback(modalType => {
+      dispatch({ type: 'TOGGLE_MODAL', payload: modalType });
+   }, []);
 
-   const handleOpenDeleteModal = () => setOpen(true);
-   const handleOpenWaitingModal = () => setIsOpen(true);
-   const handleCloseWaitingModal = () => setIsOpen(true);
+   const setValues = useCallback((field, payload) => {
+      dispatch({ type: 'SET_VALUES', field, payload });
+   }, []);
 
    const headers = useMemo(
-      () => [
-         {
-            Header: 'ИМЯ',
-            accessor: 'name',
-         },
-         {
-            Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
-            accessor: 'email',
-         },
-         {
-            Header: 'РОЛЬ',
-            accessor: 'role',
-         },
-         {
-            Header: 'ДАТА РЕГИСТРАЦИИ',
-            accessor: 'date',
-         },
-
-         {
-            Header: 'СТАТУС',
-            accessor: 'status',
-            Cell: ({ cell: { value } }) => {
-               let color, Icon;
-
-               switch (value) {
-                  case 'Активный':
-                     color = green[500];
-                     break;
-                  case 'Заблокирован':
-                     color = red[500];
-                     break;
-                  default:
-                     color = 'inherit';
-                     Icon = null;
-               }
-
-               return (
-                  <Block>
-                     <MiniBlock
-                        style={{ background: color, cursor: 'pointer' }}
-                        onClick={
-                           value === 'Ожидает'
-                              ? handleOpenWaitingModal
-                              : undefined
-                        }
-                     >
-                        {value}
-                     </MiniBlock>
-                     {Icon && <Icon />}
-                  </Block>
-               );
-            },
-         },
-      ],
-      [],
+      () =>
+         getAdminTableHeaders(() => toggleModal('waitingModal'), USERS_COLUMNS),
+      [toggleModal],
    );
-
-   const options = [
-      { id: 1, value: 'option1', label: 'Option 1' },
-      { id: 2, value: 'option2', label: 'Option 2' },
-   ];
 
    return (
       <Wrapper>
-         <Description>Управление пользователями</Description>
-         <Container>
-            <FirstBlock>
-               <FilterStyle>
-                  <Filter />
-               </FilterStyle>
+         <WrapperTitle>
+            <Description>Управление пользователями</Description>
+            <Button onClick={() => navigate('/admin/add-administrator')}>
+               <Plus /> Добавить администратора
+            </Button>
+         </WrapperTitle>
 
-               <Title>По имени</Title>
+         <AdminHeaderFilter
+            selectedValues={state.selectedValues}
+            onSelectChange={(label, value) =>
+               setValues('selectedValues', { [label]: value })
+            }
+            inputData={inputData}
+            selectsConfig={selectsConfig}
+            onDeleteModal={() => toggleModal('deleteAllModal')}
+            handleChange={(index, value) =>
+               setValues('inputValues', { [index]: value })
+            }
+            onResetFilter={() => dispatch({ type: 'RESET_FILTER' })}
+            handleDateChange={label =>
+               setValues('inputValues', { date: label })
+            }
+            value={state.inputValues}
+         />
+         <Table data={USERS_DATA} column={headers} />
 
-               <SelectStyle
-                  value={selectedValue}
-                  options={options}
-                  renderValue={value =>
-                     value
-                        ? 'Роль'
-                        : options.find(option => option.value === value)?.label
-                  }
-               />
+         <AdsDeleteModal
+            isOpen={state.deleteAllModal}
+            onClose={() => toggleModal('deleteAllModal')}
+         />
 
-               <DatePicker />
-
-               <SelectStyle
-                  value={selectedValue}
-                  options={options}
-                  renderValue={value =>
-                     value
-                        ? 'Статус'
-                        : options.find(option => option.value === value)?.label
-                  }
-               />
-               <SecondMiniBlock>
-                  <Replay />
-                  <p>Сбросить фильтр</p>
-               </SecondMiniBlock>
-            </FirstBlock>
-            <div>
-               <RedDeleteIcon onClick={handleOpenDeleteModal} />
-            </div>
-            {open && <AdsDeleteModal />}
-         </Container>
-         <Table data={ads} column={headers} />
-         {isOpen && <WaitingModal onClose={handleCloseWaitingModal} />}
+         <WaitingModal
+            isOpen={state.waitingModal}
+            onClose={() => toggleModal('waitingModal')}
+         />
       </Wrapper>
    );
 };
@@ -168,6 +113,7 @@ const Description = styled('h2')(({ theme }) => ({
       fontSize: '22px',
    },
 }));
+
 const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
@@ -178,112 +124,12 @@ const Wrapper = styled('div')(({ theme }) => ({
    },
 }));
 
-const Block = styled('div')(() => ({
+const WrapperTitle = styled('div')(({ theme }) => ({
    display: 'flex',
-   alignItems: 'center',
-   gap: '6px',
-}));
-const MiniBlock = styled('div')(() => ({
-   width: '108px',
-   height: '29px',
-   borderRadius: '4px',
-   color: 'white',
-   padding: '4px 20px 0px 20px',
-   fontSize: '14px',
-   fontWeight: '500',
-}));
-const Container = styled('div')(({ theme }) => ({
-   display: 'flex',
-   alignItems: 'center',
    justifyContent: 'space-between',
-   svg: {
-      cursor: 'pointer',
-   },
+   gap: '24px',
+   padding: '30px',
    [theme.breakpoints.down('md')]: {
-      gap: '24px',
-      alignItems: 'inherit',
+      flexDirection: 'column',
    },
-}));
-const FirstBlock = styled('div')(() => ({
-   display: 'flex',
-   alignItems: 'center',
-
-   div: {
-      width: '200px',
-      height: '70px',
-
-      display: 'flex',
-      gap: '8px',
-      alignItems: 'center',
-      justifyContent: 'center',
-      p: {
-         color: '#ea0234',
-         fontWeight: '600',
-         fontSize: '14px',
-         cursor: 'pointer',
-      },
-   },
-}));
-
-const Title = styled('p')(() => ({
-   width: '115px',
-   height: '70px',
-   borderTop: '0.6px solid #d5d5d5',
-   borderBottom: '0.6px solid #d5d5d5',
-   display: 'flex',
-   gap: '8px',
-   alignItems: 'center',
-   justifyContent: 'center',
-   fontSize: '14px',
-   fontWeight: '700',
-   cursor: ' pointer',
-}));
-
-const FilterStyle = styled('p')(() => ({
-   width: '64px',
-   height: '70px',
-   display: 'flex',
-   gap: '8px',
-   alignItems: 'center',
-   justifyContent: 'center',
-   border: '0.6px solid #d5d5d5',
-   borderTopLeftRadius: '14px',
-   borderBottomLeftRadius: '14px',
-   svg: {
-      cursor: 'pointer',
-   },
-}));
-
-const SelectStyle = styled(ReusableSelect)(() => ({
-   marginBottom: '18px',
-   color: '#202224',
-   fontWeight: '700',
-   fontSize: '14px',
-   '.MuiSelect-icon': {
-      top: '30px',
-      right: '24px',
-   },
-   '.MuiOutlinedInput-notchedOutline': {
-      borderRadius: '0px',
-      height: '75px',
-      borderRight: 'none',
-   },
-   '&:hover .MuiOutlinedInput-notchedOutline': {
-      border: '1px solid #d5d5d5',
-      borderRight: 'none',
-   },
-   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      border: '1px solid #d5d5d5',
-      borderRight: 'none',
-   },
-   '.MuiSelect-select': {
-      paddingTop: '23px',
-   },
-}));
-const SecondMiniBlock = styled('div')(() => ({
-   width: '193px',
-   height: '70px',
-   border: '0.6px solid #d5d5d5',
-   borderTopRightRadius: '14px',
-   borderBottomRightRadius: '14px',
 }));

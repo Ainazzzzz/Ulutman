@@ -1,29 +1,35 @@
 import { styled } from '@mui/material';
 import { green, red, orange } from '@mui/material/colors';
-import Wait from '../../assets/icons/address-icon.svg?react';
+import WaitIcon from '../../assets/icons/address-icon.svg?react';
 
 export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
    return columns.map(column => {
-      if (column.accessor === 'status') {
+      if (column.accessor.toUpperCase() === 'STATUS') {
          return {
             ...column,
             Cell: ({ cell: { value } }) => {
-               let color, Icon;
+               let color,
+                  IconComponent = null;
+               const upperValue = value.toUpperCase();
 
-               switch (value) {
-                  case 'Одобрен':
+               switch (upperValue) {
+                  case 'ОДОБРЕН':
+                  case 'РЕШЕНО':
+                  case 'АКТИВНЫЙ':
+                  case 'АКТИВНО':
                      color = green[500];
                      break;
-                  case 'Отклонен':
+                  case 'ЗАБЛОКИРОВАН':
+                  case 'ОТКЛОНЕН':
+                  case 'НЕАКТИВНО':
                      color = red[500];
                      break;
-                  case 'Ожидает':
+                  case 'ОЖИДАЕТ':
                      color = orange[500];
-                     Icon = Wait;
+                     IconComponent = WaitIcon;
                      break;
                   default:
                      color = 'inherit';
-                     Icon = null;
                }
 
                return (
@@ -31,14 +37,15 @@ export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
                      <MiniBlock
                         color={color}
                         onClick={
-                           value === 'Ожидает'
+                           upperValue === 'ОЖИДАЕТ'
                               ? handleOpenWaitingModal
                               : undefined
                         }
+                        clickable={upperValue === 'ОЖИДАЕТ'}
                      >
                         {value}
                      </MiniBlock>
-                     {Icon && <Icon />}
+                     {IconComponent && <IconComponent />}
                   </Block>
                );
             },
@@ -49,20 +56,20 @@ export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
    });
 };
 
-const Block = styled('div')(() => ({
+const Block = styled('div')({
    display: 'flex',
    alignItems: 'center',
+   justifyContent: 'start',
    gap: '6px',
-}));
+});
 
-const MiniBlock = styled('div')(({ color }) => ({
-   width: '108px',
+const MiniBlock = styled('div')(({ color, clickable }) => ({
    height: '29px',
    borderRadius: '4px',
    color: 'white',
-   padding: '4px 20px 0px 20px',
+   padding: '4px 20px',
    fontSize: '14px',
    fontWeight: '500',
    background: color,
-   cursor: 'pointer',
+   cursor: clickable ? 'pointer' : 'default',
 }));
