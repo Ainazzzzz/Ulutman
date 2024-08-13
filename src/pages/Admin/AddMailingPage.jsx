@@ -77,7 +77,6 @@ const ContainerTitle = styled('div')(({ theme }) => ({
 const Title = styled('h1')(({ theme }) => ({
    fontSize: '34px',
    fontWeight: '600',
-   fontFamily: 'Kanit',
 
    [theme.breakpoints.down('md')]: {
       fontSize: '22px',

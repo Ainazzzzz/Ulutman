@@ -20,6 +20,8 @@ import Modearation from '../../assets/icons/moderation.svg?react';
 import Language from '../../assets/icons/language-icon.svg?react';
 import { IconButton } from '../IconButton';
 import Menu from '@mui/material/Menu';
+import LogOutModal from '../UI/LogOutModal';
+import { NavLink } from 'react-router-dom';
 
 const renderFlag = language => {
    switch (language) {
@@ -42,6 +44,7 @@ const AdminHeader = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const [language, setLanguage] = useState('Русский');
    const [openMenu, setOpenMenu] = useState(null);
+   const [openLogOutModal, setOpenLogOutModal] = useState(false);
 
    const handleSelect = event => {
       setLanguage(event.target.value);
@@ -53,82 +56,109 @@ const AdminHeader = () => {
       setOpenMenu(event.currentTarget);
    };
 
-   return (
-      <WrapperAdminHeader>
-         <LogoMobile>
-            <UlutmanLogoStyle />
-         </LogoMobile>
-         {isMobile ? (
-            <div>
-               <MobileSearch>
-                  <Search />
-                  <IconButton onClick={handleClick}>
-                     <MenuAdmin />
-                  </IconButton>
-               </MobileSearch>
-               <MenuStyle
-                  anchorEl={openMenu}
-                  open={Boolean(openMenu)}
-                  onClose={handleClose}
-               >
-                  <MenuItemStyle onClick={handleClose}>
-                     <GoOut /> Выйти
-                  </MenuItemStyle>
-                  <Line></Line>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Users />
-                     Пользователи
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Announcement /> Объявления
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Category />
-                     Категории
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Modearation />
-                     Модерация
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Language />
-                     Сменить язык
-                  </MenuItemStyle>
-               </MenuStyle>
-            </div>
-         ) : (
-            <SehondBigContainer>
-               <InputStyle>
-                  <SearchIconStyle>
-                     <SearchIcon />
-                  </SearchIconStyle>
-                  <InputBase placeholder="Поиск" />
-               </InputStyle>
+   const toggleLogOutModal = () => {
+      handleClose();
+      setOpenLogOutModal(prev => !prev);
+   };
 
-               <MiddleContainerBox>
-                  <FrameStyle>
-                     <Frame />
-                  </FrameStyle>
-                  <FlagLanguageStyle>
-                     <div style={{ paddingTop: '14px' }}>
-                        {renderFlag(language)}
-                     </div>
-                     <SelectStyle
-                        options={languages}
-                        value={language}
-                        onChange={handleSelect}
-                     />
-                  </FlagLanguageStyle>
-                  <ContainerProfileTitle>
-                     <ProfileLogo>
-                        <User />
-                     </ProfileLogo>
-                     <TitleAdmin>Tezekbaev </TitleAdmin>
-                  </ContainerProfileTitle>
-               </MiddleContainerBox>
-            </SehondBigContainer>
-         )}
-      </WrapperAdminHeader>
+   return (
+      <>
+         <WrapperAdminHeader>
+            {isMobile && (
+               <LogoMobile>
+                  <UlutmanLogoStyle />
+               </LogoMobile>
+            )}
+            {isMobile ? (
+               <div>
+                  <MobileSearch>
+                     <Search />
+
+                     <IconButton onClick={handleClick}>
+                        <MenuAdmin />
+                     </IconButton>
+                  </MobileSearch>
+
+                  <MenuStyle
+                     anchorEl={openMenu}
+                     open={Boolean(openMenu)}
+                     onClose={handleClose}
+                  >
+                     <MenuItemStyle onClick={toggleLogOutModal}>
+                        <GoOut /> Выйти
+                     </MenuItemStyle>
+
+                     <Line></Line>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to="users">
+                           <Users />
+                           Пользователи
+                        </NavLink>
+                     </MenuItemStyle>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to={'ads'}>
+                           <Announcement /> Объявления
+                        </NavLink>
+                     </MenuItemStyle>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to={'categories'}>
+                           <Category />
+                           Категории
+                        </NavLink>
+                     </MenuItemStyle>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to={'moderation'}>
+                           <Modearation />
+                           Модерация
+                        </NavLink>
+                     </MenuItemStyle>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <Language />
+                        Сменить язык
+                     </MenuItemStyle>
+                  </MenuStyle>
+               </div>
+            ) : (
+               <SehondBigContainer>
+                  <InputStyle>
+                     <SearchIconStyle>
+                        <SearchIcon />
+                     </SearchIconStyle>
+                     <InputBase placeholder="Поиск" sx={{ width: '100%' }} />
+                  </InputStyle>
+
+                  <MiddleContainerBox>
+                     <FrameStyle>
+                        <Frame />
+                     </FrameStyle>
+                     <FlagLanguageStyle>
+                        <div style={{ paddingTop: '14px' }}>
+                           {renderFlag(language)}
+                        </div>
+                        <SelectStyle
+                           options={languages}
+                           value={language}
+                           onChange={handleSelect}
+                        />
+                     </FlagLanguageStyle>
+                     <ContainerProfileTitle>
+                        <ProfileLogo>
+                           <User />
+                        </ProfileLogo>
+                        <TitleAdmin>Tezekbaev </TitleAdmin>
+                     </ContainerProfileTitle>
+                  </MiddleContainerBox>
+               </SehondBigContainer>
+            )}
+         </WrapperAdminHeader>
+
+         <LogOutModal open={openLogOutModal} onClose={toggleLogOutModal} />
+      </>
    );
 };
 
@@ -149,10 +179,12 @@ const WrapperAdminHeader = styled('div')(({ theme }) => ({
 }));
 const SehondBigContainer = styled('div')(() => ({
    display: 'flex',
-   gap: '351px',
+   justifyContent: 'space-around',
+   width: '100%',
 }));
 const MobileSearch = styled('div')(({ theme }) => ({
    display: 'flex',
+   alignItems: 'center',
    gap: '27px',
    [theme.breakpoints.down('md')]: {
       paddingLeft: '110px',
@@ -163,14 +195,12 @@ const UlutmanLogoStyle = styled(UlutmanLogo)(({ theme }) => ({
    width: '134px',
    height: '29px',
 
-   [theme.breakpoints.down('md')]: {
-      width: '134px',
-      height: '29px',
-   },
+   [theme.breakpoints.down('md')]: {},
 }));
 const LogoMobile = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       display: 'flex',
+      alignItems: 'center',
    },
 }));
 
@@ -261,13 +291,26 @@ const MenuItemStyle = styled(MenuItem)(() => ({
    fontWeight: '600',
    '&:hover': {
       backgroundColor: '#fff',
-      color: '#7e52ff',
       borderTopRightRadius: '8px',
       borderBottomRightRadius: '8px',
       marginRight: '16px',
       '& svg path': {
          stroke: '#7e51ff',
       },
+
+      a: {
+         '&:hover': {
+            color: '#7e52ff',
+         },
+      },
+   },
+
+   a: {
+      color: '#fff',
+      textDecoration: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px',
    },
 }));
 const UsersStyle = styled('div')(() => ({
