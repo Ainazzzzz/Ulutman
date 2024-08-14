@@ -10,6 +10,7 @@ import { AdminLayout } from '../layout/RouteWrapper/AdminLayout';
 import { PrivateAuthRouter } from './private/PrivateAuthRoute';
 import { UserRoutes } from './UserRoutes';
 import { useSelector } from 'react-redux';
+import NotFoundPage from '../pages/NotFound';
 
 export const AppRoutes = () => {
    const { role } = useSelector(state => state.auth);
@@ -49,7 +50,7 @@ export const AppRoutes = () => {
       },
       {
          path: '*',
-         element: <h1>Not Found</h1>,
+         element: <NotFoundPage />,
       },
    ]);
 
