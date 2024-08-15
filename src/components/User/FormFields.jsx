@@ -6,7 +6,7 @@ import {
    Container,
    ErrorMessage,
    StyledWriting,
-} from '../Admin/MailingFormStyles';
+} from '../../pages/Admin/mailing/MailingFormStyles.jsx';
 
 export const InputField = ({
    name,

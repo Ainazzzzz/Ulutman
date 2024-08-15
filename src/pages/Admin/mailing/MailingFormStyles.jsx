@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
-import CameraAltIcon from '../../assets/icons/camera-icon.svg?react';
-import { Button } from '../UI/Button';
+import CameraAltIcon from '../../../assets/icons/camera-icon.svg?react';
+import { Button } from '../../../components/UI/Button.jsx';
 
 export const WrapperInputSelect = styled('div')(({ theme }) => ({
    width: '327px',

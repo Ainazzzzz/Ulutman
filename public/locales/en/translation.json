@@ -1,0 +1,36 @@
+{
+  "admin": {
+    "sideBar": {
+      "dashboard": "Statistics",
+      "users": "Users",
+      "ads": "Ads",
+      "categories": "Categories",
+      "moderation": "Moderation",
+      "mailing": "Mailing",
+      "settings": "Settings",
+      "logOut": "Log out",
+      "changeLanguage": "Change Language"
+    },
+    "header": {
+      "inputLabel": "Search",
+      "select": {
+        "kg": "Kyrgyz",
+        "ru": "Russian",
+        "tj": "Tajik",
+        "uz": "Uzbek",
+        "en": "English"
+      }
+    },
+    "dashboard": {
+      "title": "Statistics",
+      "popularCategory": "Popular Category",
+      "work": "Work",
+      "rentals": "Rentals",
+      "hotel": "Hotel",
+      "services": "Services",
+      "realEstate": "Real Estate",
+      "car": "Car",
+      "forSale": "For Sale"
+    }
+  }
+}

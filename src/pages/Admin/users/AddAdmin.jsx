@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Search from '../../assets/icons/searchgreyinput.svg?react';
+import Search from '../../../assets/icons/searchgreyinput.svg?react';
 import { InputBase, RadioGroup, styled } from '@mui/material';
-import { CheckBox } from '../UI/Checkbox';
-import ArrowPurpul from '../../assets/icons/arrowpurpul.svg?react';
-import { Button } from '../UI/Button';
-import RadioButton from '../UI/RadioButton';
+import ArrowPurpul from '../../../assets/icons/arrowpurpul.svg?react';
+import RadioButton from '../../../components/UI/RadioButton';
+import { CheckBox } from '../../../components/UI/Checkbox';
+import { Button } from '../../../components/UI/Button';
 
 const AddAdmin = () => {
    const [selectedOption, setSelectedOption] = useState('');

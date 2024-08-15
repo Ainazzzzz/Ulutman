@@ -1,4 +1,4 @@
-import { Moderation } from '../../components/Admin/Moderation';
+import { Moderation } from './Moderation.jsx';
 
 export const ModerationPage = () => {
    return (

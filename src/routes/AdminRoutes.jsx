@@ -1,14 +1,14 @@
 import { Navigate } from 'react-router-dom';
-import { Dashboard } from '../components/Admin/Dashboard';
-import Users from '../components/Admin/Users';
+import { Dashboard } from '../pages/Admin/dashboard/Dashboard.jsx';
 import { AddMailingPage } from '../pages/Admin/AddMailingPage';
-import { ModerationPage } from '../pages/Admin/ModerationPage';
+import { ModerationPage } from '../pages/Admin/moderation/ModerationPage';
 import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole';
-import { Ads } from '../components/Admin/ads/Ads';
-import CategoryAdmin from '../components/Admin/CategoryAdmin';
-import AddAdmin from '../components/Admin/AddAdmin';
-import { ComplaintsModerationPage } from '../pages/Admin/ComplaintsModerationPage';
-import { MediaFilesModerationPage } from '../pages/Admin/MediaFilesModerationPage';
+import { Ads } from '../pages/Admin/ads/Ads.jsx';
+import CategoryAdmin from '../pages/Admin/category/CategoryAdmin';
+import { ComplaintsModerationPage } from '../pages/Admin/moderation/ComplaintsModerationPage';
+import { MediaFilesModerationPage } from '../pages/Admin/moderation/MediaFilesModerationPage';
+import Users from '../pages/Admin/users/Users';
+import AddAdmin from '../pages/Admin/users/AddAdmin';
 
 export const AdminRoutes = role => {
    const adminRoutes = [

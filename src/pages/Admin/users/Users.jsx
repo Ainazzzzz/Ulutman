@@ -1,14 +1,17 @@
 import React, { useMemo, useReducer, useCallback } from 'react';
 import { styled } from '@mui/material';
-import Table from '../UI/Table';
-import { getAdminTableHeaders } from './AdminTableHeader.jsx';
-import { USERS_COLUMNS, USERS_DATA } from '../../utils/constants/moderation.js';
-import { AdsDeleteModal } from './ads/AdsDeleteModal.jsx';
-import { AdminHeaderFilter } from './AdminHeaderFilter.jsx';
-import { WaitingModal } from './ads/WaitingModal.jsx';
-import { Button } from '../UI/Button.jsx';
-import Plus from '../../assets/icons/plus.svg?react';
+import Plus from '../../../assets/icons/plus.svg?react';
 import { useNavigate } from 'react-router-dom';
+import Table from '../../../components/UI/Table.jsx';
+import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
+import {
+   USERS_COLUMNS,
+   USERS_DATA,
+} from '../../../utils/constants/moderation.js';
+import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';
+import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
+import { WaitingModal } from '../ads/WaitingModal.jsx';
+import { Button } from '../../../components/UI/Button.jsx';
 
 const inputData = [{ id: 'name', value: 'По имени' }];
 

@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 import { green, red, orange } from '@mui/material/colors';
-import WaitIcon from '../../assets/icons/address-icon.svg?react';
+import WaitIcon from '../../../assets/icons/address-icon.svg?react';
 
 export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
    return columns.map(column => {
