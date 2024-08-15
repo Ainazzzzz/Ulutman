@@ -1,4 +1,4 @@
-import Modal from '../../UI/Modal';
+import Modal from '../../../components/UI/Modal.jsx';
 import { styled } from '@mui/material';
 
 export const AdsDeleteModal = ({ isOpen, onClose }) => {

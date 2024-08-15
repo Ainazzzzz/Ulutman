@@ -1,16 +1,16 @@
 import React, { useMemo, useReducer, useCallback } from 'react';
 import { styled } from '@mui/material';
-import Table from '../UI/Table';
-import { AdsDeleteModal } from '../Admin/ads/AdsDeleteModal';
-import { WaitingModal } from '../Admin/ads/WaitingModal';
-import { Button } from '../UI/Button';
-import Plus from '../../assets/icons/plus.svg?react';
+import Table from '../../../components/UI/Table';
+import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';
+import { WaitingModal } from '../ads/WaitingModal.jsx';
+import { Button } from '../../../components/UI/Button';
+import Plus from '../../../assets/icons/plus.svg?react';
 import { getAdminTableHeaders } from './AdminTableHeader';
 import {
    CATEGORY_COLUMNS,
    CATEGORY_DATA,
-} from '../../utils/constants/moderation';
-import { AdminHeaderFilter } from './AdminHeaderFilter';
+} from '../../../utils/constants/moderation';
+import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter';
 
 const inputData = [{ id: 'name', value: 'По названию' }];
 

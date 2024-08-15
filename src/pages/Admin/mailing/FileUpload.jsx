@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import CloseIcon from '../../assets/icons/close-icon.svg?react';
+import CloseIcon from '../../../assets/icons/close-icon.svg?react';
 import {
    Container,
    Label,
@@ -8,7 +8,7 @@ import {
    ErrorMessage,
    ImagePreview,
    StyledDropzone,
-} from './MailingFormStyles';
+} from './MailingFormStyles.jsx';
 
 const FileUpload = ({ setFieldValue, touched, errors, id }) => {
    const [imagePreview, setImagePreview] = useState(null);

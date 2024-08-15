@@ -1,11 +1,11 @@
 import React, { useMemo, useReducer } from 'react';
 import { styled } from '@mui/material';
-import { AdminHeaderFilter } from '../AdminHeaderFilter';
-import { getAdminTableHeaders } from '../AdminTableHeader';
-import Table from '../../UI/Table';
-import { AdsDeleteModal } from './AdsDeleteModal';
-import { WaitingModal } from './WaitingModal';
-import { ADS_COLUMNS, ADS_DATA } from '../../../utils/constants/moderation';
+import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
+import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
+import Table from '../../../components/UI/Table.jsx';
+import { AdsDeleteModal } from './AdsDeleteModal.jsx';
+import { WaitingModal } from './WaitingModal.jsx';
+import { ADS_COLUMNS, ADS_DATA } from '../../../utils/constants/moderation.js';
 
 const inputData = [{ id: 'name', value: 'По имени' }];
 

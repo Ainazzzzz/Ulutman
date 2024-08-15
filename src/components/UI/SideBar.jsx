@@ -4,38 +4,54 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react';
 import { styled, Typography } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import LogOutModal from './LogOutModal';
+import { useTranslation } from 'react-i18next';
 
 export const SideBar = () => {
+   const { t } = useTranslation();
+   const navigate = useNavigate();
    const [openModal, setOpenModal] = useState(false);
 
    const toggleModal = () => setOpenModal(prev => !prev);
 
    const DrawerList = (
       <Box sx={{ width: 250 }}>
-         <UlutmanLogo>
+         <UlutmanLogo onClick={() => navigate('/admin')}>
             <Ulutman />
          </UlutmanLogo>
          <List>
             <ListItemStyle>
-               <NavStyle to="dashboard">Статистика</NavStyle>
+               <NavStyle to="dashboard">
+                  {t('admin.sideBar.dashboard')}
+               </NavStyle>
             </ListItemStyle>
+
             <ListItemStyle>
-               <NavStyle to="users">Пользователи</NavStyle>
+               <NavStyle to="users">{t('admin.sideBar.users')}</NavStyle>
             </ListItemStyle>
+
             <ListItemStyle>
-               <NavStyle to="ads">Объявления</NavStyle>
+               <NavStyle to="ads">{t('admin.sideBar.ads')}</NavStyle>
             </ListItemStyle>
+
             <ListItemStyle>
-               <NavStyle to="categories">Категории</NavStyle>
+               <NavStyle to="categories">
+                  {t('admin.sideBar.categories')}
+               </NavStyle>
             </ListItemStyle>
+
             <ListItemStyle>
-               <NavStyle to="moderation">Модерация</NavStyle>
+               <NavStyle to="moderation">
+                  {t('admin.sideBar.moderation')}
+               </NavStyle>
             </ListItemStyle>
+
             <ListItemStyle>
-               <NavStyle to="add-mailing">Рассылки</NavStyle>
+               <NavStyle to="add-mailing">
+                  {t('admin.sideBar.mailing')}
+               </NavStyle>
             </ListItemStyle>
          </List>
          <br />
@@ -43,10 +59,14 @@ export const SideBar = () => {
          <br />
          <List>
             <ListItemStyle>
-               <NavStyle to={'settings'}>Настройки</NavStyle>
+               <NavStyle to={'settings'}>
+                  {t('admin.sideBar.settings')}
+               </NavStyle>
             </ListItemStyle>
             <ListItemStyle>
-               <LogOutBtn onClick={toggleModal}>Выйти</LogOutBtn>
+               <LogOutBtn onClick={toggleModal}>
+                  {t('admin.sideBar.logOut')}
+               </LogOutBtn>
             </ListItemStyle>
          </List>
       </Box>

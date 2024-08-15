@@ -1,5 +1,5 @@
 import { styled, useMediaQuery } from '@mui/material';
-import { MailingForm } from '../../components/Admin/MailingForm';
+import { MailingForm } from './mailing/MailingForm.jsx';
 import PrevIcon from '../../assets/icons/prev-icon.svg?react';
 import { useNavigate } from 'react-router-dom';
 

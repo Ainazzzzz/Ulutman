@@ -1,15 +1,15 @@
 import { useFormik } from 'formik';
-import ReusableSelect from '../UI/Select';
-import Input from '../UI/Input';
-import FileUpload from './FileUpload';
+import ReusableSelect from '../../../components/UI/Select.jsx';
+import Input from '../../../components/UI/Input.jsx';
+import FileUpload from './FileUpload.jsx';
 import {
    WrapperInputSelect,
    Container,
    StyledButton,
    StyledWriting,
    ErrorMessage,
-} from './MailingFormStyles';
-import { validationSchema } from '../../utils/constants/validationMailing';
+} from './MailingFormStyles.jsx';
+import { validationSchema } from '../../../utils/constants/validationMailing.js';
 
 const InputContainer = ({
    name,

@@ -1,7 +1,7 @@
-import Modal from '../../UI/Modal';
+import Modal from '../../../components/UI/Modal.jsx';
 import { styled } from '@mui/material';
 import { toast } from 'react-toastify';
-import Toastify from '../../UI/Toastify';
+import Toastify from '../../../components/UI/Toastify.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const WaitingModal = ({ onClose, isOpen }) => {

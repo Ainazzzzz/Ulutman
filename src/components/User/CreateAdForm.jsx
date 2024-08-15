@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { styled } from '@mui/material';
 import { useFormik } from 'formik';
-import FileUpload from '../Admin/FileUpload';
+import FileUpload from '../../pages/Admin/mailing/FileUpload.jsx';
 import { Button } from '../UI/Button';
 import { validationAdForm } from '../../utils/constants/validationMailing';
 import { CategoryModal } from './CategoryModal';
@@ -11,7 +11,7 @@ import {
    DescriptionField,
    SelectField,
 } from './FormFields';
-import { WrapperInputSelect } from '../Admin/MailingFormStyles';
+import { WrapperInputSelect } from '../../pages/Admin/mailing/MailingFormStyles.jsx';
 
 const options = [
    { id: 2, value: 'option1', label: 'Option 1' },

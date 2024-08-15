@@ -1,15 +1,15 @@
 import { Box, styled, Typography } from '@mui/material';
-import { dashboard } from '../../utils/constants/dashboard';
+import { dashboard } from '../../../utils/constants/dashboard.js';
+import { useTranslation } from 'react-i18next';
 
 const colorMappings = {
-   Работа: 'rgba(255, 58, 41, 0.1)',
-   Аренда: 'rgba(2, 160, 252, 0.1)',
-   Гостиница: 'rgba(67, 57, 242, 0.1)',
-   Услуги: 'rgba(52, 181, 58, 0.1)',
-   Недвижимость: 'rgba(255, 178, 0, 0.1)',
-   Авто: 'rgba(245, 25, 105, 0.1)',
-   Продам: 'rgba(7, 249, 234, 0.1)',
-   Куплю: 'rgba(0, 128, 128, 0.1)',
+   work: 'rgba(255, 58, 41, 0.1)',
+   rentals: 'rgba(2, 160, 252, 0.1)',
+   hotel: 'rgba(67, 57, 242, 0.1)',
+   services: 'rgba(52, 181, 58, 0.1)',
+   realEstate: 'rgba(255, 178, 0, 0.1)',
+   car: 'rgba(245, 25, 105, 0.1)',
+   forSale: 'rgba(7, 249, 234, 0.1)',
 };
 
 const customBackgroundColor = (title, value) => ({
@@ -21,18 +21,24 @@ const customBackgroundColor = (title, value) => ({
 });
 
 export const Dashboard = () => {
+   const { t } = useTranslation();
+
    return (
       <StyledContainer>
-         <Title>Статистика</Title>
+         <Title>{t('admin.dashboard.title')}</Title>
 
          <StyledBox>
-            <Typography variant="h1">Популярность категории</Typography>
+            <Typography variant="h1">
+               {t('admin.dashboard.popularCategory')}
+            </Typography>
 
             <ContainerCategory>
                {dashboard.map(item => (
                   <ContainerListCategory key={item.id}>
                      <WrapperItemFirst>
-                        <Typography className="title">{item.title}</Typography>
+                        <Typography className="title">
+                           {t(`admin.dashboard.${item.title}`)}
+                        </Typography>
                         <Typography>
                            {item.value} of {item.ofValue}
                         </Typography>
