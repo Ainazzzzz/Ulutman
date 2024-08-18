@@ -1,0 +1,36 @@
+{
+  "admin": {
+    "sideBar": {
+      "dashboard": "Статистика",
+      "users": "Колдонуучулар",
+      "ads": "Жарнамалар",
+      "categories": "Категориялар",
+      "moderation": "Модерация",
+      "mailing": "Билдирмелер",
+      "settings": "Жөндөөлөр",
+      "logOut": "Чыгуу",
+      "changeLanguage": "Тилди өзгөртүү"
+    },
+    "header": {
+      "inputLabel": "Издөө",
+      "select": {
+        "kg": "Кыргызча",
+        "ru": "Орусча",
+        "tj": "Тажикче",
+        "uz": "Өзбекче",
+        "en": "Англисче"
+      }
+    },
+    "dashboard": {
+      "title": "Статистика",
+      "popularCategory": "Популярдуу категория",
+      "work": "Иш",
+      "rentals": "Ижарага берүү",
+      "hotel": "Мейманкана",
+      "services": "Кызматтар",
+      "realEstate": "Кыймылсыз мүлк",
+      "car": "Унаа",
+      "forSale": "Сатам"
+    }
+  }
+}

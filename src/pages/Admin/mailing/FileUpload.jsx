@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import CloseIcon from '../../assets/icons/close-icon.svg?react';
+import CloseIcon from '../../../assets/icons/close-icon.svg?react';
 import {
    Container,
    Label,
@@ -8,9 +8,9 @@ import {
    ErrorMessage,
    ImagePreview,
    StyledDropzone,
-} from './MailingFormStyles';
+} from './MailingFormStyles.jsx';
 
-const FileUpload = ({ setFieldValue, touched, errors }) => {
+const FileUpload = ({ setFieldValue, touched, errors, id }) => {
    const [imagePreview, setImagePreview] = useState(null);
 
    const onDrop = acceptedFiles => {
@@ -32,7 +32,7 @@ const FileUpload = ({ setFieldValue, touched, errors }) => {
       setFieldValue('files', null);
    };
 
-   const { getRootProps, getInputProps, isDragActive } = useDropzone({
+   const { getRootProps, getInputProps } = useDropzone({
       accept: {
          'image/*': ['.jpeg', '.jpg', '.png'],
          'application/pdf': ['.pdf'],
@@ -43,7 +43,7 @@ const FileUpload = ({ setFieldValue, touched, errors }) => {
 
    return (
       <StyledDropzone {...getRootProps({ className: 'dropzone' })}>
-         <input {...getInputProps()} />
+         <input {...getInputProps()} id={id} />
          <Label>
             {imagePreview && (
                <CloseIcon className="close" onClick={handleRemoveImage} />
@@ -62,7 +62,7 @@ const FileUpload = ({ setFieldValue, touched, errors }) => {
                      <ImagePreview src={imagePreview} alt="Selected Image" />
                   </div>
                ) : (
-                  <div className='block'>
+                  <div className="block">
                      <CameraIcon />
                      <b>Добавьте фото</b>
                      <p>Для добавления картинки щелкните или перетащите его</p>

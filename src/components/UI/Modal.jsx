@@ -51,6 +51,11 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
       paddingTop: variant === 'custom' ? '2.5rem' : '3.8rem',
       overflow: 'visible',
       maxWidth: '1200px',
+      minWidth: '400px',
+      [theme.breakpoints.down('md')]: {
+         paddingLeft: '16px',
+         paddingRight: '16px',
+      },
    },
 
    '& .close-button-container': {

@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { useTable } from 'react-table';
 import Pagination from './Pagination';
+import FileIcon from '../../assets/icons/file-icon.svg?react';
 
 const Table = ({ column: headers, data }) => {
    const [page, setPage] = useState(1);
@@ -64,20 +65,35 @@ const Table = ({ column: headers, data }) => {
                               key={row.id.toString()}
                               index={row.index}
                            >
-                              {row.cells.map(cell => (
-                                 <TableCell
-                                    {...cell.getCellProps({
-                                       style: {
-                                          ...cell.column.style,
-                                          ...cell.column.tdStyle,
-                                       },
-                                    })}
-                                    key={cell.column.id.toString()}
-                                    align="left"
-                                 >
-                                    {cell.render('Cell')}
-                                 </TableCell>
-                              ))}
+                              {row.cells.map(cell => {
+                                 return (
+                                    <TableCell
+                                       {...cell.getCellProps({
+                                          style: {
+                                             ...cell.column.style,
+                                             ...cell.column.tdStyle,
+                                          },
+                                       })}
+                                       key={cell.column.id.toString()}
+                                       align="left"
+                                    >
+                                       {cell.column.id === 'file' &&
+                                       cell.value ? (
+                                          <Box
+                                             display="flex"
+                                             alignItems="center"
+                                          >
+                                             <FileIcon
+                                                style={{ marginRight: '8px' }}
+                                             />
+                                             {cell.render('Cell')}
+                                          </Box>
+                                       ) : (
+                                          cell.render('Cell')
+                                       )}
+                                    </TableCell>
+                                 );
+                              })}
                            </TableRow>
                         );
                      })}
@@ -96,6 +112,8 @@ const Table = ({ column: headers, data }) => {
 };
 
 export default memo(Table);
+
+// Остальная часть кода без изменений
 
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
    borderRadius: '6px',

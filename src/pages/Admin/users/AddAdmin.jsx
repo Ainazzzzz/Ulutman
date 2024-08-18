@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Search from '../../assets/icons/searchgreyinput.svg?react';
+import Search from '../../../assets/icons/searchgreyinput.svg?react';
 import { InputBase, RadioGroup, styled } from '@mui/material';
-import { CheckBox } from '../UI/Checkbox';
-import ArrowPurpul from '../../assets/icons/arrowpurpul.svg?react';
-import { Button } from '../UI/Button';
-import RadioButton from '../UI/RadioButton';
+import ArrowPurpul from '../../../assets/icons/arrowpurpul.svg?react';
+import RadioButton from '../../../components/UI/RadioButton';
+import { CheckBox } from '../../../components/UI/Checkbox';
+import { Button } from '../../../components/UI/Button';
 
 const AddAdmin = () => {
    const [selectedOption, setSelectedOption] = useState('');
@@ -65,7 +65,8 @@ const AddAdmin = () => {
 export default AddAdmin;
 const ContainerTitleArrow = styled('div')(() => ({
    display: 'flex',
-   justifyContent: 'space-around',
+   justifyContent: 'space-between',
+   padding: '0 60px 0 30px',
 }));
 const ArrowBox = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -75,7 +76,7 @@ const ArrowBox = styled('div')(({ theme }) => ({
    },
 }));
 const SehondBigContainer = styled('div')(({ theme }) => ({
-   paddingLeft: '260px',
+   paddingLeft: '30px',
    [theme.breakpoints.down('md')]: {
       paddingLeft: '30px',
    },

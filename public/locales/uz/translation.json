@@ -1,0 +1,36 @@
+{
+  "admin": {
+    "sideBar": {
+      "dashboard": "Statistika",
+      "users": "Foydalanuvchilar",
+      "ads": "E'lonlar",
+      "categories": "Kategoriyalar",
+      "moderation": "Moderatsiya",
+      "mailing": "Xatlar",
+      "settings": "Sozlamalar",
+      "logOut": "Chiqish",
+      "changeLanguage": "Tilni oʻzgartirish"
+    },
+    "header": {
+      "inputLabel": "Qidiruv",
+      "select": {
+        "kg": "Qirgʻizcha",
+        "ru": "Ruscha",
+        "tj": "Tojikcha",
+        "uz": "Oʻzbekcha",
+        "en": "Inglizcha"
+      }
+    },
+    "dashboard": {
+      "title": "Statistika",
+      "popularCategory": "Kategoriya ommaviyligi",
+      "work": "Ish",
+      "rentals": "Ijara",
+      "hotel": "Mehmonxona",
+      "services": "Xizmatlar",
+      "realEstate": "Ko‘chmas mulk",
+      "car": "Avtomobil",
+      "forSale": "Sotaman"
+    }
+  }
+}

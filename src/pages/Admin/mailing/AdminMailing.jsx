@@ -1,16 +1,16 @@
 import { useMemo, useState } from 'react';
 import { styled } from '@mui/material';
-import Wait from '../../assets/icons/wait-icon.svg?react';
+import Wait from '../../../assets/icons/wait-icon.svg?react';
 import { green, red, orange } from '@mui/material/colors';
-import Filter from '../../assets/icons/filter-icon.svg?react';
-import Replay from '../../assets/icons/replay-icon.svg?react';
-import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react';
-import ReusableSelect from '../UI/Select';
-import { AdsDeleteModal } from '../Admin/ads/AdsDeleteModal';
-import { WaitingModal } from '../Admin/ads/WaitingModal';
-import Table from '../UI/Table';
-import { Button } from '../UI/Button';
-import Plus from '../../assets/icons/plus.svg?react';
+import Filter from '../../../assets/icons/filter-icon.svg?react';
+import Replay from '../../../assets/icons/replay-icon.svg?react';
+import RedDeleteIcon from '../../../assets/icons/red-delete-icon.svg?react';
+import ReusableSelect from '../../../components/UI/Select.jsx';
+import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';
+import { WaitingModal } from '../ads/WaitingModal.jsx';
+import Table from '../../../components/UI/Table.jsx';
+import { Button } from '../../../components/UI/Button.jsx';
+import Plus from '../../../assets/icons/plus.svg?react';
 
 const AdminMailing = () => {
    const [open, setOpen] = useState(false);

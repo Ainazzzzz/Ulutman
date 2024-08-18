@@ -1,0 +1,36 @@
+{
+  "admin": {
+    "sideBar": {
+      "dashboard": "Статистика",
+      "users": "Пользователи",
+      "ads": "Объявления",
+      "categories": "Категории",
+      "moderation": "Модерация",
+      "mailing": "Рассылки",
+      "settings": "Настройки",
+      "logOut": "Выйти",
+      "changeLanguage": "Сменить язык"
+    },
+    "header": {
+      "inputLabel": "Поиск",
+      "select": {
+        "kg": "Кыргызский",
+        "ru": "Русский",
+        "tj": "Таджикский",
+        "uz": "Узбекский",
+        "en": "Английский"
+      }
+    },
+    "dashboard": {
+      "title": "Статистика",
+      "popularCategory": "Популярность категории",
+      "work": "Работа",
+      "rentals": "Аренда",
+      "hotel": "Гостиница",
+      "services": "Услуги",
+      "realEstate": "Недвижимость",
+      "car": "Авто",
+      "forSale": "Продам"
+    }
+  }
+}

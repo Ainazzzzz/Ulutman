@@ -1,5 +1,5 @@
 import { styled, useMediaQuery } from '@mui/material';
-import { MailingForm } from '../../components/Admin/MailingForm';
+import { MailingForm } from './mailing/MailingForm.jsx';
 import PrevIcon from '../../assets/icons/prev-icon.svg?react';
 import { useNavigate } from 'react-router-dom';
 
@@ -77,7 +77,6 @@ const ContainerTitle = styled('div')(({ theme }) => ({
 const Title = styled('h1')(({ theme }) => ({
    fontSize: '34px',
    fontWeight: '600',
-   fontFamily: 'Kanit',
 
    [theme.breakpoints.down('md')]: {
       fontSize: '22px',
