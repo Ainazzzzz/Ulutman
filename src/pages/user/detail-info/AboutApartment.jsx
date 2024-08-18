@@ -32,6 +32,8 @@ const AboutApartment = () => {
       { title: 'Аварийность', value: 'Нет' },
    ];
 
+   const columnsCount = 5;
+
    return (
       <StyledContainer>
          <Box className="first-block_appartment">
@@ -59,12 +61,28 @@ const AboutApartment = () => {
             </Box>
          </Box>
 
-         <Box>
-            <Box className="column">
-               <Typography className="aboutApartmen-title">
-                  В квартире есть
-               </Typography>
+         <Box className="column">
+            <Typography
+               style={{ color: '#152242' }}
+               className="aboutApartmen-title aboutApartmen-title_second"
+            >
+               В квартире есть
+            </Typography>
+
+            <Box className="appartment-items">
+               {apartmentInfo2.map((info, index) => (
+                  <Typography key={index}>{info.title}</Typography>
+               ))}
             </Box>
+         </Box>
+
+         <Box className="column">
+            <Typography
+               style={{ color: '#152242' }}
+               className="aboutApartmen-title aboutApartmen-title_second"
+            >
+               Расположение
+            </Typography>
          </Box>
       </StyledContainer>
    );
@@ -76,21 +94,43 @@ const StyledContainer = styled(Box)(() => ({
    display: 'flex',
    flexDirection: 'column',
 
+   '& .appartment-items': {
+      display: 'flex',
+      height: '196px',
+      flexDirection: 'column',
+      flexWrap: 'wrap',
+      alignContent: 'flex-start',
+
+      '& > p': {
+         height: '20px',
+         fontSize: '1rem',
+         lineHeight: '20px',
+         margin: '7px 0 ',
+         marginRight: '6.25rem',
+         color: '#282828',
+      },
+   },
+
+   '& .aboutApartmen-title_second': {
+      marginTop: '70px',
+      marginBottom: '40px',
+   },
+
+   '& .aboutApartmen-title': {
+      fontSize: '30px',
+      fontWeight: '700',
+      lineHeight: '36px',
+      color: '#282828',
+      letterSpacing: '-0.5px',
+      marginBottom: '25px',
+   },
+
    '& > .first-block_appartment': {
       display: 'flex',
       gap: '50px',
 
       '& > .column': {
          width: '370px',
-
-         '& > .aboutApartmen-title': {
-            fontSize: '30px',
-            fontWeight: '700',
-            lineHeight: '36px',
-            color: '#282828',
-            letterSpacing: '-0.5px',
-            marginBottom: '25px',
-         },
 
          '& > .row': {
             display: 'flex',

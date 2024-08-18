@@ -23,6 +23,7 @@ import Like from '../../../assets/icons/like-product-icon.svg?react';
 import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react';
 import { Button } from '../../../components/UI/Button';
 import UserIcon from '../../../assets/icons/user.svg?react';
+import AboutApartment from './AboutApartment';
 
 const DetailInfo = () => {
    const path = [
@@ -30,7 +31,7 @@ const DetailInfo = () => {
       { title: '2х комнатная квартира', url: '#' },
    ];
 
-   const [slides, setSlides] = useState([
+   const slides = [
       { id: 1, image: firstImage },
       { id: 2, image: secondthImage },
       { id: 3, image: thirdImage },
@@ -41,7 +42,7 @@ const DetailInfo = () => {
       { id: 8, image: eightImage },
       { id: 9, image: ninthImage },
       { id: 10, image: tenthImage },
-   ]);
+   ];
 
    return (
       <StyledContainer>
@@ -174,6 +175,8 @@ const DetailInfo = () => {
                <ArrowIcon className="arrow-down" />
             </Typography>
          </Box>
+
+         <AboutApartment />
       </StyledContainer>
    );
 };
