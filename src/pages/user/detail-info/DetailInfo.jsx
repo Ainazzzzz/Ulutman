@@ -160,7 +160,7 @@ const DetailInfo = () => {
          </Box>
 
          <Box className="description-container">
-            <Typography variant="h3" className="description">
+            <Typography variant="h3" className="description_detail-info">
                Описания объявления
             </Typography>
             <Typography className="descriptioon-text">
@@ -184,11 +184,14 @@ const DetailInfo = () => {
 export default DetailInfo;
 
 const StyledContainer = styled(Box)(() => ({
+   padding: '0 3rem',
+
    '& .locatio-time-box': {
       display: 'flex',
       color: '#A0A0A0',
       alignItems: 'center',
       gap: '2rem',
+      marginBottom: '1.3rem',
 
       p: {
          fontSize: '12px',
@@ -204,6 +207,8 @@ const StyledContainer = styled(Box)(() => ({
       flexDirection: 'column',
       gap: '0.5rem',
       width: '750px',
+      marginBottom: '120px',
+      marginTop: '30px',
 
       '& > .descriptioon-text': {
          marginTop: '0.6rem',
@@ -246,6 +251,7 @@ const StyledContainer = styled(Box)(() => ({
    '& .breadcrumbs-box': {
       display: 'flex',
       justifyContent: 'space-between',
+      marginBottom: '1rem',
 
       '& > .go-back': {
          display: 'flex',
@@ -378,12 +384,12 @@ const StyledContainer = styled(Box)(() => ({
       fontSize: '34px',
       fontWeight: '500',
       lineHeight: '41.15px',
+      marginBottom: '1rem',
    },
 
-   '& .description': {
-      fontFamily: 'Kanit sans-serif',
+   '& .description_detail-info': {
       fontSize: '30px',
-      fontWeight: '900',
       lineHeight: '36px',
+      letterSpacing: '-0.5px',
    },
 }));

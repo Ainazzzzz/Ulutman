@@ -1,4 +1,9 @@
 import { Box, styled, Typography } from '@mui/material';
+import FacebookIcon from '../../../assets/icons/facebook-icon.svg?react';
+import TikTokIcon from '../../../assets/icons/tiktok-icon.svg?react';
+import TelegramIcon from '../../../assets/icons/telegram-icon.svg?react';
+import WhatsapIcon from '../../../assets/icons/whatsapp-icon.svg?react';
+import InstagramIcon from '../../../assets/icons/instagram-icon.svg?react';
 
 const ApartmentInfo = ({ title, value }) => (
    <Box className="row">
@@ -31,8 +36,16 @@ const AboutApartment = () => {
       { title: 'Отопление', value: 'Центральное' },
       { title: 'Аварийность', value: 'Нет' },
    ];
+   const apartmentInfoSocials = [
+      <WhatsapIcon />,
+      <TelegramIcon />,
+      <InstagramIcon />,
+      <TikTokIcon />,
+      <FacebookIcon />,
+   ];
 
-   const columnsCount = 5;
+   const MAP =
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d365.48247976201736!2d74.62719552257737!3d42.875802431657775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389eb78fc81678db%3A0x8f6025b536a29455!2sPeaksoft%20house!5e0!3m2!1sru!2skg!4v1710599618852!5m2!1sru!2skg';
 
    return (
       <StyledContainer>
@@ -78,11 +91,31 @@ const AboutApartment = () => {
 
          <Box className="column">
             <Typography
-               style={{ color: '#152242' }}
-               className="aboutApartmen-title aboutApartmen-title_second"
+               style={{ color: '#152242', marginTop: '30px' }}
+               className="aboutApartmen-title "
             >
                Расположение
             </Typography>
+
+            <StyledMap
+               src={MAP}
+               width="65%"
+               height="500"
+               title="map"
+               loading="lazy"
+               referrerPolicy="no-referrer-when-downgrade"
+            />
+         </Box>
+         <Box className="column">
+            <Typography className="aboutApartmen-title">
+               Поделиться с друзьями
+            </Typography>
+
+            <Box className="socials-box">
+               {apartmentInfoSocials.map((icon, index) => (
+                  <Box key={index}>{icon}</Box>
+               ))}
+            </Box>
          </Box>
       </StyledContainer>
    );
@@ -94,15 +127,23 @@ const StyledContainer = styled(Box)(() => ({
    display: 'flex',
    flexDirection: 'column',
 
+   '& .socials-box': {
+      display: 'flex',
+      gap: '10px',
+
+      '& > div': {
+         cursor: 'pointer',
+      },
+   },
    '& .appartment-items': {
       display: 'flex',
-      height: '196px',
+      height: '230px',
       flexDirection: 'column',
       flexWrap: 'wrap',
       alignContent: 'flex-start',
+      gap: '.7rem',
 
       '& > p': {
-         height: '20px',
          fontSize: '1rem',
          lineHeight: '20px',
          margin: '7px 0 ',
@@ -153,4 +194,9 @@ const StyledContainer = styled(Box)(() => ({
          },
       },
    },
+}));
+
+const StyledMap = styled('iframe')(() => ({
+   border: 'none',
+   marginBottom: '70px',
 }));
