@@ -221,6 +221,7 @@ const StyledContainer = styled(Box)(() => ({
          display: 'flex',
          alignItems: 'flex-end',
          gap: '0.5rem',
+         cursor: 'pointer',
 
          '& > .arrow-down': {
             transform: 'rotate(-90deg)',
@@ -259,6 +260,7 @@ const StyledContainer = styled(Box)(() => ({
          gap: '10px',
          color: ' #7E52FF',
          fontSize: '14px',
+         cursor: 'pointer',
       },
    },
 
@@ -370,6 +372,15 @@ const StyledContainer = styled(Box)(() => ({
          justifyContent: 'start',
          width: '760px !important',
          height: '446px !important',
+      },
+
+      '& .swiper-button-prev': {
+         color: '#222222',
+         opacity: '1',
+         backgroundColor: 'white',
+
+         padding: '20px',
+         borderRadius: '50%',
       },
 
       '& .swiper-slide img': {
