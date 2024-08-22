@@ -114,8 +114,9 @@ const TopSection = styled('div')(() => ({
    flexWrap: 'nowrap',
 
    div: {
-      width: '200px',
-      height: '70px',
+      maxWidth: '200px',
+      minWidth: '100px',
+      maxHeight: '70px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -169,6 +170,10 @@ const FilterWrapper = styled('p')(() => ({
 const StyledDatePickerWrapper = styled('div')(() => ({
    paddingBottom: '8px',
    border: '1px solid #d5d5d5',
+
+   '& .MuiOutlinedInput-notchedOutline': {
+      border: 'none',
+   },
 }));
 
 const StyledSelect = styled(ReusableSelect)(() => ({

@@ -3,6 +3,7 @@ import RussianFlag from '../../assets/icons/russian-flag.svg?react';
 import TjFlag from '../../assets/icons/tj.svg?react';
 import UzFlag from '../../assets/icons/uz.svg?react';
 import UsaFlag from '../../assets/icons/usa.svg?react';
+import TurkeyFlag from '../../assets/icons/turkey.svg?react';
 import React from 'react';
 
 export const renderFlag = language => {
@@ -17,6 +18,8 @@ export const renderFlag = language => {
          return <UzFlag />;
       case 'en':
          return <UsaFlag />;
+      case 'tr':
+         return <TurkeyFlag />;
       default:
          return <RussianFlag />;
    }

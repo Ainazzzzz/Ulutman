@@ -5,8 +5,10 @@ import ArrowPurpul from '../../../assets/icons/arrowpurpul.svg?react';
 import RadioButton from '../../../components/UI/RadioButton';
 import { CheckBox } from '../../../components/UI/Checkbox';
 import { Button } from '../../../components/UI/Button';
+import { useNavigate } from 'react-router-dom';
 
 const AddAdmin = () => {
+   const navigate = useNavigate();
    const [selectedOption, setSelectedOption] = useState('');
 
    const handleOptionChange = event => {
@@ -17,7 +19,7 @@ const AddAdmin = () => {
       <div>
          <ContainerTitleArrow>
             <TitleSyle>Добавить администратора </TitleSyle>
-            <ArrowBox>
+            <ArrowBox onClick={() => navigate(-1)}>
                <ArrowPurpul />
                <BackStyle>Назад</BackStyle>
             </ArrowBox>
@@ -71,6 +73,7 @@ const ContainerTitleArrow = styled('div')(() => ({
 const ArrowBox = styled('div')(({ theme }) => ({
    display: 'flex',
    paddingTop: '20px',
+   cursor: 'pointer',
    [theme.breakpoints.down('md')]: {
       display: 'none',
    },

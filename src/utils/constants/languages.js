@@ -4,4 +4,5 @@ export const languages = [
    { label: 'Таджикский', value: 'tj' },
    { label: 'Узбекский', value: 'uz' },
    { label: 'Английский', value: 'en' },
+   { label: 'Турецкий', value: 'tr' },
 ];

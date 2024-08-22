@@ -1,0 +1,36 @@
+{
+   "admin": {
+      "sideBar": {
+         "dashboard": "İstatistikler",
+         "users": "Kullanıcılar",
+         "ads": "İlanlar",
+         "categories": "Kategoriler",
+         "moderation": "Moderasyon",
+         "mailing": "Posta Listesi",
+         "settings": "Ayarlar",
+         "logOut": "Çıkış Yap",
+         "changeLanguage": "Dili Değiştir"
+      },
+      "header": {
+         "inputLabel": "Arama",
+         "select": {
+            "kg": "Kırgızca",
+            "ru": "Rusça",
+            "tj": "Tacikçe",
+            "uz": "Özbekçe",
+            "en": "İngilizce"
+         }
+      },
+      "dashboard": {
+         "title": "İstatistikler",
+         "popularCategory": "Popüler Kategori",
+         "work": "İş",
+         "rentals": "Kiralık",
+         "hotel": "Otel",
+         "services": "Hizmetler",
+         "realEstate": "Gayrimenkul",
+         "car": "Araba",
+         "forSale": "Satılık"
+      }
+   }
+}
