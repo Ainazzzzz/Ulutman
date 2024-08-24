@@ -4,16 +4,11 @@ import DeleteAll from '../../assets/icons/delete-all-icon.svg?react';
 import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react';
 import { MyAds } from './MyAds';
 import TabsUi from '../UI/TabsUi';
+import { useState } from 'react';
 
 export const Ads = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-
-   const firstTab = [
-      { value: '1', label: 'Профиль' },
-      { value: '2', label: 'Избранное' },
-      { value: '3', label: 'Сообщения' },
-      { value: '4', label: 'Мои объявления' },
-   ];
+   const [selectedIds, setSelectedIds] = useState([]);
 
    const secondTab = [
       { value: '1', label: 'Активно' },
@@ -22,48 +17,34 @@ export const Ads = () => {
       { value: '4', label: 'Отклонено' },
    ];
 
+   const handleDelete = () => console.log('selectedId', selectedIds);
+
    return (
       <Wrapper>
          <Container>
-            <Block>
-               <TabsUi tabs={firstTab} />
-               <NextStyle>
-                  <ChevronLeft /> Назад
-               </NextStyle>
-            </Block>
             <Line></Line>
             <Block>
                <TabsUi tabs={secondTab} />
 
                {isMobile ? (
-                  <DeleteMobile />
+                  <DeleteMobile onClick={handleDelete} />
                ) : (
-                  <DeleteAll style={{ marginTop: '10px' }} />
+                  <DeleteAll
+                     style={{ marginTop: '10px' }}
+                     onClick={handleDelete}
+                  />
                )}
             </Block>
          </Container>
 
-         <MyAds />
+         <MyAds selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
       </Wrapper>
    );
 };
-const NextStyle = styled('span')(({ theme }) => ({
-   fontSize: '14px',
-   fontWeight: '400',
-   color: '#7e52ff',
-   display: 'flex',
-   gap: '4px',
-   cursor: 'pointer',
-   paddingTop: '20px',
-   [theme.breakpoints.down('md')]: {
-      paddingTop: '0px',
-   },
-}));
 
 const Line = styled('div')(() => ({
    width: '100%',
    border: '1px solid #d9d9d9',
-   //    padding: '20px',
 }));
 
 const Wrapper = styled('div')(({ theme }) => ({
