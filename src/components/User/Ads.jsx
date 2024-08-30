@@ -30,7 +30,7 @@ export const Ads = () => {
                   <DeleteMobile onClick={handleDelete} />
                ) : (
                   <DeleteAll
-                     style={{ marginTop: '10px' }}
+                     style={{ marginTop: '10px', cursor: 'pointer' }}
                      onClick={handleDelete}
                   />
                )}
