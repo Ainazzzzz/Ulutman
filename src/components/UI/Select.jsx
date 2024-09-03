@@ -25,7 +25,11 @@ const ReusableSelect = forwardRef(
                   <MenuItem disabled>Здесь пока что нету данных.</MenuItem>
                ) : (
                   options?.map(option => (
-                     <MenuItemStyle key={option.id} value={option.value}>
+                     <MenuItemStyle
+                        key={option.value}
+                        value={option.value}
+                        disabled={option.disabled}
+                     >
                         {option.label}
                      </MenuItemStyle>
                   ))

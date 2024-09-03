@@ -1,134 +1,168 @@
 import React, { useState } from 'react';
+import {
+   InputBase,
+   MenuItem,
+   styled,
+   useMediaQuery,
+   Menu,
+} from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
+
 import Search from '../../assets/icons/searchgrey.svg?react';
-import { InputBase, MenuItem, styled, useMediaQuery } from '@mui/material';
 import Frame from '../../assets/icons/frame.svg?react';
-import RussianFlag from '../../assets/icons/russian-flag.svg?react';
 import User from '../../assets/icons/userprofile.svg?react';
-import KgFlag from '../../assets/icons/kg.svg?react';
-import UzFlag from '../../assets/icons/uz.svg?react';
-import UsaFlag from '../../assets/icons/usa.svg?react';
-import TjFlag from '../../assets/icons/tj.svg?react';
-import ReusableSelect from '../UI/Select';
 import UlutmanLogo from '../../assets/icons/ulutman-logo-icon.svg?react';
 import MenuAdmin from '../../assets/icons/menu-icon.svg?react';
-import { languages } from '../../utils/constants/languages';
 import GoOut from '../../assets/icons/goout.svg?react';
 import Users from '../../assets/icons/usersicon.svg?react';
 import Announcement from '../../assets/icons/announcement.svg?react';
 import Category from '../../assets/icons/category.svg?react';
 import Modearation from '../../assets/icons/moderation.svg?react';
 import Language from '../../assets/icons/language-icon.svg?react';
-import { IconButton } from '../IconButton';
-import Menu from '@mui/material/Menu';
 
-const renderFlag = language => {
-   switch (language) {
-      case 'Кыргызский':
-         return <KgFlag />;
-      case 'Русский':
-         return <RussianFlag />;
-      case 'Таджикский':
-         return <TjFlag />;
-      case 'Узбекский':
-         return <UzFlag />;
-      case 'Английский':
-         return <UsaFlag />;
-      default:
-         return <RussianFlag />;
-   }
-};
+import ReusableSelect from '../UI/Select';
+import LogOutModal from '../UI/LogOutModal';
+import { languages } from '../../utils/constants/languages';
+import { IconButton } from '../IconButton';
+import LanguageModal from './LanguageModal.jsx';
+import { renderFlag } from '../../utils/general/renderFlag.jsx';
+import languageModal from './LanguageModal.jsx';
 
 const AdminHeader = () => {
+   const { i18n, t } = useTranslation();
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const [language, setLanguage] = useState('Русский');
+   const [language, setLanguage] = useState('ru');
    const [openMenu, setOpenMenu] = useState(null);
+   const [openLogOutModal, setOpenLogOutModal] = useState(false);
+   const [openLanguageModal, setOpenLanguageModal] = useState(false);
 
    const handleSelect = event => {
+      const lng = event.target.value;
       setLanguage(event.target.value);
+
+      i18n.changeLanguage(lng);
    };
+
    const handleClose = () => {
       setOpenMenu(null);
    };
+
    const handleClick = event => {
       setOpenMenu(event.currentTarget);
    };
 
-   return (
-      <WrapperAdminHeader>
-         <LogoMobile>
-            <UlutmanLogoStyle />
-         </LogoMobile>
-         {isMobile ? (
-            <div>
-               <MobileSearch>
-                  <Search />
-                  <IconButton onClick={handleClick}>
-                     <MenuAdmin />
-                  </IconButton>
-               </MobileSearch>
-               <MenuStyle
-                  anchorEl={openMenu}
-                  open={Boolean(openMenu)}
-                  onClose={handleClose}
-               >
-                  <MenuItemStyle onClick={handleClose}>
-                     <GoOut /> Выйти
-                  </MenuItemStyle>
-                  <Line></Line>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Users />
-                     Пользователи
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Announcement /> Объявления
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Category />
-                     Категории
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Modearation />
-                     Модерация
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Language />
-                     Сменить язык
-                  </MenuItemStyle>
-               </MenuStyle>
-            </div>
-         ) : (
-            <SehondBigContainer>
-               <InputStyle>
-                  <SearchIconStyle>
-                     <SearchIcon />
-                  </SearchIconStyle>
-                  <InputBase placeholder="Поиск" />
-               </InputStyle>
+   const toggleLogOutModal = () => {
+      handleClose();
+      setOpenLogOutModal(prev => !prev);
+   };
 
-               <MiddleContainerBox>
-                  <FrameStyle>
-                     <Frame />
-                  </FrameStyle>
-                  <FlagLanguageStyle>
-                     <div style={{ paddingTop: '14px' }}>
-                        {renderFlag(language)}
-                     </div>
-                     <SelectStyle
-                        options={languages}
-                        value={language}
-                        onChange={handleSelect}
+   const closeLanguageModal = () => setOpenLanguageModal(false);
+   const handleOpenLanguageModal = () => {
+      setOpenLanguageModal(true);
+      setOpenMenu(null);
+   };
+
+   return (
+      <>
+         <WrapperAdminHeader>
+            {isMobile && (
+               <LogoMobile>
+                  <UlutmanLogoStyle />
+               </LogoMobile>
+            )}
+            {isMobile ? (
+               <div>
+                  <MobileSearch>
+                     <Search />
+
+                     <IconButton onClick={handleClick}>
+                        <MenuAdmin />
+                     </IconButton>
+                  </MobileSearch>
+
+                  <MenuStyle
+                     anchorEl={openMenu}
+                     open={Boolean(openMenu)}
+                     onClose={handleClose}
+                  >
+                     <MenuItemStyle onClick={toggleLogOutModal}>
+                        <GoOut /> Выйти
+                     </MenuItemStyle>
+
+                     <Line></Line>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to="users">
+                           <Users />
+                           {t('admin.sideBar.users')}
+                        </NavLink>
+                     </MenuItemStyle>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to={'ads'}>
+                           <Announcement /> {t('admin.sideBar.ads')}
+                        </NavLink>
+                     </MenuItemStyle>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to={'categories'}>
+                           <Category />
+                           {t('admin.sideBar.categories')}
+                        </NavLink>
+                     </MenuItemStyle>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to={'moderation'}>
+                           <Modearation />
+                           {t('admin.sideBar.moderation')}
+                        </NavLink>
+                     </MenuItemStyle>
+
+                     <MenuItemStyle onClick={handleOpenLanguageModal}>
+                        <Language />
+                        {t('admin.sideBar.changeLanguage')}
+                     </MenuItemStyle>
+                  </MenuStyle>
+               </div>
+            ) : (
+               <SehondBigContainer>
+                  <InputStyle>
+                     <SearchIconStyle>
+                        <SearchIcon />
+                     </SearchIconStyle>
+                     <InputBase
+                        placeholder={t('admin.header.inputLabel')}
+                        sx={{ width: '100%' }}
                      />
-                  </FlagLanguageStyle>
-                  <ContainerProfileTitle>
-                     <ProfileLogo>
-                        <User />
-                     </ProfileLogo>
-                     <TitleAdmin>Tezekbaev </TitleAdmin>
-                  </ContainerProfileTitle>
-               </MiddleContainerBox>
-            </SehondBigContainer>
-         )}
-      </WrapperAdminHeader>
+                  </InputStyle>
+
+                  <MiddleContainerBox>
+                     <FrameStyle>
+                        <Frame />
+                     </FrameStyle>
+                     <FlagLanguageStyle>
+                        <div>{renderFlag(language)}</div>
+                        <SelectStyle
+                           options={languages}
+                           value={language}
+                           onChange={handleSelect}
+                        />
+                     </FlagLanguageStyle>
+                     <ContainerProfileTitle>
+                        <ProfileLogo>
+                           <User />
+                        </ProfileLogo>
+                        <TitleAdmin>Tezekbaev </TitleAdmin>
+                     </ContainerProfileTitle>
+                  </MiddleContainerBox>
+               </SehondBigContainer>
+            )}
+         </WrapperAdminHeader>
+
+         <LogOutModal open={openLogOutModal} onClose={toggleLogOutModal} />
+         <LanguageModal open={openLanguageModal} onClose={closeLanguageModal} />
+      </>
    );
 };
 
@@ -149,10 +183,12 @@ const WrapperAdminHeader = styled('div')(({ theme }) => ({
 }));
 const SehondBigContainer = styled('div')(() => ({
    display: 'flex',
-   gap: '351px',
+   justifyContent: 'space-around',
+   width: '100%',
 }));
 const MobileSearch = styled('div')(({ theme }) => ({
    display: 'flex',
+   alignItems: 'center',
    gap: '27px',
    [theme.breakpoints.down('md')]: {
       paddingLeft: '110px',
@@ -163,14 +199,12 @@ const UlutmanLogoStyle = styled(UlutmanLogo)(({ theme }) => ({
    width: '134px',
    height: '29px',
 
-   [theme.breakpoints.down('md')]: {
-      width: '134px',
-      height: '29px',
-   },
+   [theme.breakpoints.down('md')]: {},
 }));
 const LogoMobile = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       display: 'flex',
+      alignItems: 'center',
    },
 }));
 
@@ -203,6 +237,7 @@ const SearchIcon = styled(Search)(() => ({
    height: '19px',
 }));
 const SelectStyle = styled(ReusableSelect)(() => ({
+   alignItems: 'center',
    '.MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
@@ -213,16 +248,15 @@ const SelectStyle = styled(ReusableSelect)(() => ({
       border: 'none',
    },
 
-   '.MuiSelect-icon': {
-      right: '5px',
-      top: '15px',
-   },
    '.MuiSelect-select': {
       paddingLeft: '0px',
    },
 }));
 const FlagLanguageStyle = styled('div')(({ theme }) => ({
    display: 'flex',
+   width: '170px',
+   gap: '10px',
+   alignItems: 'center',
 }));
 
 const FrameStyle = styled('div')(({ theme }) => ({
@@ -261,27 +295,29 @@ const MenuItemStyle = styled(MenuItem)(() => ({
    fontWeight: '600',
    '&:hover': {
       backgroundColor: '#fff',
-      color: '#7e52ff',
       borderTopRightRadius: '8px',
       borderBottomRightRadius: '8px',
       marginRight: '16px',
       '& svg path': {
          stroke: '#7e51ff',
       },
-   },
-}));
-const UsersStyle = styled('div')(() => ({
-   '&:hover': {
-      backgroundColor: '#fff',
-      color: '#7e52ff',
-      borderTopRightRadius: '8px',
-      borderBottomRightRadius: '8px',
-      marginRight: '16px',
-      '& svg path': {
-         stroke: '#7e51ff',
+
+      a: {
+         '&:hover': {
+            color: '#7e52ff',
+         },
       },
    },
+
+   a: {
+      color: '#fff',
+      textDecoration: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px',
+   },
 }));
+
 const Line = styled('div')(() => ({
    width: '100%',
    borderBottom: '1px solid #b2b2b2',

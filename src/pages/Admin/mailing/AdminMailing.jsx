@@ -1,15 +1,18 @@
-import React, { useMemo, useState } from 'react';
-import Table from '../../UI/Table';
+import { useMemo, useState } from 'react';
 import { styled } from '@mui/material';
 import Wait from '../../../assets/icons/wait-icon.svg?react';
 import { green, red, orange } from '@mui/material/colors';
 import Filter from '../../../assets/icons/filter-icon.svg?react';
 import Replay from '../../../assets/icons/replay-icon.svg?react';
 import RedDeleteIcon from '../../../assets/icons/red-delete-icon.svg?react';
-import ReusableSelect from '../../UI/Select';
-import { AdsDeleteModal } from './AdsDeleteModal';
-import { WaitingModal } from './WaitingModal';
-export const Ads = () => {
+import ReusableSelect from '../../../components/UI/Select.jsx';
+import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';
+import { WaitingModal } from '../ads/WaitingModal.jsx';
+import Table from '../../../components/UI/Table.jsx';
+import { Button } from '../../../components/UI/Button.jsx';
+import Plus from '../../../assets/icons/plus.svg?react';
+
+const AdminMailing = () => {
    const [open, setOpen] = useState(false);
    const [isOpen, setIsOpen] = useState(false);
    const [selectedValue, setSelectedValue] = useState('Категория');
@@ -17,27 +20,27 @@ export const Ads = () => {
    const ads = [
       {
          id: 1,
-         name: 'Jaka',
-         email: 'jaka-imanaliev@mail.ru',
+         name: 'Новости 1',
+         type: 'Новости',
          category: 'Услуги',
          date: '19.01.2023',
-         status: 'Одобрен',
+         status: 'Ошибка',
       },
       {
          id: 2,
-         name: 'Jaka',
-         email: 'jaka-imanaliev@mail.ru',
+         name: 'Акции 1',
+         type: 'Акции ',
          category: 'Админ',
          date: '19.01.2023',
-         status: 'Отклонен',
+         status: 'Отправлено',
       },
       {
          id: 3,
-         name: 'Jaka',
-         email: 'jaka-imanaliev@mail.ru',
+         name: 'Новости 1',
+         type: 'Новости',
          category: 'Админ',
          date: '19.01.2023',
-         status: 'Ожидает',
+         status: 'Отправлено',
       },
    ];
 
@@ -48,19 +51,19 @@ export const Ads = () => {
    const headers = useMemo(
       () => [
          {
-            Header: 'ИМЯ',
+            Header: 'Название',
             accessor: 'name',
          },
          {
-            Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
-            accessor: 'email',
+            Header: 'тип',
+            accessor: 'type',
          },
          {
-            Header: 'КАТЕГОРИЯ',
+            Header: 'Получатели',
             accessor: 'category',
          },
          {
-            Header: 'ДАТА СОЗДАНИЯ',
+            Header: 'ДАТА РЕГИСТРАЦИИ',
             accessor: 'date',
          },
 
@@ -71,10 +74,10 @@ export const Ads = () => {
                let color, Icon;
 
                switch (value) {
-                  case 'Одобрен':
+                  case 'Отправлено':
                      color = green[500];
                      break;
-                  case 'Отклонен':
+                  case 'Ошибка':
                      color = red[500];
                      break;
                   case 'Ожидает':
@@ -111,22 +114,45 @@ export const Ads = () => {
       { id: 1, value: 'option1', label: 'Option 1' },
       { id: 2, value: 'option2', label: 'Option 2' },
    ];
-
    return (
       <Wrapper>
-         <Description>Управление объявлениями</Description>
+         <TitleButtun>
+            <Description>Создание и отправка email - рассылок</Description>
+            <ButtunStyle>
+               <Plus />
+               Создать новую рассылку
+            </ButtunStyle>
+         </TitleButtun>
          <Container>
             <FirstBlock>
                <FilterStyle>
                   <Filter />
                </FilterStyle>
-               <Title>По имени</Title>
+               <Title>Название</Title>
                <SelectStyle
                   value={selectedValue}
                   options={options}
                   renderValue={value =>
                      value
-                        ? 'Категория'
+                        ? 'Получатели'
+                        : options.find(option => option.value === value)?.label
+                  }
+               />
+               <SelectStyle
+                  value={selectedValue}
+                  options={options}
+                  renderValue={value =>
+                     value
+                        ? 'Тип'
+                        : options.find(option => option.value === value)?.label
+                  }
+               />
+               <SelectStyle
+                  value={selectedValue}
+                  options={options}
+                  renderValue={value =>
+                     value
+                        ? 'Дата'
                         : options.find(option => option.value === value)?.label
                   }
                />
@@ -155,14 +181,18 @@ export const Ads = () => {
    );
 };
 
+export default AdminMailing;
+
 const Description = styled('h2')(({ theme }) => ({
    fontWeight: '600',
    fontSize: '34px',
    color: '#202224',
    [theme.breakpoints.down('md')]: {
-      fontSize: '22px',
+      fontSize: '26px',
+      paddingBottom: '15px',
    },
 }));
+
 const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
@@ -172,7 +202,22 @@ const Wrapper = styled('div')(({ theme }) => ({
       overflowX: 'scroll',
    },
 }));
+const TitleButtun = styled('div')(({ theme }) => ({
+   display: 'flex',
+   justifyContent: 'space-between',
+   [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+   },
+}));
+const ButtunStyle = styled(Button)(({ theme }) => ({
+   fontFamily: 'Inter',
+   fontWeight: '500',
 
+   [theme.breakpoints.down('md')]: {
+      width: '343px',
+      height: '36px',
+   },
+}));
 const Block = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
@@ -254,6 +299,7 @@ const SelectStyle = styled(ReusableSelect)(() => ({
    color: '#202224',
    fontWeight: '700',
    fontSize: '14px',
+
    '.MuiSelect-icon': {
       top: '30px',
       right: '24px',
@@ -275,6 +321,7 @@ const SelectStyle = styled(ReusableSelect)(() => ({
       paddingTop: '23px',
    },
 }));
+
 const SecondMiniBlock = styled('div')(() => ({
    width: '193px',
    height: '70px',
