@@ -59,11 +59,16 @@ export const authSlice = createSlice({
       });
 
       builder.addCase(signIn.fulfilled, (state, action) => {
-         state.userData = action.payload;
+         state.userData = {
+            role: action.payload.roleName,
+            token: action.payload.token,
+         };
+         state.isAuth = true;
       });
 
       builder.addCase(signUp.fulfilled, (state, action) => {
          state.userData = action.payload;
+         state.isAuth = true;
       });
    },
 });
