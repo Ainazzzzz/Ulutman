@@ -8,6 +8,8 @@ import { Button } from '../components/UI/Button';
 import { CARDS, CARDS_MAIN } from '../utils/constants';
 import { CardList } from '../components/UI/Card/CardList';
 import Slider from '../components/main-page/Slider';
+import { useEffect } from 'react';
+import { axiosInstance } from '../config/axiosInstance';
 
 export const MainPage = () => {
    return (

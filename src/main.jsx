@@ -11,6 +11,9 @@ import Toastify from './components/UI/Toastify.jsx';
 import './index.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import './i18n';
+import { injectStore } from './config/axiosInstance.js';
+
+injectStore(store);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
    <React.StrictMode>

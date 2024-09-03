@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../../components/UI/Button';
-import Input from '../../components/UI/Input';
-import Modal from '../../components/UI/Modal';
+import { Button } from '../../../components/UI/Button.jsx';
+import Input from '../../../components/UI/Input.jsx';
+import Modal from '../../../components/UI/Modal.jsx';
 import { styled } from '@mui/material';
-import CloseIcon from '../../assets/icons/cross-icon.svg?react';
-import { AccountSelection } from './AccountSelection';
-import { SignIn } from './SignIn';
+import CloseIcon from '../../../assets/icons/cross-icon.svg?react';
+import { AccountSelection } from '../AccountSelection.jsx';
+import { SignIn } from './SignIn.jsx';
 
 export const LoginConfirmation = ({ handleBack }) => {
    const [isOpen, setIsOpen] = useState(true);
