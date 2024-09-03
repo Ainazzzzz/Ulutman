@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import NotFoundPage from '../pages/NotFound';
 
 export const AppRoutes = () => {
-   const { role } = useSelector(state => state.auth);
+   const { userData } = useSelector(state => state.auth);
 
    const pathsByRole = {
       ADMIN: '/admin',
@@ -31,22 +31,24 @@ export const AppRoutes = () => {
          element: (
             <PrivateAuthRouter
                Component={<MainLayout />}
-               fallBackPath={pathsByRole[role]}
-               isAuthorized={role === 'USER' || role === 'GUEST'}
+               fallBackPath={pathsByRole[userData.role]}
+               isAuthorized={
+                  userData.role === 'USER' || userData.role === 'GUEST'
+               }
             />
          ),
-         children: UserRoutes(role),
+         children: UserRoutes(userData.role),
       },
       {
          path: '/admin',
          element: (
             <PrivateAuthRouter
                Component={<AdminLayout />}
-               fallBackPath={pathsByRole[role]}
-               isAuthorized={role === 'ADMIN'}
+               fallBackPath={pathsByRole[userData.role]}
+               isAuthorized={userData.role === 'ADMIN'}
             />
          ),
-         children: AdminRoutes(role),
+         children: AdminRoutes(userData.role),
       },
       {
          path: '*',

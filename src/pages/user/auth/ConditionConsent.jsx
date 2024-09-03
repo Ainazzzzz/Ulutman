@@ -1,10 +1,10 @@
 import { styled } from '@mui/material';
-import { Button } from '../../components/UI/Button';
-import { CheckBox } from '../../components/UI/Checkbox';
-import CloseIcon from '../../assets/icons/cross-icon.svg?react';
-import Modal from '../../components/UI/Modal';
+import { Button } from '../../../components/UI/Button.jsx';
+import { CheckBox } from '../../../components/UI/Checkbox.jsx';
+import CloseIcon from '../../../assets/icons/cross-icon.svg?react';
+import Modal from '../../../components/UI/Modal.jsx';
 import { useState } from 'react';
-import { LoginConfirmation } from './LoginConfirmation';
+import { LoginConfirmation } from './LoginConfirmation.jsx';
 
 export const ConditionConsent = ({ signInModal, conditionModal }) => {
    const [isOpen, setIsOpen] = useState(true);
