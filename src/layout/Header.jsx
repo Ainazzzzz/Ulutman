@@ -1,4 +1,4 @@
-import { styled, useMediaQuery } from '@mui/material';
+import { styled, Typography, useMediaQuery } from '@mui/material';
 import { IconButton } from '../components/IconButton';
 import { Button } from '../components/UI/Button';
 import ReusableSelect from '../components/UI/Select';
@@ -6,7 +6,9 @@ import { languages } from '../utils/constants/languages';
 import { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { renderFlag } from '../utils/general/renderFlag';
+import { SignIn } from '../pages/user/auth/SignIn.jsx';
 
 import HeartLike from '../assets/icons/white-heart.svg?react';
 import UserLogo from '../assets/icons/user.svg?react';
@@ -18,8 +20,9 @@ import ComeIcon from '../assets/icons/come-icon.svg?react';
 import WhiteHeart from '../assets/icons/white-heart-icon.svg?react';
 import WhiteMessage from '../assets/icons/white-message-icon.svg?react';
 import Language from '../assets/icons/language-icon.svg?react';
-import { renderFlag } from '../utils/general/renderFlag';
-import { SignIn } from '../pages/user/auth/SignIn.jsx';
+import LogOutIcon from '../assets/icons/come-icon.svg?react';
+import { logOut } from '../redux/auth/authThunk.js';
+import { useNavigate } from 'react-router-dom';
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -40,8 +43,12 @@ const SearchIcon = ({ color = '#ffffff' }) => (
 );
 
 export const Header = () => {
-   const { isAuth } = useSelector(state => state.auth);
+   const dispatch = useDispatch();
+   const { isAuth, userData } = useSelector(state => state.auth);
+   const navigate = useNavigate();
+
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+
    const [language, setLanguage] = useState('ru');
    const [openMenu, setOpenMenu] = useState(null);
    const [openModal, setOpenModal] = useState(false);
@@ -52,10 +59,15 @@ export const Header = () => {
 
    const handleOpenModal = () => {
       setOpenModal(true);
+      handleClose();
    };
 
    const handleCloseModal = () => {
       setOpenModal(false);
+   };
+
+   const logOutHandler = () => {
+      dispatch(logOut({ navigate, toggleModal: handleClose }));
    };
 
    return (
@@ -74,10 +86,25 @@ export const Header = () => {
                      open={Boolean(openMenu)}
                      onClose={handleClose}
                   >
-                     <MenuItemStyle onClick={handleClose}>
-                        <ComeIcon /> Войти
-                     </MenuItemStyle>
+                     {!isAuth ? (
+                        <MenuItemStyle onClick={handleOpenModal}>
+                           <ComeIcon /> Войти
+                        </MenuItemStyle>
+                     ) : (
+                        <MenuItemStyle onClick={logOutHandler}>
+                           <LogOutIcon />
+                           Выйти
+                        </MenuItemStyle>
+                     )}
                      <Line />
+
+                     {isAuth && (
+                        <MenuItemStyle onClick={handleClose}>
+                           <UserLogo />
+                           Профиль
+                        </MenuItemStyle>
+                     )}
+
                      <MenuItemStyle onClick={handleClose}>
                         <SearchIcon color="#fff" />
                         Поиск
@@ -119,7 +146,7 @@ export const Header = () => {
                            <IconButton>
                               <UserLogo />
                            </IconButton>
-                           <a>Профиль</a>
+                           <UserName>{userData.name}</UserName>
                         </Block>
                      </>
                   ) : null}
@@ -167,6 +194,31 @@ const Block = styled('div')(() => ({
    alignItems: 'center',
    gap: '10px',
    cursor: 'pointer',
+   transition: '200ms',
+
+   '&:hover': {
+      color: '#9774FF',
+
+      path: {
+         transition: '200ms',
+         stroke: '#9774FF',
+      },
+   },
+
+   '&:active': {
+      color: '#5C24FF',
+
+      path: {
+         stroke: '#5C24FF',
+      },
+   },
+}));
+
+const UserName = styled(Typography)(() => ({
+   maxidth: '150px',
+   overflow: 'hidden',
+   textOverflow: 'ellipsis',
+   textWrap: 'nowrap',
 }));
 
 const ContainerBlock = styled('div')(() => ({
@@ -213,6 +265,13 @@ const MenuItemStyle = styled(MenuItem)(() => ({
    paddingLeft: '40px',
    color: '#fff',
    fontWeight: '600',
+
+   svg: {
+      path: {
+         stroke: '#fff',
+      },
+   },
+
    '&:hover': {
       backgroundColor: '#fff',
       color: '#7e52ff',
