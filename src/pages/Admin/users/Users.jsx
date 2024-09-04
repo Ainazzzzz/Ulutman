@@ -1,4 +1,4 @@
-import React, { useMemo, useReducer, useCallback } from 'react';
+import React, { useMemo, useReducer, useCallback, useEffect } from 'react';
 import { styled } from '@mui/material';
 import Plus from '../../../assets/icons/plus.svg?react';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,8 @@ import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
 import { WaitingModal } from '../ads/WaitingModal.jsx';
 import { Button } from '../../../components/UI/Button.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../../../redux/users/usersThunk.js';
 
 const inputData = [{ id: 'name', value: 'По имени' }];
 
@@ -48,15 +50,23 @@ const reducer = (state, action) => {
 };
 
 const Users = () => {
-   const [state, dispatch] = useReducer(reducer, initialState);
+   const [state, dispatchFunc] = useReducer(reducer, initialState);
+   const { allUsers } = useSelector(state => state.users);
+   console.log(allUsers);
+
    const navigate = useNavigate();
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+      dispatch(getAllUsers());
+   }, []);
 
    const toggleModal = useCallback(modalType => {
-      dispatch({ type: 'TOGGLE_MODAL', payload: modalType });
+      dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });
    }, []);
 
    const setValues = useCallback((field, payload) => {
-      dispatch({ type: 'SET_VALUES', field, payload });
+      dispatchFunc({ type: 'SET_VALUES', field, payload });
    }, []);
 
    const headers = useMemo(
@@ -85,7 +95,7 @@ const Users = () => {
             handleChange={(index, value) =>
                setValues('inputValues', { [index]: value })
             }
-            onResetFilter={() => dispatch({ type: 'RESET_FILTER' })}
+            onResetFilter={() => dispatchFunc({ type: 'RESET_FILTER' })}
             handleDateChange={label =>
                setValues('inputValues', { date: label })
             }
