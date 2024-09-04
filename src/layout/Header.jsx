@@ -1,14 +1,3 @@
-import HeartLike from '../assets/icons/white-heart.svg?react';
-import UserLogo from '../assets/icons/user.svg?react';
-import RussianFlag from '../assets/icons/russian-flag.svg?react';
-import Plus from '../assets/icons/plus.svg?react';
-import MenuIcon from '../assets/icons/menu-icon.svg?react';
-import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react';
-import MessageIcon from '../assets/icons/message-icon.svg?react';
-import ComeIcon from '../assets/icons/come-icon.svg?react';
-import WhiteHeart from '../assets/icons/white-heart-icon.svg?react';
-import WhiteMessage from '../assets/icons/white-message-icon.svg?react';
-import Language from '../assets/icons/language-icon.svg?react';
 import { styled, useMediaQuery } from '@mui/material';
 import { IconButton } from '../components/IconButton';
 import { Button } from '../components/UI/Button';
@@ -17,21 +6,21 @@ import { languages } from '../utils/constants/languages';
 import { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useSelector } from 'react-redux';
 
-const renderFlag = language =>
-   language === 'Кыргызский' ? (
-      <UserLogo />
-   ) : language === 'Русский' ? (
-      <RussianFlag />
-   ) : language === 'Турецкий' ? (
-      <TurkishFlag />
-   ) : language === 'Узбекский' ? (
-      <UzbekFlag />
-   ) : language === 'Английский' ? (
-      <EnglishFlag />
-   ) : (
-      <RussianFlag />
-   );
+import HeartLike from '../assets/icons/white-heart.svg?react';
+import UserLogo from '../assets/icons/user.svg?react';
+import Plus from '../assets/icons/plus.svg?react';
+import MenuIcon from '../assets/icons/menu-icon.svg?react';
+import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react';
+import MessageIcon from '../assets/icons/message-icon.svg?react';
+import ComeIcon from '../assets/icons/come-icon.svg?react';
+import WhiteHeart from '../assets/icons/white-heart-icon.svg?react';
+import WhiteMessage from '../assets/icons/white-message-icon.svg?react';
+import Language from '../assets/icons/language-icon.svg?react';
+import { renderFlag } from '../utils/general/renderFlag';
+import { SignIn } from '../pages/user/auth/SignIn.jsx';
+
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
       width="24"
@@ -49,99 +38,116 @@ const SearchIcon = ({ color = '#ffffff' }) => (
       />
    </svg>
 );
-export const Header = () => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const [language, setLanguage] = useState('Русский');
-   const [openMenu, setOpenMenu] = useState(null);
 
-   const handleSelect = event => {
-      setLanguage(event.target.value);
+export const Header = () => {
+   const { isAuth } = useSelector(state => state.auth);
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const [language, setLanguage] = useState('ru');
+   const [openMenu, setOpenMenu] = useState(null);
+   const [openModal, setOpenModal] = useState(false);
+
+   const handleSelect = event => setLanguage(event.target.value);
+   const handleClick = event => setOpenMenu(event.currentTarget);
+   const handleClose = () => setOpenMenu(null);
+
+   const handleOpenModal = () => {
+      setOpenModal(true);
    };
-   const handleClick = event => {
-      setOpenMenu(event.currentTarget);
+
+   const handleCloseModal = () => {
+      setOpenModal(false);
    };
-   const handleClose = () => {
-      setOpenMenu(null);
-   };
+
    return (
-      <Wrapper>
-         <LogoStyle>
-            <UlutmanLogo />
-         </LogoStyle>
-         {isMobile ? (
-            <div>
-               <IconButton onClick={handleClick}>
-                  <MenuIcon />
-               </IconButton>
-               <MenuStyle
-                  anchorEl={openMenu}
-                  open={Boolean(openMenu)}
-                  onClose={handleClose}
-               >
-                  <MenuItemStyle onClick={handleClose}>
-                     <ComeIcon /> Войти
-                  </MenuItemStyle>
-                  <Line></Line>
-                  <MenuItemStyle onClick={handleClose}>
-                     <SearchIcon color="#fff" />
-                     Поиск
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Plus /> Опубликовать
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <WhiteHeart />
-                     Избранное
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <WhiteMessage />
-                     Сообщения
-                  </MenuItemStyle>
-                  <MenuItemStyle onClick={handleClose}>
-                     <Language />
-                     Сменить язык
-                  </MenuItemStyle>
-               </MenuStyle>
-            </div>
-         ) : (
-            <>
+      <>
+         <Wrapper>
+            <LogoStyle>
+               <UlutmanLogo />
+            </LogoStyle>
+            {isMobile ? (
+               <div>
+                  <IconButton onClick={handleClick}>
+                     <MenuIcon />
+                  </IconButton>
+                  <MenuStyle
+                     anchorEl={openMenu}
+                     open={Boolean(openMenu)}
+                     onClose={handleClose}
+                  >
+                     <MenuItemStyle onClick={handleClose}>
+                        <ComeIcon /> Войти
+                     </MenuItemStyle>
+                     <Line />
+                     <MenuItemStyle onClick={handleClose}>
+                        <SearchIcon color="#fff" />
+                        Поиск
+                     </MenuItemStyle>
+                     <MenuItemStyle onClick={handleClose}>
+                        <Plus /> Опубликовать
+                     </MenuItemStyle>
+                     <MenuItemStyle onClick={handleClose}>
+                        <WhiteHeart />
+                        Избранное
+                     </MenuItemStyle>
+                     <MenuItemStyle onClick={handleClose}>
+                        <WhiteMessage />
+                        Сообщения
+                     </MenuItemStyle>
+                     <MenuItemStyle onClick={handleClose}>
+                        <Language />
+                        Сменить язык
+                     </MenuItemStyle>
+                  </MenuStyle>
+               </div>
+            ) : (
                <ContainerBlock>
+                  {isAuth ? (
+                     <>
+                        <Block>
+                           <IconButton>
+                              <MessageIcon />
+                           </IconButton>
+                           <a>Сообщения</a>
+                        </Block>
+                        <Block>
+                           <IconButton>
+                              <HeartLike />
+                           </IconButton>
+                           <a>Избранное</a>
+                        </Block>
+                        <Block>
+                           <IconButton>
+                              <UserLogo />
+                           </IconButton>
+                           <a>Профиль</a>
+                        </Block>
+                     </>
+                  ) : null}
                   <Block>
-                     <IconButton>
-                        <MessageIcon />
-                     </IconButton>
-                     <a>Сообщения</a>
-                  </Block>
-                  <Block>
-                     <IconButton>
-                        <HeartLike />
-                     </IconButton>
-                     <a>Избранное</a>
-                  </Block>
-                  <Block>
-                     <IconButton>
-                        <UserLogo />
-                     </IconButton>
-                     <a>Профиль</a>
-                  </Block>
-                  <Block>
-                     <div style={{ paddingTop: '10px' }}>
-                        {renderFlag(language)}
-                     </div>
+                     <div>{renderFlag(language)}</div>
                      <SelectStyle
                         options={languages}
                         value={language}
                         onChange={handleSelect}
                      />
                   </Block>
-                  <ButtonStyle>
-                     <Plus />
-                     Опубликовать
-                  </ButtonStyle>
+                  {isAuth ? (
+                     <ButtonStyle>
+                        <Plus />
+                        Опубликовать
+                     </ButtonStyle>
+                  ) : (
+                     <ButtonStyle onClick={handleOpenModal}>Войти</ButtonStyle>
+                  )}
                </ContainerBlock>
-            </>
-         )}
-      </Wrapper>
+            )}
+         </Wrapper>
+         <SignIn
+            open={openModal}
+            onClose={handleCloseModal}
+            onOpen={handleOpenModal}
+         />
+      </>
    );
 };
 
@@ -152,23 +158,15 @@ const Wrapper = styled('header')(({ theme }) => ({
    alignItems: 'center',
    justifyContent: 'space-between',
    padding: '14px 60px',
-   svg: {
-      cursor: 'pointer',
-   },
-
-   [theme.breakpoints.down('md')]: {
-      padding: '16px',
-      height: '59px',
-   },
+   svg: { cursor: 'pointer' },
+   [theme.breakpoints.down('md')]: { padding: '16px', height: '59px' },
 }));
 
 const Block = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
-   a: {
-      fontWeight: '400',
-      cursor: 'pointer',
-   },
+   gap: '10px',
+   cursor: 'pointer',
 }));
 
 const ContainerBlock = styled('div')(() => ({
@@ -176,16 +174,12 @@ const ContainerBlock = styled('div')(() => ({
    alignItems: 'center',
    gap: '32px',
 }));
+
 const LogoStyle = styled('div')(({ theme }) => ({
    display: 'flex',
    alignItems: 'center',
    gap: '10px',
-   svg: {
-      [theme.breakpoints.down('md')]: {
-         width: '134px',
-         height: '29px',
-      },
-   },
+   svg: { [theme.breakpoints.down('md')]: { width: '134px', height: '29px' } },
 }));
 
 const ButtonStyle = styled(Button)(() => ({
@@ -196,33 +190,23 @@ const ButtonStyle = styled(Button)(() => ({
    textTransform: 'inherit',
    height: '36px',
 }));
-const SelectStyle = styled(ReusableSelect)(() => ({
-   '.MuiOutlinedInput-notchedOutline': {
-      border: 'none',
-   },
-   '&:hover .MuiOutlinedInput-notchedOutline': {
-      border: 'none',
-   },
-   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      border: 'none',
-   },
 
-   '.MuiSelect-icon': {
-      right: '5px',
-      top: '15px',
-   },
-   '.MuiSelect-select': {
-      paddingLeft: '0px',
-   },
+const SelectStyle = styled(ReusableSelect)(() => ({
+   '.MuiOutlinedInput-notchedOutline': { border: 'none' },
+   '&:hover .MuiOutlinedInput-notchedOutline': { border: 'none' },
+   '&.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 'none' },
+   '.MuiSelect-icon': { right: '5px', top: '15px' },
+   '.MuiSelect-select': { paddingLeft: '0px' },
 }));
 
 const MenuStyle = styled(Menu)(() => ({
    '.MuiPaper-root': {
-      padding: '16px 0px 16px 0px',
+      padding: '16px 0px',
       width: '230px',
       background: '#7e52ff',
    },
 }));
+
 const MenuItemStyle = styled(MenuItem)(() => ({
    display: 'flex',
    gap: '10px',
@@ -235,14 +219,12 @@ const MenuItemStyle = styled(MenuItem)(() => ({
       borderTopRightRadius: '8px',
       borderBottomRightRadius: '8px',
       marginRight: '16px',
-      '& svg path': {
-         stroke: '#7e51ff',
-      },
+      '& svg path': { stroke: '#7e51ff' },
    },
 }));
 
 const Line = styled('div')(() => ({
    width: '100%',
    borderBottom: '1px solid #b2b2b2',
-   margin: '16px 0px 16px 0px',
+   margin: '16px 0px',
 }));

@@ -183,6 +183,12 @@ const DatePickerStyle = styled(MuiDatePicker)(() => ({
    '& .MuiOutlinedInput-root': {
       borderRadius: '0px',
    },
+
+   '& .MuiInputBase-root': {
+      display: 'grid',
+      gridTemplateColumns: '1fr 0.5fr',
+      padding: '0',
+   },
 }));
 
 const Box = styled('div')(() => ({
@@ -204,12 +210,10 @@ const ButtonStyle = styled(Button)(() => ({
 
 const DateContainer = styled('div')(() => ({
    display: 'flex',
-   gap: '10px',
    margin: '0 0 10px 0',
    flexWrap: 'wrap',
    justifyContent: 'center',
    padding: '0 10px',
-   maxHeight: '190px',
    overflow: 'hidden',
    overflowY: 'auto',
    alignItems: 'start',
