@@ -40,28 +40,26 @@ export const authSlice = createSlice({
    reducers: {
       autoLogin: (state, { payload }) => {
          state.userData = payload;
-         state.token = payload.token;
          state.isAuth = true;
       },
    },
 
    extraReducers: builder => {
       builder.addCase(logOut.fulfilled, state => {
-         state.role = 'GUEST';
-         state.isAuth = false;
+         state.userData.role = 'GUEST';
          state.userData.name = '';
          state.userData.status = '';
          state.userData.email = '';
          state.userData.token = '';
 
+         state.isAuth = false;
          state.error = null;
          state.isLoading = false;
       });
 
       builder.addCase(signIn.fulfilled, (state, action) => {
          state.userData = {
-            role: action.payload.roleName,
-            token: action.payload.token,
+            ...action.payload,
          };
          state.isAuth = true;
       });
