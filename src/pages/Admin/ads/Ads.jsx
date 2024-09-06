@@ -1,4 +1,4 @@
-import React, { useMemo, useReducer } from 'react';
+import React, { useEffect, useMemo, useReducer } from 'react';
 import { styled } from '@mui/material';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
 import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
@@ -6,6 +6,8 @@ import Table from '../../../components/UI/Table.jsx';
 import { AdsDeleteModal } from './AdsDeleteModal.jsx';
 import { WaitingModal } from './WaitingModal.jsx';
 import { ADS_COLUMNS, ADS_DATA } from '../../../utils/constants/moderation.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdminAdds } from '../../../redux/thunks/adminAddThunk.js';
 
 const inputData = [{ id: 'name', value: 'По имени' }];
 
@@ -69,6 +71,9 @@ const reducer = (state, action) => {
 
 export const Ads = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
+   const deliver = useDispatch();
+   const adminAdds = useSelector(state => state.adminAdds.adminAdds);
+   console.log(adminAdds);
 
    const handleDeleteToggleModal = () =>
       dispatch({ type: 'TOGGLE_DELETE_MODAL' });
@@ -93,6 +98,10 @@ export const Ads = () => {
       () => getAdminTableHeaders(handleWaitingToggleModal, ADS_COLUMNS),
       [handleWaitingToggleModal],
    );
+
+   useEffect(() => {
+      deliver(getAdminAdds());
+   }, []);
 
    return (
       <Wrapper>
