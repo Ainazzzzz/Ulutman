@@ -29,7 +29,7 @@ const getInitialState = () => {
          email: '',
          status: '',
          token: '',
-         role: 'GUEST',
+         role: 'ADMIN',
       },
    };
 };

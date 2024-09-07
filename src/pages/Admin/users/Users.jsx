@@ -1,28 +1,44 @@
 import React, { useMemo, useReducer, useCallback, useEffect } from 'react';
 import { styled } from '@mui/material';
-import Plus from '../../../assets/icons/plus.svg?react';
 import { useNavigate } from 'react-router-dom';
-import Table from '../../../components/UI/Table.jsx';
-import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
-import {
-   USERS_COLUMNS,
-   USERS_DATA,
-} from '../../../utils/constants/moderation.js';
-import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';
-import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
-import { WaitingModal } from '../ads/WaitingModal.jsx';
-import { Button } from '../../../components/UI/Button.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../../../redux/users/usersThunk.js';
+
+import { useDebounce } from '../../../hooks/useDebounce';
+import Table from '../../../components/UI/Table';
+import { getAdminTableHeaders } from '../category/AdminTableHeader';
+import { USERS_COLUMNS } from '../../../utils/constants/moderation';
+import { AdsDeleteModal } from '../ads/AdsDeleteModal';
+import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter';
+import { WaitingModal } from '../ads/WaitingModal';
+import { Button } from '../../../components/UI/Button';
+
+import Plus from '../../../assets/icons/plus.svg?react';
+
+import {
+   getAllUsers,
+   getResetFilter,
+   getUsersFilter,
+   getUsersName,
+} from '../../../redux/users/usersThunk';
 
 const inputData = [{ id: 'name', value: 'По имени' }];
-
 const selectsConfig = [
-   { label: 'role', options: [{ id: 'e1', value: 'role', label: 'Роль' }] },
+   {
+      label: 'role',
+      options: [
+         { id: 'e1', value: 'role', label: 'Роль' },
+         { id: 'e2', value: 'USER', label: 'USER' },
+         { id: 'e3', value: 'ADMIN', label: 'ADMIN' },
+      ],
+   },
    { label: 'date', options: [{ id: 'e2', value: 'date', label: 'Дата' }] },
    {
       label: 'status',
-      options: [{ id: 'e3', value: 'status', label: 'Cтатус' }],
+      options: [
+         { id: 'e5', value: 'status', label: 'Cтатус' },
+         { id: 'e6', value: 'АКТИВНЫЙ', label: 'АКТИВНЫЙ' },
+         { id: 'e7', value: 'ЗАБЛОКИРОВАН', label: 'ЗАБЛОКИРОВАН' },
+      ],
    },
 ];
 
@@ -52,14 +68,35 @@ const reducer = (state, action) => {
 const Users = () => {
    const [state, dispatchFunc] = useReducer(reducer, initialState);
    const { allUsers } = useSelector(state => state.users);
-   console.log(allUsers);
-
    const navigate = useNavigate();
    const dispatch = useDispatch();
 
+   const debouncedName = useDebounce(state.inputValues.name, 1500);
+
+   const fetchUsers = useCallback(() => {
+      const { date } = state.inputValues;
+      const { role, status } = state.selectedValues;
+
+      const filters = {};
+      if (role !== 'role') filters.roles = role;
+      if (status !== 'status') filters.statuses = status;
+
+      if (date.length) filters.createDate = date;
+
+      if (Object.keys(filters).length) {
+         dispatch(getUsersFilter(filters));
+      } else {
+         dispatch(getAllUsers());
+      }
+   }, [state.inputValues, state.selectedValues, dispatch]);
+
    useEffect(() => {
-      dispatch(getAllUsers());
-   }, []);
+      if (debouncedName) {
+         dispatch(getUsersName(debouncedName));
+      } else {
+         fetchUsers();
+      }
+   }, [debouncedName, fetchUsers, dispatch]);
 
    const toggleModal = useCallback(modalType => {
       dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });
@@ -75,15 +112,19 @@ const Users = () => {
       [toggleModal],
    );
 
+   const resetFilterHandler = () => {
+      dispatchFunc({ type: 'RESET_FILTER' });
+      dispatch(getResetFilter());
+   };
+
    return (
       <Wrapper>
          <WrapperTitle>
-            <Description>Управление пользователями</Description>
+            <Description>Управление пользователем</Description>
             <Button onClick={() => navigate('/admin/add-administrator')}>
                <Plus /> Добавить администратора
             </Button>
          </WrapperTitle>
-
          <AdminHeaderFilter
             selectedValues={state.selectedValues}
             onSelectChange={(label, value) =>
@@ -95,19 +136,15 @@ const Users = () => {
             handleChange={(index, value) =>
                setValues('inputValues', { [index]: value })
             }
-            onResetFilter={() => dispatchFunc({ type: 'RESET_FILTER' })}
-            handleDateChange={label =>
-               setValues('inputValues', { date: label })
-            }
+            onResetFilter={resetFilterHandler}
+            handleDateChange={date => setValues('inputValues', { date })}
             value={state.inputValues}
          />
-         <Table data={USERS_DATA} column={headers} />
-
+         <Table data={allUsers} column={headers} />
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
             onClose={() => toggleModal('deleteAllModal')}
          />
-
          <WaitingModal
             isOpen={state.waitingModal}
             onClose={() => toggleModal('waitingModal')}
@@ -119,7 +156,7 @@ const Users = () => {
 export default Users;
 
 const Description = styled('h2')(({ theme }) => ({
-   fontWeight: '600',
+   fontWeight: 600,
    fontSize: '34px',
    color: '#202224',
    [theme.breakpoints.down('md')]: {

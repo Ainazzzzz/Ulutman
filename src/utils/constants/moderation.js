@@ -163,7 +163,7 @@ export const USERS_COLUMNS = [
    },
    {
       Header: 'ДАТА РЕГИСТРАЦИИ',
-      accessor: 'date',
+      accessor: 'createDate',
    },
    {
       Header: 'СТАТУС',

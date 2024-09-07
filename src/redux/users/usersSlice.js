@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllUsers } from './usersThunk';
+import { getAllUsers, getUsersName, getUsersFilter } from './usersThunk';
 
 export const usersSlice = createSlice({
    name: 'users',
@@ -8,6 +8,13 @@ export const usersSlice = createSlice({
    },
    extraReducers: builder => {
       builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
+         state.allUsers = payload;
+      });
+
+      builder.addCase(getUsersName.fulfilled, (state, { payload }) => {
+         state.allUsers = payload;
+      });
+      builder.addCase(getUsersFilter.fulfilled, (state, { payload }) => {
          state.allUsers = payload;
       });
    },
