@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from 'react';
+import { useEffect, useMemo, useReducer } from 'react';
 import { styled } from '@mui/material';
 import { getAdminTableHeaders } from '../category/AdminTableHeader';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter';
@@ -9,6 +9,8 @@ import {
    MODERATION_COMPLAINTS,
    MODERATION_COMPLAINTS_DATA,
 } from '../../../utils/constants/moderation';
+import { useDispatch, useSelector } from 'react-redux';
+import { complaintsThunks } from '../../../redux/complaintsThunks.js';
 
 const inputData = [{ id: 'user', value: 'Пользователь' }];
 
@@ -50,6 +52,14 @@ const reducer = (state, action) => {
 
 export const ComplaintsModerationPage = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
+   const dispatchComplaints = useDispatch();
+   const data = useSelector(state => state.complaints.data);
+
+   console.log(data);
+
+   useEffect(() => {
+      dispatchComplaints(complaintsThunks());
+   }, []);
 
    const handleToggle = type => dispatch({ type });
 
@@ -96,7 +106,7 @@ export const ComplaintsModerationPage = () => {
             handleDateChange={handleDateChange}
          />
 
-         <Table data={MODERATION_COMPLAINTS_DATA} column={headers} />
+         <Table data={data || []} column={headers} />
 
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
