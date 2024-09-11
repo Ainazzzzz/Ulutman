@@ -9,8 +9,8 @@ export const dashboardSlices = createSlice({
    reducers: {},
 
    extraReducers: builder => {
-      builder.addCase(dashBoard.fulfilled, (state, { payload }) => {
-         state.infodashboard = payload;
+      builder.addCase(dashBoard.fulfilled, (state, action) => {
+         state.infodashboard = action.payload;
       });
    },
 });
