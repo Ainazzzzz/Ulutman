@@ -73,6 +73,20 @@ const Users = () => {
 
    const debouncedName = useDebounce(state.inputValues.name, 1500);
 
+   const formatDate = date => {
+      const [day, month, year] = date.split('.');
+
+      const currentYear = new Date().getFullYear();
+      const century = Math.floor(currentYear / 100) * 100;
+      const formattedYear =
+         year.length === 2 ? century + parseInt(year, 10) : year;
+      console.log(
+         `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`,
+      );
+
+      return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+   };
+
    const fetchUsers = useCallback(() => {
       const { date } = state.inputValues;
       const { role, status } = state.selectedValues;
@@ -81,7 +95,10 @@ const Users = () => {
       if (role !== 'role') filters.roles = role;
       if (status !== 'status') filters.statuses = status;
 
-      if (date.length) filters.createDate = date;
+      if (date.length) {
+         const formattedDates = date.map(formatDate);
+         filters.createDates = formattedDates;
+      }
 
       if (Object.keys(filters).length) {
          dispatch(getUsersFilter(filters));

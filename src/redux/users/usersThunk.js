@@ -26,18 +26,28 @@ export const getUsersName = createAsyncThunk(
       }
    },
 );
+
 export const getUsersFilter = createAsyncThunk(
    'users/getUsersFilter',
-   async ({ roles, createDate, statuses }) => {
+   async ({ roles, createDates, statuses }) => {
+      console.log(createDates);
+
       try {
-         const { data } = await axiosInstance.get('manage/users/filter', {
-            params: {
-               roles: roles,
-               createDate: createDate,
-               statuses,
-            },
-         });
-         console.log(data);
+         const queryString = new URLSearchParams();
+
+         if (roles) queryString.append('roles', roles);
+
+         if (createDates && Array.isArray(createDates)) {
+            createDates.forEach(date => {
+               queryString.append('createDates', date);
+            });
+         }
+
+         if (statuses) queryString.append('statuses', statuses);
+
+         const { data } = await axiosInstance.get(
+            `/manage/users/filter?${queryString.toString()}`,
+         );
 
          return data;
       } catch (error) {
