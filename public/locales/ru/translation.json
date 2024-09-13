@@ -32,13 +32,13 @@
       "dashboard": {
          "title": "Статистика",
          "popularCategory": "Популярность категории",
-         "work": "Работа",
+         "WORK": "Работа",
          "rentals": "Аренда",
          "hotel": "Гостиница",
-         "services": "Услуги",
-         "realEstate": "Недвижимость",
-         "car": "Авто",
-         "forSale": "Продам"
+         "SERVICES": "Услуги",
+         "REAL_ESTATE": "Недвижимость",
+         "AUTO": "Авто",
+         "SELL": "Продам"
       }
    }
 }
