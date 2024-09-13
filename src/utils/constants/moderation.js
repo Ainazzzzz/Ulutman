@@ -28,11 +28,11 @@ export const MODERATION_DATA = [
 export const MODERATION_COLUMNS = [
    {
       Header: 'ПОЛЬЗОВАТЕЛЬ',
-      accessor: 'name',
+      accessor: 'username',
    },
    {
       Header: 'КОММЕНТАРИЙ',
-      accessor: 'comment',
+      accessor: 'content',
    },
    {
       Header: 'СООБЩЕНИЕ',
@@ -40,11 +40,11 @@ export const MODERATION_COLUMNS = [
    },
    {
       Header: 'ДАТА СОЗДАНИЕ',
-      accessor: 'date',
+      accessor: 'createDate',
    },
    {
       Header: 'СТАТУС',
-      accessor: 'status',
+      accessor: 'moderatorStatus',
    },
 ];
 

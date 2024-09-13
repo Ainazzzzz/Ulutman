@@ -16,6 +16,8 @@ export const AdminHeaderFilter = ({
    handleChange,
    value,
 }) => {
+   console.log(selectedValues);
+
    return (
       <Container>
          <InputsWrapper>

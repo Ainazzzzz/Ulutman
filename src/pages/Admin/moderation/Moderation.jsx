@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from 'react';
+import { useEffect, useMemo, useReducer } from 'react';
 import { styled } from '@mui/material';
 
 import Table from '../../../components/UI/Table.jsx';
@@ -10,25 +10,32 @@ import {
 } from '../../../utils/constants/moderation.js';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
 import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
+import { getModerationComments } from '../../../redux/moderation/moderationThunk.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 const inputData = [
-   { id: 'name', value: 'По имени' },
-   { id: 'search', value: 'Поиск по тексту' },
+   { id: 'user', value: 'По имени' },
+   { id: 'content', value: 'Поиск по тексту' },
 ];
 
 const selectsConfig = [
    { label: 'date', options: [{ id: 'e1', value: 'date', label: 'Дата' }] },
    {
       label: 'status',
-      options: [{ id: 'e3', value: 'status', label: 'Cтатус' }],
+      options: [
+         { id: 'e3', value: '', label: 'Cтатус' },
+         { id: 'e3', value: 'ОДОБРЕН', label: 'Одобрен' },
+         { id: 'e3', value: 'ОТКЛОНЕН', label: 'Отклонен' },
+         { id: 'e3', value: 'ОЖИДАЕТ', label: 'Ожидает' },
+      ],
    },
 ];
 
 const initialState = {
    deleteAllModal: false,
    waitingModal: false,
-   inputValues: { name: '', search: '', date: [] },
-   selectedValues: { date: 'date', status: 'status' },
+   inputValues: { user: '', content: '', createDate: [], status: '' },
+   selectedValues: { date: 'date', status: '' },
 };
 
 const reducer = (state, action) => {
@@ -51,7 +58,7 @@ const reducer = (state, action) => {
       case 'SET_DATE_VALUES':
          return {
             ...state,
-            inputValues: { ...state.inputValues, date: action.payload },
+            inputValues: { ...state.inputValues, createDate: action.payload },
          };
       case 'SET_SELECTED_VALUES':
          return {
@@ -61,8 +68,8 @@ const reducer = (state, action) => {
       case 'RESET_FILTER':
          return {
             ...state,
-            inputValues: { name: '', search: '', date: [] },
-            selectedValues: { date: 'date', status: 'status' },
+            inputValues: { user: '', content: '', createDate: [] },
+            selectedValues: { date: 'date', status: '' },
          };
       default:
          return state;
@@ -70,6 +77,8 @@ const reducer = (state, action) => {
 };
 
 export const Moderation = () => {
+   const appDispatch = useDispatch();
+   const { comments } = useSelector(state => state.moderation);
    const [state, dispatch] = useReducer(reducer, initialState);
 
    const handleToggle = type => dispatch({ type });
@@ -101,6 +110,15 @@ export const Moderation = () => {
       [],
    );
 
+   useEffect(() => {
+      appDispatch(
+         getModerationComments({
+            ...state.inputValues,
+            ...state.selectedValues,
+         }),
+      );
+   }, [state.inputValues, state.selectedValues]);
+
    return (
       <Wrapper>
          <Description>Модерация комментариев и сообщений</Description>
@@ -117,7 +135,7 @@ export const Moderation = () => {
             handleDateChange={handleDateChange}
          />
 
-         <Table data={MODERATION_DATA} column={headers} />
+         <Table data={comments} column={headers} />
 
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
@@ -134,18 +152,18 @@ export const Moderation = () => {
 
 const Description = styled('h2')(({ theme }) => ({
    fontWeight: 600,
-   fontSize: '34px',
+   fontSize: '2.125rem',
    color: '#202224',
    [theme.breakpoints.down('md')]: {
-      fontSize: '22px',
+      fontSize: '1.375rem',
    },
 }));
 
 const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
-   gap: '24px',
-   padding: '30px',
+   gap: '1.5rem',
+   padding: '1.875rem',
    [theme.breakpoints.down('md')]: {
       overflowX: 'scroll',
    },
