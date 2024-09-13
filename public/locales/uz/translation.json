@@ -1,36 +1,44 @@
 {
-  "admin": {
-    "sideBar": {
-      "dashboard": "Statistika",
-      "users": "Foydalanuvchilar",
-      "ads": "E'lonlar",
-      "categories": "Kategoriyalar",
-      "moderation": "Moderatsiya",
-      "mailing": "Xatlar",
-      "settings": "Sozlamalar",
-      "logOut": "Chiqish",
-      "changeLanguage": "Tilni oʻzgartirish"
-    },
-    "header": {
-      "inputLabel": "Qidiruv",
-      "select": {
-        "kg": "Qirgʻizcha",
-        "ru": "Ruscha",
-        "tj": "Tojikcha",
-        "uz": "Oʻzbekcha",
-        "en": "Inglizcha"
+   "admin": {
+      "sideBar": {
+         "dashboard": "Statistika",
+         "users": "Foydalanuvchilar",
+         "ads": "E'lonlar",
+         "categories": "Kategoriyalar",
+         "moderation": "Moderatsiya",
+         "analitic": "Analitika",
+         "settings": "Sozlamalar",
+         "logOut": "Chiqish",
+
+         "subLinks": {
+            "complaints": "Shikoyatlar va qonunbuzarliklarni boshqarish",
+            "comments": "Sharhlar va xabarlarni moderatsiya qilish",
+            "images": "Rasmlar va media fayllarni tekshirish",
+            "mailing": "Elektron pochta tarqatmalari"
+         },
+
+         "changeLanguage": "Tilni oʻzgartirish"
+      },
+      "header": {
+         "inputLabel": "Qidiruv",
+         "select": {
+            "kg": "Qirgʻizcha",
+            "ru": "Ruscha",
+            "tj": "Tojikcha",
+            "uz": "Oʻzbekcha",
+            "en": "Inglizcha"
+         }
+      },
+      "dashboard": {
+         "title": "Statistika",
+         "popularCategory": "Kategoriya ommaviyligi",
+         "work": "Ish",
+         "rentals": "Ijara",
+         "hotel": "Mehmonxona",
+         "services": "Xizmatlar",
+         "realEstate": "Ko‘chmas mulk",
+         "car": "Avtomobil",
+         "forSale": "Sotaman"
       }
-    },
-    "dashboard": {
-      "title": "Statistika",
-      "popularCategory": "Kategoriya ommaviyligi",
-      "work": "Ish",
-      "rentals": "Ijara",
-      "hotel": "Mehmonxona",
-      "services": "Xizmatlar",
-      "realEstate": "Ko‘chmas mulk",
-      "car": "Avtomobil",
-      "forSale": "Sotaman"
-    }
-  }
+   }
 }

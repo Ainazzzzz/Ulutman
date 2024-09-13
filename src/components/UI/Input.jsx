@@ -1,14 +1,48 @@
-import { Box, TextField, styled } from '@mui/material';
-import React, { forwardRef } from 'react';
+import { Box, InputAdornment, TextField, styled } from '@mui/material';
+import React, { forwardRef, useState } from 'react';
+import EyeIcon from '../../assets/icons/eye-icon.svg?react';
+import CloseEyeIcon from '../../assets/icons/eye-close.svg?react';
+import { IconButton } from '../IconButton';
 
 const Input = forwardRef(
-   ({ label = '', confirmed, required = false, ...props }, ref) => {
+   ({ label = '', confirmed, required = false, type, ...props }, ref) => {
+      const [showPassword, setShowPassword] = useState(false);
+
+      const toggleShowPassword = () => {
+         setShowPassword(prev => !prev);
+      };
+
       return (
          <Container>
             <StyledLabel required={required} htmlFor={label}>
                {label} {confirmed && <Confirmed>{confirmed}</Confirmed>}
             </StyledLabel>
-            <StyledInput id={label} ref={ref} {...props} />
+            <StyledInput
+               id={label}
+               ref={ref}
+               type={showPassword ? 'text' : type}
+               InputProps={
+                  type === 'password'
+                     ? {
+                          endAdornment: (
+                             <InputAdornment position="end">
+                                <IconButton onClick={toggleShowPassword}>
+                                   {!showPassword ? (
+                                      <CloseEyeIcon
+                                         width="20px"
+                                         height="24px"
+                                      />
+                                   ) : (
+                                      <EyeIcon width="20px" height="24px" />
+                                   )}
+                                </IconButton>
+                             </InputAdornment>
+                          ),
+                       }
+                     : null
+               }
+               {...props}
+            />
          </Container>
       );
    },
@@ -34,7 +68,7 @@ const StyledLabel = styled('label')(({ required }) => ({
    },
 }));
 
-const Confirmed = styled('p')(({}) => ({
+const Confirmed = styled('p')(() => ({
    width: '123px',
    height: '23px',
    display: 'flex',

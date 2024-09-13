@@ -1,28 +1,20 @@
 import { useState } from 'react';
 import Modal from '../../../components/UI/Modal.jsx';
-import CloseIcon from '../../../assets/icons/cross-icon.svg?react';
 import Input from '../../../components/UI/Input.jsx';
 import { Button } from '../../../components/UI/Button.jsx';
-import { styled, Typography } from '@mui/material';
-import { ConditionConsent } from './ConditionConsent.jsx';
-import { NavLink } from 'react-router-dom';
 import SignUp from './signUp.jsx';
-import { useDispatch } from 'react-redux';
 import { signIn } from '../../../redux/auth/authThunk.js';
+import { styled, Typography } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import CloseIcon from '../../../assets/icons/cross-icon.svg?react';
 
 export const SignIn = ({ open, onClose, onOpen }) => {
    const dispatch = useDispatch();
 
-   const [isOpen, setIsOpen] = useState(false);
    const [openSignUp, setOpenSignUp] = useState(false);
-   const [emailError, setEmailError] = useState('');
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
-
-   const validateEmail = email => {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailPattern.test(email);
-   };
 
    const handleEmailChange = event => {
       setEmail(event.target.value);
@@ -62,13 +54,16 @@ export const SignIn = ({ open, onClose, onOpen }) => {
                   placeholder="Введите email"
                   value={email}
                   onChange={handleEmailChange}
+                  id="gmail"
+                  type="email"
                />
                <Input
                   placeholder="Введите пароль"
                   value={password}
                   onChange={handlePasswordChange}
+                  id="pasword"
+                  type="password"
                />
-               {emailError && <ErrorText>{emailError}</ErrorText>}
                <Button type={'submit'}>Войти</Button>
                <Typography align="center">
                   У вас нету аккаунта?{' '}
@@ -83,13 +78,6 @@ export const SignIn = ({ open, onClose, onOpen }) => {
             onClose={handleCloseSignUp}
             onOpen={onOpen}
          />
-
-         {isOpen ? (
-            <ConditionConsent
-               signInModal={setIsOpen}
-               conditionModal={setIsOpen}
-            />
-         ) : null}
       </>
    );
 };

@@ -2,19 +2,67 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
-import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react';
 import { styled, Typography } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import LogOutModal from './LogOutModal';
 import { useTranslation } from 'react-i18next';
+
+import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react';
+import Arrow from '../../assets/icons/down-arrow-icon.svg?react';
+
+const StyledArrow = styled(Arrow)(() => ({}));
+
+const dataArray = [
+   { key: 'dashboard', value: 'Статистика' },
+   {
+      key: 'users',
+      value: 'Пользователи',
+      icon: <StyledArrow />,
+      subData: [
+         {
+            key: 'mailing',
+            value: 'email - рассылки',
+         },
+      ],
+   },
+   { key: 'ads', value: 'Объявления' },
+   { key: 'categories', value: 'Категории' },
+   {
+      key: 'moderation',
+      value: 'Модерация',
+      icon: <StyledArrow />,
+      subData: [
+         {
+            key: 'complaints',
+            value: 'Управление жалобами и нарушениями',
+         },
+         {
+            key: 'comments',
+            value: 'Модерация комментариев и сообщений',
+         },
+         {
+            key: 'images',
+            value: 'Проверка изображений и медиафайлов',
+         },
+      ],
+   },
+   { key: 'analitic', value: 'Аналитика' },
+];
 
 export const SideBar = () => {
    const { t } = useTranslation();
    const navigate = useNavigate();
+
    const [openModal, setOpenModal] = useState(false);
+   const [activeSubLink, setActiveSubLink] = useState(null); // состояние для активного подменю
 
    const toggleModal = () => setOpenModal(prev => !prev);
+
+   // Функция для открытия/закрытия подменю
+   const toggleSubLink = key => {
+      setActiveSubLink(prev => (prev === key ? null : key)); // переключение состояния
+   };
 
    const DrawerList = (
       <Box sx={{ width: 250 }}>
@@ -22,37 +70,32 @@ export const SideBar = () => {
             <Ulutman />
          </UlutmanLogo>
          <List>
-            <ListItemStyle>
-               <NavStyle to="dashboard">
-                  {t('admin.sideBar.dashboard')}
-               </NavStyle>
-            </ListItemStyle>
-
-            <ListItemStyle>
-               <NavStyle to="users">{t('admin.sideBar.users')}</NavStyle>
-            </ListItemStyle>
-
-            <ListItemStyle>
-               <NavStyle to="ads">{t('admin.sideBar.ads')}</NavStyle>
-            </ListItemStyle>
-
-            <ListItemStyle>
-               <NavStyle to="categories">
-                  {t('admin.sideBar.categories')}
-               </NavStyle>
-            </ListItemStyle>
-
-            <ListItemStyle>
-               <NavStyle to="moderation">
-                  {t('admin.sideBar.moderation')}
-               </NavStyle>
-            </ListItemStyle>
-
-            <ListItemStyle>
-               <NavStyle to="add-mailing">
-                  {t('admin.sideBar.mailing')}
-               </NavStyle>
-            </ListItemStyle>
+            {dataArray.map(item => (
+               <Fragment key={item.key}>
+                  <ListItemStyle>
+                     <NavStyle
+                        to={item.key}
+                        onClick={() => item.subData && toggleSubLink(item.key)}
+                     >
+                        {t(`admin.sideBar.${item.key}`)}
+                        {item.icon && item.icon}
+                     </NavStyle>
+                  </ListItemStyle>
+                  {item.subData &&
+                  item.subData.length > 0 &&
+                  activeSubLink === item.key
+                     ? item.subData.map(subItem => (
+                          <SubListItem key={subItem.key}>
+                             <NavStyle to={`${item.key}/${subItem.key}`}>
+                                <Typography>
+                                   {t(`admin.sideBar.subLinks.${subItem.key}`)}
+                                </Typography>
+                             </NavStyle>
+                          </SubListItem>
+                       ))
+                     : null}
+               </Fragment>
+            ))}
          </List>
          <br />
          <Divider />
@@ -90,7 +133,6 @@ const UlutmanLogo = styled('div')(() => ({
 }));
 const DrawerStyle = styled(Box)(() => ({
    width: '250px',
-   height: '100vh',
    position: 'sticky',
    background: '#fff',
    top: '0',
@@ -102,24 +144,63 @@ const ListItemStyle = styled(ListItem)(() => ({
    paddingTop: '0px',
    paddingBottom: '0px',
 }));
+
+const SubListItem = styled(ListItem)(() => ({
+   paddingTop: '0px',
+   paddingBottom: '0px',
+}));
+
 const NavStyle = styled(NavLink)(() => ({
    width: '192px',
-   height: '50px',
    borderRadius: '6px',
    textDecoration: 'none',
    fontWeight: '600',
    fontSize: '14px',
    color: '#282828',
-   padding: '16px 0px 16px 30px',
+   padding: '16px 30px 16px ',
    transition: '400ms',
+
+   display: 'flex',
+   justifyContent: 'space-between',
+   alignItems: 'center',
+
+   '& .MuiTypography-root': {
+      textWrap: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      fontWeight: '600',
+      fontSize: '14px',
+      color: '#282828',
+   },
+
    '&:hover': {
       background: '#7e52ff',
       color: '#fff',
+
+      '& .MuiTypography-root': {
+         color: '#fff',
+      },
+
+      path: {
+         fill: '#fff',
+      },
    },
 
    '&.active': {
       background: '#7e52ff',
       color: '#fff',
+
+      '& .MuiTypography-root': {
+         color: '#fff',
+      },
+
+      path: {
+         fill: '#fff',
+      },
+   },
+
+   path: {
+      fill: '#222',
    },
 }));
 

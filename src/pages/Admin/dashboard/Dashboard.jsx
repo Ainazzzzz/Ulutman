@@ -3,7 +3,7 @@ import { Box, styled, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { dashBoard } from '../../../redux/slices/dashboardThunks.js';
+import { dashBoard } from '../../../redux/dashboard/dashboardThunks.js';
 
 const colorMappings = {
    work: 'rgba(255, 58, 41, 0.1)',
@@ -26,12 +26,14 @@ const customBackgroundColor = (title, value) => ({
 export const Dashboard = () => {
    const { t } = useTranslation();
    const dispatch = useDispatch();
-   const infodashboard = useSelector(state => state.infodashboard);
-   console.log(infodashboard);
+   const { infoDashboard, isLoading } = useSelector(state => state.dashboard);
 
    useEffect(() => {
       dispatch(dashBoard());
    }, [dispatch]);
+
+   console.log(infoDashboard);
+   if (!isLoading) return;
 
    return (
       <StyledContainer>
@@ -43,7 +45,7 @@ export const Dashboard = () => {
             </Typography>
 
             <ContainerCategory>
-               {infodashboard?.map(item => (
+               {infoDashboard.map(item => (
                   <ContainerListCategory key={item.id}>
                      <WrapperItemFirst>
                         <Typography className="title">

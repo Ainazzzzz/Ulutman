@@ -6,9 +6,17 @@
          "ads": "İlanlar",
          "categories": "Kategoriler",
          "moderation": "Moderasyon",
-         "mailing": "Posta Listesi",
+         "analitic": "Analitik",
          "settings": "Ayarlar",
          "logOut": "Çıkış Yap",
+
+         "subLinks": {
+            "complaints": "Şikayetler ve İhlallerin Yönetimi",
+            "comments": "Yorumlar ve Mesajların Moderasyonu",
+            "images": "Görüntü ve Medya Dosyalarının İncelenmesi",
+            "mailing": "E-posta Bültenleri"
+         },
+
          "changeLanguage": "Dili Değiştir"
       },
       "header": {
