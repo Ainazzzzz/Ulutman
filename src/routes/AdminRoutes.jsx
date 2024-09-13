@@ -71,19 +71,9 @@ export const AdminRoutes = role => {
             />
          ),
       },
+
       {
-         path: 'media-files',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<MediaFilesModerationPage />}
-            />
-         ),
-      },
-      {
-         path: 'complaints',
+         path: 'moderation/complaints',
          element: (
             <PrivateAuthRouteByRole
                role={role}
@@ -94,7 +84,30 @@ export const AdminRoutes = role => {
          ),
       },
       {
-         path: 'add-mailing',
+         path: 'moderation/comments',
+         element: (
+            <PrivateAuthRouteByRole
+               role={role}
+               roles={['ADMIN']}
+               fallBackPath="/"
+               RouteComponent={<ModerationPage />}
+            />
+         ),
+      },
+      {
+         path: 'moderation/images',
+         element: (
+            <PrivateAuthRouteByRole
+               role={role}
+               roles={['ADMIN']}
+               fallBackPath="/"
+               RouteComponent={<MediaFilesModerationPage />}
+            />
+         ),
+      },
+
+      {
+         path: 'users/mailing',
          element: (
             <PrivateAuthRouteByRole
                role={role}

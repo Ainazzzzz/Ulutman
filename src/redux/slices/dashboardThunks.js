@@ -11,7 +11,7 @@ export const dashBoard = createAsyncThunk(
 
          return data;
       } catch (e) {
-         return rejectWithValue;
+         return rejectWithValue();
       }
    },
 );

@@ -4,30 +4,41 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { dashBoard } from '../../../redux/slices/dashboardThunks.js';
+import { dashboard } from '../../../utils/constants/dashboard.js';
 
 const colorMappings = {
-   work: 'rgba(255, 58, 41, 0.1)',
+   WORK: 'rgba(255, 58, 41, 0.1)',
    rentals: 'rgba(2, 160, 252, 0.1)',
    hotel: 'rgba(67, 57, 242, 0.1)',
-   services: 'rgba(52, 181, 58, 0.1)',
-   realEstate: 'rgba(255, 178, 0, 0.1)',
-   car: 'rgba(245, 25, 105, 0.1)',
-   forSale: 'rgba(7, 249, 234, 0.1)',
+   SERVICES: 'rgba(52, 181, 58, 0.1)',
+   REAL_ESTATE: 'rgba(255, 178, 0, 0.1)',
+   AUTO: 'rgba(245, 25, 105, 0.1)',
+   SELL: 'rgba(7, 249, 234, 0.1)',
 };
 
-const customBackgroundColor = (title, value) => ({
-   background: colorMappings[title],
-   div: {
-      background: colorMappings[title].replace('0.1', '1'),
-      width: `${(value.value / value.ofValue) * 100}%`,
-   },
-});
+// const customBackgroundColor = (title, value) => ({
+//    background: colorMappings[title],
+//    div: {
+//       background: colorMappings[title].replace('0.1', '1'),
+//       width: `${(value.value / value.ofValue) * 100}%`,
+//    },
+// });
 
+const customBackgroundColor = (title, value) => {
+   const backgroundColor = colorMappings[title] || 'rgba(0, 0, 0, 0.1)';
+
+   return {
+      background: backgroundColor,
+      div: {
+         background: backgroundColor.replace('0.1', '1'),
+         width: `${(value.value / value.ofValue) * 100}%`,
+      },
+   };
+};
 export const Dashboard = () => {
    const { t } = useTranslation();
    const dispatch = useDispatch();
-   const infodashboard = useSelector(state => state.infodashboard);
-   console.log(infodashboard);
+   const infodashboard = useSelector(state => state.dashboard.infodashboard);
 
    useEffect(() => {
       dispatch(dashBoard());
@@ -43,20 +54,21 @@ export const Dashboard = () => {
             </Typography>
 
             <ContainerCategory>
-               {infodashboard?.map(item => (
-                  <ContainerListCategory key={item.id}>
+               {Object.entries(infodashboard).map(([title, value], index) => (
+                  <ContainerListCategory key={index}>
                      <WrapperItemFirst>
                         <Typography className="title">
-                           {t(`admin.dashboard.${item.title}`)}
+                           {t(`${title}`)}
                         </Typography>
                         <Typography>
-                           {item.value} of {item.ofValue}
+                           {value} of 100{' '}
+                           {/* Замените 100 на реальное значение ofValue, если оно существует */}
                         </Typography>
                      </WrapperItemFirst>
 
                      <ContainerBackground
-                        title={item.title}
-                        rating={{ value: item.value, ofValue: item.ofValue }}
+                        title={title}
+                        rating={{ value, ofValue: 100 }} // Замените 100 на реальное значение ofValue
                      >
                         <div></div>
                      </ContainerBackground>

@@ -4,7 +4,7 @@ import { dashBoard } from './dashboardThunks';
 export const dashboardSlices = createSlice({
    name: 'dashboard',
    initialState: {
-      infodashboard: [],
+      infodashboard: {},
    },
    reducers: {},
 

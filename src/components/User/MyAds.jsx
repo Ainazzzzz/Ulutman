@@ -9,13 +9,22 @@ import Edit from '../../assets/icons/pensil-icon.svg?react';
 import Deactivate from '../../assets/icons/deactivate-icon.svg?react';
 import { styled } from '@mui/material';
 
-export const MyAds = () => {
+export const MyAds = ({ selectedIds, setSelectedIds }) => {
+   const handleCheckboxChange = id => {
+      setSelectedIds(prev =>
+         prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
+      );
+   };
+
    return (
       <CONTAINER>
          {my_ads.map(item => (
             <Wrapper key={item.id}>
                <BigBox>
-                  <CheckBox />
+                  <CheckBox
+                     checked={selectedIds.includes(item.id)}
+                     onChange={() => handleCheckboxChange(item.id)}
+                  />
                   <Box>
                      <ImageStyle src={item.image} alt="room-image" />
                      <Container>
