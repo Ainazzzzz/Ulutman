@@ -1,6 +1,6 @@
 import { useMemo, useReducer, useCallback } from 'react';
 import { styled } from '@mui/material';
-import { getAdminTableHeaders } from '../category/AdminTableHeader';
+import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter';
 import Table from '../../../components/UI/Table';
 import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';

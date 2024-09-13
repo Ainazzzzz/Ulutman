@@ -5,7 +5,7 @@ import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
 import Table from '../../../components/UI/Table.jsx';
 import { AdsDeleteModal } from './AdsDeleteModal.jsx';
 import { WaitingModal } from './WaitingModal.jsx';
-import { ADS_COLUMNS, ADS_DATA } from '../../../utils/constants/moderation.js';
+import { ADS_COLUMNS, ADS_DATA } from '../../../utils/constants/moderation.jsx';
 
 const inputData = [{ id: 'name', value: 'По имени' }];
 

@@ -27,8 +27,8 @@ const selectsConfig = [
       label: 'role',
       options: [
          { id: 'e1', value: 'role', label: 'Роль' },
-         { id: 'e2', value: 'USER', label: 'USER' },
-         { id: 'e3', value: 'ADMIN', label: 'ADMIN' },
+         { id: 'e2', value: 'USER', label: 'Пользователь' },
+         { id: 'e3', value: 'ADMIN', label: 'Админ' },
       ],
    },
    { label: 'date', options: [{ id: 'e2', value: 'date', label: 'Дата' }] },
@@ -80,9 +80,6 @@ const Users = () => {
       const century = Math.floor(currentYear / 100) * 100;
       const formattedYear =
          year.length === 2 ? century + parseInt(year, 10) : year;
-      console.log(
-         `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`,
-      );
 
       return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
    };

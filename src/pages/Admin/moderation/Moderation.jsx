@@ -7,7 +7,7 @@ import { WaitingModal } from '../ads/WaitingModal.jsx';
 import {
    MODERATION_COLUMNS,
    MODERATION_DATA,
-} from '../../../utils/constants/moderation.js';
+} from '../../../utils/constants/moderation.jsx';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
 import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
 

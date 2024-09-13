@@ -25,8 +25,6 @@ const Table = ({ column: headers, data }) => {
          data,
       });
 
-      
-
    if (!data || data.length === 0) {
       return <StyledAbsence>Пусто</StyledAbsence>;
    }

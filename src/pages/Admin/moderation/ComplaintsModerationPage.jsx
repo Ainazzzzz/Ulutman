@@ -8,7 +8,7 @@ import { WaitingModal } from '../ads/WaitingModal.jsx';
 import {
    MODERATION_COMPLAINTS,
    MODERATION_COMPLAINTS_DATA,
-} from '../../../utils/constants/moderation';
+} from '../../../utils/constants/moderation.jsx';
 
 const inputData = [{ id: 'user', value: 'Пользователь' }];
 
