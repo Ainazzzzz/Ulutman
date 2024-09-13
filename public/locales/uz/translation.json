@@ -32,13 +32,13 @@
       "dashboard": {
          "title": "Statistika",
          "popularCategory": "Kategoriya ommaviyligi",
-         "work": "Ish",
+         "WORK": "Ish",
          "rentals": "Ijara",
          "hotel": "Mehmonxona",
-         "services": "Xizmatlar",
-         "realEstate": "Ko‘chmas mulk",
-         "car": "Avtomobil",
-         "forSale": "Sotaman"
+         "SERVICES": "Xizmatlar",
+         "REAL_ESTATE": "Ko‘chmas mulk",
+         "AUTO": "Avtomobil",
+         "SELL": "Sotaman"
       }
    }
 }
