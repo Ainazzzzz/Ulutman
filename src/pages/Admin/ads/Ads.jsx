@@ -11,6 +11,7 @@ import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
 import Table from '../../../components/UI/Table.jsx';
 import { AdsDeleteModal } from './AdsDeleteModal.jsx';
 import { WaitingModal } from './WaitingModal.jsx';
+<<<<<<< HEAD
 import { ADS_COLUMNS } from '../../../utils/constants/moderation.js';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -20,6 +21,9 @@ import {
    getResetFilter,
 } from '../../../redux/thunks/adminAddThunk.js';
 import { useDebounce } from '../../../hooks/useDebance.js';
+=======
+import { ADS_COLUMNS, ADS_DATA } from '../../../utils/constants/moderation.jsx';
+>>>>>>> 704dcc3eae05cbfbe61e8c7949a3f1140260a6ab
 
 const inputData = [{ id: 'name', value: 'По имени' }];
 
