@@ -9,7 +9,7 @@ import { getAdminTableHeaders } from './AdminTableHeader';
 import {
    CATEGORY_COLUMNS,
    CATEGORY_DATA,
-} from '../../../utils/constants/moderation';
+} from '../../../utils/constants/moderation.jsx';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter';
 
 const inputData = [{ id: 'name', value: 'По названию' }];

@@ -1,3 +1,5 @@
+import { translateRole } from '../general/translate';
+
 export const MODERATION_DATA = [
    {
       id: 1,
@@ -160,10 +162,11 @@ export const USERS_COLUMNS = [
    {
       Header: 'РОЛЬ',
       accessor: 'role',
+      Cell: ({ row }) => <p>{translateRole[row.original.role]}</p>,
    },
    {
       Header: 'ДАТА РЕГИСТРАЦИИ',
-      accessor: 'date',
+      accessor: 'createDate',
    },
    {
       Header: 'СТАТУС',
