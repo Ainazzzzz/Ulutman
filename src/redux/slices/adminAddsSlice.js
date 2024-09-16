@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAdminAdds } from '../thunks/adminAddThunk';
+import {
+   getAdminAdds,
+   deleteAdminAds,
+   getName,
+   getAdminFilter,
+} from '../thunks/adminAddThunk';
 
 export const addsAdminSlice = createSlice({
    name: 'adminAdds',
@@ -7,8 +12,17 @@ export const addsAdminSlice = createSlice({
       adminAdds: [],
    },
    extraReducers: builder => {
-      builder.addCase(getAdminAdds.fulfilled, (state, action) => {
-         state.adminAdds = action.payload;
-      });
+      builder
+         .addCase(getAdminAdds.fulfilled, (state, action) => {
+            state.adminAdds = action.payload;
+         })
+         .addCase(getName.fulfilled, (state, { payload }) => {
+            console.log(payload);
+
+            state.adminAdds = payload;
+         })
+         .addCase(getAdminFilter.fulfilled, (state, { payload }) => {
+            state.adminAdds = payload;
+         });
    },
 });
