@@ -32,13 +32,13 @@
       "dashboard": {
          "title": "Statistics",
          "popularCategory": "Popular Category",
-         "work": "Work",
+         "WORK": "Work",
          "rentals": "Rentals",
          "hotel": "Hotel",
-         "services": "Services",
-         "realEstate": "Real Estate",
-         "car": "Car",
-         "forSale": "For Sale"
+         "SERVICES": "Services",
+         "REAL_ESTATE": "Real Estate",
+         "AUTO": "Car",
+         "SELL": "For Sale"
       }
    }
 }
