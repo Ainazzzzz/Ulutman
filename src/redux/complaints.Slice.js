@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { complaintsThunks } from './complaintsThunks';
+import { complaintsThunks, getComplaintsFilter } from './complaintsThunks';
 
 export const complaintsSlice = createSlice({
    name: 'complaints',
@@ -9,8 +9,11 @@ export const complaintsSlice = createSlice({
    reducers: {},
 
    extraReducers: builder => {
-      builder.addCase(complaintsThunks.fulfilled, (state, action) => {
-         state.data = action.payload;
+      builder.addCase(complaintsThunks.fulfilled, (state, { payload }) => {
+         state.data = payload;
+      });
+      builder.addCase(getComplaintsFilter.fulfilled, (state, { payload }) => {
+         state.data = payload;
       });
    },
 });

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer } from 'react';
+import { useCallback, useEffect, useMemo, useReducer } from 'react';
 import { styled } from '@mui/material';
 import { getAdminTableHeaders } from '../category/AdminTableHeader';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter';
@@ -10,7 +10,11 @@ import {
    MODERATION_COMPLAINTS_DATA,
 } from '../../../utils/constants/moderation';
 import { useDispatch, useSelector } from 'react-redux';
-import { complaintsThunks } from '../../../redux/complaintsThunks.js';
+import {
+   complaintsThunks,
+   getComplaintsFilter,
+   getResetFilter,
+} from '../../../redux/complaintsThunks.js';
 
 const inputData = [{ id: 'user', value: 'Пользователь' }];
 
@@ -35,14 +39,13 @@ const initialState = {
 
 const reducer = (state, action) => {
    switch (action.type) {
-      case 'TOGGLE_DELETE_MODAL':
-         return { ...state, deleteAllModal: !state.deleteAllModal };
-      case 'TOGGLE_WAITING_MODAL':
-         return { ...state, waitingModal: !state.waitingModal };
-      case 'SET_INPUT_VALUES':
-      case 'SET_DATE_VALUES':
-      case 'SET_SELECTED_VALUES':
-         return { ...state, ...action.payload };
+      case 'TOGGLE_MODAL':
+         return { ...state, [action.payload]: !state[action.payload] };
+      case 'SET_VALUES':
+         return {
+            ...state,
+            [action.field]: { ...state[action.field], ...action.payload },
+         };
       case 'RESET_FILTER':
          return initialState;
       default:
@@ -51,44 +54,68 @@ const reducer = (state, action) => {
 };
 
 export const ComplaintsModerationPage = () => {
-   const [state, dispatch] = useReducer(reducer, initialState);
-   const dispatchComplaints = useDispatch();
+   const [state, dispatchFunc] = useReducer(reducer, initialState);
+   const dispatch = useDispatch();
    const data = useSelector(state => state.complaints.data);
-
    console.log(data);
 
-   useEffect(() => {
-      dispatchComplaints(complaintsThunks());
+   const toggleModal = useCallback(modalType => {
+      dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });
    }, []);
 
-   const handleToggle = type => dispatch({ type });
+   const setValues = useCallback((field, payload) => {
+      dispatchFunc({ type: 'SET_VALUES', field, payload });
+   }, []);
 
-   const handleInputChange = (index, value) => {
-      dispatch({
-         type: 'SET_INPUT_VALUES',
-         payload: { inputValues: { [index]: value } },
-      });
+   const formatDate = date => {
+      const [day, month, year] = date.split('.');
+
+      const currentYear = new Date().getFullYear();
+      const century = Math.floor(currentYear / 100) * 100;
+      const formattedYear =
+         year.length === 2 ? century + parseInt(year, 10) : year;
+
+      return (
+         `${formattedYear}` -
+         `${month.padStart(2, '0')}` -
+         `${day.padStart(2, '0')}`
+      );
    };
 
-   const handleSelectChange = (label, value) => {
-      dispatch({
-         type: 'SET_SELECTED_VALUES',
-         payload: { selectedValues: { [label]: value } },
-      });
-   };
+   const fetchUser = useCallback(() => {
+      const { date } = state.inputValues;
+      const { complaints, status } = state.selectedValues;
+      const filters = {};
+      if (complaints !== 'complaints') filters.complaintsTypes = [complaints];
+      if (status !== 'status') filters.complaintStatuses = [status];
+      if (date.length) {
+         const formattedDates = date.map(formatDate);
+         filters.createDates = formattedDates;
+      }
+      if (Object.keys(filters).length) {
+         dispatch(getComplaintsFilter(filters));
+      } else {
+         dispatch(complaintsThunks());
+      }
+   }, [state.inputValues, state.selectedValues, dispatch]);
 
-   const handleDateChange = date => {
-      dispatch({ type: 'SET_DATE_VALUES', payload: { inputValues: { date } } });
-   };
+   useEffect(() => {
+      dispatch(complaintsThunks(fetchUser));
+   }, [dispatch]);
 
    const headers = useMemo(
       () =>
          getAdminTableHeaders(
-            () => handleToggle('TOGGLE_WAITING_MODAL'),
+            () => toggleModal('waitingModal'),
             MODERATION_COMPLAINTS,
          ),
-      [],
+      [toggleModal],
    );
+
+   const resetFilterHandler = () => {
+      dispatchFunc({ type: 'RESET_FILTER' });
+      dispatch(getResetFilter());
+   };
 
    return (
       <Wrapper>
@@ -96,26 +123,30 @@ export const ComplaintsModerationPage = () => {
 
          <AdminHeaderFilter
             selectedValues={state.selectedValues}
-            onSelectChange={handleSelectChange}
+            onSelectChange={(label, value) =>
+               setValues('selectedValues', { [label]: value })
+            }
             inputData={inputData}
             selectsConfig={selectsConfig}
-            onDeleteModal={() => handleToggle('TOGGLE_DELETE_MODAL')}
-            handleChange={handleInputChange}
-            onResetFilter={() => handleToggle('RESET_FILTER')}
+            onDeleteModal={() => toggleModal('deleteAllModal')}
+            handleChange={(index, value) =>
+               setValues('inputValues', { [index]: value })
+            }
+            onResetFilter={resetFilterHandler}
+            handleDateChange={date => setValues('inputValues', { date })}
             value={state.inputValues}
-            handleDateChange={handleDateChange}
          />
 
          <Table data={data || []} column={headers} />
 
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
-            onClose={() => handleToggle('TOGGLE_DELETE_MODAL')}
+            onClose={() => toggleModal('deleteModal')}
          />
 
          <WaitingModal
             isOpen={state.waitingModal}
-            onClose={() => handleToggle('TOGGLE_WAITING_MODAL')}
+            onClose={() => toggleModal('waitingModal')}
          />
       </Wrapper>
    );
