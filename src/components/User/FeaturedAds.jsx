@@ -5,14 +5,36 @@ import ChevronLeft from '../../assets/icons/chevron-left.svg?react';
 import { styled, useMediaQuery } from '@mui/material';
 import { CardList } from '../UI/Card/CardList';
 import { CARDS_MAIN } from '../../utils/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { deleteFavorites, getFavorites } from '../../redux/users/favoriteThunk';
 
 export const FeaturedAds = () => {
+   const dispatch = useDispatch();
+   const favorite = useSelector(
+      state => state.favorites?.favoriteProducts || [],
+   );
+   console.log(favorite);
+
    const breadCrumbs = [
       { url: '/', title: 'Главная' },
       { url: 'featuredAds', title: 'Избранные объявления' },
    ];
 
+   const handleDeleteFavorite = () => {
+      dispatch(deleteFavorites());
+   };
+
+   useEffect(() => {
+      dispatch(getFavorites());
+   }, [dispatch]);
+
+   // const favorite = useSelector(state => state.favorites);
+
+   console.log(favorite); // Здесь проверяйте состояние
+
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+
    return (
       <Wrapper>
          <Container>
@@ -24,10 +46,14 @@ export const FeaturedAds = () => {
             </FirstBlock>
             <SecondBlock>
                <h3>Избранные объявления</h3>
-               {isMobile ? <DeleteMobile /> : <DeleteAll />}
+               {isMobile ? (
+                  <DeleteMobile onClick={handleDeleteFavorite} />
+               ) : (
+                  <DeleteAll onClick={handleDeleteFavorite} />
+               )}
             </SecondBlock>
-            <CardList cards={CARDS_MAIN} />
          </Container>
+         <CardList cards={CARDS_MAIN} />
       </Wrapper>
    );
 };
@@ -75,7 +101,6 @@ const Container = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
-   alignItems: 'center',
 }));
 
 const Wrapper = styled('div')(({ theme }) => ({
