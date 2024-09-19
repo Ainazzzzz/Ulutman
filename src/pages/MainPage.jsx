@@ -5,13 +5,26 @@ import { Header } from '../layout/Header';
 import AboutUs from '../components/main-page/AboutUs';
 import Footer from '../components/main-page/Footer';
 import { Button } from '../components/UI/Button';
-import { CARDS, CARDS_MAIN } from '../utils/constants';
+import { CARDS } from '../utils/constants';
 import { CardList } from '../components/UI/Card/CardList';
 import Slider from '../components/main-page/Slider';
-import { useEffect } from 'react';
-import { axiosInstance } from '../config/axiosInstance';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMainAds } from '../redux/main/mainThunk';
 
 export const MainPage = () => {
+   const { publishes } = useSelector(state => state.main);
+   const [limitAds, setLimitAds] = useState(12);
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+      dispatch(getMainAds());
+   }, [dispatch]);
+
+   const seeMoreHandler = () => {
+      setLimitAds(prevState => prevState + 8);
+   };
+
    return (
       <div>
          <Header />
@@ -24,8 +37,13 @@ export const MainPage = () => {
                <Title>Страница объявлений</Title>
                <AnnouncementsSorter />
             </Block>
-            <CardList cards={CARDS_MAIN} advertising={CARDS} />
-            <Button variant="category-sort">Посмотреть еще</Button>
+            <CardList
+               cards={publishes.slice(0, limitAds)}
+               advertising={CARDS}
+            />
+            <Button variant="category-sort" onClick={seeMoreHandler}>
+               Посмотреть еще
+            </Button>
             <AboutUs />
          </Container>
          <Footer />

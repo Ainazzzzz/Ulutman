@@ -5,9 +5,9 @@ import MessageIcon from '../../../assets/icons/message-gray-icon.svg?react';
 import LikeIcon from '../../../assets/icons/like-icon.svg?react';
 
 export const CardItem = ({
-   title,
-   img,
    description,
+   image,
+   category,
    price,
    address,
    favoriteStatus,
@@ -15,13 +15,13 @@ export const CardItem = ({
 }) => {
    return (
       <StyledCard>
-         <StyledCardMedia image={img} title={title} />
+         <StyledCardMedia image={image} title={description} />
 
          <ContainerInfo>
             <FirstBlock>
                <div>
                   <Price>{price} ₽</Price>
-                  <Title>{title}</Title>
+                  <Title>{description}</Title>
                </div>
 
                <WrapperAddressInfo>
@@ -32,7 +32,7 @@ export const CardItem = ({
 
                   <AddressInfo>
                      <HomeIcon />
-                     <AddressText>{description}</AddressText>
+                     <AddressText>{category}</AddressText>
                   </AddressInfo>
                </WrapperAddressInfo>
             </FirstBlock>
