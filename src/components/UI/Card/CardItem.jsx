@@ -6,7 +6,7 @@ import LikeIcon from '../../../assets/icons/like-icon.svg?react';
 
 export const CardItem = ({
    title,
-   img,
+   image,
    description,
    price,
    address,
@@ -15,7 +15,8 @@ export const CardItem = ({
 }) => {
    return (
       <StyledCard>
-         <StyledCardMedia image={img} title={title} />
+         <StyledCardMedia image={image} title={title} />
+         {/* {img && <StyledCardMedia image={img} title={title} />} */}
 
          <ContainerInfo>
             <FirstBlock>

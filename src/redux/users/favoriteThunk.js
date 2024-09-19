@@ -6,7 +6,6 @@ export const getFavorites = createAsyncThunk(
    async (_, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.get('/getAllFavorites');
-         console.log(data);
          return data;
       } catch (error) {
          rejectWithValue(error.response.data);
@@ -14,16 +13,16 @@ export const getFavorites = createAsyncThunk(
    },
 );
 export const deleteFavorites = createAsyncThunk(
-   'delete,deleteFavorites',
+   'favorites/deleteFavorites',
    async (id, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.delete(
             `/deleteFromFavorites/${id}`,
          );
          console.log(data);
-         return data;
+         return id;
       } catch (error) {
-         rejectWithValue(error);
+         rejectWithValue(error.response.data);
       }
    },
 );

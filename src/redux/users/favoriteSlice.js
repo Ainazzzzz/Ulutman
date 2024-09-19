@@ -1,20 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteFavorites, getFavorite } from './favoriteThunk';
+import { deleteFavorites, getFavorites } from './favoriteThunk';
 
 export const favoriteSlice = createSlice({
-   name: 'favorites',
+   name: 'favoriteProducts',
    initialState: {
       favoriteProducts: [],
    },
    extraReducers: builder => {
-      builder.addCase(getFavorite.fulfilled, (state, { payload }) => {
-         //  console.log(action.payload);
-         state.favoriteProducts = payload;
-      });
-      //  .addCase(deleteFavorites.fulfilled, (state, action) => {
-      //     state.favoriteProducts = state.favoriteProducts.filter(
-      //        item => item.id !== action.payload,
-      //     );
-      //  });
+      builder
+         .addCase(getFavorites.fulfilled, (state, action) => {
+            state.favoriteProducts = action.payload;
+         })
+         .addCase(deleteFavorites.fulfilled, (state, action) => {
+            // Убедитесь, что action.payload содержит id удаляемого продукта
+            const productIdToDelete = action.payload; // Предполагается, что payload - это id продукта
+            state.favoriteProducts = state.favoriteProducts.filter(
+               product => product.id !== productIdToDelete,
+            );
+            console.log(
+               'Текущие избранные продукты после удаления:',
+               state.favoriteProducts,
+            );
+         });
    },
 });
