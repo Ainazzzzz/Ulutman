@@ -28,9 +28,10 @@ const selectsConfig = [
       label: 'category',
       options: [
          { id: 'e1', value: 'category', label: 'Категория' },
-         { id: 'e2', value: 'Работа', label: 'Работа' },
-         { id: 'e3', value: 'Продажа', label: 'Продажа' },
-         { id: 'e4', value: 'Отель', label: 'Авто' },
+         { id: 'e2', value: 'WORK', label: 'Работа' },
+         { id: 'e3', value: 'SELL', label: 'Продажа' },
+         { id: 'e4', value: 'AUTO', label: 'Авто' },
+         { id: 'e5', value: 'HOTEL', label: 'Отель' },
       ],
    },
    {
@@ -41,9 +42,9 @@ const selectsConfig = [
       label: 'status',
       options: [
          { id: 'k1', value: 'status', label: 'Cтатус' },
-         { id: 'k2', value: 'Одобрен', label: 'Одобрен' },
-         { id: 'k3', value: 'Отклонен', label: 'Отклонен' },
-         { id: 'k4', value: 'Ожидает', label: 'Ожидает ' },
+         { id: 'k2', value: 'ОДОБРЕН', label: 'Одобрен' },
+         { id: 'k3', value: 'ОТКЛОНЕН', label: 'Отклонен' },
+         { id: 'k4', value: 'ОЖИДАЕТ', label: 'Ожидает ' },
       ],
    },
 ];
@@ -78,7 +79,6 @@ export const Ads = () => {
    const debouncedName = useDebounce(state.inputValues.name, 1500);
 
    const ADS_DATA = useSelector(state => state.adminAdds.adminAdds);
-   console.log(ADS_DATA);
 
    const formatDate = date => {
       const [day, month, year] = date.split('.');
@@ -103,6 +103,8 @@ export const Ads = () => {
          const formattedDates = date.map(formatDate);
          filters.createDates = formattedDates;
       }
+
+      console.log(filters);
 
       if (Object.keys(filters).length) {
          dispatch(getAdminFilter(filters));

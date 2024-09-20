@@ -80,23 +80,23 @@ export const ADS_DATA = [
 export const ADS_COLUMNS = [
    {
       Header: 'ИМЯ',
-      accessor: row => row.user?.name || row.name,
+      accessor: 'user.name',
    },
    {
       Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
-      accessor: row => row.user?.email || row.email,
+      accessor: 'user.email',
    },
    {
       Header: 'КАТЕГОРИЯ',
-      accessor: row => row.user?.role || row.role,
+      accessor: 'category',
    },
    {
       Header: 'ДАТА СОЗДАНИЯ',
-      accessor: row => row.user?.createDate || row.createDate,
+      accessor: 'createDate',
    },
    {
       Header: 'СТАТУС',
-      accessor: row => row.user?.status || row.status,
+      accessor: 'publishStatus',
    },
 ];
 

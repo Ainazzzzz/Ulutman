@@ -72,7 +72,7 @@ export const getName = createAsyncThunk(
 
 export const getAdminFilter = createAsyncThunk(
    'adminAdds/getAdminFilter',
-   async ({ categories, createDates, statuses }) => {
+   async ({ categories, createDates, publishStatuses }) => {
       try {
          const queryString = new URLSearchParams();
 
@@ -84,7 +84,9 @@ export const getAdminFilter = createAsyncThunk(
             });
          }
 
-         if (statuses) queryString.append('publishStatuses', publishStatuses);
+         if (publishStatuses) {
+            queryString.append('publishStatuses', publishStatuses);
+         }
 
          const { data } = await axiosInstance.get(
             `/manage/publishes/filter?${queryString.toString()}`,
