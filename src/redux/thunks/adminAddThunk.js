@@ -20,7 +20,6 @@ export const deleteAdminAds = createAsyncThunk(
          const { data } = await axiosInstance.delete(
             `manage/publishes/deleteById/${ids}`,
          );
-         console.log(data);
 
          return data;
       } catch (error) {
@@ -42,7 +41,6 @@ export const deleteAdminAds = createAsyncThunk(
 //             },
 //          );
 //          // dispatch(getAdminAdds());
-//          console.log(data);
 //          return data;
 //       } catch (error) {
 //          rejectWithValue(error.response.data);

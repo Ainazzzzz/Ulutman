@@ -61,7 +61,6 @@ export const getResetFilter = createAsyncThunk(
          const { data } = await axiosInstance.get(
             '/manage/complaints/resetFilter',
          );
-         console.log(data);
 
          return data;
       } catch (error) {

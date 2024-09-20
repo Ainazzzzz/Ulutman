@@ -104,8 +104,6 @@ export const Ads = () => {
          filters.createDates = formattedDates;
       }
 
-      console.log(filters);
-
       if (Object.keys(filters).length) {
          dispatch(getAdminFilter(filters));
       } else {

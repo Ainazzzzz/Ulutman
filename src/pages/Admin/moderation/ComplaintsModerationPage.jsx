@@ -57,7 +57,6 @@ export const ComplaintsModerationPage = () => {
    const [state, dispatchFunc] = useReducer(reducer, initialState);
    const dispatch = useDispatch();
    const data = useSelector(state => state.complaints.data);
-   console.log(data);
 
    const toggleModal = useCallback(modalType => {
       dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });
@@ -90,8 +89,6 @@ export const ComplaintsModerationPage = () => {
 
       const filters = {};
 
-      console.log('Selected values:', state.selectedValues);
-
       if (complaints !== 'complaints') {
          filters.complaintsTypes = [complaints];
       }
@@ -104,8 +101,6 @@ export const ComplaintsModerationPage = () => {
          const formattedDates = date.map(formatDate);
          filters.createDates = formattedDates;
       }
-
-      console.log('Filters before dispatch:', filters);
 
       if (Object.keys(filters).length) {
          dispatch(getComplaintsFilter(filters));

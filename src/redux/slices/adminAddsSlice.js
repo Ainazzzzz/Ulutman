@@ -17,8 +17,6 @@ export const addsAdminSlice = createSlice({
             state.adminAdds = action.payload;
          })
          .addCase(getName.fulfilled, (state, { payload }) => {
-            console.log(payload);
-
             state.adminAdds = payload;
          })
          .addCase(getAdminFilter.fulfilled, (state, { payload }) => {
