@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getModerationComments } from './moderationThunk';
+import {
+   getModerationComments,
+   getModerationCommentsFilter,
+} from './moderationThunk';
 
 const initialState = {
    comments: [],
@@ -13,5 +16,11 @@ export const moderationSlice = createSlice({
       builder.addCase(getModerationComments.fulfilled, (state, action) => {
          state.comments = action.payload;
       });
+      builder.addCase(
+         getModerationCommentsFilter.fulfilled,
+         (state, action) => {
+            state.comments = action.payload;
+         },
+      );
    },
 });

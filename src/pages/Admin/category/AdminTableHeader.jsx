@@ -10,9 +10,8 @@ export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
             Cell: ({ cell: { value } }) => {
                let color,
                   IconComponent = null;
-               const upperValue = value.toUpperCase();
 
-               switch (upperValue) {
+               switch (value) {
                   case 'ОДОБРЕН':
                   case 'РЕШЕНО':
                   case 'АКТИВНЫЙ':
@@ -37,11 +36,11 @@ export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
                      <MiniBlock
                         color={color}
                         onClick={
-                           upperValue === 'ОЖИДАЕТ'
+                           value === 'ОЖИДАЕТ'
                               ? handleOpenWaitingModal
                               : undefined
                         }
-                        clickable={upperValue === 'ОЖИДАЕТ'}
+                        clickable={value === 'ОЖИДАЕТ'}
                      >
                         {value}
                      </MiniBlock>

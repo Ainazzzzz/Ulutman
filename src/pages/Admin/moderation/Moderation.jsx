@@ -7,10 +7,13 @@ import { WaitingModal } from '../ads/WaitingModal.jsx';
 import {
    MODERATION_COLUMNS,
    MODERATION_DATA,
-} from '../../../utils/constants/moderation.js';
+} from '../../../utils/constants/moderation.jsx';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
 import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
-import { getModerationComments } from '../../../redux/moderation/moderationThunk.js';
+import {
+   getModerationComments,
+   getModerationCommentsFilter,
+} from '../../../redux/moderation/moderationThunk.js';
 import { useDispatch, useSelector } from 'react-redux';
 
 const inputData = [
@@ -112,7 +115,7 @@ export const Moderation = () => {
 
    useEffect(() => {
       appDispatch(
-         getModerationComments({
+         getModerationCommentsFilter({
             ...state.inputValues,
             ...state.selectedValues,
          }),
