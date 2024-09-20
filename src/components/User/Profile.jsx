@@ -26,7 +26,6 @@ export const Profile = () => {
          setIsEmailConfirmed(false);
       } else {
          setIsEmailConfirmed(true);
-         console.log('sendEmailLink');
       }
    };
 
