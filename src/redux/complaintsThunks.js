@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from '../config/axiosInstance';
+import axios from 'axios';
 
 export const complaintsThunks = createAsyncThunk(
    'complaints',
@@ -14,7 +15,7 @@ export const complaintsThunks = createAsyncThunk(
 );
 
 export const getComplaintsFilter = createAsyncThunk(
-   'user/getComplaintsFilter',
+   'complaints/getComplaintsFilter',
    async (
       { userIds, complaintTypes, createDates, complaintStatuses },
       { rejectWithValue },
@@ -42,9 +43,10 @@ export const getComplaintsFilter = createAsyncThunk(
             );
          }
 
-         const { data } = await axiosInstance.get(
-            `/manage/complaints/filter?${params.toString()}`,
+         const { data } = await axios.get(
+            `manage/complaints/filter?${params.toString()}`,
          );
+
          return data;
       } catch (error) {
          return rejectWithValue(error.response?.data || error.message);

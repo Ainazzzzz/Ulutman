@@ -68,30 +68,45 @@ export const ComplaintsModerationPage = () => {
    }, []);
 
    const formatDate = date => {
-      const [day, month, year] = date.split('.');
+      const parts = date.split('.');
+      if (parts.length !== 3) {
+         throw new Error('Invalid date format. Expected DD.MM.YYYY');
+      }
+
+      const [day, month, year] = parts;
 
       const currentYear = new Date().getFullYear();
       const century = Math.floor(currentYear / 100) * 100;
+
       const formattedYear =
          year.length === 2 ? century + parseInt(year, 10) : year;
 
-      return (
-         `${formattedYear}` -
-         `${month.padStart(2, '0')}` -
-         `${day.padStart(2, '0')}`
-      );
+      return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
    };
 
    const fetchUser = useCallback(() => {
       const { date } = state.inputValues;
       const { complaints, status } = state.selectedValues;
+
       const filters = {};
-      if (complaints !== 'complaints') filters.complaintsTypes = [complaints];
-      if (status !== 'status') filters.complaintStatuses = [status];
+
+      console.log('Selected values:', state.selectedValues);
+
+      if (complaints !== 'complaints') {
+         filters.complaintsTypes = [complaints];
+      }
+
+      if (status !== 'status') {
+         filters.complaintStatuses = [status];
+      }
+
       if (date.length) {
          const formattedDates = date.map(formatDate);
          filters.createDates = formattedDates;
       }
+
+      console.log('Filters before dispatch:', filters);
+
       if (Object.keys(filters).length) {
          dispatch(getComplaintsFilter(filters));
       } else {
@@ -100,8 +115,8 @@ export const ComplaintsModerationPage = () => {
    }, [state.inputValues, state.selectedValues, dispatch]);
 
    useEffect(() => {
-      dispatch(complaintsThunks(fetchUser));
-   }, [dispatch]);
+      fetchUser();
+   }, [fetchUser]);
 
    const headers = useMemo(
       () =>
@@ -137,8 +152,7 @@ export const ComplaintsModerationPage = () => {
             value={state.inputValues}
          />
 
-         <Table data={data || []} column={headers} />
-
+         <Table data={Array.isArray(data) ? data : []} column={headers} />
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
             onClose={() => toggleModal('deleteModal')}
