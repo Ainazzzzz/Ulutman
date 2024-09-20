@@ -34,19 +34,19 @@ export const MODERATION_COLUMNS = [
    },
    {
       Header: 'КОММЕНТАРИЙ',
-      accessor: 'content',
+      accessor: 'comments[0].commentContent',
    },
    {
       Header: 'СООБЩЕНИЕ',
-      accessor: 'message',
+      accessor: 'messages[0].content',
    },
    {
       Header: 'ДАТА СОЗДАНИЕ',
-      accessor: 'createDate',
+      accessor: 'messages[0].createDate',
    },
    {
       Header: 'СТАТУС',
-      accessor: 'moderatorStatus',
+      accessor: 'messages[0].moderatorStatus',
    },
 ];
 
