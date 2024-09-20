@@ -1,14 +1,14 @@
 import Modal from '../../../components/UI/Modal.jsx';
 import { styled } from '@mui/material';
 
-export const AdsDeleteModal = ({ isOpen, onClose }) => {
+export const AdsDeleteModal = ({ isOpen, onClose, onDelete }) => {
    return (
       <Modal open={isOpen} handleClose={onClose} variant="delete">
          <Container>
             <Title>Вы уверены, что хотите удалить?</Title>
             <div>
                <FirstButton onClick={onClose}>Отменить</FirstButton>
-               <SecondButton>Удалить</SecondButton>
+               <SecondButton onClick={onDelete}>Удалить</SecondButton>
             </div>
          </Container>
       </Modal>

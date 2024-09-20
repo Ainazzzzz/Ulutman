@@ -4,12 +4,19 @@ import WaitIcon from '../../../assets/icons/address-icon.svg?react';
 
 export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
    return columns.map(column => {
-      if (column.accessor === 'moderatorStatus') {
+      if (
+         column.accessor &&
+         typeof column.accessor === 'string' &&
+         column.accessor.toUpperCase() === 'STATUS'
+      ) {
          return {
             ...column,
             Cell: ({ cell: { value } }) => {
                let color,
                   IconComponent = null;
+
+               const upperValue =
+                  value && typeof value === 'string' ? value.toUpperCase() : '';
 
                switch (value) {
                   case 'ОДОБРЕН':
