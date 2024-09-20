@@ -32,13 +32,13 @@
       "dashboard": {
          "title": "Статистика",
          "popularCategory": "Популярдуу категория",
-         "work": "Иш",
+         "WORK": "Иш",
          "rentals": "Ижарага берүү",
          "hotel": "Мейманкана",
-         "services": "Кызматтар",
-         "realEstate": "Кыймылсыз мүлк",
-         "car": "Унаа",
-         "forSale": "Сатам"
+         "SERVICES": "Кызматтар",
+         "REAL_ESTATE": "Кыймылсыз мүлк",
+         "AUTO": "Унаа",
+         "SELL": "Сатам"
       }
    }
 }

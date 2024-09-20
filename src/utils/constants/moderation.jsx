@@ -207,19 +207,19 @@ export const USERS_DATA = [
 export const MODERATION_COMPLAINTS = [
    {
       Header: 'ПОЛЬЗОВАТЕЛЬ',
-      accessor: 'name',
+      accessor: 'authResponse.name',
    },
    {
       Header: 'тип жалобы',
-      accessor: 'complaints',
+      accessor: 'complaintType',
    },
    {
       Header: 'ДАТА СОЗДАНИЕ',
-      accessor: 'date',
+      accessor: 'createDate',
    },
    {
       Header: 'СТАТУС',
-      accessor: 'status',
+      accessor: 'complaintStatus',
    },
 ];
 
