@@ -14,7 +14,7 @@ export const getFavorites = createAsyncThunk(
 );
 export const deleteFavorites = createAsyncThunk(
    'favorites/deleteFavorites',
-   async (_, { rejectWithValue, dispatch }) => {
+   async (_, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.post('/deleteAllFavorites');
          console.log(data);
