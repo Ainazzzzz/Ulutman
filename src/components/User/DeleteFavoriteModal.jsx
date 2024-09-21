@@ -1,10 +1,8 @@
 import { styled } from '@mui/material';
 import Modal from '../UI/Modal';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteFavorites } from '../../redux/users/favoriteThunk';
 
-export const DeleteFavoriteModal = ({ onConfirm }) => {
+export const DeleteFavoriteModal = ({ onDelete }) => {
    const [isOpen, setIsOpen] = useState(true);
 
    const onClose = () => setIsOpen(!isOpen);
@@ -15,7 +13,7 @@ export const DeleteFavoriteModal = ({ onConfirm }) => {
             <Title>Вы уверены, что хотите удалить?</Title>
             <div>
                <FirstButton onClick={onClose}>Отменить</FirstButton>
-               <SecondButton onClick={onConfirm}>Удалить</SecondButton>
+               <SecondButton onClick={onDelete}>Удалить</SecondButton>
             </div>
          </Container>
       </Modal>

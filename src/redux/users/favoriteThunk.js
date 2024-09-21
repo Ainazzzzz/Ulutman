@@ -14,13 +14,11 @@ export const getFavorites = createAsyncThunk(
 );
 export const deleteFavorites = createAsyncThunk(
    'favorites/deleteFavorites',
-   async (id, { rejectWithValue }) => {
+   async (_, { rejectWithValue, dispatch }) => {
       try {
-         const { data } = await axiosInstance.delete(
-            `/deleteFromFavorites/${id}`,
-         );
+         const { data } = await axiosInstance.post('/deleteAllFavorites');
          console.log(data);
-         return id;
+         return data;
       } catch (error) {
          rejectWithValue(error.response.data);
       }

@@ -12,47 +12,23 @@ import { DeleteFavoriteModal } from './DeleteFavoriteModal';
 
 export const FeaturedAds = () => {
    const [isOpenModal, setIsOpenModal] = useState(false);
-   const [selectedId, setSelectedId] = useState(null);
    const dispatch = useDispatch();
    const favorite = useSelector(
       state => state.favoriteProducts?.favoriteProducts || [],
    );
    const publishResponseList = favorite?.publishResponseList || [];
 
-   console.log(publishResponseList);
-
    const breadCrumbs = [
       { url: '/', title: 'Главная' },
       { url: 'featuredAds', title: 'Избранные объявления' },
    ];
 
-   // const handleDeleteFavorite = id => {
-   //    setIsOpenModal(!isOpenModal);
-   //    setSelectedId(id);
-   // };
-
-   // const confirmDelete = () => {
-   //    console.log("Кнопка 'Удалить' нажата");
-   //    console.log('selectedId:', selectedId); // Это сообщение должно появиться в консоли
-   //    if (selectedId) {
-   //       dispatch(deleteFavorites(selectedId));
-   //       setIsOpenModal(false); // Закрыть модал после удаления
-   //    }
-   // };
-
-   const handleDeleteFavorite = id => {
-      setSelectedId(id);
-      setIsOpenModal(true);
+   const handleDeleteFavorite = () => {
+      setIsOpenModal(!isOpenModal);
    };
-
-   const confirmDelete = () => {
-      console.log("Кнопка 'Удалить' нажата");
-      console.log('selectedId:', selectedId); // Это сообщение должно появиться в консоли
-      if (selectedId !== null) {
-         // Проверка на null
-         dispatch(deleteFavorites(selectedId));
-         setIsOpenModal(false); // Закрыть модал после удаления
-      }
+   const onDelete = () => {
+      dispatch(deleteFavorites());
+      setIsOpenModal(!isOpenModal);
    };
 
    useEffect(() => {
@@ -73,21 +49,11 @@ export const FeaturedAds = () => {
             <SecondBlock>
                <h3>Избранные объявления</h3>
                {isMobile ? (
-                  <DeleteMobile
-                     onClick={() => handleDeleteFavorite(favorite[0]?.id)}
-                  />
+                  <DeleteMobile onClick={handleDeleteFavorite} />
                ) : (
-                  <DeleteAll
-                     onClick={() => handleDeleteFavorite(favorite[0]?.id)}
-                  />
+                  <DeleteAll onClick={handleDeleteFavorite} />
                )}
-               {isOpenModal && (
-                  <DeleteFavoriteModal
-                     id={selectedId}
-                     onConfirm={confirmDelete}
-                     onClose={() => setIsOpenModal(false)}
-                  />
-               )}
+               {isOpenModal && <DeleteFavoriteModal onDelete={onDelete} />}
             </SecondBlock>
          </Container>
          <CardList cards={publishResponseList} />

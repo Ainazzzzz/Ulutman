@@ -12,15 +12,7 @@ export const favoriteSlice = createSlice({
             state.favoriteProducts = action.payload;
          })
          .addCase(deleteFavorites.fulfilled, (state, action) => {
-            // Убедитесь, что action.payload содержит id удаляемого продукта
-            const productIdToDelete = action.payload; // Предполагается, что payload - это id продукта
-            state.favoriteProducts = state.favoriteProducts.filter(
-               product => product.id !== productIdToDelete,
-            );
-            console.log(
-               'Текущие избранные продукты после удаления:',
-               state.favoriteProducts,
-            );
+            state.favoriteProducts = action.payload;
          });
    },
 });
