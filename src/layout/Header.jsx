@@ -109,7 +109,7 @@ export const Header = () => {
                         <SearchIcon color="#fff" />
                         Поиск
                      </MenuItemStyle>
-                     <MenuItemStyle onClick={handleClose}>
+                     <MenuItemStyle onClick={() => navigate('create-ad')}>
                         <Plus /> Опубликовать
                      </MenuItemStyle>
                      <MenuItemStyle onClick={handleClose}>

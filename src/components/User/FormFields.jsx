@@ -17,6 +17,7 @@ export const InputField = ({
    required,
    touched,
    error,
+   ...props
 }) => (
    <Container>
       <Input
@@ -26,6 +27,7 @@ export const InputField = ({
          placeholder={placeholder}
          label={label}
          required={required}
+         {...props}
       />
       {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
    </Container>

@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import FileUpload from '../../pages/Admin/mailing/FileUpload.jsx';
 import { Button } from '../UI/Button';
 import { validationAdForm } from '../../utils/constants/validationMailing';
-import { CategoryModal } from './CategoryModal';
 import {
    InputField,
    CategoryField,
@@ -12,6 +11,9 @@ import {
    SelectField,
 } from './FormFields';
 import { WrapperInputSelect } from '../../pages/Admin/mailing/MailingFormStyles.jsx';
+import { PublishesCategoryModal } from './PublishesCategoryModal.jsx';
+import { useDispatch } from 'react-redux';
+import { fetchPublishesUser } from '../../redux/publishes/publishesThunk.js';
 
 const options = [
    { id: 2, value: 'option1', label: 'Option 1' },
@@ -20,29 +22,32 @@ const options = [
 
 export const CreateAdForm = () => {
    const [isOpen, setIsOpen] = useState(false);
-
+   const dispatch = useDispatch();
    const handleOpenCategoryModal = () => setIsOpen(!isOpen);
 
    const formik = useFormik({
       initialValues: {
          name: '',
-         phone: '',
+         phoneNumber: '',
          category: '',
-         photo: '',
+         subCategory: '',
          description: '',
-         files: '',
+         image: '',
          city: 'city',
          address: '',
          metro: 'metro',
+         price: '',
       },
       validationSchema: validationAdForm,
       onSubmit: values => {
-         console.log(values);
+         // console.log(values);
+         dispatch(fetchPublishesUser(values));
       },
    });
 
-   const handleCategorySubmit = title => {
-      formik.setFieldValue('category', title);
+   const handleCategorySubmit = (category, subcategory) => {
+      formik.setFieldValue('category', category);
+      formik.setFieldValue('subCategory', subcategory);
       handleOpenCategoryModal();
    };
 
@@ -65,6 +70,7 @@ export const CreateAdForm = () => {
                onChange={formik.handleChange}
                placeholder="+7 xxx xxxxxxx"
                label="Телефон"
+               type="number"
                required
                touched={formik.touched.phone}
                error={formik.errors.phone}
@@ -96,6 +102,17 @@ export const CreateAdForm = () => {
          />
 
          <WrapperInputSelect>
+            <InputField
+               name="price"
+               value={formik.values.price}
+               onChange={formik.handleChange}
+               placeholder="Договорная"
+               type="number"
+               label="Цена"
+               required
+               touched={formik.touched.price}
+               error={formik.errors.price}
+            />
             <SelectField
                name="city"
                label="Город"
@@ -146,15 +163,15 @@ export const CreateAdForm = () => {
 
          <StyledButton type="submit">Создать</StyledButton>
 
-         <CategoryModal
+         <PublishesCategoryModal
             open={isOpen}
             onClose={handleOpenCategoryModal}
             onCategorClick={handleCategorySubmit}
+            setFieldValue={formik.setFieldValue}
          />
       </Form>
    );
 };
-
 const Form = styled('form')({
    display: 'flex',
    flexDirection: 'column',
