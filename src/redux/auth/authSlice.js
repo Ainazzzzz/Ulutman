@@ -29,7 +29,8 @@ const getInitialState = () => {
          email: '',
          status: '',
          token: '',
-         role: 'USER',
+         role: 'GUEST',
+         userId: '',
       },
    };
 };

@@ -12,49 +12,64 @@ import {
 } from './FormFields';
 import { WrapperInputSelect } from '../../pages/Admin/mailing/MailingFormStyles.jsx';
 import { PublishesCategoryModal } from './PublishesCategoryModal.jsx';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchPublishesUser } from '../../redux/publishes/publishesThunk.js';
 
 const options = [
-   { id: 2, value: 'option1', label: 'Option 1' },
-   { id: 3, value: 'option2', label: 'Option 2' },
+   { id: 2, value: 'БульварРокоссовкого', label: 'БульварРокоссовкого' },
+   { id: 3, value: 'Кожуховская', label: 'Кожуховская' },
 ];
 
 export const CreateAdForm = () => {
+   const { userData } = useSelector(state => state.auth);
    const [isOpen, setIsOpen] = useState(false);
+   const [selectCategory, setSelectCategory] = useState({});
    const dispatch = useDispatch();
    const handleOpenCategoryModal = () => setIsOpen(!isOpen);
 
    const formik = useFormik({
       initialValues: {
-         name: '',
-         phoneNumber: '',
-         category: '',
-         subCategory: '',
          description: '',
-         image: '',
-         city: 'city',
-         address: '',
          metro: 'metro',
+         address: '',
+         phoneNumber: '',
+         image: '',
+         category: '',
+         subcategory: '',
+         // city: 'city',
          price: '',
+         bank: 'SBERBANK',
       },
       validationSchema: validationAdForm,
       onSubmit: values => {
-         // console.log(values);
-         dispatch(fetchPublishesUser(values));
+         dispatch(
+            fetchPublishesUser({
+               ...values,
+               publishStatus: 'ОДОБРЕН',
+               categoryStatus: 'АКТИВНО',
+               userId: userData.userId,
+            }),
+         );
       },
    });
 
-   const handleCategorySubmit = (category, subcategory) => {
-      formik.setFieldValue('category', category);
-      formik.setFieldValue('subCategory', subcategory);
-      handleOpenCategoryModal();
+   const handleCategorySubmit = categories => {
+      formik.setFieldValue('category', categories.category);
+      setSelectCategory({ categoryTitle: categories.title });
+   };
+
+   const handleSubCategorySubmit = subCategory => {
+      formik.setFieldValue('subcategory', subCategory.value);
+      setSelectCategory({
+         ...selectCategory,
+         subCategoryText: subCategory.text,
+      });
    };
 
    return (
       <Form onSubmit={formik.handleSubmit}>
          <WrapperInputSelect>
-            <InputField
+            {/* <InputField
                name="name"
                value={formik.values.name}
                onChange={formik.handleChange}
@@ -63,22 +78,21 @@ export const CreateAdForm = () => {
                required
                touched={formik.touched.name}
                error={formik.errors.name}
-            />
+            /> */}
             <InputField
-               name="phone"
-               value={formik.values.phone}
+               name="phoneNumber"
+               value={formik.values.phoneNumber}
                onChange={formik.handleChange}
                placeholder="+7 xxx xxxxxxx"
                label="Телефон"
-               type="number"
                required
-               touched={formik.touched.phone}
-               error={formik.errors.phone}
+               touched={formik.touched.phoneNumber}
+               error={formik.errors.phoneNumber}
             />
          </WrapperInputSelect>
 
          <CategoryField
-            category={formik.values.category}
+            selectCategory={selectCategory}
             touched={formik.touched.category}
             error={formik.errors.category}
             handleOpenCategoryModal={handleOpenCategoryModal}
@@ -88,8 +102,8 @@ export const CreateAdForm = () => {
             <Label>Загрузите фото</Label>
             <FileUpload
                setFieldValue={formik.setFieldValue}
-               touched={formik.touched.files}
-               errors={formik.errors.files}
+               touched={formik.touched.image}
+               errors={formik.errors.image}
             />
          </ContainerFile>
 
@@ -104,7 +118,7 @@ export const CreateAdForm = () => {
          <WrapperInputSelect>
             <InputField
                name="price"
-               value={formik.values.price}
+               value={Number(formik.values.price)}
                onChange={formik.handleChange}
                placeholder="Договорная"
                type="number"
@@ -113,7 +127,7 @@ export const CreateAdForm = () => {
                touched={formik.touched.price}
                error={formik.errors.price}
             />
-            <SelectField
+            {/* <SelectField
                name="city"
                label="Город"
                value={formik.values.city}
@@ -130,7 +144,7 @@ export const CreateAdForm = () => {
                onBlur={formik.handleBlur}
                touched={formik.touched.city}
                error={formik.errors.city}
-            />
+            /> */}
             <SelectField
                name="metro"
                label="Метро"
@@ -166,8 +180,8 @@ export const CreateAdForm = () => {
          <PublishesCategoryModal
             open={isOpen}
             onClose={handleOpenCategoryModal}
-            onCategorClick={handleCategorySubmit}
-            setFieldValue={formik.setFieldValue}
+            onCategoryClick={handleCategorySubmit}
+            onSubCategoryClick={handleSubCategorySubmit}
          />
       </Form>
    );
