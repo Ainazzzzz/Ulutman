@@ -151,7 +151,7 @@ export const categories = [
             text: 'Участок',
          },
          {
-            id: 'e3',
+            id: 'e4',
             value: 'Space',
             text: 'Помещение',
          },

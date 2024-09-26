@@ -29,6 +29,7 @@ export const CreateAdForm = () => {
 
    const formik = useFormik({
       initialValues: {
+         title: '',
          description: '',
          metro: 'metro',
          address: '',
@@ -36,7 +37,6 @@ export const CreateAdForm = () => {
          image: '',
          category: '',
          subcategory: '',
-         // city: 'city',
          price: '',
          bank: 'SBERBANK',
       },
@@ -48,8 +48,10 @@ export const CreateAdForm = () => {
                publishStatus: 'ОДОБРЕН',
                categoryStatus: 'АКТИВНО',
                userId: userData.userId,
+               phoneNumber: Number(values.phoneNumber),
             }),
          );
+         formik.resetForm();
       },
    });
 
@@ -69,16 +71,16 @@ export const CreateAdForm = () => {
    return (
       <Form onSubmit={formik.handleSubmit}>
          <WrapperInputSelect>
-            {/* <InputField
-               name="name"
-               value={formik.values.name}
+            <InputField
+               name="title"
+               value={formik.values.title}
                onChange={formik.handleChange}
                placeholder="Иван"
                label="Имя"
                required
-               touched={formik.touched.name}
-               error={formik.errors.name}
-            /> */}
+               touched={formik.touched.title}
+               error={formik.errors.title}
+            />
             <InputField
                name="phoneNumber"
                value={formik.values.phoneNumber}
@@ -118,7 +120,7 @@ export const CreateAdForm = () => {
          <WrapperInputSelect>
             <InputField
                name="price"
-               value={Number(formik.values.price)}
+               value={formik.values.price}
                onChange={formik.handleChange}
                placeholder="Договорная"
                type="number"
@@ -127,24 +129,7 @@ export const CreateAdForm = () => {
                touched={formik.touched.price}
                error={formik.errors.price}
             />
-            {/* <SelectField
-               name="city"
-               label="Город"
-               value={formik.values.city}
-               options={[
-                  {
-                     id: 1,
-                     value: 'city',
-                     label: 'Выберите город',
-                     disabled: true,
-                  },
-                  ...options,
-               ]}
-               setFieldValue={formik.setFieldValue}
-               onBlur={formik.handleBlur}
-               touched={formik.touched.city}
-               error={formik.errors.city}
-            /> */}
+
             <SelectField
                name="metro"
                label="Метро"
