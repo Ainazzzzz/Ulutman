@@ -55,24 +55,24 @@ export const ADS_DATA = [
       id: 1,
       name: 'Jaka',
       email: 'jaka-imanaliev@mail.ru',
-      category: 'Услуги',
-      date: '19.01.2023',
+      role: 'Услуги',
+      createDate: '19.01.2023',
       status: 'Одобрен',
    },
    {
       id: 2,
       name: 'Jaka',
       email: 'jaka-imanaliev@mail.ru',
-      category: 'Админ',
-      date: '19.01.2023',
+      role: 'Админ',
+      createDate: '19.01.2023',
       status: 'ОТКЛОНЕН',
    },
    {
       id: 3,
       name: 'Jaka',
       email: 'jaka-imanaliev@mail.ru',
-      category: 'Админ',
-      date: '19.01.2023',
+      role: 'Админ',
+      createDate: '19.01.2023',
       status: 'Ожидает',
    },
 ];
@@ -80,11 +80,11 @@ export const ADS_DATA = [
 export const ADS_COLUMNS = [
    {
       Header: 'ИМЯ',
-      accessor: 'name',
+      accessor: 'user.name',
    },
    {
       Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
-      accessor: 'email',
+      accessor: 'user.email',
    },
    {
       Header: 'КАТЕГОРИЯ',
@@ -92,11 +92,11 @@ export const ADS_COLUMNS = [
    },
    {
       Header: 'ДАТА СОЗДАНИЯ',
-      accessor: 'date',
+      accessor: 'createDate',
    },
    {
       Header: 'СТАТУС',
-      accessor: 'status',
+      accessor: 'publishStatus',
    },
 ];
 
@@ -207,19 +207,19 @@ export const USERS_DATA = [
 export const MODERATION_COMPLAINTS = [
    {
       Header: 'ПОЛЬЗОВАТЕЛЬ',
-      accessor: 'name',
+      accessor: 'authResponse.name',
    },
    {
       Header: 'тип жалобы',
-      accessor: 'complaints',
+      accessor: 'complaintType',
    },
    {
       Header: 'ДАТА СОЗДАНИЕ',
-      accessor: 'date',
+      accessor: 'createDate',
    },
    {
       Header: 'СТАТУС',
-      accessor: 'status',
+      accessor: 'complaintStatus',
    },
 ];
 
