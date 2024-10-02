@@ -69,11 +69,14 @@ export const Header = () => {
    const logOutHandler = () => {
       dispatch(logOut({ navigate, toggleModal: handleClose }));
    };
+   const handleNavigationPage = path => {
+      navigate(path);
+   };
 
    return (
       <>
          <Wrapper>
-            <LogoStyle>
+            <LogoStyle onClick={() => handleNavigationPage('/user')}>
                <UlutmanLogo />
             </LogoStyle>
             {isMobile ? (
@@ -109,14 +112,20 @@ export const Header = () => {
                         <SearchIcon color="#fff" />
                         Поиск
                      </MenuItemStyle>
-                     <MenuItemStyle onClick={handleClose}>
+                     <MenuItemStyle
+                        onClick={() => handleNavigationPage('create-ad')}
+                     >
                         <Plus /> Опубликовать
                      </MenuItemStyle>
-                     <MenuItemStyle onClick={handleClose}>
+                     <MenuItemStyle
+                        onClick={() => handleNavigationPage('favorite')}
+                     >
                         <WhiteHeart />
                         Избранное
                      </MenuItemStyle>
-                     <MenuItemStyle onClick={handleClose}>
+                     <MenuItemStyle
+                        onClick={() => handleNavigationPage('messages')}
+                     >
                         <WhiteMessage />
                         Сообщения
                      </MenuItemStyle>
@@ -130,19 +139,21 @@ export const Header = () => {
                <ContainerBlock>
                   {isAuth ? (
                      <>
-                        <Block>
+                        <Block onClick={() => handleNavigationPage('messages')}>
                            <IconButton>
                               <MessageIcon />
                            </IconButton>
                            <a>Сообщения</a>
                         </Block>
-                        <Block>
+                        <Block
+                           onClick={() => handleNavigationPage('Избранное')}
+                        >
                            <IconButton>
                               <HeartLike />
                            </IconButton>
                            <a>Избранное</a>
                         </Block>
-                        <Block>
+                        <Block onClick={() => handleNavigationPage('profile')}>
                            <IconButton>
                               <UserLogo />
                            </IconButton>
@@ -159,7 +170,9 @@ export const Header = () => {
                      />
                   </Block>
                   {isAuth ? (
-                     <ButtonStyle>
+                     <ButtonStyle
+                        onClick={() => handleNavigationPage('create-ad')}
+                     >
                         <Plus />
                         Опубликовать
                      </ButtonStyle>
