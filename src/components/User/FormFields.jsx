@@ -17,6 +17,7 @@ export const InputField = ({
    required,
    touched,
    error,
+   ...props
 }) => (
    <Container>
       <Input
@@ -26,26 +27,32 @@ export const InputField = ({
          placeholder={placeholder}
          label={label}
          required={required}
+         {...props}
       />
       {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
    </Container>
 );
 
 export const CategoryField = ({
-   category,
+   selectCategory,
    touched,
    error,
    handleOpenCategoryModal,
 }) => (
    <StyledContainer>
       <Label>Категория</Label>
+      <SelectInfo>
+         {selectCategory.categoryTitle}{' '}
+         {selectCategory.subCategoryText ? '/' : null}{' '}
+         {selectCategory.subCategoryText}
+      </SelectInfo>
       <Container>
          <CategoryButton
             variant="outlined"
             type="button"
             onClick={handleOpenCategoryModal}
          >
-            {category || 'Выбрать'}
+            Выбрать
          </CategoryButton>
          {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
       </Container>
@@ -119,4 +126,10 @@ const CategoryButton = styled(Button)({
    height: '39px',
    fontSize: '16px',
    fontWeight: '600',
+});
+
+const SelectInfo = styled('p')({
+   fontSize: '12px',
+   fontWeight: '400',
+   fontStyle: 'italic',
 });

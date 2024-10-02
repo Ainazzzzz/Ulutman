@@ -2,7 +2,6 @@ import { styled } from '@mui/material';
 import { MainBanner } from '../components/main-page/MainBanner';
 import AnnouncementsSorter from '../components/AnnouncementsSorter';
 import AboutUs from '../components/main-page/AboutUs';
-import Footer from '../components/main-page/Footer';
 import { Button } from '../components/UI/Button';
 import { CARDS, CARDS_MAIN } from '../utils/constants';
 import { CardList } from '../components/UI/Card/CardList';
@@ -24,7 +23,6 @@ export const MainPage = () => {
             <Button variant="category-sort">Посмотреть еще</Button>
             <AboutUs />
          </Container>
-         <Footer />
       </div>
    );
 };

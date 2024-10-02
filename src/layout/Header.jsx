@@ -73,6 +73,11 @@ export const Header = () => {
       navigate(path);
    };
 
+   const navigateToPageHandler = path => {
+      navigate(path);
+      handleClose();
+   };
+
    return (
       <>
          <Wrapper>
@@ -113,7 +118,7 @@ export const Header = () => {
                         Поиск
                      </MenuItemStyle>
                      <MenuItemStyle
-                        onClick={() => handleNavigationPage('create-ad')}
+                        onClick={() => navigateToPageHandler('create-ad')}
                      >
                         <Plus /> Опубликовать
                      </MenuItemStyle>
