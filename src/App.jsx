@@ -3,7 +3,6 @@ import { AppRoutes } from './routes/AppRoutes';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { autoLogin } from './redux/auth/authSlice';
-import { FeaturedAds } from './components/User/FeaturedAds';
 
 const App = () => {
    const dispatch = useDispatch();
@@ -21,7 +20,6 @@ const App = () => {
    return (
       <>
          <AppRoutes />
-         <FeaturedAds />
       </>
    );
 };

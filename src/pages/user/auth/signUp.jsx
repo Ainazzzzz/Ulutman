@@ -69,7 +69,7 @@ const SignUp = ({ open, onClose, onOpen }) => {
          <Box onSubmit={handleSubmit}>
             <h2>Регистрация</h2>
             {signUpInputs.map(item => (
-               <div key={item.label}>
+               <div key={item.label} style={{ position: 'relative' }}>
                   <Input
                      placeholder={item.label}
                      onChange={handleChange}
@@ -79,7 +79,15 @@ const SignUp = ({ open, onClose, onOpen }) => {
                      value={values[item.value]}
                   />
                   {errors[item.value] && touched[item.value] && (
-                     <ErrorText>{errors[item.value]}</ErrorText>
+                     <ErrorText
+                        style={{
+                           position: 'absolute',
+                           left: '0px',
+                           // top: '0px',
+                        }}
+                     >
+                        {errors[item.value]}
+                     </ErrorText>
                   )}
                </div>
             ))}
@@ -101,7 +109,7 @@ export default SignUp;
 const Box = styled('form')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
-   gap: '10px',
+   gap: '20px',
    h2: {
       textAlign: 'center',
       fontWeight: '600',

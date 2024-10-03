@@ -12,10 +12,7 @@ export const store = configureStore({
       [complaintsSlice.name]: complaintsSlice.reducer,
       [usersSlice.name]: usersSlice.reducer,
       [dashboardSlices.name]: dashboardSlices.reducer,
-<<<<<<< HEAD
       [favoriteSlice.name]: favoriteSlice.reducer,
-=======
       [addsAdminSlice.name]: addsAdminSlice.reducer,
->>>>>>> eecab2ce0446456d23c22f8ed3b9ba3a3635bec8
    },
 });
