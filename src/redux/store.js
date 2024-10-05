@@ -5,6 +5,7 @@ import { addsAdminSlice } from './slices/adminAddsSlice';
 import { usersSlice } from './users/usersSlice';
 import { dashboardSlices } from './dashboard/dashboardSlices';
 import { favoriteSlice } from './users/favoriteSlice';
+import { publishesSlice } from './publishes/publishesSlice';
 
 export const store = configureStore({
    reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
       [usersSlice.name]: usersSlice.reducer,
       [dashboardSlices.name]: dashboardSlices.reducer,
       [favoriteSlice.name]: favoriteSlice.reducer,
+      [publishesSlice.name]: publishesSlice.reducer,
       [addsAdminSlice.name]: addsAdminSlice.reducer,
    },
 });
