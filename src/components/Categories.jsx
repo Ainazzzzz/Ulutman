@@ -2,16 +2,22 @@ import Breadcrumbs from './UI/Breadcrumbs';
 import SearchInput from './UI/SearchInput';
 import { styled, useMediaQuery } from '@mui/material';
 import { CategoryTab } from '../components/User/CategoryTab';
-import ChevronLeft from '../assets/icons/chevron-left-violet-icon.svg?react';
+import ChevronLeft from '../assets/icons/chevron-left.svg?react';
+import { useEffect } from 'react';
+import { categoriesThunks } from '../redux/categories/caregoriesThunks';
+import { useDispatch } from 'react-redux';
 
 export const Categories = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const dispatch = useDispatch();
 
    const breadcrumbs = [
       { url: '/', title: 'Главная ' },
       { url: '/Недвижимость', title: 'Недвижимость ' },
    ];
-
+   useEffect(() => {
+      dispatch(categoriesThunks('realEstate'));
+   }, [dispatch]);
    return (
       <Wrapper>
          <Container>

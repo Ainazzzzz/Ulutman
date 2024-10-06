@@ -3,7 +3,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled, useMediaQuery } from '@mui/system';
 import { CategoryCard } from '../UI/CategoryCard';
 import Filter from '../../assets/icons/filter-category-icon.svg?react';
@@ -21,6 +21,7 @@ export const CategoryTab = () => {
    const handleChange = (event, newValue) => {
       setValue(newValue);
    };
+
    return (
       <div>
          <Box>

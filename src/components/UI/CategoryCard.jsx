@@ -1,17 +1,29 @@
 import { styled, useMediaQuery } from '@mui/material';
-import { category } from '../../utils/constants/category-card';
+
 import SumIcon from '../../assets/icons/sum-icon.svg?react';
 import Geolocation from '../../assets/icons/geolocation-icon.svg?react';
 import Home from '../../assets/icons/home-icon.svg?react';
 import GrayHeart from '../../assets/icons/gray-heart-icon.svg?react';
+
 import GrayMessage from '../../assets/icons/gray-message-icon.svg?react';
 import { IconButton } from '../IconButton';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const CategoryCard = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+
+   const categories = useSelector(state => state.categories.categories);
+   // const favorites = useSelector(state => state.categories.favorites);
+
+   console.log(categories);
+
+   // const handleAddToFavorites = id => {
+   //    dispatch(categoriesFavoritу({ id }));
+   // };
+
    return (
       <>
-         {category.map(item => (
+         {categories.map(item => (
             <Container key={item.id}>
                {isMobile ? (
                   <>
@@ -20,14 +32,14 @@ export const CategoryCard = () => {
                         <div>
                            <FirstBlock>
                               <Price>
-                                 {item.price} <SumIcon />{' '}
+                                 {item.price} <SumIcon />
                               </Price>
                               <IconButton>
                                  <GrayHeart />
                               </IconButton>
                            </FirstBlock>
                            <RoomStyle>
-                              {item.room}х комнатная квартира
+                              {item.title}х комнатная квартира
                               <IconButton>
                                  <GrayMessage />
                               </IconButton>
@@ -35,7 +47,7 @@ export const CategoryCard = () => {
                            <SecondBlock>
                               <Geolocation />
                               <p>
-                                 {item.city}, р-н {item.area}
+                                 {item.metro}, р-н {item.address}
                               </p>
                            </SecondBlock>
                            <SecondBlock>
@@ -68,11 +80,11 @@ export const CategoryCard = () => {
                               </IconButton>
                            </div>
                         </FirstBlock>
-                        <RoomStyle>{item.room}х комнатная квартира</RoomStyle>
+                        <RoomStyle>{item.title}х комнатная квартира</RoomStyle>
                         <SecondBlock>
                            <Geolocation />
                            <p>
-                              {item.city}, р-н {item.area}
+                              {item.metro}, р-н {item.address}
                            </p>
                         </SecondBlock>
                         <SecondBlock>

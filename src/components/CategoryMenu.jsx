@@ -72,7 +72,7 @@ const CategoryMenu = () => {
 
 export default CategoryMenu;
 
-const StyledMenu = styled(Menu)(() => ({
+const  StyledMenu = styled(Menu)(() => ({
    '& .MuiList-padding ': {
       padding: '3px',
    },

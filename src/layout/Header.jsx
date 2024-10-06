@@ -17,7 +17,7 @@ import MenuIcon from '../assets/icons/menu-icon.svg?react';
 import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react';
 import MessageIcon from '../assets/icons/message-icon.svg?react';
 import ComeIcon from '../assets/icons/come-icon.svg?react';
-import WhiteHeart from '../assets/icons/white-heart-icon.svg?react';
+import WhiteHeart from '../assets/icons/white-heart.svg?react';
 import WhiteMessage from '../assets/icons/white-message-icon.svg?react';
 import Language from '../assets/icons/language-icon.svg?react';
 import LogOutIcon from '../assets/icons/come-icon.svg?react';

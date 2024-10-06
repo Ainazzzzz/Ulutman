@@ -3,6 +3,7 @@ import { AppRoutes } from './routes/AppRoutes';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { autoLogin } from './redux/auth/authSlice';
+import { Categories } from './components/Categories';
 
 const App = () => {
    const dispatch = useDispatch();
