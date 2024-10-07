@@ -8,7 +8,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import firstImage from '../../../assets/images/slider-images/first.png';
 import secondthImage from '../../../assets/images/slider-images/second.png';
 import thirdImage from '../../../assets/images/slider-images/third.png';
@@ -24,8 +24,14 @@ import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react';
 import { Button } from '../../../components/UI/Button';
 import UserIcon from '../../../assets/icons/user.svg?react';
 import AboutApartment from './AboutApartment';
+import { getDetailInfo } from '../../../redux/thunks/detailInfoThunk';
+import { useDispatch, useSelector } from 'react-redux';
 
 const DetailInfo = () => {
+   const dispatch = useDispatch();
+   const detailInfo = useSelector(state => state.detailInfo);
+   console.log(detailInfo);
+
    const path = [
       { title: 'Главная', url: '#' },
       { title: '2х комнатная квартира', url: '#' },
@@ -44,6 +50,10 @@ const DetailInfo = () => {
       { id: 10, image: tenthImage },
    ];
 
+   useEffect(() => {
+      dispatch(getDetailInfo());
+   }, []);
+
    return (
       <StyledContainer>
          <Box className="breadcrumbs-box">
@@ -58,17 +68,21 @@ const DetailInfo = () => {
          <Box className="locatio-time-box">
             <Typography>
                <LocationIcon className="location-icon" />
-               Москва, р-н Центральный
+               {/* Москва, р-н Центральный */}
+               {detailInfo.detailInfo.metro}
             </Typography>
 
             <Typography>
-               <ClockIcon />5 августа 2024 г.
+               <ClockIcon />
+               {/* 5 августа 2024 г. */}
+               {detailInfo.detailInfo.createDate}
             </Typography>
          </Box>
 
          <Box>
             <Typography className="title" variant="h3">
-               3х комнатная квартира
+               {/* 3х комнатная квартира */}
+               {detailInfo.detailInfo.title}
             </Typography>
 
             <Box className="fist-part_container">
@@ -151,7 +165,9 @@ const DetailInfo = () => {
                      </Box>
                      <Box>
                         <Typography>Риелтор</Typography>
-                        <Typography>Екатерина Орлова</Typography>
+                        <Typography>
+                           {detailInfo.detailInfo.user.name}
+                        </Typography>
                         <Rating value={5} readOnly />
                      </Box>
                   </Box>
@@ -164,10 +180,11 @@ const DetailInfo = () => {
                Описания объявления
             </Typography>
             <Typography className="descriptioon-text">
-               ЖК "Водный", предлогается 2-х комнатная квартира с новым
+               {/* ЖК "Водный", предлогается 2-х комнатная квартира с новым
                ремонтом.Кухня -гостиная, спальня, балкон. Имеется вся мебель и
                бытовая техника включая кондиционер. Есть возможность аренды
-               машино-место.
+               машино-место. */}
+               {detailInfo.detailInfo.description}
             </Typography>
 
             <Typography className="read-more-text">
