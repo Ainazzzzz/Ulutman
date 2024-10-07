@@ -24,3 +24,17 @@ export const deleteFavorites = createAsyncThunk(
       }
    },
 );
+export const getFavoritesStatus = createAsyncThunk(
+   'favorite/getFavoritesStatus',
+   async (productId, { rejectWithValue }) => {
+      try {
+         const { data } = await axiosInstance.get('/favorites/check', {
+            params: { productId },
+         });
+
+         return data;
+      } catch (error) {
+         rejectWithValue(error.response.data);
+      }
+   },
+);

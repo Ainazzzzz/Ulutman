@@ -4,7 +4,6 @@ import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react';
 import ChevronLeft from '../../assets/icons/chevron-left.svg?react';
 import { styled, useMediaQuery } from '@mui/material';
 import { CardList } from '../UI/Card/CardList';
-import { CARDS_MAIN } from '../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { deleteFavorites, getFavorites } from '../../redux/users/favoriteThunk';

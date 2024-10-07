@@ -3,6 +3,10 @@ import HomeIcon from '../../../assets/icons/home-icon.svg?react';
 import AddressIcon from '../../../assets/icons/address-icon.svg?react';
 import MessageIcon from '../../../assets/icons/message-gray-icon.svg?react';
 import LikeIcon from '../../../assets/icons/like-icon.svg?react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getFavoritesStatus } from '../../../redux/users/favoriteThunk';
+import { useParams } from 'react-router-dom';
 
 export const CardItem = ({
    title,
@@ -13,10 +17,17 @@ export const CardItem = ({
    favoriteStatus,
    messageStatus,
 }) => {
+   const isFavorite = useSelector(state => state.favoriteProducts);
+   const dispatch = useDispatch();
+   const { id: productId } = useParams();
+
+   useEffect(() => {
+      dispatch(getFavoritesStatus(productId));
+   }, [dispatch, productId]);
+
    return (
       <StyledCard>
          <StyledCardMedia image={image} title={title} />
-         {/* {img && <StyledCardMedia image={img} title={title} />} */}
 
          <ContainerInfo>
             <FirstBlock>
@@ -39,7 +50,7 @@ export const CardItem = ({
             </FirstBlock>
 
             <SecondBlock>
-               <LikeIcon className={favoriteStatus ? 'like-red' : ''} />
+               <LikeIcon className={isFavorite ? 'like-red' : ''} />
                <MessageIcon className={messageStatus ? 'message-red' : ''} />
             </SecondBlock>
          </ContainerInfo>

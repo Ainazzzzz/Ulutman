@@ -1,10 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteFavorites, getFavorites } from './favoriteThunk';
+import {
+   deleteFavorites,
+   getFavorites,
+   getFavoritesStatus,
+} from './favoriteThunk';
 
 export const favoriteSlice = createSlice({
    name: 'favoriteProducts',
    initialState: {
       favoriteProducts: [],
+      isFavorite: false,
    },
    extraReducers: builder => {
       builder
@@ -13,6 +18,9 @@ export const favoriteSlice = createSlice({
          })
          .addCase(deleteFavorites.fulfilled, (state, action) => {
             state.favoriteProducts = action.payload;
+         })
+         .addCase(getFavoritesStatus.fulfilled, (state, action) => {
+            state.isFavorite = action.payload;
          });
    },
 });
