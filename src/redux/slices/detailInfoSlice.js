@@ -4,7 +4,7 @@ import { getDetailInfo } from '../thunks/detailInfoThunk';
 export const detailInfoSlice = createSlice({
    name: 'detailInfo',
    initialState: {
-      detailInf: {},
+      detailInfo: {},
    },
    extraReducers: builder => {
       builder.addCase(getDetailInfo.fulfilled, (state, action) => {

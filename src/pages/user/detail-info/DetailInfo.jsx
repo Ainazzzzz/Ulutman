@@ -166,7 +166,7 @@ const DetailInfo = () => {
                      <Box>
                         <Typography>Риелтор</Typography>
                         <Typography>
-                           {detailInfo.detailInfo.user.name}
+                           {/* {detailInfo.detailInfo.user.name} */}
                         </Typography>
                         <Rating value={5} readOnly />
                      </Box>
