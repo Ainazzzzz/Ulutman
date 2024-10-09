@@ -150,9 +150,7 @@ export const Header = () => {
                            </IconButton>
                            <a>Сообщения</a>
                         </Block>
-                        <Block
-                           onClick={() => handleNavigationPage('Избранное')}
-                        >
+                        <Block onClick={() => handleNavigationPage('favorite')}>
                            <IconButton>
                               <HeartLike />
                            </IconButton>

@@ -1,68 +1,74 @@
+import { Categories } from '../components/Categories.jsx';
+import { CategoryTab } from '../components/User/CategoryTab.jsx';
 import { Profile } from '../components/User/Profile';
 import { MainPage } from '../pages/MainPage';
 import { CreateAdPage } from '../pages/user/CreateAdPage';
-import { SignIn } from '../pages/user/auth/SignIn.jsx';
 import DetailInfo from '../pages/user/detail-info/DetailInfo.jsx';
+import { PATHS } from '../utils/constants/paths.js';
 import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole';
 
-export const UserRoutes = role => {
-   const userRoutes = [
-      {
-         path: 'sign-in',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['GUEST']}
-               fallBackPath="/user"
-               RouteComponent={<SignIn />}
-            />
-         ),
-      },
-      {
-         index: true,
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['GUEST', 'USER']}
-               fallBackPath="/user"
-               RouteComponent={<MainPage />}
-            />
-         ),
-      },
-      {
-         path: 'create-ad',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['USER']}
-               fallBackPath="/user"
-               RouteComponent={<CreateAdPage />}
-            />
-         ),
-      },
-      {
-         path: '/user/',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['USER']}
-               fallBackPath="/user"
-               RouteComponent={<DetailInfo />}
-            />
-         ),
-      },
+export const UserRoutes = role => [
+   {
+      index: true,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['GUEST', 'USER']}
+            fallBackPath={PATHS.USER.ROOT}
+            RouteComponent={<MainPage />}
+         />
+      ),
+   },
 
-      {
-         path: 'profile',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['USER']}
-               fallBackPath="/user"
-               RouteComponent={<Profile />}
-            />
-         ),
-      },
-   ];
-   return userRoutes;
-};
+   {
+      path: PATHS.USER.CATEGORY,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['USER']}
+            fallBackPath={PATHS.USER}
+            RouteComponent={<Categories />}
+         />
+      ),
+      children: [
+         {
+            path: '',
+            element: <CategoryTab />,
+         },
+      ],
+   },
+
+   {
+      path: PATHS.USER.CREATE_AD,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['USER']}
+            fallBackPath={PATHS.USER.ROOT}
+            RouteComponent={<CreateAdPage />}
+         />
+      ),
+   },
+   {
+      path: PATHS.USER.DETAIL_INFO,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['USER']}
+            fallBackPath={PATHS.USER.ROOT}
+            RouteComponent={<DetailInfo />}
+         />
+      ),
+   },
+   {
+      path: PATHS.USER.PROFILE,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['USER']}
+            fallBackPath={PATHS.USER.ROOT}
+            RouteComponent={<Profile />}
+         />
+      ),
+   },
+];
