@@ -3,7 +3,7 @@ import { CardItem } from './CardItem';
 import { SceletonCard } from './SceletonCard';
 import { Advertising } from './Advertising';
 
-export const CardList = ({ cards, advertising, loading }) => {
+export const CardList = ({ cards, advertising, loading, onDeleteById }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
    return (
@@ -13,7 +13,7 @@ export const CardList = ({ cards, advertising, loading }) => {
          <CardListBox container spacing={2.5}>
             {cards?.map(card => (
                <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
-                  <CardItem {...card} />
+                  <CardItem {...card} onDeleteById={onDeleteById} />
                </Grid>
             ))}
          </CardListBox>

@@ -1,26 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-   deleteFavorites,
-   getFavorites,
+   deleteAllFavorites,
+   deleteFavoritesById,
+   getAllFavorites,
    getFavoritesStatus,
 } from './favoriteThunk';
 
 export const favoriteSlice = createSlice({
    name: 'favoriteProducts',
    initialState: {
-      favoriteProducts: [],
+      favoriteProducts: {},
       isFavorite: false,
    },
    extraReducers: builder => {
       builder
-         .addCase(getFavorites.fulfilled, (state, action) => {
+         .addCase(getAllFavorites.fulfilled, (state, action) => {
             state.favoriteProducts = action.payload;
          })
-         .addCase(deleteFavorites.fulfilled, (state, action) => {
+
+         .addCase(deleteAllFavorites.fulfilled, (state, action) => {
             state.favoriteProducts = action.payload;
          })
          .addCase(getFavoritesStatus.fulfilled, (state, action) => {
             state.isFavorite = action.payload;
+         })
+         .addCase(deleteFavoritesById.fulfilled, (state, action) => {
+            const productId = action.payload;
+            if (state.favoriteProducts[productId]) {
+               delete state.favoriteProducts[productId];
+            } else {
+               console.error('Product not found with id:', productId);
+            }
          });
    },
 });

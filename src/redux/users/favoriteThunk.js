@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from '../../config/axiosInstance';
 
-export const getFavorites = createAsyncThunk(
+export const getAllFavorites = createAsyncThunk(
    'favorite/getFavorites',
    async (_, { rejectWithValue }) => {
       try {
@@ -12,7 +12,7 @@ export const getFavorites = createAsyncThunk(
       }
    },
 );
-export const deleteFavorites = createAsyncThunk(
+export const deleteAllFavorites = createAsyncThunk(
    'favorites/deleteFavorites',
    async (_, { rejectWithValue }) => {
       try {
@@ -35,6 +35,20 @@ export const getFavoritesStatus = createAsyncThunk(
          return data;
       } catch (error) {
          rejectWithValue(error.response.data);
+      }
+   },
+);
+
+export const deleteFavoritesById = createAsyncThunk(
+   'favorite/deleteFavoritesById',
+   async (id, { rejectWithValue }) => {
+      try {
+         const { data } = axiosInstance.delete(`/deleteFromFavorites/${id}`);
+         return data;
+      } catch (error) {
+         return rejectWithValue(
+            error.response ? error.response.data : 'Ошибка при удалении',
+         );
       }
    },
 );

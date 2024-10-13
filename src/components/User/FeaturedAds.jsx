@@ -6,7 +6,11 @@ import { styled, useMediaQuery } from '@mui/material';
 import { CardList } from '../UI/Card/CardList';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { deleteFavorites, getFavorites } from '../../redux/users/favoriteThunk';
+import {
+   deleteAllFavorites,
+   deleteFavoritesById,
+   getAllFavorites,
+} from '../../redux/users/favoriteThunk';
 import { DeleteFavoriteModal } from './DeleteFavoriteModal';
 
 export const FeaturedAds = () => {
@@ -26,12 +30,16 @@ export const FeaturedAds = () => {
       setIsOpenModal(!isOpenModal);
    };
    const onDelete = () => {
-      dispatch(deleteFavorites());
+      dispatch(deleteAllFavorites());
       setIsOpenModal(!isOpenModal);
+   };
+   const onDeleteById = id => {
+      dispatch(deleteFavoritesById(id));
+      dispatch(getAllFavorites());
    };
 
    useEffect(() => {
-      dispatch(getFavorites());
+      dispatch(getAllFavorites());
    }, [dispatch]);
 
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
@@ -55,7 +63,7 @@ export const FeaturedAds = () => {
                {isOpenModal && <DeleteFavoriteModal onDelete={onDelete} />}
             </SecondBlock>
          </Container>
-         <CardList cards={publishResponseList} />
+         <CardList cards={publishResponseList} onDeleteById={onDeleteById} />
       </Wrapper>
    );
 };
