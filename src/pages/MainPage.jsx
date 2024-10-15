@@ -1,9 +1,7 @@
 import { styled } from '@mui/material';
 import { MainBanner } from '../components/main-page/MainBanner';
 import AnnouncementsSorter from '../components/AnnouncementsSorter';
-import { Header } from '../layout/Header';
 import AboutUs from '../components/main-page/AboutUs';
-import Footer from '../components/main-page/Footer';
 import { Button } from '../components/UI/Button';
 import { CARDS } from '../utils/constants';
 import { CardList } from '../components/UI/Card/CardList';
@@ -27,7 +25,6 @@ export const MainPage = () => {
 
    return (
       <div>
-         <Header />
          <MainBanner />
          <SliderBox>
             <Slider />
@@ -46,7 +43,6 @@ export const MainPage = () => {
             </Button>
             <AboutUs />
          </Container>
-         <Footer />
       </div>
    );
 };

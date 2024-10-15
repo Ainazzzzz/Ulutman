@@ -30,6 +30,7 @@ const getInitialState = () => {
          status: '',
          token: '',
          role: 'GUEST',
+         userId: '',
       },
    };
 };
