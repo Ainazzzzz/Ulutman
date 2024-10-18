@@ -11,23 +11,24 @@ import { PrivateAuthRouter } from './private/PrivateAuthRoute';
 import { UserRoutes } from './UserRoutes';
 import { useSelector } from 'react-redux';
 import NotFoundPage from '../pages/NotFound';
+import { PATHS } from '../utils/constants/paths';
 
 export const AppRoutes = () => {
    const { userData } = useSelector(state => state.auth);
 
    const pathsByRole = {
-      ADMIN: '/admin',
-      USER: '/user',
-      GUEST: '/',
+      ADMIN: PATHS.ADMIN.ROOT,
+      USER: PATHS.USER.ROOT,
+      GUEST: PATHS.HOME,
    };
 
    const router = createBrowserRouter([
       {
-         path: '/',
-         element: <Navigate to="user" replace />,
+         path: PATHS.HOME,
+         element: <Navigate to={PATHS.USER.ROOT} replace />,
       },
       {
-         path: '/user',
+         path: PATHS.USER.ROOT,
          element: (
             <PrivateAuthRouter
                Component={<MainLayout />}
@@ -40,7 +41,7 @@ export const AppRoutes = () => {
          children: UserRoutes(userData.role),
       },
       {
-         path: '/admin',
+         path: PATHS.ADMIN.ROOT,
          element: (
             <PrivateAuthRouter
                Component={<AdminLayout />}
@@ -51,7 +52,7 @@ export const AppRoutes = () => {
          children: AdminRoutes(userData.role),
       },
       {
-         path: '*',
+         path: PATHS.FALLBACK,
          element: <NotFoundPage />,
       },
    ]);
