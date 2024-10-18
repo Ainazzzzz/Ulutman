@@ -9,136 +9,132 @@ import { ComplaintsModerationPage } from '../pages/Admin/moderation/ComplaintsMo
 import { MediaFilesModerationPage } from '../pages/Admin/moderation/MediaFilesModerationPage';
 import Users from '../pages/Admin/users/Users';
 import AddAdmin from '../pages/Admin/users/AddAdmin';
+import { PATHS } from '../utils/constants/paths.js';
 
-export const AdminRoutes = role => {
-   const adminRoutes = [
-      {
-         path: '',
-         element: <Navigate to={'dashboard'} />,
-      },
-      {
-         path: 'dashboard',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<Dashboard />}
-            />
-         ),
-      },
-      {
-         path: 'users',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<Users />}
-            />
-         ),
-      },
-      {
-         path: 'ads',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<Ads />}
-            />
-         ),
-      },
-      {
-         path: 'categories',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<CategoryAdmin />}
-            />
-         ),
-      },
-      {
-         path: 'moderation',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<ModerationPage />}
-            />
-         ),
-      },
-
-      {
-         path: 'moderation/complaints',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<ComplaintsModerationPage />}
-            />
-         ),
-      },
-      {
-         path: 'moderation/comments',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<ModerationPage />}
-            />
-         ),
-      },
-      {
-         path: 'moderation/images',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<MediaFilesModerationPage />}
-            />
-         ),
-      },
-
-      {
-         path: 'users/mailing',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<AddMailingPage />}
-            />
-         ),
-      },
-      {
-         path: 'add-administrator',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<AddAdmin />}
-            />
-         ),
-      },
-      {
-         path: 'settings',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<h1>Settings Page</h1>}
-            />
-         ),
-      },
-   ];
-   return adminRoutes;
-};
+export const AdminRoutes = role => [
+   {
+      path: '',
+      element: <Navigate to={PATHS.ADMIN.DASHBOARD} />,
+   },
+   {
+      path: PATHS.ADMIN.DASHBOARD,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<Dashboard />}
+         />
+      ),
+   },
+   {
+      path: PATHS.ADMIN.USERS,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<Users />}
+         />
+      ),
+   },
+   {
+      path: PATHS.ADMIN.ADS,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<Ads />}
+         />
+      ),
+   },
+   {
+      path: PATHS.ADMIN.CATEGORIES,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<CategoryAdmin />}
+         />
+      ),
+   },
+   {
+      path: PATHS.ADMIN.MODERATION,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<ModerationPage />}
+         />
+      ),
+   },
+   {
+      path: PATHS.ADMIN.COMPLAINTS,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<ComplaintsModerationPage />}
+         />
+      ),
+   },
+   {
+      path: PATHS.ADMIN.COMMENTS,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<ModerationPage />}
+         />
+      ),
+   },
+   {
+      path: PATHS.ADMIN.IMAGES,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<MediaFilesModerationPage />}
+         />
+      ),
+   },
+   {
+      path: PATHS.ADMIN.MAILING,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<AddMailingPage />}
+         />
+      ),
+   },
+   {
+      path: PATHS.ADMIN.ADD_ADMIN,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<AddAdmin />}
+         />
+      ),
+   },
+   {
+      path: PATHS.ADMIN.SETTINGS,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['ADMIN']}
+            fallBackPath={PATHS.HOME}
+            RouteComponent={<h1>Settings Page</h1>}
+         />
+      ),
+   },
+];
