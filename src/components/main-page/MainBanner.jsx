@@ -15,12 +15,6 @@ export const MainBanner = () => {
    const [selectValue, setSelectValue] = useState('select-metro');
    const navigate = useNavigate();
 
-   const handleCategoryClick = title => {
-      if (title === 'Недвижимость') {
-         navigate('/Недвижимость');
-      }
-   };
-
    return (
       <MainContainer banner={mobile ? MobileBanner : banner}>
          <ContentWrapper>
@@ -48,12 +42,12 @@ export const MainBanner = () => {
 
          <NavContainer>
             <NavList>
-               {categories.map(({ Icon, title, background }) => (
-                  <NavItem key={title}>
-                     <a
-                        onClick={() => handleCategoryClick(title)}
-                        style={{ cursor: 'pointer' }}
-                     >
+               {categories.map(({ Icon, title, background, category }) => (
+                  <NavItem
+                     key={title}
+                     onClick={() => navigate(`category/${category}`)}
+                  >
+                     <a href="#">
                         <IconWrapper background={background}>
                            <Icon />
                         </IconWrapper>

@@ -1,22 +1,34 @@
 import Breadcrumbs from './UI/Breadcrumbs';
 import SearchInput from './UI/SearchInput';
 import { styled, useMediaQuery } from '@mui/material';
-import { CategoryTab } from '../components/User/CategoryTab';
-import ChevronLeft from '../assets/icons/chevron-left.svg?react';
+import ChevronLeft from '../assets/icons/chevron-left-violet-icon.svg?react';
+import { Outlet, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { categoriesThunks } from '../redux/categories/caregoriesThunks';
 import { useDispatch } from 'react-redux';
 
 export const Categories = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const { subCategory } = useParams();
    const dispatch = useDispatch();
+
+   const path = {
+      WORK: 'Работа',
+      RENT: 'Аренда',
+      HOTEL: 'Гостиница',
+      SERVICES: 'Услуги',
+      REAL_ESTATE: 'Недвижимость',
+      AUTO: 'Авто',
+      SELL: 'Продам',
+   };
+
    const breadcrumbs = [
       { url: '/', title: 'Главная ' },
-      { url: '/Недвижимость', title: 'Недвижимость ' },
+      { url: `/${subCategory}`, title: path[subCategory] },
    ];
 
    useEffect(() => {
-      dispatch(categoriesThunks('realEstate'));
+      dispatch(categoriesThunks(path[subCategory]));
    }, [dispatch]);
 
    return (
@@ -33,9 +45,7 @@ export const Categories = () => {
                </FirstBlock>
                <SearchInputStyle placeholder="Поиск по названию" />
             </Block>
-            <>
-               <CategoryTab />
-            </>
+            <Outlet />
          </Container>
       </Wrapper>
    );
