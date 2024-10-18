@@ -14,6 +14,7 @@ export const MainPage = () => {
    const { publishes } = useSelector(state => state.main);
    const [limitAds, setLimitAds] = useState(12);
    const dispatch = useDispatch();
+   console.log(publishes);
 
    useEffect(() => {
       dispatch(getMainAds());

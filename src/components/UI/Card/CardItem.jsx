@@ -1,8 +1,10 @@
 import { Card, CardContent, CardMedia, styled } from '@mui/material';
 import HomeIcon from '../../../assets/icons/home-icon.svg?react';
 import AddressIcon from '../../../assets/icons/address-icon.svg?react';
-import MessageIcon from '../../../assets/icons/message-gray-icon.svg?react';
+import PhoneIcon from '../../../assets/icons/phone-icon.svg?react';
 import LikeIcon from '../../../assets/icons/like-icon.svg?react';
+import Modal from '../Modal';
+import { useState } from 'react';
 
 export const CardItem = ({
    description,
@@ -10,9 +12,13 @@ export const CardItem = ({
    category,
    price,
    address,
-   favoriteStatus,
-   messageStatus,
+   detailFavorite,
+   onUpdateFavorite,
+   phoneNumber,
+   id,
 }) => {
+   const [phoneModal, setPhoneModal] = useState('');
+
    return (
       <StyledCard>
          <StyledCardMedia image={image} title={description} />
@@ -32,15 +38,26 @@ export const CardItem = ({
 
                   <AddressInfo>
                      <HomeIcon />
-                     <AddressText>{category}</AddressText>
+                     <AddressText>{description}</AddressText>
                   </AddressInfo>
                </WrapperAddressInfo>
             </FirstBlock>
 
             <SecondBlock>
-               <LikeIcon className={favoriteStatus ? 'like-red' : ''} />
-               <MessageIcon className={messageStatus ? 'message-red' : ''} />
+               <LikeIcon
+                  className={detailFavorite ? 'like-red' : ''}
+                  onClick={() => onUpdateFavorite(id)}
+               />
+               <PhoneIcon onClick={() => setPhoneModal(id)} />
             </SecondBlock>
+            <Modal
+               open={id === phoneModal}
+               variant="delete"
+               handleClose={() => setPhoneModal('')}
+            >
+               <p>Номер телефона</p>
+               <h1>{phoneNumber}</h1>
+            </Modal>
          </ContainerInfo>
       </StyledCard>
    );

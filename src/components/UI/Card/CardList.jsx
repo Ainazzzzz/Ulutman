@@ -2,9 +2,16 @@ import { Grid, styled, useMediaQuery } from '@mui/material';
 import { CardItem } from './CardItem';
 import { SceletonCard } from './SceletonCard';
 import { Advertising } from './Advertising';
+import { useDispatch } from 'react-redux';
+import { updateFavoriteStatus } from '../../../redux/main/mainThunk';
 
 export const CardList = ({ cards, advertising, loading }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const dispatch = useDispatch();
+
+   const updateFavoriteHandler = id => {
+      dispatch(updateFavoriteStatus(id));
+   };
 
    return (
       <StyledContainer>
@@ -13,7 +20,10 @@ export const CardList = ({ cards, advertising, loading }) => {
          <CardListBox container spacing={2.5}>
             {cards?.map(card => (
                <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
-                  <CardItem {...card} />
+                  <CardItem
+                     {...card}
+                     onUpdateFavorite={updateFavoriteHandler}
+                  />
                </Grid>
             ))}
          </CardListBox>

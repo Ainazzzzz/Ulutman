@@ -21,6 +21,8 @@ const Modal = ({ children, variant = 'custom', handleClose, open }) => (
             <StyledCloseButton onClick={handleClose}>
                {variant === 'delete' ? (
                   <DeleteIcon />
+               ) : variant === 'phone' ? (
+                  <DeleteIcon />
                ) : (
                   variant === 'info' && <InfoIcon />
                )}
