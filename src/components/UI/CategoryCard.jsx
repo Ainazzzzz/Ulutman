@@ -8,18 +8,17 @@ import GrayHeart from '../../assets/icons/gray-heart-icon.svg?react';
 import GrayMessage from '../../assets/icons/gray-message-icon.svg?react';
 import { IconButton } from '../IconButton';
 import { useDispatch, useSelector } from 'react-redux';
+import { categoriesFavorite } from '../../redux/categories/caregoriesThunks';
 
 export const CategoryCard = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-
+   const dispatch = useDispatch();
    const categories = useSelector(state => state.categories.categories);
-   // const favorites = useSelector(state => state.categories.favorites);
-
    console.log(categories);
 
-   // const handleAddToFavorites = id => {
-   //    dispatch(categoriesFavoritу({ id }));
-   // };
+   const handleAddToFavorites = id => {
+      dispatch(categoriesFavorite({ id }));
+   };
 
    return (
       <>
@@ -34,8 +33,14 @@ export const CategoryCard = () => {
                               <Price>
                                  {item.price} <SumIcon />
                               </Price>
-                              <IconButton>
-                                 <GrayHeart />
+                              <IconButton
+                                 onClick={() => handleAddToFavorites(item.id)}
+                              >
+                                 <GrayHeart
+                                    className={
+                                       item.detailFavoritm ? 'like-red' : ''
+                                    }
+                                 />
                               </IconButton>
                            </FirstBlock>
                            <RoomStyle>
@@ -72,9 +77,16 @@ export const CategoryCard = () => {
                               {item.price} <SumIcon />{' '}
                            </Price>
                            <div>
-                              <IconButton>
-                                 <GrayHeart />
+                              <IconButton
+                                 onClick={() => handleAddToFavorites(item.id)}
+                              >
+                                 <GrayHeart
+                                    className={
+                                       item.detailFavorite ? 'like-red' : ''
+                                    }
+                                 />
                               </IconButton>
+
                               <IconButton>
                                  <GrayMessage />
                               </IconButton>
@@ -188,5 +200,8 @@ const FirstBlock = styled('div')(() => ({
    div: {
       display: 'flex',
       alignItems: 'center',
+   },
+   '.like-red path ': {
+      fill: 'red',
    },
 }));

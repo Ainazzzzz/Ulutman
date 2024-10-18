@@ -1,12 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { categoriesThunks } from './caregoriesThunks';
+import {
+   categoriesFavorite,
+   categoriesGetFavorite,
+   categoriesThunks,
+} from './caregoriesThunks';
 
 export const categoriesSilces = createSlice({
    name: 'categories',
    initialState: {
       categories: [],
-      // favorites: [],
+      favorites: [],
    },
    reducers: {},
 
@@ -14,17 +18,17 @@ export const categoriesSilces = createSlice({
       builder.addCase(categoriesThunks.fulfilled, (state, action) => {
          state.categories = action.payload;
       });
-      // builder.addCase(categoriesFavorite.fulfilled, (state, action) => {
-      //    const favoriteItem = action.payload;
-      //    if (!state.favorites.find(item => item.id === favoriteItem.id)) {
-      //       state.favorites.push(favoriteItem);
-      //    }
-      // });
-      // builder.addCase(categoriesFavoriteDelete.fulfilled, (state, action) => {
-      //    const favoriteItem = action.payload;
-      //    state.favorites = state.favorites.filter(
-      //       item => item.id !== favoriteItem.id,
-      //    );
-      // });
+      builder.addCase(categoriesFavorite.fulfilled, (state, action) => {
+         const favoriteItem = action.payload;
+         if (!state.favorites.find(item => item.id === favoriteItem.id)) {
+            state.favorites.push(favoriteItem);
+         }
+      });
+      builder.addCase(categoriesGetFavorite.fulfilled, (state, action) => {
+         const favoriteItem = action.payload;
+         if (!state.favorites.find(item => item.id === favoriteItem.id)) {
+            state.favorites.push(favoriteItem);
+         }
+      });
    },
 });

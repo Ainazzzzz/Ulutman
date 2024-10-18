@@ -70,6 +70,11 @@ export const Header = () => {
       dispatch(logOut({ navigate, toggleModal: handleClose }));
    };
 
+   const navigateToPageHandler = path => {
+      navigate(path);
+      handleClose();
+   };
+
    return (
       <>
          <Wrapper>
@@ -109,7 +114,9 @@ export const Header = () => {
                         <SearchIcon color="#fff" />
                         Поиск
                      </MenuItemStyle>
-                     <MenuItemStyle onClick={handleClose}>
+                     <MenuItemStyle
+                        onClick={() => navigateToPageHandler('create-ad')}
+                     >
                         <Plus /> Опубликовать
                      </MenuItemStyle>
                      <MenuItemStyle onClick={handleClose}>

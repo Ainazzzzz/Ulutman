@@ -5,7 +5,7 @@ export const categoriesThunks = createAsyncThunk(
    'categories',
    async (realEstate, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get(`/main-page/${realEstate}`);
+         const { data } = await axiosInstance.get(`main-page/${realEstate}`);
 
          return data;
       } catch (e) {
@@ -13,8 +13,9 @@ export const categoriesThunks = createAsyncThunk(
       }
    },
 );
+
 export const categoriesFavorite = createAsyncThunk(
-   'categoriesfavorite',
+   'categoriesfavorite/add',
    async ({ id }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.post(`/addToFavorites/${id}`);
@@ -25,13 +26,14 @@ export const categoriesFavorite = createAsyncThunk(
       }
    },
 );
-export const categoriesFavoriteDelete = createAsyncThunk(
-   'categoriesfavoritedelete',
-   async ({ id }, { rejectWithValue }) => {
+
+export const categoriesGetFavorite = createAsyncThunk(
+   'categoriesGetfavorite',
+   async ({ productId }, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.delete(
-            `/deleteFromFavorites/${id}`,
-         );
+         const { data } = await axiosInstance.get('/favorites/check', {
+            params: { productId },
+         });
 
          return data;
       } catch (e) {

@@ -10,14 +10,15 @@ import { useDispatch } from 'react-redux';
 export const Categories = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const dispatch = useDispatch();
-
    const breadcrumbs = [
       { url: '/', title: 'Главная ' },
       { url: '/Недвижимость', title: 'Недвижимость ' },
    ];
+
    useEffect(() => {
       dispatch(categoriesThunks('realEstate'));
    }, [dispatch]);
+
    return (
       <Wrapper>
          <Container>

@@ -29,7 +29,7 @@ export const CategoryTab = () => {
                <BoxStyle>
                   <TabListStyle
                      onChange={handleChange}
-                     variant={isMobile ? 'scrollable' : 'standart'}
+                     variant={isMobile ? 'scrollable' : 'standard'}
                   >
                      <TabStyle label="Квартиры " value="1" />
                      <TabStyle label="Дома" value="2" />
