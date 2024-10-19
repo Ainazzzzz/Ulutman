@@ -63,7 +63,11 @@ export const FeaturedAds = () => {
                {isOpenModal && <DeleteFavoriteModal onDelete={onDelete} />}
             </SecondBlock>
          </Container>
-         <CardList cards={publishResponseList} onDeleteById={onDeleteById} />
+         <CardList
+            cards={publishResponseList}
+            onDeleteById={onDeleteById}
+            favorite={favorite}
+         />
       </Wrapper>
    );
 };

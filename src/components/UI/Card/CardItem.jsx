@@ -3,9 +3,6 @@ import HomeIcon from '../../../assets/icons/home-icon.svg?react';
 import AddressIcon from '../../../assets/icons/address-icon.svg?react';
 import MessageIcon from '../../../assets/icons/message-gray-icon.svg?react';
 import LikeIcon from '../../../assets/icons/like-icon.svg?react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getFavoritesStatus } from '../../../redux/users/favoriteThunk';
-import { useEffect } from 'react';
 
 export const CardItem = ({
    id,
@@ -14,19 +11,10 @@ export const CardItem = ({
    description,
    price,
    address,
-   favoriteStatus,
    messageStatus,
    onDeleteById,
+   detailFavorite,
 }) => {
-   const isFavorite = useSelector(state => state.favoriteProducts);
-   console.log(isFavorite);
-
-   const dispatch = useDispatch();
-
-   useEffect(() => {
-      dispatch(getFavoritesStatus(id));
-   }, [dispatch]);
-
    return (
       <StyledCard>
          <StyledCardMedia image={image} title={title} />
@@ -53,7 +41,7 @@ export const CardItem = ({
 
             <SecondBlock>
                <LikeIcon
-                  className={isFavorite ? 'like-red' : ''}
+                  className={detailFavorite ? 'like-red' : ''}
                   onClick={() => onDeleteById(id)}
                />
                <MessageIcon className={messageStatus ? 'like-red' : ''} />

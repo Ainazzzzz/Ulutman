@@ -13,7 +13,11 @@ export const CardList = ({ cards, advertising, loading, onDeleteById }) => {
          <CardListBox container spacing={2.5}>
             {cards?.map(card => (
                <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
-                  <CardItem {...card} onDeleteById={onDeleteById} />
+                  <CardItem
+                     {...card}
+                     onDeleteById={onDeleteById}
+                     detailFavorite={card.detailFavorite}
+                  />
                </Grid>
             ))}
          </CardListBox>
