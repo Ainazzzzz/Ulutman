@@ -12,29 +12,151 @@ const ApartmentInfo = ({ title, value }) => (
    </Box>
 );
 
-const AboutApartment = () => {
+const AboutApartment = ({ detailInfo }) => {
+   console.log(detailInfo?.detailInfo?.propertyDetails);
+
    const apartmentInfo = [
-      { title: 'Общая площадь', value: '48' },
-      { title: 'Жилая площадь', value: '30' },
-      { title: 'Площадь кухни', value: '10' },
-      { title: 'Высота потолков', value: '3 м' },
-      { title: 'Планировка', value: 'Изолированная' },
-      { title: 'Санузел', value: '1 совмещенный' },
-      { title: 'Балкон/лоджия', value: '1 лоджия, 1 балкон' },
-      { title: 'Вид из окон', value: 'Во двор' },
-      { title: 'Ремонт', value: 'Евроремонт' },
+      {
+         title: 'Общая площадь',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.totalArea
+               ? detailInfo.detailInfo.propertyDetails.totalArea
+               : 'Не указано',
+      },
+      {
+         title: 'Жилая площадь',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.livingArea
+               ? detailInfo.detailInfo.propertyDetails.livingArea
+               : 'Не указано',
+      },
+      {
+         title: 'Кухонная мебель',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.hasKitchenFurniture
+               ? detailInfo.detailInfo.propertyDetails.hasKitchenFurniture
+               : 'Не указано',
+      },
+      {
+         title: 'Высота потолков',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.ceilingHeight
+               ? detailInfo.detailInfo.propertyDetails.ceilingHeight
+               : 'Не указано',
+      },
+      {
+         title: 'Планировка',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.layout
+               ? detailInfo.detailInfo.propertyDetails.layout
+               : 'Не указано',
+      },
+      {
+         title: 'Санузел',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.bathroomType
+               ? detailInfo.detailInfo.propertyDetails.bathroomType
+               : 'Не указано',
+      },
+      {
+         title: 'Балкон',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.hasBalcony
+               ? detailInfo.detailInfo.propertyDetails.hasBalcony
+               : 'Не указано',
+      },
+      {
+         title: 'Вид из окон',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.viewFromWindow
+               ? detailInfo.detailInfo.propertyDetails.viewFromWindow
+               : 'Не указано',
+      },
+      // { title: 'Ремонт', value: 'Евроремонт' },
    ];
 
    const apartmentInfo2 = [
-      { title: 'Год постройки', value: '2015' },
-      { title: 'Мусоропровод', value: 'Нет' },
-      { title: 'Количество лифтов', value: '3 пассажи.., 2 грузовых' },
-      { title: 'Тип дома', value: 'Монолитный' },
-      { title: 'Тип перекрытий', value: 'Железобетонные' },
-      { title: 'Парковка', value: 'Подземная' },
-      { title: 'Подъезды', value: '1' },
-      { title: 'Отопление', value: 'Центральное' },
-      { title: 'Аварийность', value: 'Нет' },
+      {
+         title: 'Год постройки',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.yearOfConstruction
+               ? detailInfo.detailInfo.propertyDetails.yearOfConstruction
+               : 'Не указано',
+      },
+      {
+         title: 'Мусоропровод',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.hasGarbageChute
+               ? detailInfo.detailInfo.propertyDetails.hasGarbageChute
+               : 'Не указано',
+      },
+      {
+         title: 'Количество лифтов',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.numberOfElevators
+               ? detailInfo.detailInfo.propertyDetails.numberOfElevators
+               : 'Не указано',
+      },
+      {
+         title: 'Тип дома',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.buildingType
+               ? detailInfo.detailInfo.propertyDetails.buildingType
+               : 'Не указано',
+      },
+      {
+         title: 'Тип перекрытий',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.overlappingType
+               ? detailInfo.detailInfo.propertyDetails.overlappingType
+               : 'Не указано',
+      },
+      {
+         title: 'Парковка',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.hasParking
+               ? detailInfo.detailInfo.propertyDetails.hasParking
+               : 'Не указано',
+      },
+      // { title: 'Подъезды', value: '1' },
+      {
+         title: 'Отопление',
+         value:
+            detailInfo &&
+            detailInfo.detailInfo.propertyDetails &&
+            detailInfo.detailInfo.propertyDetails.heatingType
+               ? detailInfo.detailInfo.propertyDetails.heatingType
+               : 'Не указано',
+      },
+      // { title: 'Аварийность', value: 'Нет' },
    ];
    const apartmentInfoSocials = [
       <WhatsapIcon />,

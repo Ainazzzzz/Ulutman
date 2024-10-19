@@ -24,13 +24,25 @@ import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react';
 import { Button } from '../../../components/UI/Button';
 import UserIcon from '../../../assets/icons/user.svg?react';
 import AboutApartment from './AboutApartment';
-import { getDetailInfo } from '../../../redux/thunks/detailInfoThunk';
+import {
+   getDetailInfo,
+   postFavorite,
+} from '../../../redux/thunks/detailInfoThunk';
 import { useDispatch, useSelector } from 'react-redux';
 
 const DetailInfo = () => {
    const dispatch = useDispatch();
    const detailInfo = useSelector(state => state.detailInfo);
-   console.log(detailInfo);
+   const [isExpanded, setIsExpanded] = useState(false);
+
+   const description =
+      detailInfo?.detailInfo?.description || 'Описание не доступно';
+   const words = description.split(' ');
+   const shortDescription = words.slice(0, 1).join(' ');
+
+   const handleReadMore = () => {
+      setIsExpanded(!isExpanded);
+   };
 
    const path = [
       { title: 'Главная', url: '#' },
@@ -50,6 +62,10 @@ const DetailInfo = () => {
       { id: 10, image: tenthImage },
    ];
 
+   const handleFavorite = () => {
+      dispatch(postFavorite());
+   };
+
    useEffect(() => {
       dispatch(getDetailInfo());
    }, []);
@@ -68,20 +84,17 @@ const DetailInfo = () => {
          <Box className="locatio-time-box">
             <Typography>
                <LocationIcon className="location-icon" />
-               {/* Москва, р-н Центральный */}
                {detailInfo.detailInfo.metro}
             </Typography>
 
             <Typography>
                <ClockIcon />
-               {/* 5 августа 2024 г. */}
                {detailInfo.detailInfo.createDate}
             </Typography>
          </Box>
 
          <Box>
             <Typography className="title" variant="h3">
-               {/* 3х комнатная квартира */}
                {detailInfo.detailInfo.title}
             </Typography>
 
@@ -121,41 +134,53 @@ const DetailInfo = () => {
                <Box className="second-block">
                   <Box className="second_box">
                      <Box className="main-info">
-                        <Typography className="price">50 000 ₽/мес.</Typography>
+                        <Typography className="price">
+                           {detailInfo?.detailInfo?.conditions?.pricePerMonth ||
+                              'Не указано'}
+                           ₽/мес.
+                        </Typography>
 
-                        <Like />
+                        <Like
+                           onClick={handleFavorite}
+                           style={{ cursor: 'pointer' }}
+                        />
                      </Box>
 
                      <Box className="info-box-container">
                         <Typography className="info-part">
-                           Оплата ЖКХ <hr className="line" /> включена (без
-                           счётчиков)
+                           Оплата ЖКХ <hr className="line" />
+                           {detailInfo?.detailInfo?.conditions
+                              ?.utilitiesIncluded || 'Не указано'}
                         </Typography>
 
                         <Typography className="info-part">
-                           Залог <hr className="line" /> 70 000 ₽
+                           Залог <hr className="line" />{' '}
+                           {detailInfo?.detailInfo?.conditions?.deposit} ₽
                         </Typography>
 
                         <Typography className="info-part">
-                           Комиссия <hr className="line" /> 55%
+                           Комиссия <hr className="line" />
+                           {detailInfo?.detailInfo?.conditions?.commission ||
+                              'Не указано'}
                         </Typography>
 
                         <Typography className="info-part">
                            Предоплата
-                           <hr className="line" />1 месяц
+                           <hr className="line" />
+                           {detailInfo?.detailInfo?.conditions?.prepayment ||
+                              'Не указано'}
                         </Typography>
 
                         <Typography className="info-part">
                            Срок аренды
                            <hr className="line" />
-                           от года
+                           {detailInfo?.detailInfo?.conditions?.leaseTerm ||
+                              'Не указано'}
                         </Typography>
                      </Box>
 
                      <Box className="btns-container">
                         <Button>Показать телефон</Button>
-
-                        <Button variant="text">Написать</Button>
                      </Box>
                   </Box>
 
@@ -165,10 +190,17 @@ const DetailInfo = () => {
                      </Box>
                      <Box>
                         <Typography>Риелтор</Typography>
-                        <Typography>
-                           {detailInfo.detailInfo.user.name}
-                        </Typography>
-                        <Rating value={5} readOnly />
+                        {detailInfo?.detailInfo?.conditions?.realtor ||
+                           'Не указано'}
+
+                        <Typography></Typography>
+                        <Rating
+                           value={
+                              detailInfo?.detailInfo?.conditions
+                                 ?.realtorRating || 0
+                           }
+                           readOnly
+                        />
                      </Box>
                   </Box>
                </Box>
@@ -180,20 +212,20 @@ const DetailInfo = () => {
                Описания объявления
             </Typography>
             <Typography className="descriptioon-text">
-               {/* ЖК "Водный", предлогается 2-х комнатная квартира с новым
-               ремонтом.Кухня -гостиная, спальня, балкон. Имеется вся мебель и
-               бытовая техника включая кондиционер. Есть возможность аренды
-               машино-место. */}
-               {detailInfo.detailInfo.description}
+               {isExpanded ? description : shortDescription}
+               {words.length > 1 && !isExpanded && '...'}{' '}
             </Typography>
-
-            <Typography className="read-more-text">
-               Читать дальше
-               <ArrowIcon className="arrow-down" />
-            </Typography>
+            {words.length > 1 && (
+               <Typography className="read-more-text" onClick={handleReadMore}>
+                  {isExpanded ? 'Скрыть' : 'Читать дальше'}
+                  <ArrowIcon
+                     className={isExpanded ? 'arrow-up' : 'arrow-down'}
+                  />
+               </Typography>
+            )}
          </Box>
 
-         <AboutApartment />
+         <AboutApartment detailInfo={detailInfo} />
       </StyledContainer>
    );
 };
