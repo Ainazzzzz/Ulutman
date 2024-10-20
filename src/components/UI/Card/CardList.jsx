@@ -3,7 +3,10 @@ import { CardItem } from './CardItem';
 import { SceletonCard } from './SceletonCard';
 import { Advertising } from './Advertising';
 import { useDispatch } from 'react-redux';
-import { updateFavoriteStatus } from '../../../redux/main/mainThunk';
+import {
+   deleteFavoriteStatus,
+   updateFavoriteStatus,
+} from '../../../redux/main/mainThunk';
 
 export const CardList = ({ cards, advertising, loading }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
@@ -11,6 +14,9 @@ export const CardList = ({ cards, advertising, loading }) => {
 
    const updateFavoriteHandler = id => {
       dispatch(updateFavoriteStatus(id));
+   };
+   const deleteFavoriteHandler = id => {
+      dispatch(deleteFavoriteStatus(id));
    };
 
    return (
@@ -23,6 +29,7 @@ export const CardList = ({ cards, advertising, loading }) => {
                   <CardItem
                      {...card}
                      onUpdateFavorite={updateFavoriteHandler}
+                     onDeleteFavorite={deleteFavoriteHandler}
                   />
                </Grid>
             ))}

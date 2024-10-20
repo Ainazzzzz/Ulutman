@@ -8,12 +8,12 @@ import { useState } from 'react';
 
 export const CardItem = ({
    description,
-   image,
-   category,
+   images,
    price,
    address,
    detailFavorite,
    onUpdateFavorite,
+   onDeleteFavorite,
    phoneNumber,
    id,
 }) => {
@@ -21,7 +21,10 @@ export const CardItem = ({
 
    return (
       <StyledCard>
-         <StyledCardMedia image={image} title={description} />
+         <StyledCardMedia
+            image={images[0] || 'fallback-image-url.jpg'}
+            title={description}
+         />
 
          <ContainerInfo>
             <FirstBlock>
@@ -46,17 +49,23 @@ export const CardItem = ({
             <SecondBlock>
                <LikeIcon
                   className={detailFavorite ? 'like-red' : ''}
-                  onClick={() => onUpdateFavorite(id)}
+                  onClick={() => {
+                     detailFavorite
+                        ? onDeleteFavorite(id)
+                        : onUpdateFavorite(id);
+                  }}
                />
                <PhoneIcon onClick={() => setPhoneModal(id)} />
             </SecondBlock>
             <Modal
                open={id === phoneModal}
-               variant="delete"
+               variant="phone"
                handleClose={() => setPhoneModal('')}
             >
-               <p>Номер телефона</p>
-               <h1>{phoneNumber}</h1>
+               <WrapperPhone>
+                  <TitlePhone>Номер телефона</TitlePhone>
+                  <PhoneNumberSingle>{phoneNumber}</PhoneNumberSingle>
+               </WrapperPhone>
             </Modal>
          </ContainerInfo>
       </StyledCard>
@@ -183,3 +192,23 @@ const AddressText = styled('p')(({ theme }) => ({
       fontWeight: '400',
    },
 }));
+
+const WrapperPhone = styled('div')({
+   display: 'flex',
+   alignItems: 'center',
+   flexDirection: 'column',
+   gap: '24px',
+   padding: '10px 0 20px 0',
+});
+
+const TitlePhone = styled('p')({
+   fontSize: '20px',
+   fontWeight: '400',
+   color: '#202020',
+});
+
+const PhoneNumberSingle = styled('h1')({
+   fontSize: '24px',
+   fontWeight: '500',
+   color: '#282828',
+});

@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
-import { Dialog, DialogContent, Slide, styled } from '@mui/material';
+import { Dialog, Slide, styled } from '@mui/material';
 import DeleteIcon from '../../assets/icons/trash.svg?react';
 import InfoIcon from '../../assets/icons/info-warning.svg?react';
+import PhoneIcon from '../../assets/icons/phone-green-icon.svg?react';
 
 const Transition = forwardRef((props, ref) => (
    <Slide direction="up" ref={ref} {...props} />
@@ -22,7 +23,7 @@ const Modal = ({ children, variant = 'custom', handleClose, open }) => (
                {variant === 'delete' ? (
                   <DeleteIcon />
                ) : variant === 'phone' ? (
-                  <DeleteIcon />
+                  <PhoneIcon />
                ) : (
                   variant === 'info' && <InfoIcon />
                )}
@@ -65,10 +66,15 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
       backgroundColor: 'white',
       borderRadius: '50%',
 
-      border: variant === 'delete' ? '1px solid #FF0000' : '1px solid #e6a600',
+      border:
+         variant === 'delete'
+            ? '1px solid #FF0000'
+            : variant === 'phone'
+              ? '3px solid #5EB00E'
+              : '1px solid #e6a600',
       zIndex: 1000,
       display: 'flex',
-      bottom: '155px',
+      top: '-50px',
       width: '6.25rem',
       height: '6.25rem',
       left: '8.438rem',

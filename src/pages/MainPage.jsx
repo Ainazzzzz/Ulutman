@@ -13,15 +13,40 @@ import { getMainAds } from '../redux/main/mainThunk';
 export const MainPage = () => {
    const { publishes } = useSelector(state => state.main);
    const [limitAds, setLimitAds] = useState(12);
+   const [sortedAds, setSortedAds] = useState([]);
    const dispatch = useDispatch();
-   console.log(publishes);
 
    useEffect(() => {
       dispatch(getMainAds());
    }, [dispatch]);
 
+   useEffect(() => {
+      setSortedAds(publishes);
+   }, [publishes]);
+
    const seeMoreHandler = () => {
       setLimitAds(prevState => prevState + 8);
+   };
+
+   const handleSortChange = sortValue => {
+      let sortedList = [...publishes];
+      switch (sortValue) {
+         case 'Цена по возрастанию':
+            sortedList.sort((a, b) => a.price - b.price);
+            break;
+         case 'Цена по убыванию':
+            sortedList.sort((a, b) => b.price - a.price);
+            break;
+         case 'Дата по возрастанию':
+            sortedList.sort((a, b) => new Date(a.date) - new Date(b.date));
+            break;
+         case 'Дата по убыванию':
+            sortedList.sort((a, b) => new Date(b.date) - new Date(a.date));
+            break;
+         default:
+            sortedList = publishes;
+      }
+      setSortedAds(sortedList);
    };
 
    return (
@@ -33,10 +58,10 @@ export const MainPage = () => {
          <Container>
             <Block>
                <Title>Страница объявлений</Title>
-               <AnnouncementsSorter />
+               <AnnouncementsSorter onSortChange={handleSortChange} />
             </Block>
             <CardList
-               cards={publishes.slice(0, limitAds)}
+               cards={sortedAds.slice(0, limitAds)}
                advertising={CARDS}
             />
             <Button variant="category-sort" onClick={seeMoreHandler}>

@@ -24,3 +24,15 @@ export const updateFavoriteStatus = createAsyncThunk(
       }
    },
 );
+
+export const deleteFavoriteStatus = createAsyncThunk(
+   'main/deleteFavoriteStatus',
+   async (id, { rejectWithValue, dispatch }) => {
+      try {
+         await axiosInstance.delete(`deleteFromFavorites/${id}`);
+         dispatch(getMainAds());
+      } catch (error) {
+         return rejectWithValue(error.message);
+      }
+   },
+);
