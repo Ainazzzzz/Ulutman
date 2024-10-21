@@ -107,7 +107,9 @@ export const Header = () => {
                      <Line />
 
                      {isAuth && (
-                        <MenuItemStyle onClick={handleClose}>
+                        <MenuItemStyle
+                           onClick={() => navigateToPageHandler('profile')}
+                        >
                            <UserLogo />
                            Профиль
                         </MenuItemStyle>
