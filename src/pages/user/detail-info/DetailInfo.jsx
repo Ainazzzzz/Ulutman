@@ -25,6 +25,7 @@ import { Button } from '../../../components/UI/Button';
 import UserIcon from '../../../assets/icons/user.svg?react';
 import AboutApartment from './AboutApartment';
 import {
+   deleteFavorite,
    getDetailInfo,
    postFavorite,
 } from '../../../redux/thunks/detailInfoThunk';
@@ -49,20 +50,29 @@ const DetailInfo = () => {
       { title: '2х комнатная квартира', url: '#' },
    ];
 
-   const slides = [
-      { id: 1, image: firstImage },
-      { id: 2, image: secondthImage },
-      { id: 3, image: thirdImage },
-      { id: 4, image: fourthImage },
-      { id: 5, image: fifthImage },
-      { id: 6, image: sixthImage },
-      { id: 7, image: seventhImage },
-      { id: 8, image: eightImage },
-      { id: 9, image: ninthImage },
-      { id: 10, image: tenthImage },
-   ];
+   // const slides = [
+   //    { id: 1, image: firstImage },
+   //    { id: 2, image: secondthImage },
+   //    { id: 3, image: thirdImage },
+   //    { id: 4, image: fourthImage },
+   //    { id: 5, image: fifthImage },
+   //    { id: 6, image: sixthImage },
+   //    { id: 7, image: seventhImage },
+   //    { id: 8, image: eightImage },
+   //    { id: 9, image: ninthImage },
+   //    { id: 10, image: tenthImage },
+   // ];
 
    const handleFavorite = () => {
+      const isFavorite = detailInfo?.detailInfo?.detailFavorite;
+
+      if (isFavorite) {
+         dispatch(deleteFavorite(detailInfo.detailInfo.id));
+      } else {
+         // Иначе выполняем POST запрос для добавления в избранное
+         dispatch(postFavorite(detailInfo.detailInfo.id));
+      }
+
       dispatch(postFavorite());
    };
 
@@ -109,7 +119,7 @@ const DetailInfo = () => {
                      modules={[Navigation, Pagination, Mousewheel, Keyboard]}
                      className="mySwiper"
                   >
-                     {slides.map(slide => (
+                     {detailInfo?.detailInfo?.images?.map(slide => (
                         <SwiperSlide key={slide.id}>
                            <img
                               className="slide-image"
@@ -121,7 +131,7 @@ const DetailInfo = () => {
                   </Swiper>
 
                   <Box className="images">
-                     {slides.map(item => (
+                     {detailInfo?.detailInfo?.images?.map(item => (
                         <img
                            key={item.id}
                            src={item.image}
@@ -142,7 +152,15 @@ const DetailInfo = () => {
 
                         <Like
                            onClick={handleFavorite}
-                           style={{ cursor: 'pointer' }}
+                           style={{
+                              cursor: 'pointer',
+                              fill: detailInfo?.detailInfo?.detailFavorite
+                                 ? 'red'
+                                 : '',
+                              stroke: detailInfo?.detailInfo?.detailFavorite
+                                 ? 'red'
+                                 : '',
+                           }}
                         />
                      </Box>
 

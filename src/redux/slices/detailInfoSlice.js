@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getDetailInfo, postFavorite } from '../thunks/detailInfoThunk';
+import {
+   deleteFavorite,
+   getDetailInfo,
+   postFavorite,
+} from '../thunks/detailInfoThunk';
 
 export const detailInfoSlice = createSlice({
    name: 'detailInfo',
@@ -7,6 +11,7 @@ export const detailInfoSlice = createSlice({
       detailInfo: {},
       loading: false,
       favoriteAdded: false,
+      favoriteRemoved: false,
       error: null,
    },
    extraReducers: builder => {
@@ -28,6 +33,12 @@ export const detailInfoSlice = createSlice({
             state.loading = false;
             state.favoriteAdded = false;
             state.error = action.payload || 'Не удалось добавить в избранное';
+         })
+         .addCase(deleteFavorite.fulfilled, (state, action) => {
+            state.loading = false;
+            state.favoriteRemoved = true;
+            state.detailInfo.detailFavorite = false; // Обновляем состояние избранного
+            state.error = null;
          });
    },
 });
