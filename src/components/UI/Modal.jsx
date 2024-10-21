@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import { Dialog, DialogContent, Slide, styled } from '@mui/material';
 import DeleteIcon from '../../assets/icons/trash.svg?react';
 import InfoIcon from '../../assets/icons/info-warning.svg?react';
+import PhoneIcon from '../../assets/icons/green-phone-icon.svg?react';
 
 const Transition = forwardRef((props, ref) => (
    <Slide direction="up" ref={ref} {...props} />
@@ -19,11 +20,18 @@ const Modal = ({ children, variant = 'custom', handleClose, open }) => (
       {variant === 'custom' ? null : (
          <div className="close-button-container">
             <StyledCloseButton onClick={handleClose}>
-               {variant === 'delete' ? (
+               {/* {variant === 'delete' ? (
                   <DeleteIcon />
                ) : (
                   variant === 'info' && <InfoIcon />
-               )}
+               )} */}
+               {variant === 'delete' ? (
+                  <DeleteIcon />
+               ) : variant === 'info' ? (
+                  <InfoIcon />
+               ) : variant === 'phone' ? ( // Добавлено условие для варианта "телефон"
+                  <PhoneIcon />
+               ) : null}
             </StyledCloseButton>
          </div>
       )}
@@ -63,7 +71,13 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
       backgroundColor: 'white',
       borderRadius: '50%',
 
-      border: variant === 'delete' ? '1px solid #FF0000' : '1px solid #e6a600',
+      // border: variant === 'delete' ? '1px solid #FF0000' : '1px solid #e6a600',
+      border:
+         variant === 'delete'
+            ? '1px solid #FF0000' // Красный бордер для "delete"
+            : variant === 'phone'
+              ? '1px solid #00FF00' // Зеленый бордер для "phone"
+              : '1px solid #e6a600',
       zIndex: 1000,
       display: 'flex',
       bottom: '155px',

@@ -1,8 +1,10 @@
 import { Card, CardContent, CardMedia, styled } from '@mui/material';
 import HomeIcon from '../../../assets/icons/home-icon.svg?react';
 import AddressIcon from '../../../assets/icons/address-icon.svg?react';
-import MessageIcon from '../../../assets/icons/message-gray-icon.svg?react';
+import PhoneIcon from '../../../assets/icons/phone-icon.svg?react';
 import LikeIcon from '../../../assets/icons/like-icon.svg?react';
+import { useState } from 'react';
+import { PhoneModal } from '../PhoneModal';
 
 export const CardItem = ({
    id,
@@ -15,6 +17,16 @@ export const CardItem = ({
    onDeleteById,
    detailFavorite,
 }) => {
+   const [openPhoneModal, setOpenPhoneModal] = useState(false);
+
+   const handleOpenPhoneModal = () => {
+      setOpenPhoneModal(!openPhoneModal);
+   };
+
+   const handleClosePhoneModal = () => {
+      setOpenPhoneModal(false);
+   };
+
    return (
       <StyledCard>
          <StyledCardMedia image={image} title={title} />
@@ -44,7 +56,14 @@ export const CardItem = ({
                   className={detailFavorite ? 'like-red' : ''}
                   onClick={() => onDeleteById(id)}
                />
-               <MessageIcon className={messageStatus ? 'like-red' : ''} />
+               {openPhoneModal ? (
+                  <PhoneModal handleClose={handleClosePhoneModal} />
+               ) : (
+                  <PhoneIcon
+                     className="phone-icon"
+                     onClick={handleOpenPhoneModal}
+                  />
+               )}
             </SecondBlock>
          </ContainerInfo>
       </StyledCard>
@@ -139,6 +158,13 @@ export const SecondBlock = styled('div')(({ theme }) => ({
 
    '.like-red path, .message-red path': {
       fill: 'red',
+   },
+   '.phone-icon path': {
+      '&:hover': {
+         fill: '#5EB00E',
+
+         cursor: 'pointer',
+      },
    },
 }));
 
