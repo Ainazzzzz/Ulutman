@@ -1,4 +1,5 @@
-import { translateRole } from '../general/translate';
+import { CheckBox } from '../../components/UI/Checkbox';
+import { translateCategory, translateRole } from '../general/translate';
 
 export const MODERATION_DATA = [
    {
@@ -24,29 +25,6 @@ export const MODERATION_DATA = [
       message: 'привет, как дела?',
       date: '19.01.2023',
       status: 'Ожидает',
-   },
-];
-
-export const MODERATION_COLUMNS = [
-   {
-      Header: 'ПОЛЬЗОВАТЕЛЬ',
-      accessor: 'username',
-   },
-   {
-      Header: 'КОММЕНТАРИЙ',
-      accessor: 'comments[0].commentContent',
-   },
-   {
-      Header: 'СООБЩЕНИЕ',
-      accessor: 'messages[0].content',
-   },
-   {
-      Header: 'ДАТА СОЗДАНИЕ',
-      accessor: 'messages[0].createDate',
-   },
-   {
-      Header: 'СТАТУС',
-      accessor: 'messages[0].moderatorStatus',
    },
 ];
 
@@ -77,29 +55,6 @@ export const ADS_DATA = [
    },
 ];
 
-export const ADS_COLUMNS = [
-   {
-      Header: 'ИМЯ',
-      accessor: 'user.name',
-   },
-   {
-      Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
-      accessor: 'user.email',
-   },
-   {
-      Header: 'КАТЕГОРИЯ',
-      accessor: 'category',
-   },
-   {
-      Header: 'ДАТА СОЗДАНИЯ',
-      accessor: 'createDate',
-   },
-   {
-      Header: 'СТАТУС',
-      accessor: 'publishStatus',
-   },
-];
-
 export const CATEGORY_DATA = [
    {
       id: 1,
@@ -107,7 +62,7 @@ export const CATEGORY_DATA = [
       title: 'квартира',
       description: 'Премиум класса 2х ком квартира',
       amount: '1111',
-      status: 'Активно',
+      status: 'АКТИВНО',
    },
    {
       id: 2,
@@ -115,7 +70,7 @@ export const CATEGORY_DATA = [
       title: 'квартира',
       description: 'Премиум класса 2х ком квартира',
       amount: '11',
-      status: 'Неактивно',
+      status: 'НЕАКТИВНО',
    },
    {
       id: 3,
@@ -123,54 +78,7 @@ export const CATEGORY_DATA = [
       title: 'квартира',
       description: 'Премиум класса 2х ком квартира',
       amount: '1',
-      status: 'Неактивно',
-   },
-];
-
-export const CATEGORY_COLUMNS = [
-   {
-      Header: 'ИМЯ',
-      accessor: 'name',
-   },
-   {
-      Header: 'Название',
-      accessor: 'title',
-   },
-   {
-      Header: 'Описание',
-      accessor: 'description',
-   },
-   {
-      Header: 'Количество объявлений',
-      accessor: 'amount',
-   },
-   {
-      Header: 'СТАТУС',
-      accessor: 'status',
-   },
-];
-
-export const USERS_COLUMNS = [
-   {
-      Header: 'ИМЯ',
-      accessor: 'name',
-   },
-   {
-      Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
-      accessor: 'email',
-   },
-   {
-      Header: 'РОЛЬ',
-      accessor: 'role',
-      Cell: ({ row }) => <p>{translateRole[row.original.role]}</p>,
-   },
-   {
-      Header: 'ДАТА РЕГИСТРАЦИИ',
-      accessor: 'createDate',
-   },
-   {
-      Header: 'СТАТУС',
-      accessor: 'status',
+      status: 'НЕАКТИВНО',
    },
 ];
 
@@ -201,25 +109,6 @@ export const USERS_DATA = [
       date: '19.01.2023',
       status: 'Активный',
       role: 'Админ',
-   },
-];
-
-export const MODERATION_COMPLAINTS = [
-   {
-      Header: 'ПОЛЬЗОВАТЕЛЬ',
-      accessor: 'authResponse.name',
-   },
-   {
-      Header: 'тип жалобы',
-      accessor: 'complaintType',
-   },
-   {
-      Header: 'ДАТА СОЗДАНИЕ',
-      accessor: 'createDate',
-   },
-   {
-      Header: 'СТАТУС',
-      accessor: 'complaintStatus',
    },
 ];
 

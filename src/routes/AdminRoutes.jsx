@@ -1,14 +1,38 @@
 import { Navigate } from 'react-router-dom';
-import { Dashboard } from '../pages/Admin/dashboard/Dashboard.jsx';
-import { AddMailingPage } from '../pages/Admin/AddMailingPage';
-import { ModerationPage } from '../pages/Admin/moderation/ModerationPage';
-import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole';
-import { Ads } from '../pages/Admin/ads/Ads.jsx';
-import CategoryAdmin from '../pages/Admin/category/CategoryAdmin';
-import { ComplaintsModerationPage } from '../pages/Admin/moderation/ComplaintsModerationPage';
-import { MediaFilesModerationPage } from '../pages/Admin/moderation/MediaFilesModerationPage';
-import Users from '../pages/Admin/users/Users';
-import AddAdmin from '../pages/Admin/users/AddAdmin';
+// import {  } from ;
+// import {  } from ;
+// import {  } from ;
+// import {  } from ;
+// import  from ;
+// import {  } from ;
+// import {  } from '';
+// import  from ;
+// import  from;
+// import  from ;
+import { lazy, Suspense } from 'react';
+import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole.jsx';
+import { Loading } from '../components/UI/Loading.jsx';
+
+const Dashboard = lazy(() => import('../pages/Admin/dashboard/Dashboard.jsx'));
+const AddMailingPage = lazy(() => import('../pages/Admin/AddMailingPage'));
+const ModerationPage = lazy(
+   () => import('../pages/Admin/moderation/ModerationPage'),
+);
+const Ads = lazy(() => import('../pages/Admin/ads/Ads.jsx'));
+const CategoryAdmin = lazy(
+   () => import('../pages/Admin/category/CategoryAdmin'),
+);
+const ComplaintsModerationPage = lazy(
+   () => import('../pages/Admin/moderation/ComplaintsModerationPage'),
+);
+const MediaFilesModerationPage = lazy(
+   () => import('../pages/Admin/moderation/MediaFilesModerationPage'),
+);
+const Users = lazy(() => import('../pages/Admin/users/Users'));
+const AddAdmin = lazy(() => import('../pages/Admin/users/AddAdmin'));
+const AdminMailing = lazy(
+   () => import('../pages/Admin/mailing/AdminMailing.jsx'),
+);
 
 export const AdminRoutes = role => {
    const adminRoutes = [
@@ -23,7 +47,11 @@ export const AdminRoutes = role => {
                role={role}
                roles={['ADMIN']}
                fallBackPath="/"
-               RouteComponent={<Dashboard />}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <Dashboard />
+                  </Suspense>
+               }
             />
          ),
       },
@@ -34,7 +62,11 @@ export const AdminRoutes = role => {
                role={role}
                roles={['ADMIN']}
                fallBackPath="/"
-               RouteComponent={<Users />}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <Users />
+                  </Suspense>
+               }
             />
          ),
       },
@@ -45,7 +77,11 @@ export const AdminRoutes = role => {
                role={role}
                roles={['ADMIN']}
                fallBackPath="/"
-               RouteComponent={<Ads />}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <Ads />
+                  </Suspense>
+               }
             />
          ),
       },
@@ -56,20 +92,17 @@ export const AdminRoutes = role => {
                role={role}
                roles={['ADMIN']}
                fallBackPath="/"
-               RouteComponent={<CategoryAdmin />}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <CategoryAdmin />
+                  </Suspense>
+               }
             />
          ),
       },
       {
          path: 'moderation',
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath="/"
-               RouteComponent={<ModerationPage />}
-            />
-         ),
+         element: <Navigate to={'complaints'} />,
       },
 
       {
@@ -79,7 +112,11 @@ export const AdminRoutes = role => {
                role={role}
                roles={['ADMIN']}
                fallBackPath="/"
-               RouteComponent={<ComplaintsModerationPage />}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <ComplaintsModerationPage />
+                  </Suspense>
+               }
             />
          ),
       },
@@ -90,7 +127,11 @@ export const AdminRoutes = role => {
                role={role}
                roles={['ADMIN']}
                fallBackPath="/"
-               RouteComponent={<ModerationPage />}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <ModerationPage />
+                  </Suspense>
+               }
             />
          ),
       },
@@ -101,7 +142,11 @@ export const AdminRoutes = role => {
                role={role}
                roles={['ADMIN']}
                fallBackPath="/"
-               RouteComponent={<MediaFilesModerationPage />}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <MediaFilesModerationPage />
+                  </Suspense>
+               }
             />
          ),
       },
@@ -113,7 +158,26 @@ export const AdminRoutes = role => {
                role={role}
                roles={['ADMIN']}
                fallBackPath="/"
-               RouteComponent={<AddMailingPage />}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <AdminMailing />
+                  </Suspense>
+               }
+            />
+         ),
+      },
+      {
+         path: 'users/add-mailing',
+         element: (
+            <PrivateAuthRouteByRole
+               role={role}
+               roles={['ADMIN']}
+               fallBackPath="/"
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <AddMailingPage />
+                  </Suspense>
+               }
             />
          ),
       },
@@ -124,7 +188,11 @@ export const AdminRoutes = role => {
                role={role}
                roles={['ADMIN']}
                fallBackPath="/"
-               RouteComponent={<AddAdmin />}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <AddAdmin />
+                  </Suspense>
+               }
             />
          ),
       },
@@ -135,7 +203,11 @@ export const AdminRoutes = role => {
                role={role}
                roles={['ADMIN']}
                fallBackPath="/"
-               RouteComponent={<h1>Settings Page</h1>}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <h1>Settings Page</h1>
+                  </Suspense>
+               }
             />
          ),
       },

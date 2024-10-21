@@ -17,7 +17,7 @@ export const complaintsThunks = createAsyncThunk(
 export const getComplaintsFilter = createAsyncThunk(
    'complaints/getComplaintsFilter',
    async (
-      { userIds, complaintTypes, createDates, complaintStatuses },
+      { userIds, complaintsTypes, createDates, complaintStatuses, names },
       { rejectWithValue },
    ) => {
       try {
@@ -27,9 +27,9 @@ export const getComplaintsFilter = createAsyncThunk(
             userIds.forEach(id => params.append('userIds', id));
          }
 
-         if (complaintTypes && Array.isArray(complaintTypes)) {
-            complaintTypes.forEach(type =>
-               params.append('complaintTypes', type),
+         if (complaintsTypes && Array.isArray(complaintsTypes)) {
+            complaintsTypes.forEach(type =>
+               params.append('complaintsTypes', type),
             );
          }
 
@@ -43,7 +43,9 @@ export const getComplaintsFilter = createAsyncThunk(
             );
          }
 
-         const { data } = await axios.get(
+         if (names) params.append('names', name);
+
+         const { data } = await axiosInstance.get(
             `manage/complaints/filter?${params.toString()}`,
          );
 

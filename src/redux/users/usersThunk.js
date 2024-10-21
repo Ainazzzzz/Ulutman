@@ -29,7 +29,7 @@ export const getUsersName = createAsyncThunk(
 
 export const getUsersFilter = createAsyncThunk(
    'users/getUsersFilter',
-   async ({ roles, createDates, statuses }) => {
+   async ({ roles, createDates, statuses, names }) => {
       try {
          const queryString = new URLSearchParams();
 
@@ -42,6 +42,7 @@ export const getUsersFilter = createAsyncThunk(
          }
 
          if (statuses) queryString.append('statuses', statuses);
+         if (names) queryString.append('names', names);
 
          const { data } = await axiosInstance.get(
             `/manage/users/filter?${queryString.toString()}`,

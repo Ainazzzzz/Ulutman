@@ -5,16 +5,19 @@ import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter';
 import Table from '../../../components/UI/Table';
 import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';
 import { WaitingModal } from '../ads/WaitingModal.jsx';
-import {
-   MODERATION_COMPLAINTS,
-   MODERATION_COMPLAINTS_DATA,
-} from '../../../utils/constants/moderation.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import {
    complaintsThunks,
    getComplaintsFilter,
    getResetFilter,
 } from '../../../redux/complaintsThunks.js';
+import { CheckBox } from '../../../components/UI/Checkbox.jsx';
+import {
+   checkAllComplaints,
+   checkCopmlaint,
+} from '../../../redux/complaints.Slice.js';
+import TableSkeleton from '../../../components/UI/TableSkeleton.jsx';
+import { useDebounce } from '../../../hooks/useDebounce.js';
 
 const inputData = [{ id: 'user', value: 'Пользователь' }];
 
@@ -22,11 +25,26 @@ const selectsConfig = [
    { label: 'date', options: [{ id: 'e1', value: 'date', label: 'Дата' }] },
    {
       label: 'complaints',
-      options: [{ id: 'e1', value: 'complaints', label: 'Тип жалобы' }],
+      options: [
+         { id: 'e1', value: 'complaints', label: 'Тип жалобы' },
+         { id: 'e2', value: 'СПАМ', label: 'Спам' },
+         {
+            id: 'e3',
+            value: 'ЖАЛОБЫНАПУБЛИКАЦИИ',
+            label: 'Жалобы на публикации',
+         },
+         { id: 'e4', value: 'МОШЕННИЧЕСТВО', label: 'Моженничество' },
+         { id: 'e5', value: 'ДРУГОЕ', label: 'Другое' },
+      ],
    },
    {
       label: 'status',
-      options: [{ id: 'e3', value: 'status', label: 'Cтатус' }],
+      options: [
+         { id: 'e1', value: 'status', label: 'Cтатус' },
+         { id: 'e2', value: 'РЕШЕНО', label: 'Решено' },
+         { id: 'e3', value: 'ОТКЛОНЕН', label: 'Отклонен' },
+         { id: 'e4', value: 'ОЖИДАЕТ', label: 'Ожидает' },
+      ],
    },
 ];
 
@@ -53,10 +71,12 @@ const reducer = (state, action) => {
    }
 };
 
-export const ComplaintsModerationPage = () => {
+const ComplaintsModerationPage = () => {
    const [state, dispatchFunc] = useReducer(reducer, initialState);
    const dispatch = useDispatch();
-   const data = useSelector(state => state.complaints.data);
+   const { data, isLoading } = useSelector(state => state.complaints);
+
+   const debouncedName = useDebounce(state.inputValues.user, 1000);
 
    const toggleModal = useCallback(modalType => {
       dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });
@@ -84,7 +104,7 @@ export const ComplaintsModerationPage = () => {
    };
 
    const fetchUser = useCallback(() => {
-      const { date } = state.inputValues;
+      const { date, user } = state.inputValues;
       const { complaints, status } = state.selectedValues;
 
       const filters = {};
@@ -97,21 +117,67 @@ export const ComplaintsModerationPage = () => {
          filters.complaintStatuses = [status];
       }
 
+      if (user !== '') {
+         filters.names = debouncedName;
+      }
+
       if (date.length) {
          const formattedDates = date.map(formatDate);
          filters.createDates = formattedDates;
       }
 
-      if (Object.keys(filters).length) {
-         dispatch(getComplaintsFilter(filters));
-      } else {
-         dispatch(complaintsThunks());
-      }
-   }, [state.inputValues, state.selectedValues, dispatch]);
+      dispatch(getComplaintsFilter(filters));
+   }, [state.selectedValues, dispatch, debouncedName]);
 
    useEffect(() => {
       fetchUser();
    }, [fetchUser]);
+
+   const MODERATION_COMPLAINTS = [
+      {
+         Header: ({ data }) => (
+            <CheckBox
+               onChange={e =>
+                  dispatch(
+                     checkAllComplaints({ checked: e.target.checked, data }),
+                  )
+               }
+            />
+         ),
+
+         accessor: 'check',
+         Cell: ({ row }) => (
+            <CheckBox
+               checked={row.original.checked || false}
+               onChange={e =>
+                  dispatch(
+                     checkCopmlaint({
+                        checked: e.target.checked,
+                        data: row.original,
+                     }),
+                  )
+               }
+            />
+         ),
+      },
+
+      {
+         Header: 'ПОЛЬЗОВАТЕЛЬ',
+         accessor: 'authResponse.name',
+      },
+      {
+         Header: 'тип жалобы',
+         accessor: 'complaintType',
+      },
+      {
+         Header: 'ДАТА СОЗДАНИЕ',
+         accessor: 'createDate',
+      },
+      {
+         Header: 'СТАТУС',
+         accessor: 'complaintStatus',
+      },
+   ];
 
    const headers = useMemo(
       () =>
@@ -147,7 +213,11 @@ export const ComplaintsModerationPage = () => {
             value={state.inputValues}
          />
 
-         <Table data={Array.isArray(data) ? data : []} column={headers} />
+         {isLoading ? (
+            <TableSkeleton />
+         ) : (
+            <Table data={Array.isArray(data) ? data : []} column={headers} />
+         )}
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
             onClose={() => toggleModal('deleteModal')}
@@ -160,6 +230,8 @@ export const ComplaintsModerationPage = () => {
       </Wrapper>
    );
 };
+
+export default ComplaintsModerationPage;
 
 const Description = styled('h2')(({ theme }) => ({
    fontWeight: 600,

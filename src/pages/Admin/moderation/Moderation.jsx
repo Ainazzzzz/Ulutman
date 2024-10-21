@@ -1,20 +1,24 @@
-import { useEffect, useMemo, useReducer } from 'react';
+import { useCallback, useEffect, useMemo, useReducer } from 'react';
 import { styled } from '@mui/material';
 
 import Table from '../../../components/UI/Table.jsx';
 import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';
 import { WaitingModal } from '../ads/WaitingModal.jsx';
-import {
-   MODERATION_COLUMNS,
-   MODERATION_DATA,
-} from '../../../utils/constants/moderation.jsx';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
 import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
 import {
+   getCommentsWithContent,
+   getCommentsWithName,
    getModerationComments,
-   getModerationCommentsFilter,
 } from '../../../redux/moderation/moderationThunk.js';
 import { useDispatch, useSelector } from 'react-redux';
+import { CheckBox } from '../../../components/UI/Checkbox.jsx';
+import {
+   checkAllComments,
+   checkComments,
+} from '../../../redux/moderation/moderationSlice.js';
+import { useDebounce } from '../../../hooks/useDebounce.js';
+import TableSkeleton from '../../../components/UI/TableSkeleton.jsx';
 
 const inputData = [
    { id: 'user', value: 'По имени' },
@@ -26,10 +30,10 @@ const selectsConfig = [
    {
       label: 'status',
       options: [
-         { id: 'e3', value: '', label: 'Cтатус' },
-         { id: 'e3', value: 'ОДОБРЕН', label: 'Одобрен' },
+         { id: 'e1', value: 'status', label: 'Cтатус' },
+         { id: 'e2', value: 'ОДОБРЕН', label: 'Одобрен' },
          { id: 'e3', value: 'ОТКЛОНЕН', label: 'Отклонен' },
-         { id: 'e3', value: 'ОЖИДАЕТ', label: 'Ожидает' },
+         { id: 'e4', value: 'ОЖИДАЕТ', label: 'Ожидает' },
       ],
    },
 ];
@@ -37,8 +41,8 @@ const selectsConfig = [
 const initialState = {
    deleteAllModal: false,
    waitingModal: false,
-   inputValues: { user: '', content: '', createDate: [], status: '' },
-   selectedValues: { date: 'date', status: '' },
+   inputValues: { user: '', content: '', date: [], status: '' },
+   selectedValues: { date: 'date', status: 'status' },
 };
 
 const reducer = (state, action) => {
@@ -61,7 +65,7 @@ const reducer = (state, action) => {
       case 'SET_DATE_VALUES':
          return {
             ...state,
-            inputValues: { ...state.inputValues, createDate: action.payload },
+            inputValues: { ...state.inputValues, date: action.payload },
          };
       case 'SET_SELECTED_VALUES':
          return {
@@ -71,8 +75,8 @@ const reducer = (state, action) => {
       case 'RESET_FILTER':
          return {
             ...state,
-            inputValues: { user: '', content: '', createDate: [] },
-            selectedValues: { date: 'date', status: '' },
+            inputValues: { user: '', content: '', date: [] },
+            selectedValues: { date: 'date', status: 'status' },
          };
       default:
          return state;
@@ -80,29 +84,78 @@ const reducer = (state, action) => {
 };
 
 export const Moderation = () => {
-   const appDispatch = useDispatch();
-   const { comments } = useSelector(state => state.moderation);
-   const [state, dispatch] = useReducer(reducer, initialState);
+   const dispatch = useDispatch();
+   const { comments, isLoading } = useSelector(state => state.moderation);
 
-   const handleToggle = type => dispatch({ type });
+   const [state, appDispatch] = useReducer(reducer, initialState);
+   const debouncedName = useDebounce(state.inputValues.user, 1000);
+   const debouncedContent = useDebounce(state.inputValues.content, 1000);
+
+   const handleToggle = type => appDispatch({ type });
 
    const handleInputChange = (index, value) => {
-      dispatch({
+      appDispatch({
          type: 'SET_INPUT_VALUES',
          payload: { [index]: value },
       });
    };
 
    const handleSelectChange = (label, value) => {
-      dispatch({
+      appDispatch({
          type: 'SET_SELECTED_VALUES',
          payload: { [label]: value },
       });
    };
 
    const handleDateChange = date => {
-      dispatch({ type: 'SET_DATE_VALUES', payload: date });
+      appDispatch({ type: 'SET_DATE_VALUES', payload: date });
    };
+
+   const MODERATION_COLUMNS = [
+      {
+         Header: ({ data }) => (
+            <CheckBox
+               onChange={e =>
+                  appDispatch(
+                     checkAllComments({ checked: e.target.checked, data }),
+                  )
+               }
+            />
+         ),
+
+         accessor: 'check',
+         Cell: ({ row }) => (
+            <CheckBox
+               checked={row.original.checked || false}
+               onChange={e =>
+                  appDispatch(
+                     checkComments({
+                        checked: e.target.checked,
+                        data: row.original,
+                     }),
+                  )
+               }
+            />
+         ),
+      },
+
+      {
+         Header: 'ПОЛЬЗОВАТЕЛЬ',
+         accessor: 'authResponse.name',
+      },
+      {
+         Header: 'КОММЕНТАРИЙ',
+         accessor: 'content',
+      },
+      {
+         Header: 'ДАТА СОЗДАНИЕ',
+         accessor: 'createDate',
+      },
+      {
+         Header: 'СТАТУС',
+         accessor: 'moderatorStatus',
+      },
+   ];
 
    const headers = useMemo(
       () =>
@@ -113,14 +166,50 @@ export const Moderation = () => {
       [],
    );
 
+   const formatDate = date => {
+      const [day, month, year] = date.split('.');
+
+      const currentYear = new Date().getFullYear();
+      const century = Math.floor(currentYear / 100) * 100;
+      const formattedYear =
+         year.length === 2 ? century + parseInt(year, 10) : year;
+
+      return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+   };
+
+   const fetchUsers = useCallback(() => {
+      const { date, content, user } = state.inputValues;
+      const { status } = state.selectedValues;
+
+      const filters = {};
+
+      if (status !== 'status') {
+         filters.moderatorStatuses = status;
+      }
+
+      if (content !== '') {
+         filters.content = debouncedContent;
+      }
+
+      if (user !== '') {
+         filters.names = debouncedName;
+      }
+
+      if (date.length) {
+         const formattedDates = date.map(formatDate);
+         filters.createDate = formattedDates;
+      }
+
+      dispatch(getModerationComments(filters));
+   }, [state.selectedValues, debouncedContent, debouncedName, dispatch]);
+
    useEffect(() => {
-      appDispatch(
-         getModerationCommentsFilter({
-            ...state.inputValues,
-            ...state.selectedValues,
-         }),
-      );
-   }, [state.inputValues, state.selectedValues]);
+      // if (debouncedName) {
+      //    dispatch(getCommentsWithName(debouncedName));
+      // } else {
+      fetchUsers();
+      // }
+   }, [dispatch, debouncedName, debouncedContent, fetchUsers]);
 
    return (
       <Wrapper>
@@ -138,7 +227,11 @@ export const Moderation = () => {
             handleDateChange={handleDateChange}
          />
 
-         <Table data={comments} column={headers} />
+         {isLoading ? (
+            <TableSkeleton />
+         ) : (
+            <Table data={comments} column={headers} />
+         )}
 
          <AdsDeleteModal
             isOpen={state.deleteAllModal}

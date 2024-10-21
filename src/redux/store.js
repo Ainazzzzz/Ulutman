@@ -5,6 +5,8 @@ import { complaintsSlice } from './complaints.Slice';
 import { addsAdminSlice } from './slices/adminAddsSlice';
 import { usersSlice } from './users/usersSlice';
 import { dashboardSlices } from './dashboard/dashboardSlices';
+import { mailingSlice } from './mailing/mailingSlice';
+import { categoriesSlice } from './categories/categoriesSlice';
 
 export const store = configureStore({
    reducer: {
@@ -14,5 +16,7 @@ export const store = configureStore({
       [usersSlice.name]: usersSlice.reducer,
       [dashboardSlices.name]: dashboardSlices.reducer,
       [addsAdminSlice.name]: addsAdminSlice.reducer,
+      [mailingSlice.name]: mailingSlice.reducer,
+      [categoriesSlice.name]: categoriesSlice.reducer,
    },
 });

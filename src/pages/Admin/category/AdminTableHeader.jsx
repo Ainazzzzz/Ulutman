@@ -7,7 +7,8 @@ export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
       if (
          column.accessor &&
          typeof column.accessor === 'string' &&
-         column.accessor.toUpperCase() === 'STATUS'
+         column.accessor.toUpperCase() === 'STATUS' &&
+         column.accessor === 'publishStatus'
       ) {
          return {
             ...column,

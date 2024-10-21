@@ -11,7 +11,6 @@ import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
 import Table from '../../../components/UI/Table.jsx';
 import { AdsDeleteModal } from './AdsDeleteModal.jsx';
 import { WaitingModal } from './WaitingModal.jsx';
-import { ADS_COLUMNS } from '../../../utils/constants/moderation.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import {
    getAdminAdds,
@@ -20,6 +19,10 @@ import {
    getResetFilter,
 } from '../../../redux/thunks/adminAddThunk.js';
 import { useDebounce } from '../../../hooks/useDebance.js';
+import { CheckBox } from '../../../components/UI/Checkbox.jsx';
+import { translateCategory } from '../../../utils/general/translate.js';
+import { checkAds, checkAllAds } from '../../../redux/slices/adminAddsSlice.js';
+import TableSkeleton from '../../../components/UI/TableSkeleton.jsx';
 
 const inputData = [{ id: 'name', value: 'По имени' }];
 
@@ -29,9 +32,12 @@ const selectsConfig = [
       options: [
          { id: 'e1', value: 'category', label: 'Категория' },
          { id: 'e2', value: 'WORK', label: 'Работа' },
-         { id: 'e3', value: 'SELL', label: 'Продажа' },
-         { id: 'e4', value: 'AUTO', label: 'Авто' },
+         { id: 'e3', value: 'RENT', label: 'Аренда' },
+         { id: 'e4', value: 'SELL', label: 'Продажа' },
          { id: 'e5', value: 'HOTEL', label: 'Отель' },
+         { id: 'e6', value: 'SERVICES', label: 'Услуги' },
+         { id: 'e7', value: 'AUTO', label: 'Авто' },
+         { id: 'e8', value: 'REAL_ESTATE', label: 'Недвижимость' },
       ],
    },
    {
@@ -72,13 +78,13 @@ const reducer = (state, action) => {
    }
 };
 
-export const Ads = () => {
+const Ads = () => {
    const [state, dispatchFunc] = useReducer(reducer, initialState);
    const dispatch = useDispatch();
 
    const debouncedName = useDebounce(state.inputValues.name, 1500);
 
-   const ADS_DATA = useSelector(state => state.adminAdds.adminAdds);
+   const { adminAdds, isLoading } = useSelector(state => state.adminAdds);
 
    const formatDate = date => {
       const [day, month, year] = date.split('.');
@@ -127,16 +133,64 @@ export const Ads = () => {
       dispatchFunc({ type: 'SET_VALUES', field, payload });
    }, []);
 
+   const resetFilterHandler = () => {
+      dispatchFunc({ type: 'RESET_FILTER' });
+      dispatch(getResetFilter());
+   };
+
+   const ADS_COLUMNS = [
+      {
+         Header: ({ data }) => (
+            <CheckBox
+               onChange={e =>
+                  dispatch(checkAllAds({ checked: e.target.checked, data }))
+               }
+            />
+         ),
+
+         accessor: 'check',
+         Cell: ({ row }) => (
+            <CheckBox
+               checked={row.original.checked || false}
+               onChange={e =>
+                  dispatch(
+                     checkAds({
+                        checked: e.target.checked,
+                        data: row.original,
+                     }),
+                  )
+               }
+            />
+         ),
+      },
+      {
+         Header: 'ИМЯ',
+         accessor: 'user.name',
+      },
+      {
+         Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
+         accessor: 'user.email',
+      },
+      {
+         Header: 'КАТЕГОРИЯ',
+         accessor: 'category',
+         Cell: ({ row }) => <p>{translateCategory[row.original.category]}</p>,
+      },
+      {
+         Header: 'ДАТА СОЗДАНИЯ',
+         accessor: 'createDate',
+      },
+      {
+         Header: 'СТАТУС',
+         accessor: 'publishStatus',
+      },
+   ];
+
    const headers = useMemo(
       () =>
          getAdminTableHeaders(() => toggleModal('waitingModal'), ADS_COLUMNS),
       [toggleModal],
    );
-
-   const resetFilterHandler = () => {
-      dispatchFunc({ type: 'RESET_FILTER' });
-      dispatch(getResetFilter());
-   };
 
    return (
       <Wrapper>
@@ -158,7 +212,11 @@ export const Ads = () => {
             value={state.inputValues}
          />
 
-         <Table data={ADS_DATA} column={headers} />
+         {isLoading ? (
+            <TableSkeleton />
+         ) : (
+            <Table data={adminAdds} column={headers} />
+         )}
 
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
@@ -174,6 +232,8 @@ export const Ads = () => {
       </Wrapper>
    );
 };
+
+export default Ads;
 
 const Description = styled('h2')(({ theme }) => ({
    fontWeight: 600,

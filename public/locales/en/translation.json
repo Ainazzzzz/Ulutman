@@ -26,19 +26,41 @@
             "ru": "Russian",
             "tj": "Tajik",
             "uz": "Uzbek",
-            "en": "English"
+            "en": "English",
+            "tr": "Turkish"
          }
       },
       "dashboard": {
          "title": "Statistics",
          "popularCategory": "Popular Category",
          "WORK": "Work",
-         "rentals": "Rentals",
-         "hotel": "Hotel",
+         "RENT": "Rentals",
+         "HOTEL": "Hotel",
          "SERVICES": "Services",
          "REAL_ESTATE": "Real Estate",
          "AUTO": "Car",
          "SELL": "For Sale"
+      },
+
+      "users": {
+         "title": "User Management",
+         "table": {
+            "columns": {
+               "name": "NAME",
+               "email": "EMAIL",
+               "role": "ROLE",
+               "dateOfRegistration": "DATE OF REGISTRATION",
+               "status": "STATUS"
+            },
+            "statuses": {
+               "АКТИВНЫЙ": "ACTIVE",
+               "ЗАБЛОКИРОВАН": "BLOCKED"
+            },
+            "roles": {
+               "USER": "User",
+               "ADMIN": "Admin"
+            }
+         }
       }
    }
 }
