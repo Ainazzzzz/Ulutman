@@ -20,16 +20,11 @@ const Modal = ({ children, variant = 'custom', handleClose, open }) => (
       {variant === 'custom' ? null : (
          <div className="close-button-container">
             <StyledCloseButton onClick={handleClose}>
-               {/* {variant === 'delete' ? (
-                  <DeleteIcon />
-               ) : (
-                  variant === 'info' && <InfoIcon />
-               )} */}
                {variant === 'delete' ? (
                   <DeleteIcon />
                ) : variant === 'info' ? (
                   <InfoIcon />
-               ) : variant === 'phone' ? ( // Добавлено условие для варианта "телефон"
+               ) : variant === 'phone' ? (
                   <PhoneIcon />
                ) : null}
             </StyledCloseButton>
@@ -71,12 +66,11 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
       backgroundColor: 'white',
       borderRadius: '50%',
 
-      // border: variant === 'delete' ? '1px solid #FF0000' : '1px solid #e6a600',
       border:
          variant === 'delete'
-            ? '1px solid #FF0000' // Красный бордер для "delete"
+            ? '1px solid #FF0000'
             : variant === 'phone'
-              ? '1px solid #00FF00' // Зеленый бордер для "phone"
+              ? '1px solid #00FF00'
               : '1px solid #e6a600',
       zIndex: 1000,
       display: 'flex',
