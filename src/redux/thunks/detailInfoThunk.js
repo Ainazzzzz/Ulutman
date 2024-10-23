@@ -5,7 +5,7 @@ export const getDetailInfo = createAsyncThunk(
    'detailInfo/getDetailInfo',
    async (_, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get(`publishes/find/${12}`);
+         const { data } = await axiosInstance.get(`publishes/find/${6}`);
          console.log(data);
 
          return data;

@@ -81,170 +81,185 @@ const DetailInfo = () => {
    }, []);
 
    return (
-      <StyledContainer>
-         <Box className="breadcrumbs-box">
-            <Breadcrumbs path={path} />
+      <div>
+         {!detailInfo || Object.keys(detailInfo).length === 0 ? (
+            <p>Нет данных </p>
+         ) : (
+            <StyledContainer>
+               <Box className="breadcrumbs-box">
+                  <Breadcrumbs path={path} />
 
-            <Typography className="go-back">
-               <ArrowIcon />
-               назад
-            </Typography>
-         </Box>
+                  <Typography className="go-back">
+                     <ArrowIcon />
+                     назад
+                  </Typography>
+               </Box>
 
-         <Box className="locatio-time-box">
-            <Typography>
-               <LocationIcon className="location-icon" />
-               {detailInfo.detailInfo.metro}
-            </Typography>
+               <Box className="locatio-time-box">
+                  <Typography>
+                     <LocationIcon className="location-icon" />
+                     {detailInfo?.detailInfo?.metro || 'Не указано'}
+                  </Typography>
 
-            <Typography>
-               <ClockIcon />
-               {detailInfo.detailInfo.createDate}
-            </Typography>
-         </Box>
+                  <Typography>
+                     <ClockIcon />
+                     {detailInfo?.detailInfo?.createDate || 'Не указано'}
+                  </Typography>
+               </Box>
 
-         <Box>
-            <Typography className="title" variant="h3">
-               {detailInfo.detailInfo.title}
-            </Typography>
+               <Box>
+                  <Typography className="title" variant="h3">
+                     {detailInfo?.detailInfo?.title || 'Не указано'}
+                  </Typography>
 
-            <Box className="fist-part_container">
-               <Box className="slider">
-                  <Swiper
-                     cssMode={true}
-                     navigation={true}
-                     pagination={true}
-                     mousewheel={true}
-                     keyboard={true}
-                     modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-                     className="mySwiper"
-                  >
-                     {detailInfo?.detailInfo?.images?.map(slide => (
-                        <SwiperSlide key={slide.id}>
-                           <img
-                              className="slide-image"
-                              src={slide.image}
-                              alt={`Slide ${slide.id}`}
-                           />
-                        </SwiperSlide>
-                     ))}
-                  </Swiper>
+                  <Box className="fist-part_container">
+                     <Box className="slider">
+                        <Swiper
+                           cssMode={true}
+                           navigation={true}
+                           pagination={true}
+                           mousewheel={true}
+                           keyboard={true}
+                           modules={[
+                              Navigation,
+                              Pagination,
+                              Mousewheel,
+                              Keyboard,
+                           ]}
+                           className="mySwiper"
+                        >
+                           {detailInfo?.detailInfo?.images?.map(slide => (
+                              <SwiperSlide key={slide.id}>
+                                 <img
+                                    className="slide-image"
+                                    src={slide.image}
+                                    alt={`Slide ${slide.id}`}
+                                 />
+                              </SwiperSlide>
+                           ))}
+                        </Swiper>
 
-                  <Box className="images">
-                     {detailInfo?.detailInfo?.images?.map(item => (
-                        <img
-                           key={item.id}
-                           src={item.image}
-                           alt={`Slide ${item.id}`}
-                        />
-                     ))}
+                        <Box className="images">
+                           {detailInfo?.detailInfo?.images?.map(item => (
+                              <img
+                                 key={item.id}
+                                 src={item.image}
+                                 alt={`Slide ${item.id}`}
+                              />
+                           ))}
+                        </Box>
+                     </Box>
+
+                     <Box className="second-block">
+                        <Box className="second_box">
+                           <Box className="main-info">
+                              <Typography className="price">
+                                 {detailInfo?.detailInfo?.conditions
+                                    ?.pricePerMonth || 'Не указано'}
+                                 ₽/мес.
+                              </Typography>
+
+                              <Like
+                                 onClick={handleFavorite}
+                                 style={{
+                                    cursor: 'pointer',
+                                    fill: detailInfo?.detailInfo?.detailFavorite
+                                       ? 'red'
+                                       : '',
+                                    stroke: detailInfo?.detailInfo
+                                       ?.detailFavorite
+                                       ? 'red'
+                                       : '',
+                                 }}
+                              />
+                           </Box>
+
+                           <Box className="info-box-container">
+                              <Typography className="info-part">
+                                 Оплата ЖКХ <hr className="line" />
+                                 {detailInfo?.detailInfo?.conditions
+                                    ?.utilitiesIncluded || 'Не указано'}
+                              </Typography>
+
+                              <Typography className="info-part">
+                                 Залог <hr className="line" />{' '}
+                                 {detailInfo?.detailInfo?.conditions?.deposit} ₽
+                              </Typography>
+
+                              <Typography className="info-part">
+                                 Комиссия <hr className="line" />
+                                 {detailInfo?.detailInfo?.conditions
+                                    ?.commission || 'Не указано'}
+                              </Typography>
+
+                              <Typography className="info-part">
+                                 Предоплата
+                                 <hr className="line" />
+                                 {detailInfo?.detailInfo?.conditions
+                                    ?.prepayment || 'Не указано'}
+                              </Typography>
+
+                              <Typography className="info-part">
+                                 Срок аренды
+                                 <hr className="line" />
+                                 {detailInfo?.detailInfo?.conditions
+                                    ?.leaseTerm || 'Не указано'}
+                              </Typography>
+                           </Box>
+
+                           <Box className="btns-container">
+                              <Button>Показать телефон</Button>
+                           </Box>
+                        </Box>
+
+                        <Box className="rieltor-info">
+                           <Box className="user-icon-container">
+                              <UserIcon />
+                           </Box>
+                           <Box>
+                              <Typography>Риелтор</Typography>
+                              {detailInfo?.detailInfo?.conditions?.realtor ||
+                                 'Не указано'}
+
+                              <Typography></Typography>
+                              <Rating
+                                 value={
+                                    detailInfo?.detailInfo?.conditions
+                                       ?.realtorRating || 0
+                                 }
+                                 readOnly
+                              />
+                           </Box>
+                        </Box>
+                     </Box>
                   </Box>
                </Box>
 
-               <Box className="second-block">
-                  <Box className="second_box">
-                     <Box className="main-info">
-                        <Typography className="price">
-                           {detailInfo?.detailInfo?.conditions?.pricePerMonth ||
-                              'Не указано'}
-                           ₽/мес.
-                        </Typography>
-
-                        <Like
-                           onClick={handleFavorite}
-                           style={{
-                              cursor: 'pointer',
-                              fill: detailInfo?.detailInfo?.detailFavorite
-                                 ? 'red'
-                                 : '',
-                              stroke: detailInfo?.detailInfo?.detailFavorite
-                                 ? 'red'
-                                 : '',
-                           }}
+               <Box className="description-container">
+                  <Typography variant="h3" className="description_detail-info">
+                     Описания объявления
+                  </Typography>
+                  <Typography className="descriptioon-text">
+                     {isExpanded ? description : shortDescription}
+                     {words.length > 1 && !isExpanded && '...'}{' '}
+                  </Typography>
+                  {words.length > 1 && (
+                     <Typography
+                        className="read-more-text"
+                        onClick={handleReadMore}
+                     >
+                        {isExpanded ? 'Скрыть' : 'Читать дальше'}
+                        <ArrowIcon
+                           className={isExpanded ? 'arrow-up' : 'arrow-down'}
                         />
-                     </Box>
-
-                     <Box className="info-box-container">
-                        <Typography className="info-part">
-                           Оплата ЖКХ <hr className="line" />
-                           {detailInfo?.detailInfo?.conditions
-                              ?.utilitiesIncluded || 'Не указано'}
-                        </Typography>
-
-                        <Typography className="info-part">
-                           Залог <hr className="line" />{' '}
-                           {detailInfo?.detailInfo?.conditions?.deposit} ₽
-                        </Typography>
-
-                        <Typography className="info-part">
-                           Комиссия <hr className="line" />
-                           {detailInfo?.detailInfo?.conditions?.commission ||
-                              'Не указано'}
-                        </Typography>
-
-                        <Typography className="info-part">
-                           Предоплата
-                           <hr className="line" />
-                           {detailInfo?.detailInfo?.conditions?.prepayment ||
-                              'Не указано'}
-                        </Typography>
-
-                        <Typography className="info-part">
-                           Срок аренды
-                           <hr className="line" />
-                           {detailInfo?.detailInfo?.conditions?.leaseTerm ||
-                              'Не указано'}
-                        </Typography>
-                     </Box>
-
-                     <Box className="btns-container">
-                        <Button>Показать телефон</Button>
-                     </Box>
-                  </Box>
-
-                  <Box className="rieltor-info">
-                     <Box className="user-icon-container">
-                        <UserIcon />
-                     </Box>
-                     <Box>
-                        <Typography>Риелтор</Typography>
-                        {detailInfo?.detailInfo?.conditions?.realtor ||
-                           'Не указано'}
-
-                        <Typography></Typography>
-                        <Rating
-                           value={
-                              detailInfo?.detailInfo?.conditions
-                                 ?.realtorRating || 0
-                           }
-                           readOnly
-                        />
-                     </Box>
-                  </Box>
+                     </Typography>
+                  )}
                </Box>
-            </Box>
-         </Box>
 
-         <Box className="description-container">
-            <Typography variant="h3" className="description_detail-info">
-               Описания объявления
-            </Typography>
-            <Typography className="descriptioon-text">
-               {isExpanded ? description : shortDescription}
-               {words.length > 1 && !isExpanded && '...'}{' '}
-            </Typography>
-            {words.length > 1 && (
-               <Typography className="read-more-text" onClick={handleReadMore}>
-                  {isExpanded ? 'Скрыть' : 'Читать дальше'}
-                  <ArrowIcon
-                     className={isExpanded ? 'arrow-up' : 'arrow-down'}
-                  />
-               </Typography>
-            )}
-         </Box>
-
-         <AboutApartment detailInfo={detailInfo} />
-      </StyledContainer>
+               <AboutApartment detailInfo={detailInfo} />
+            </StyledContainer>
+         )}
+      </div>
    );
 };
 

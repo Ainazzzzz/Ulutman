@@ -14,6 +14,11 @@ const ApartmentInfo = ({ title, value }) => (
 
 const AboutApartment = ({ detailInfo }) => {
    console.log(detailInfo?.detailInfo?.propertyDetails);
+   const propertyDetails = detailInfo?.detailInfo?.propertyDetails;
+
+   if (!propertyDetails) {
+      return <p>Нет данных</p>;
+   }
 
    const apartmentInfo = [
       {
@@ -41,6 +46,8 @@ const AboutApartment = ({ detailInfo }) => {
             detailInfo.detailInfo.propertyDetails &&
             detailInfo.detailInfo.propertyDetails.hasKitchenFurniture
                ? detailInfo.detailInfo.propertyDetails.hasKitchenFurniture
+                  ? 'Да'
+                  : 'Нет'
                : 'Не указано',
       },
       {
@@ -146,7 +153,6 @@ const AboutApartment = ({ detailInfo }) => {
                ? detailInfo.detailInfo.propertyDetails.hasParking
                : 'Не указано',
       },
-      // { title: 'Подъезды', value: '1' },
       {
          title: 'Отопление',
          value:
@@ -156,7 +162,6 @@ const AboutApartment = ({ detailInfo }) => {
                ? detailInfo.detailInfo.propertyDetails.heatingType
                : 'Не указано',
       },
-      // { title: 'Аварийность', value: 'Нет' },
    ];
    const apartmentInfoSocials = [
       <WhatsapIcon />,
