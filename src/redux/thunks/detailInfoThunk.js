@@ -33,7 +33,7 @@ export const deleteFavorite = createAsyncThunk(
    async (id, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.delete(
-            `deleteFromFavorites /${id}`,
+            `deleteFromFavorites/${id}`,
          );
          return data;
       } catch (error) {
