@@ -5,10 +5,12 @@ import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react';
 import { MyAds } from './MyAds';
 import TabsUi from '../UI/TabsUi';
 import { useState } from 'react';
+import { DeleteMyAdsModal } from './DeleteMyAdsModal';
 
 export const Ads = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const [selectedIds, setSelectedIds] = useState([]);
+   const [isModalOpen, setIsModalOpen] = useState(false);
 
    const secondTab = [
       { value: '1', label: 'Активно' },
@@ -17,7 +19,10 @@ export const Ads = () => {
       { value: '4', label: 'Отклонено' },
    ];
 
-   const handleDelete = () => console.log('selectedId', selectedIds);
+   const handleDelete = () => {
+      console.log('selectedId', selectedIds);
+      setIsModalOpen(!isModalOpen);
+   };
 
    return (
       <Wrapper>
@@ -38,6 +43,7 @@ export const Ads = () => {
          </Container>
 
          <MyAds selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
+         {isModalOpen && <DeleteMyAdsModal />}
       </Wrapper>
    );
 };

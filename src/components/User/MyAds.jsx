@@ -8,66 +8,89 @@ import Call from '../../assets/icons/call-icon.svg?react';
 import Edit from '../../assets/icons/pensil-icon.svg?react';
 import Deactivate from '../../assets/icons/deactivate-icon.svg?react';
 import { styled } from '@mui/material';
+import { useState } from 'react';
 
 export const MyAds = ({ selectedIds, setSelectedIds }) => {
+   const [deactivatedIds, setDeactivatedIds] = useState([]); // Стейт для деактивации
+
    const handleCheckboxChange = id => {
       setSelectedIds(prev =>
          prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
       );
    };
 
+   const toggleActivation = id => {
+      setDeactivatedIds(prev =>
+         prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
+      );
+   };
+
    return (
       <CONTAINER>
-         {my_ads.map(item => (
-            <Wrapper key={item.id}>
-               <BigBox>
-                  <CheckBox
-                     checked={selectedIds.includes(item.id)}
-                     onChange={() => handleCheckboxChange(item.id)}
-                  />
-                  <Box>
-                     <ImageStyle src={item.image} alt="room-image" />
-                     <Container>
-                        <Title>{item.amount}х комнатная квартира</Title>
-                        <FirstBlock>
-                           <MiniBlock>
-                              <Clock />
-                              <span>{item.date}</span>
-                           </MiniBlock>
-                           <MiniBlock>
-                              <Eye />
-                              <span>{item.visibility}</span>
-                           </MiniBlock>
-                        </FirstBlock>
-                        <SecondBlock>
-                           <SecondMiniBlock>
-                              <Message />
-                              <span>{item.message}</span>
-                           </SecondMiniBlock>
-                           <SecondMiniBlock>
-                              <Favorite />
-                              <span>{item.favorites}</span>
-                           </SecondMiniBlock>
-                           <SecondMiniBlock>
-                              <Call />
-                              <span>{item.calls}</span>
-                           </SecondMiniBlock>
-                        </SecondBlock>
-                     </Container>
-                  </Box>
-               </BigBox>
-               <AnotherContainer>
-                  <AnotherBlock>
-                     <Edit />
-                     <p>Редактировать</p>
-                  </AnotherBlock>
-                  <AnotherBlock>
-                     <Deactivate />
-                     <p>Деактивировать</p>
-                  </AnotherBlock>
-               </AnotherContainer>
-            </Wrapper>
-         ))}
+         {my_ads.map(item => {
+            const isDeactivated = deactivatedIds.includes(item.id);
+
+            return (
+               <Wrapper
+                  key={item.id}
+                  // style={{ backgroundColor: isDeactivated ? 'grey' : '' }}
+                  style={{ opacity: isDeactivated ? 0.3 : 5 }}
+               >
+                  <BigBox>
+                     <CheckBox
+                        checked={selectedIds.includes(item.id)}
+                        onChange={() => handleCheckboxChange(item.id)}
+                     />
+                     <Box>
+                        <ImageStyle src={item.image} alt="room-image" />
+                        <Container>
+                           <Title>{item.amount}х комнатная квартира</Title>
+                           <FirstBlock>
+                              <MiniBlock>
+                                 <Clock />
+                                 <span>{item.date}</span>
+                              </MiniBlock>
+                              <MiniBlock>
+                                 <Eye />
+                                 <span>{item.visibility}</span>
+                              </MiniBlock>
+                           </FirstBlock>
+                           <SecondBlock>
+                              <SecondMiniBlock>
+                                 <Message />
+                                 <span>{item.message}</span>
+                              </SecondMiniBlock>
+                              <SecondMiniBlock>
+                                 <Favorite />
+                                 <span>{item.favorites}</span>
+                              </SecondMiniBlock>
+                              <SecondMiniBlock>
+                                 <Call />
+                                 <span>{item.calls}</span>
+                              </SecondMiniBlock>
+                           </SecondBlock>
+                        </Container>
+                     </Box>
+                  </BigBox>
+                  <AnotherContainer>
+                     <AnotherBlock>
+                        <Edit />
+                        <p>Редактировать</p>
+                     </AnotherBlock>
+                     <AnotherBlock onClick={() => toggleActivation(item.id)}>
+                        {isDeactivated ? (
+                           <p>Активировать</p>
+                        ) : (
+                           <>
+                              <Deactivate />
+                              <p>Деактивировать</p>
+                           </>
+                        )}
+                     </AnotherBlock>
+                  </AnotherContainer>
+               </Wrapper>
+            );
+         })}
       </CONTAINER>
    );
 };
