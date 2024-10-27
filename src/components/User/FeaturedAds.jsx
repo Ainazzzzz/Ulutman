@@ -35,7 +35,6 @@ export const FeaturedAds = () => {
    };
    const onDeleteById = id => {
       dispatch(deleteFavoritesById(id));
-      dispatch(getAllFavorites());
    };
 
    useEffect(() => {

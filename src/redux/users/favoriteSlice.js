@@ -23,11 +23,7 @@ export const favoriteSlice = createSlice({
 
          .addCase(deleteFavoritesById.fulfilled, (state, action) => {
             const productId = action.payload;
-            if (state.favoriteProducts[productId]) {
-               delete state.favoriteProducts[productId];
-            } else {
-               console.error('Product not found with id:', productId);
-            }
+            delete state.favoriteProducts[productId];
          });
    },
 });
