@@ -15,13 +15,15 @@ export const getAdminAdds = createAsyncThunk(
 
 export const deleteAdminAds = createAsyncThunk(
    'adminAdds/deleteAdds',
-   async (ids, { rejectWithValue, dispatch }) => {
+   async ({ ids, toggleModal }, { rejectWithValue, dispatch }) => {
       try {
-         const { data } = await axiosInstance.delete(
-            `manage/publishes/deleteById/${ids}`,
-         );
+         await axiosInstance.delete('/manage/publishes/delete/batch', {
+            data: ids,
+         });
 
-         return data;
+         toggleModal('deleteAllModal');
+
+         dispatch(getAdminAdds());
       } catch (error) {
          rejectWithValue(error.response.data);
       }

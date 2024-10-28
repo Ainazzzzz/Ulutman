@@ -8,6 +8,7 @@ import { WaitingModal } from '../ads/WaitingModal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import {
    complaintsThunks,
+   deleteComplaints,
    getComplaintsFilter,
    getResetFilter,
 } from '../../../redux/complaintsThunks.js';
@@ -193,6 +194,16 @@ const ComplaintsModerationPage = () => {
       dispatch(getResetFilter());
    };
 
+   const handleDeleteComplaint = () => {
+      const filteredComplaints = data.filter(
+         complaint => complaint.checked && complaint.checked,
+      );
+
+      const complaintsIds = filteredComplaints.map(ads => ads.id);
+
+      dispatch(deleteComplaints({ ids: complaintsIds, toggleModal }));
+   };
+
    return (
       <Wrapper>
          <Description>Управление жалобами и нарушениями</Description>
@@ -221,6 +232,7 @@ const ComplaintsModerationPage = () => {
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
             onClose={() => toggleModal('deleteModal')}
+            onDelete={handleDeleteComplaint}
          />
 
          <WaitingModal

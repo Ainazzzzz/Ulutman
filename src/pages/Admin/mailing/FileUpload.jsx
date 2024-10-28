@@ -15,7 +15,7 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
 
    const onDrop = acceptedFiles => {
       const file = acceptedFiles[0];
-      setFieldValue('files', file);
+      setFieldValue('image', file?.path);
       const reader = new FileReader();
       reader.onloadend = () => {
          setImagePreview(reader.result);
@@ -29,7 +29,7 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
 
    const handleRemoveImage = () => {
       setImagePreview(null);
-      setFieldValue('files', null);
+      setFieldValue('image', null);
    };
 
    const { getRootProps, getInputProps } = useDropzone({

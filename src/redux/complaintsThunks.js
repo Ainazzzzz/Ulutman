@@ -70,3 +70,20 @@ export const getResetFilter = createAsyncThunk(
       }
    },
 );
+
+export const deleteComplaints = createAsyncThunk(
+   'complaints/delete',
+   async ({ ids, toggleModal }, { rejectWithValue, dispatch }) => {
+      try {
+         await axiosInstance.delete('/api/manage/complaints/delete/batch', {
+            data: ids,
+         });
+
+         toggleModal('deleteAllModal');
+
+         dispatch(complaintsThunks());
+      } catch (error) {
+         return rejectWithValue(error);
+      }
+   },
+);

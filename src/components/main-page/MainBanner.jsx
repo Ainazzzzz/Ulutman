@@ -7,11 +7,14 @@ import ReusableSelect from '../UI/Select';
 import banner from '../../assets/images/main.png';
 import MobileBanner from '../../assets/images/mobile-banner.png';
 import { categories, metroOptions } from '../../utils/constants/main';
+import { useNavigate } from 'react-router-dom';
 
 export const MainBanner = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
    const [selectValue, setSelectValue] = useState('select-metro');
+
+   const navigate = useNavigate();
 
    return (
       <MainContainer banner={mobile ? MobileBanner : banner}>
@@ -40,8 +43,11 @@ export const MainBanner = () => {
 
          <NavContainer>
             <NavList>
-               {categories.map(({ Icon, title, background }) => (
-                  <NavItem key={title}>
+               {categories.map(({ Icon, title, background, category }) => (
+                  <NavItem
+                     key={title}
+                     onClick={() => navigate(`category/${category}`)}
+                  >
                      <a href="#">
                         <IconWrapper background={background}>
                            <Icon />

@@ -13,6 +13,7 @@ import { AdsDeleteModal } from './AdsDeleteModal.jsx';
 import { WaitingModal } from './WaitingModal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+   deleteAdminAds,
    getAdminAdds,
    getAdminFilter,
    getName,
@@ -138,6 +139,14 @@ const Ads = () => {
       dispatch(getResetFilter());
    };
 
+   const handleDeleteAds = () => {
+      const filteredAds = adminAdds.filter(ads => ads.checked && ads.checked);
+
+      const adsIds = filteredAds.map(ads => ads.id);
+
+      dispatch(deleteAdminAds({ ids: adsIds, toggleModal }));
+   };
+
    const ADS_COLUMNS = [
       {
          Header: ({ data }) => (
@@ -165,11 +174,11 @@ const Ads = () => {
       },
       {
          Header: 'ИМЯ',
-         accessor: 'user.name',
+         accessor: 'userName',
       },
       {
          Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
-         accessor: 'user.email',
+         accessor: 'email',
       },
       {
          Header: 'КАТЕГОРИЯ',
@@ -221,6 +230,7 @@ const Ads = () => {
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
             onClose={() => toggleModal('deleteAllModal')}
+            onDelete={handleDeleteAds}
          />
 
          <WaitingModal

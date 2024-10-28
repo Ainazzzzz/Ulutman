@@ -67,3 +67,20 @@ export const getResetFilter = createAsyncThunk(
       }
    },
 );
+
+export const deleteUsers = createAsyncThunk(
+   'users/delete',
+   async ({ userIds, toggleModal }, { rejectWithValue, dispatch }) => {
+      try {
+         await axiosInstance.delete('/manage/users/delete/batch', {
+            data: userIds,
+         });
+
+         toggleModal('deleteAllModal');
+
+         dispatch(getAllUsers());
+      } catch (error) {
+         return rejectWithValue(error);
+      }
+   },
+);

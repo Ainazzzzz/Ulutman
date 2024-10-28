@@ -14,6 +14,7 @@ import { Button } from '../../../components/UI/Button';
 import Plus from '../../../assets/icons/plus.svg?react';
 
 import {
+   deleteUsers,
    getAllUsers,
    getResetFilter,
    getUsersFilter,
@@ -128,10 +129,13 @@ const Users = () => {
    };
 
    const handleDeleteUser = () => {
-      // const updatedUsers = allUsers.filter(
-      //    item => item.checked && item.checked,
-      // );
-      // console.log(updatedUsers);
+      const filteredUsers = allUsers.filter(
+         user => user.checked && user.checked,
+      );
+
+      const userIds = filteredUsers.map(user => user.id);
+
+      dispatch(deleteUsers({ userIds, toggleModal }));
    };
 
    const USERS_COLUMNS = [
@@ -161,7 +165,7 @@ const Users = () => {
       },
       {
          Header: t('admin.users.table.columns.name'),
-         accessor: 'name',
+         accessor: 'userName',
       },
       {
          Header: t('admin.users.table.columns.email'),

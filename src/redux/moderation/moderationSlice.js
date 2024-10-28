@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-   getCommentsWithContent,
-   getCommentsWithName,
-   getModerationComments,
-} from './moderationThunk';
+import { getModerationComments } from './moderationThunk';
 
 const initialState = {
    comments: [],
@@ -44,27 +40,6 @@ export const moderationSlice = createSlice({
             state.isLoading = false;
          });
 
-      builder
-         .addCase(getCommentsWithName.fulfilled, (state, action) => {
-            state.comments = action.payload;
-         })
-         .addCase(getCommentsWithName.pending, state => {
-            state.isLoading = true;
-         })
-         .addCase(getCommentsWithName.rejected, state => {
-            state.isLoading = false;
-         });
-
-      builder
-         .addCase(getCommentsWithContent.fulfilled, (state, action) => {
-            state.comments = action.payload;
-         })
-         .addCase(getCommentsWithContent.pending, state => {
-            state.isLoading = true;
-         })
-         .addCase(getCommentsWithContent.rejected, state => {
-            state.isLoading = false;
-         });
       // builder.addCase(
       //    getModerationCommentsFilter.fulfilled,
       //    (state, action) => {

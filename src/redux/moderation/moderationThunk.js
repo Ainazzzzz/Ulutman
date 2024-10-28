@@ -45,42 +45,19 @@ export const getModerationComments = createAsyncThunk(
    },
 );
 
-export const getCommentsWithName = createAsyncThunk(
-   'moderation/getCommentWithName',
-   async (name, { rejectWithValue }) => {
+export const deleteComments = createAsyncThunk(
+   'moderation/deleteComments',
+   async ({ ids, toggleModal }, { rejectWithValue, dispatch }) => {
       try {
-         const { data } = await axiosInstance.get(
-            '/manage/moderator/name/filter',
-            {
-               params: {
-                  name,
-               },
-            },
-         );
+         await axiosInstance.delete('/manage/moderator/delete/batch', {
+            data: ids,
+         });
 
-         return data;
+         toggleModal('deleteAllModal');
+
+         dispatch(getModerationComments());
       } catch (error) {
-         return rejectWithValue(error);
-      }
-   },
-);
-
-export const getCommentsWithContent = createAsyncThunk(
-   'moderation/getCommentsWithContent',
-   async (content, { rejectWithValue }) => {
-      try {
-         const { data } = await axiosInstance.get(
-            '/manage/moderator/content/filter',
-            {
-               params: {
-                  content,
-               },
-            },
-         );
-
-         return data;
-      } catch (error) {
-         return rejectWithValue(error);
+         rejectWithValue(error.response.data);
       }
    },
 );

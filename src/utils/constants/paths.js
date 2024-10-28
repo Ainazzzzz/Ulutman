@@ -1,0 +1,27 @@
+export const PATHS = {
+   HOME: '/',
+   USER: {
+      ROOT: '/user',
+      CREATE_AD: '/user/create-ad',
+      PROFILE: '/user/profile',
+      DETAIL_INFO: '/user/detail-info',
+      CATEGORY: '/user/category/:subCategory',
+      DETAILS: '/user/details/:detailsInfo',
+   },
+   ADMIN: {
+      ROOT: '/admin',
+      DASHBOARD: '/admin/dashboard',
+      USERS: '/admin/users',
+      ADS: '/admin/ads',
+      CATEGORIES: '/admin/categories',
+      MODERATION: '/admin/moderation',
+      COMPLAINTS: '/admin/moderation/complaints',
+      COMMENTS: '/admin/moderation/comments',
+      IMAGES: '/admin/moderation/images',
+      MAILING: '/admin/users/mailing',
+      ADD_MAILING: '/admin/users/add-mailing',
+      ADD_ADMIN: '/admin/add-administrator',
+      SETTINGS: '/admin/settings',
+   },
+   FALLBACK: '*',
+};

@@ -7,8 +7,7 @@ import { WaitingModal } from '../ads/WaitingModal.jsx';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
 import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
 import {
-   getCommentsWithContent,
-   getCommentsWithName,
+   deleteComments,
    getModerationComments,
 } from '../../../redux/moderation/moderationThunk.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -91,7 +90,7 @@ export const Moderation = () => {
    const debouncedName = useDebounce(state.inputValues.user, 1000);
    const debouncedContent = useDebounce(state.inputValues.content, 1000);
 
-   const handleToggle = type => appDispatch({ type });
+   const toggleModal = type => appDispatch({ type });
 
    const handleInputChange = (index, value) => {
       appDispatch({
@@ -160,11 +159,21 @@ export const Moderation = () => {
    const headers = useMemo(
       () =>
          getAdminTableHeaders(
-            () => handleToggle('TOGGLE_WAITING_MODAL'),
+            () => toggleModal('TOGGLE_WAITING_MODAL'),
             MODERATION_COLUMNS,
          ),
       [],
    );
+
+   const handleDeleteComments = () => {
+      const filteredComments = comments.filter(
+         comment => comment.checked && comment.checked,
+      );
+
+      const commentsIds = filteredComments.map(ads => ads.id);
+
+      dispatch(deleteComments({ ids: commentsIds, toggleModal }));
+   };
 
    const formatDate = date => {
       const [day, month, year] = date.split('.');
@@ -220,9 +229,9 @@ export const Moderation = () => {
             onSelectChange={handleSelectChange}
             inputData={inputData}
             selectsConfig={selectsConfig}
-            onDeleteModal={() => handleToggle('TOGGLE_DELETE_MODAL')}
+            onDeleteModal={() => toggleModal('TOGGLE_DELETE_MODAL')}
             handleChange={handleInputChange}
-            onResetFilter={() => handleToggle('RESET_FILTER')}
+            onResetFilter={() => toggleModal('RESET_FILTER')}
             value={state.inputValues}
             handleDateChange={handleDateChange}
          />
@@ -235,12 +244,13 @@ export const Moderation = () => {
 
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
-            onClose={() => handleToggle('TOGGLE_DELETE_MODAL')}
+            onClose={() => toggleModal('TOGGLE_DELETE_MODAL')}
+            onDelete={handleDeleteComments}
          />
 
          <WaitingModal
             isOpen={state.waitingModal}
-            onClose={() => handleToggle('TOGGLE_WAITING_MODAL')}
+            onClose={() => toggleModal('TOGGLE_WAITING_MODAL')}
          />
       </Wrapper>
    );
