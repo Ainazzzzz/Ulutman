@@ -1,40 +1,58 @@
+import { useState } from 'react';
 import { Grid, styled, useMediaQuery } from '@mui/material';
 import { CardItem } from './CardItem';
 import { SceletonCard } from './SceletonCard';
 import { Advertising } from './Advertising';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
    deleteFavoriteStatus,
    updateFavoriteStatus,
 } from '../../../redux/main/mainThunk';
+import { SignIn } from '../../../pages/user/auth/SignIn';
 
 export const CardList = ({ cards, advertising, loading }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const { isAuth } = useSelector(state => state.auth);
    const dispatch = useDispatch();
+   const [openLogin, setOpenLogin] = useState(false);
 
    const updateFavoriteHandler = id => {
-      dispatch(updateFavoriteStatus(id));
+      if (isAuth) {
+         dispatch(updateFavoriteStatus(id));
+      } else {
+         setOpenLogin(true);
+      }
    };
+
    const deleteFavoriteHandler = id => {
-      dispatch(deleteFavoriteStatus(id));
+      if (isAuth) {
+         dispatch(deleteFavoriteStatus(id));
+      } else {
+         setOpenLogin(true);
+      }
+   };
+
+   const handleCloseLogin = () => {
+      setOpenLogin(false);
    };
 
    return (
       <StyledContainer>
-         {loading && <SceletonCard />}
-
-         <CardListBox container spacing={2.5}>
-            {cards?.map(card => (
-               <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
-                  <CardItem
-                     {...card}
-                     onUpdateFavorite={updateFavoriteHandler}
-                     onDeleteFavorite={deleteFavoriteHandler}
-                  />
-               </Grid>
-            ))}
-         </CardListBox>
-
+         {loading ? (
+            <SceletonCard />
+         ) : (
+            <CardListBox container spacing={2.5}>
+               {cards?.map(card => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
+                     <CardItem
+                        {...card}
+                        onUpdateFavorite={() => updateFavoriteHandler(card.id)}
+                        onDeleteFavorite={() => deleteFavoriteHandler(card.id)}
+                     />
+                  </Grid>
+               ))}
+            </CardListBox>
+         )}
          {isMobile && advertising && (
             <WrapperAdvertising>
                {advertising?.map((image, i) => (
@@ -42,6 +60,7 @@ export const CardList = ({ cards, advertising, loading }) => {
                ))}
             </WrapperAdvertising>
          )}
+         <SignIn open={openLogin} onClose={handleCloseLogin} />{' '}
       </StyledContainer>
    );
 };

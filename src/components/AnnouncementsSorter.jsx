@@ -5,17 +5,17 @@ import MenuItem from '@mui/material/MenuItem';
 import ArrowsIcon from '../assets/icons/arrows.svg?react';
 import { Button } from './UI/Button';
 
-const AnnouncementsSorter = ({ onSortChange }) => {
+const AnnouncementsSorter = ({ onSortChange, options = [] }) => {
    const [anchorEl, setAnchorEl] = useState(null);
    const [selectedValue, setSelectedValue] = useState('Все категории');
 
    const handleClick = event => setAnchorEl(event.currentTarget);
 
-   const handleClose = value => {
+   const handleClose = option => {
       setAnchorEl(null);
-      const newValue = value || selectedValue;
+      const newValue = option.label || selectedValue;
       setSelectedValue(newValue);
-      onSortChange(newValue);
+      onSortChange(option.value);
    };
 
    return (
@@ -42,21 +42,11 @@ const AnnouncementsSorter = ({ onSortChange }) => {
                'aria-labelledby': 'basic-button',
             }}
          >
-            <MenuItem onClick={() => handleClose('Все категории')}>
-               Все категории
-            </MenuItem>
-            <MenuItem onClick={() => handleClose('Цена по возрастанию')}>
-               Цена по возрастанию
-            </MenuItem>
-            <MenuItem onClick={() => handleClose('Цена по убыванию')}>
-               Цена по убыванию
-            </MenuItem>
-            <MenuItem onClick={() => handleClose('Дата по возрастанию')}>
-               Дата по возрастанию
-            </MenuItem>
-            <MenuItem onClick={() => handleClose('Дата по убыванию')}>
-               Дата по убыванию
-            </MenuItem>
+            {options.map(option => (
+               <MenuItem key={option.value} onClick={() => handleClose(option)}>
+                  {option.label}
+               </MenuItem>
+            ))}
          </StyledMenu>
       </>
    );

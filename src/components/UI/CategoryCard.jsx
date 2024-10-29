@@ -7,11 +7,11 @@ import GrayHeart from '../../assets/icons/gray-heart-icon.svg?react';
 import GrayMessage from '../../assets/icons/gray-message-icon.svg?react';
 import { IconButton } from '../IconButton';
 
-export const CategoryCard = () => {
+export const CategoryCard = ({ categories = [] }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    return (
       <>
-         {category.map(item => (
+         {categories?.map(item => (
             <Container key={item.id}>
                {isMobile ? (
                   <>

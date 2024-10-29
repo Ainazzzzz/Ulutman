@@ -36,3 +36,33 @@ export const deleteFavoriteStatus = createAsyncThunk(
       }
    },
 );
+
+export const sortPublishesRequest = createAsyncThunk(
+   'main/sortPublishesRequest',
+   async (category = '', { rejectWithValue }) => {
+      try {
+         const { data } = await axiosInstance.get(
+            `main-page/filter?sortBy=${category}`,
+         );
+         return data;
+      } catch (error) {
+         return rejectWithValue(error.message);
+      }
+   },
+);
+
+export const searchCategoryAndMetroRequest = createAsyncThunk(
+   'main/searchCategoryAndMetroRequest',
+   async (mainData, { rejectWithValue }) => {
+      try {
+         const { data } = await axiosInstance.get(
+            `main-page/search${mainData}`,
+         );
+         console.log(data);
+
+         return data;
+      } catch (error) {
+         return rejectWithValue(error.message);
+      }
+   },
+);

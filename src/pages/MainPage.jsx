@@ -3,18 +3,20 @@ import { MainBanner } from '../components/main-page/MainBanner';
 import AnnouncementsSorter from '../components/AnnouncementsSorter';
 import AboutUs from '../components/main-page/AboutUs';
 import { Button } from '../components/UI/Button';
-import { CARDS } from '../utils/constants';
+import { CARDS, SORT_BY_CATEGROY_OPTIONS } from '../utils/constants';
 import { CardList } from '../components/UI/Card/CardList';
 import Slider from '../components/main-page/Slider';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMainAds } from '../redux/main/mainThunk';
+import { getMainAds, sortPublishesRequest } from '../redux/main/mainThunk';
+import { useNavigate } from 'react-router-dom';
 
 export const MainPage = () => {
-   const { publishes } = useSelector(state => state.main);
-   const [limitAds, setLimitAds] = useState(12);
+   const { publishes, isLoading } = useSelector(state => state.main);
+
    const [sortedAds, setSortedAds] = useState([]);
    const dispatch = useDispatch();
+   const navigate = useNavigate();
 
    useEffect(() => {
       dispatch(getMainAds());
@@ -25,28 +27,11 @@ export const MainPage = () => {
    }, [publishes]);
 
    const seeMoreHandler = () => {
-      setLimitAds(prevState => prevState + 8);
+      navigate('/user/recommendations');
    };
 
    const handleSortChange = sortValue => {
-      let sortedList = [...publishes];
-      switch (sortValue) {
-         case 'Цена по возрастанию':
-            sortedList.sort((a, b) => a.price - b.price);
-            break;
-         case 'Цена по убыванию':
-            sortedList.sort((a, b) => b.price - a.price);
-            break;
-         case 'Дата по возрастанию':
-            sortedList.sort((a, b) => new Date(a.date) - new Date(b.date));
-            break;
-         case 'Дата по убыванию':
-            sortedList.sort((a, b) => new Date(b.date) - new Date(a.date));
-            break;
-         default:
-            sortedList = publishes;
-      }
-      setSortedAds(sortedList);
+      dispatch(sortPublishesRequest(sortValue));
    };
 
    return (
@@ -58,11 +43,15 @@ export const MainPage = () => {
          <Container>
             <Block>
                <Title>Страница объявлений</Title>
-               <AnnouncementsSorter onSortChange={handleSortChange} />
+               <AnnouncementsSorter
+                  options={SORT_BY_CATEGROY_OPTIONS}
+                  onSortChange={handleSortChange}
+               />
             </Block>
             <CardList
-               cards={sortedAds.slice(0, limitAds)}
+               cards={sortedAds.slice(0, 8)}
                advertising={CARDS}
+               loading={isLoading}
             />
             <Button variant="category-sort" onClick={seeMoreHandler}>
                Посмотреть еще
@@ -88,7 +77,7 @@ const Block = styled('div')(({ theme }) => ({
       gap: '10px',
    },
 }));
-const Container = styled('div')(({ theme }) => ({
+export const Container = styled('div')(({ theme }) => ({
    padding: '60px',
    display: 'flex',
    flexDirection: 'column',

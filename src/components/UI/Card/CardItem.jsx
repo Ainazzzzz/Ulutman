@@ -5,6 +5,7 @@ import PhoneIcon from '../../../assets/icons/phone-icon.svg?react';
 import LikeIcon from '../../../assets/icons/like-icon.svg?react';
 import Modal from '../Modal';
 import { useState } from 'react';
+import emptyImageCard from '../../../assets/images/no-image.jpg';
 
 export const CardItem = ({
    description,
@@ -22,7 +23,7 @@ export const CardItem = ({
    return (
       <StyledCard>
          <StyledCardMedia
-            image={images[0] || 'fallback-image-url.jpg'}
+            image={images[0] || emptyImageCard}
             title={description}
          />
 

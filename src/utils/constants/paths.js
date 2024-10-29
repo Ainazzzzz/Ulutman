@@ -7,6 +7,8 @@ export const PATHS = {
       DETAIL_INFO: '/user/detail-info',
       CATEGORY: '/user/category/:subCategory',
       DETAILS: '/user/details/:detailsInfo',
+      RECOMMENDATIONS: '/user/recommendations',
+      MAIN_PHP: '/user/main.php',
    },
    ADMIN: {
       ROOT: '/admin',

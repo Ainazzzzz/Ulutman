@@ -1,5 +1,6 @@
 export const category = [
    {
+      id: '1',
       image: 'https://latqvbedpllwqek.skdesign.ru/wp-content/uploads/2022/12/238862_childrens-room_1-min.jpg',
       price: 50000,
       room: '2',

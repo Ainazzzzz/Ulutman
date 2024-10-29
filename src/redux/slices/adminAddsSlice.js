@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-   getAdminAdds,
-   deleteAdminAds,
-   getName,
-   getAdminFilter,
-} from '../thunks/adminAddThunk';
+import { getAdminAdds, getName, getAdminFilter } from '../thunks/adminAddThunk';
 
 export const addsAdminSlice = createSlice({
    name: 'adminAdds',

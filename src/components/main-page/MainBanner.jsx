@@ -8,13 +8,38 @@ import banner from '../../assets/images/main.png';
 import MobileBanner from '../../assets/images/mobile-banner.png';
 import { categories, metroOptions } from '../../utils/constants/main';
 import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../utils/constants/paths';
+import { serializeToQueryParams } from '../../utils/general/serialize';
 
 export const MainBanner = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+
    const [selectValue, setSelectValue] = useState('select-metro');
+   const [selectedCategory, setSelectedCategory] = useState('По умолчанию');
+   const [searchValue, setSearchValue] = useState('');
 
    const navigate = useNavigate();
+
+   const searchChangeHandler = e => {
+      setSearchValue(e.target.value);
+   };
+
+   const selectMetroChangeHandler = e => {
+      setSelectValue(e.target.value);
+   };
+
+   const handleNavigate = () => {
+      const queryParams = serializeToQueryParams({
+         search: searchValue,
+         metro: selectValue === 'select-metro' ? '' : selectValue,
+         category: selectedCategory,
+      });
+      navigate({
+         pathname: PATHS.USER.MAIN_PHP,
+         search: queryParams,
+      });
+   };
 
    return (
       <MainContainer banner={mobile ? MobileBanner : banner}>
@@ -23,19 +48,25 @@ export const MainBanner = () => {
 
             <InputWrapper>
                <div className="container-select">
-                  <CategoryMenu />
+                  <CategoryMenu
+                     selectedCategory={selectedCategory}
+                     setSelectedCategory={setSelectedCategory}
+                  />
                   {isMobile && (
                      <StyledSelect
+                        onChange={selectMetroChangeHandler}
                         options={metroOptions}
-                        value={selectValue}
-                        onChange={event => setSelectValue(event.target.value)}
+                        value={selectValue || 'Выбрать метро'}
                      />
                   )}
                </div>
 
                <SearchInputSelect
+                  onClick={handleNavigate}
                   selectValue={selectValue}
                   options={metroOptions}
+                  handleChangeSearch={searchChangeHandler}
+                  search={searchValue}
                   onSelectChange={event => setSelectValue(event.target.value)}
                />
             </InputWrapper>
@@ -180,7 +211,7 @@ const NavList = styled('ul')(({ theme }) => ({
    },
 }));
 
-const NavItem = styled('li')(({ background, theme }) => ({
+const NavItem = styled('li')(({ theme }) => ({
    minWidth: '100px',
    a: {
       display: 'flex',
