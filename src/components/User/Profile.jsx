@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { styled } from '@mui/material';
 import { Button } from '../UI/Button';
 import Input from '../UI/Input';
@@ -8,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserProfile } from '../../redux/users/profileThunk';
 
 export const Profile = () => {
-   const [isEmailConfirmed, setIsEmailConfirmed] = useState(true);
    const { userData } = useSelector(state => state.auth);
 
    const dispatch = useDispatch();
@@ -25,29 +23,6 @@ export const Profile = () => {
          dispatch(updateUserProfile({ profileData, userId: userData.userId }));
       },
    });
-
-   const sendEmailLink = async () => {
-      if (!formik.values.emailAddress) {
-         setIsEmailConfirmed(false);
-      } else {
-         // try {
-         //    setIsEmailConfirmed(true);
-         //    const response = await axios.post(
-         //       'https://your-server.com/api/v1/send-confirmation',
-         //       {
-         //          email: formik.values.emailAddress, // Send the email for confirmation
-         //       },
-         //    );
-         //    if (response.status === 200) {
-         //       console.log('Email confirmation link sent successfully');
-         //    } else {
-         //       console.log('Failed to send confirmation link');
-         //    }
-         // } catch (error) {
-         //    console.error('Error sending confirmation link', error);
-         // }
-      }
-   };
 
    return (
       <Form onSubmit={formik.handleSubmit}>
@@ -94,7 +69,7 @@ export const Profile = () => {
                value={formik.values.phoneNumber}
                onChange={formik.handleChange}
                onBlur={formik.handleBlur}
-               autoComplete="tel"
+               // autoComplete="tel"
             />
 
             {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
@@ -102,29 +77,22 @@ export const Profile = () => {
             ) : null}
          </Container>
 
-         <WrapperEmailConfirmation>
-            <Container>
-               <EmailInput
-                  label="Электронная почта"
-                  type="email"
-                  placeholder="example@mail.com"
-                  name="emailAddress"
-                  value={formik.values.emailAddress}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  autoComplete="email"
-                  confirmed={!isEmailConfirmed && 'Не подтвержден'}
-               />
+         <Container>
+            <EmailInput
+               label="Электронная почта"
+               type="email"
+               placeholder="example@mail.com"
+               name="emailAddress"
+               value={formik.values.emailAddress}
+               onChange={formik.handleChange}
+               onBlur={formik.handleBlur}
+               autoComplete="email"
+            />
 
-               {formik.touched.emailAddress && formik.errors.emailAddress ? (
-                  <ErrorMessage>{formik.errors.emailAddress}</ErrorMessage>
-               ) : null}
-            </Container>
-
-            <ConfirmationLink onClick={sendEmailLink}>
-               Отправить ссылку для подтверждения
-            </ConfirmationLink>
-         </WrapperEmailConfirmation>
+            {formik.touched.emailAddress && formik.errors.emailAddress ? (
+               <ErrorMessage>{formik.errors.emailAddress}</ErrorMessage>
+            ) : null}
+         </Container>
 
          <StyledButton type="submit">Сохранить</StyledButton>
       </Form>
@@ -164,25 +132,6 @@ const EmailInput = styled(Input)(({ theme }) => ({
       width: '100%',
       maxWidth: '463px',
    },
-}));
-
-const ConfirmationLink = styled('p')(() => ({
-   maxWidth: '300px',
-   minHeight: '33px',
-   border: '1px solid #7E52FF',
-   background: '#7E52FF1A',
-   padding: '8px 10px 8px 10px',
-   borderRadius: '8px',
-   color: '#7E52FF',
-   fontSize: '14px',
-   fontWeight: '500',
-   cursor: 'pointer',
-}));
-
-const WrapperEmailConfirmation = styled('div')(() => ({
-   display: 'flex',
-   flexDirection: 'column',
-   gap: '18px',
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({

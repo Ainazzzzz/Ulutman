@@ -23,6 +23,7 @@ import Language from '../assets/icons/language-icon.svg?react';
 import LogOutIcon from '../assets/icons/come-icon.svg?react';
 import { logOut } from '../redux/auth/authThunk.js';
 import { useNavigate } from 'react-router-dom';
+import DownIcon from '../assets/icons/select-down-icon.svg?react';
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -52,6 +53,7 @@ export const Header = () => {
    const [language, setLanguage] = useState('ru');
    const [openMenu, setOpenMenu] = useState(null);
    const [openModal, setOpenModal] = useState(false);
+   const [openOptionsProfile, setOpenOptionsProfile] = useState(false);
 
    const handleSelect = event => setLanguage(event.target.value);
    const handleClick = event => setOpenMenu(event.currentTarget);
@@ -76,6 +78,10 @@ export const Header = () => {
    const navigateToPageHandler = path => {
       navigate(path);
       handleClose();
+   };
+
+   const profileHandler = () => {
+      setOpenOptionsProfile(!openOptionsProfile);
    };
 
    return (
@@ -158,11 +164,12 @@ export const Header = () => {
                            </IconButton>
                            <a>Избранное</a>
                         </Block>
-                        <Block onClick={() => handleNavigationPage('profile')}>
+                        <Block onClick={profileHandler} id="basic-menu">
                            <IconButton>
                               <UserLogo />
                            </IconButton>
                            <UserName>{userData.name}</UserName>
+                           <DownIcon />
                         </Block>
                      </>
                   ) : null}
