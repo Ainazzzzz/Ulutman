@@ -19,6 +19,7 @@ export const PATHS = {
       COMMENTS: '/admin/moderation/comments',
       IMAGES: '/admin/moderation/images',
       MAILING: '/admin/users/mailing',
+      ADD_MAILING: '/admin/users/add-mailing',
       ADD_ADMIN: '/admin/add-administrator',
       SETTINGS: '/admin/settings',
    },

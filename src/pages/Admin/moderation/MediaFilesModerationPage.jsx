@@ -67,7 +67,7 @@ const reducer = (state, action) => {
    }
 };
 
-export const MediaFilesModerationPage = () => {
+const MediaFilesModerationPage = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
 
    const handleToggle = useCallback(type => dispatch({ type }), []);
@@ -129,6 +129,8 @@ export const MediaFilesModerationPage = () => {
       </Wrapper>
    );
 };
+
+export default MediaFilesModerationPage;
 
 const Description = styled('h2')(({ theme }) => ({
    fontWeight: 600,
