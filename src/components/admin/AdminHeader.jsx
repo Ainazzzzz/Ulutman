@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
 import Search from '../../assets/icons/searchgrey.svg?react';
-import Frame from '../../assets/icons/frame.svg?react';
 import User from '../../assets/icons/userprofile.svg?react';
 import UlutmanLogo from '../../assets/icons/ulutman-logo-icon.svg?react';
 import MenuAdmin from '../../assets/icons/menu-icon.svg?react';
@@ -27,7 +26,6 @@ import { languages } from '../../utils/constants/languages';
 import { IconButton } from '../IconButton';
 import LanguageModal from './LanguageModal.jsx';
 import { renderFlag } from '../../utils/general/renderFlag.jsx';
-import languageModal from './LanguageModal.jsx';
 
 const AdminHeader = () => {
    const { i18n, t } = useTranslation();
@@ -62,6 +60,15 @@ const AdminHeader = () => {
       setOpenLanguageModal(true);
       setOpenMenu(null);
    };
+
+   const languages = [
+      { label: t('admin.header.select.ru'), value: 'ru' },
+      { label: t('admin.header.select.kg'), value: 'kg' },
+      { label: t('admin.header.select.tj'), value: 'tj' },
+      { label: t('admin.header.select.uz'), value: 'uz' },
+      { label: t('admin.header.select.en'), value: 'en' },
+      { label: t('admin.header.select.tr'), value: 'tr' },
+   ];
 
    return (
       <>
@@ -138,9 +145,6 @@ const AdminHeader = () => {
                   </InputStyle>
 
                   <MiddleContainerBox>
-                     <FrameStyle>
-                        <Frame />
-                     </FrameStyle>
                      <FlagLanguageStyle>
                         <div>{renderFlag(language)}</div>
                         <SelectStyle
@@ -150,10 +154,7 @@ const AdminHeader = () => {
                         />
                      </FlagLanguageStyle>
                      <ContainerProfileTitle>
-                        <ProfileLogo>
-                           <User />
-                        </ProfileLogo>
-                        <TitleAdmin>Tezekbaev </TitleAdmin>
+                        <TitleAdmin>Administrator </TitleAdmin>
                      </ContainerProfileTitle>
                   </MiddleContainerBox>
                </SehondBigContainer>
@@ -213,7 +214,7 @@ const SearchIconStyle = styled('div')(() => ({
 }));
 const MiddleContainerBox = styled('div')(() => ({
    display: 'flex',
-   gap: '20px',
+   gap: '50px',
    justifyContent: 'center',
    alignItems: 'center',
    paddingBottom: '10px',
@@ -254,7 +255,6 @@ const SelectStyle = styled(ReusableSelect)(() => ({
 }));
 const FlagLanguageStyle = styled('div')(({ theme }) => ({
    display: 'flex',
-   width: '170px',
    gap: '10px',
    alignItems: 'center',
 }));
@@ -302,10 +302,9 @@ const MenuItemStyle = styled(MenuItem)(() => ({
          stroke: '#7e51ff',
       },
 
+      color: '#7e52ff',
       a: {
-         '&:hover': {
-            color: '#7e52ff',
-         },
+         color: '#7e52ff',
       },
    },
 

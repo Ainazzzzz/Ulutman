@@ -14,7 +14,14 @@ export const DatePicker = ({ setDate }) => {
    const [selectedDates, setSelectedDates] = useState([]);
 
    const handleDateChange = newDate => {
-      setDates(prev => [...prev, newDate.format('DD.MM.YY')]);
+      const formattedNewDate = newDate.format('DD.MM.YY');
+      setDates(prev => {
+         if (!prev.includes(formattedNewDate)) {
+            return [...prev, formattedNewDate];
+         }
+         return prev;
+      });
+
       setSelectedDates(prevDates => {
          const dateExists = prevDates.some(date => date.isSame(newDate, 'day'));
          if (dateExists) {
@@ -66,13 +73,11 @@ export const DatePicker = ({ setDate }) => {
    );
 
    const renderDay = day => {
-      const isSelected = selectedDates.some(date => date.isSame(day, 'day'));
+      const formattedDay = day.format('DD.MM.YY');
       return (
          <Box
             onClick={() => handleDateChange(day)}
             sx={{
-               backgroundColor: isSelected ? '#7e52ff' : 'transparent',
-               color: isSelected ? 'white' : 'inherit',
                borderRadius: '50%',
                display: 'inline-block',
                width: '36px',
@@ -100,7 +105,6 @@ export const DatePicker = ({ setDate }) => {
                onChange={handleDateChange}
                open={open}
                onOpen={handleOpen}
-               onClose={handleClose}
                renderDay={renderDay}
                slots={{
                   openPickerIcon: DatePickerIcon,
@@ -217,6 +221,7 @@ const DateContainer = styled('div')(() => ({
    overflow: 'hidden',
    overflowY: 'auto',
    alignItems: 'start',
+   gap: '5px',
 }));
 
 const Date = styled(Typography)(() => ({

@@ -41,13 +41,8 @@ const dataArray = [
             key: 'comments',
             value: 'Модерация комментариев и сообщений',
          },
-         {
-            key: 'images',
-            value: 'Проверка изображений и медиафайлов',
-         },
       ],
    },
-   { key: 'analitic', value: 'Аналитика' },
 ];
 
 export const SideBar = () => {
@@ -55,13 +50,11 @@ export const SideBar = () => {
    const navigate = useNavigate();
 
    const [openModal, setOpenModal] = useState(false);
-   const [activeSubLink, setActiveSubLink] = useState(null); // состояние для активного подменю
-
+   const [activeSubLink, setActiveSubLink] = useState(null);
    const toggleModal = () => setOpenModal(prev => !prev);
 
-   // Функция для открытия/закрытия подменю
    const toggleSubLink = key => {
-      setActiveSubLink(prev => (prev === key ? null : key)); // переключение состояния
+      setActiveSubLink(prev => (prev === key ? null : key));
    };
 
    const DrawerList = (
@@ -102,11 +95,6 @@ export const SideBar = () => {
          <br />
          <List>
             <ListItemStyle>
-               <NavStyle to={'settings'}>
-                  {t('admin.sideBar.settings')}
-               </NavStyle>
-            </ListItemStyle>
-            <ListItemStyle>
                <LogOutBtn onClick={toggleModal}>
                   {t('admin.sideBar.logOut')}
                </LogOutBtn>
@@ -143,11 +131,13 @@ const DrawerStyle = styled(Box)(() => ({
 const ListItemStyle = styled(ListItem)(() => ({
    paddingTop: '0px',
    paddingBottom: '0px',
+   margin: '0 0 5px 0',
 }));
 
 const SubListItem = styled(ListItem)(() => ({
    paddingTop: '0px',
    paddingBottom: '0px',
+   margin: '0 0 5px 10px',
 }));
 
 const NavStyle = styled(NavLink)(() => ({

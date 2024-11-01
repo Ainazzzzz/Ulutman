@@ -1,5 +1,4 @@
 import { styled, useMediaQuery } from '@mui/material';
-import ChevronLeft from '../../assets/icons/chevron-left.svg?react';
 import DeleteAll from '../../assets/icons/delete-all-icon.svg?react';
 import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react';
 import { MyAds } from './MyAds';

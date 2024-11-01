@@ -8,8 +8,9 @@ import { NavLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { signUpSchema } from '../../../utils/general/validation/authValidation.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '../../../redux/auth/authThunk.js'; // Импорт Yup
+import Spinner from '../../../components/UI/Spinner.jsx';
 
 const signUpInputs = [
    {
@@ -38,6 +39,7 @@ const signUpInputs = [
 
 const SignUp = ({ open, onClose, onOpen }) => {
    const dispatch = useDispatch();
+   const { isLoading } = useSelector(state => state.auth);
 
    const { values, handleChange, handleSubmit, errors, touched } = useFormik({
       initialValues: {
@@ -91,7 +93,13 @@ const SignUp = ({ open, onClose, onOpen }) => {
                   )}
                </div>
             ))}
-            <Button type={'submit'}>Регистрация</Button>
+            {isLoading ? (
+               <Button disabled={isLoading}>
+                  <Spinner />
+               </Button>
+            ) : (
+               <Button type={'submit'}>Регистрация</Button>
+            )}
 
             <Typography align="center">
                У вас есть аккаунт?{' '}
