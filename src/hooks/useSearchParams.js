@@ -7,7 +7,7 @@ export const useMainCategoryParams = () => {
       setSearchParams({});
    };
 
-   const search = searchParams.get('search');
+   const search = searchParams.get('search') || '';
    const category = searchParams.get('category');
    const metro = searchParams.get('metro');
 

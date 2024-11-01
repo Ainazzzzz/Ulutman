@@ -9,11 +9,14 @@ import {
    updateFavoriteStatus,
 } from '../../../redux/main/mainThunk';
 import { SignIn } from '../../../pages/user/auth/SignIn';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../../utils/constants/paths';
 
 export const CardList = ({ cards, advertising, loading }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const { isAuth } = useSelector(state => state.auth);
    const dispatch = useDispatch();
+   const navigate = useNavigate();
    const [openLogin, setOpenLogin] = useState(false);
 
    const updateFavoriteHandler = id => {
@@ -36,6 +39,9 @@ export const CardList = ({ cards, advertising, loading }) => {
       setOpenLogin(false);
    };
 
+   const handleNavigateDetail = id => {
+      navigate(PATHS.USER.DETAILS.replace(':detailsInfo', id));
+   };
    return (
       <StyledContainer>
          {loading ? (
@@ -46,6 +52,7 @@ export const CardList = ({ cards, advertising, loading }) => {
                   <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
                      <CardItem
                         {...card}
+                        onNavigateDetail={handleNavigateDetail}
                         onUpdateFavorite={() => updateFavoriteHandler(card.id)}
                         onDeleteFavorite={() => deleteFavoriteHandler(card.id)}
                      />

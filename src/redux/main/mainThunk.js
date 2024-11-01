@@ -58,7 +58,19 @@ export const searchCategoryAndMetroRequest = createAsyncThunk(
          const { data } = await axiosInstance.get(
             `main-page/search${mainData}`,
          );
-         console.log(data);
+
+         return data;
+      } catch (error) {
+         return rejectWithValue(error.message);
+      }
+   },
+);
+
+export const getAllMetros = createAsyncThunk(
+   'main/getAllMetros',
+   async (_, { rejectWithValue }) => {
+      try {
+         const { data } = await axiosInstance.get(`main-page/all/metro`);
 
          return data;
       } catch (error) {

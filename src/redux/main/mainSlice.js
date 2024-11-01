@@ -1,6 +1,7 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
    deleteFavoriteStatus,
+   getAllMetros,
    getMainAds,
    searchCategoryAndMetroRequest,
    sortPublishesRequest,
@@ -12,6 +13,7 @@ export const mainSlice = createSlice({
    initialState: {
       publishes: [],
       searchPublishes: [],
+      metros: [],
       isLoading: false,
    },
    extraReducers: builder => {
@@ -58,7 +60,10 @@ export const mainSlice = createSlice({
                state.searchPublishes = payload;
                state.isLoading = false;
             },
-         );
+         )
+         .addMatcher(isAnyOf(getAllMetros.fulfilled), (state, { payload }) => {
+            state.metros = payload;
+         });
    },
 });
 

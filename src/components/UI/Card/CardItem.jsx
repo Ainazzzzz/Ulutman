@@ -17,6 +17,7 @@ export const CardItem = ({
    onDeleteFavorite,
    phoneNumber,
    id,
+   onNavigateDetail,
 }) => {
    const [phoneModal, setPhoneModal] = useState('');
 
@@ -25,6 +26,7 @@ export const CardItem = ({
          <StyledCardMedia
             image={images[0] || emptyImageCard}
             title={description}
+            onClick={() => onNavigateDetail(id)}
          />
 
          <ContainerInfo>
@@ -194,7 +196,7 @@ const AddressText = styled('p')(({ theme }) => ({
    },
 }));
 
-const WrapperPhone = styled('div')({
+export const WrapperPhone = styled('div')({
    display: 'flex',
    alignItems: 'center',
    flexDirection: 'column',
@@ -202,13 +204,13 @@ const WrapperPhone = styled('div')({
    padding: '10px 0 20px 0',
 });
 
-const TitlePhone = styled('p')({
+export const TitlePhone = styled('p')({
    fontSize: '20px',
    fontWeight: '400',
    color: '#202020',
 });
 
-const PhoneNumberSingle = styled('h1')({
+export const PhoneNumberSingle = styled('h1')({
    fontSize: '24px',
    fontWeight: '500',
    color: '#282828',

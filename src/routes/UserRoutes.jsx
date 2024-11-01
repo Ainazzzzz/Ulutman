@@ -63,7 +63,7 @@ export const UserRoutes = role => [
       ),
    },
    {
-      path: PATHS.USER.DETAIL_INFO,
+      path: PATHS.USER.DETAILS,
       element: (
          <PrivateAuthRouteByRole
             role={role}

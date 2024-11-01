@@ -10,7 +10,7 @@ import ReusableSelect from './Select';
 
 export const SearchInputSelect = ({
    onClick,
-   selectValue = 'Aviamotornaya',
+   selectValue,
    handleChangeSearch,
    onSelectChange,
    options,
@@ -39,6 +39,7 @@ export const SearchInputSelect = ({
                               value={selectValue}
                               options={options}
                               onChange={onSelectChange}
+                              placeholder={'выберите метро'}
                            />
                         </InputAdornment>
                      )}
@@ -46,11 +47,9 @@ export const SearchInputSelect = ({
                ),
             }}
          />
-         {isMobile || (
-            <Button variant="search" onClick={onClick}>
-               Поиск
-            </Button>
-         )}
+         <Button variant="search" onClick={onClick}>
+            Поиск
+         </Button>
       </Wrapper>
    );
 };
@@ -59,6 +58,11 @@ const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
    width: '100%',
    height: '56px',
+   [theme.breakpoints.down('md')]: {
+      '& > button': {
+         height: '45px',
+      },
+   },
 }));
 
 const StyledInput = styled(TextField)(({ theme }) => ({
@@ -70,8 +74,7 @@ const StyledInput = styled(TextField)(({ theme }) => ({
    justifyContent: 'center',
 
    [theme.breakpoints.down('md')]: {
-      borderRadius: '10px',
-      height: '40px',
+      height: '45px',
    },
 
    '.search_icon': {

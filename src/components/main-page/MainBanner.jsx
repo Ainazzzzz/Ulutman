@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled, useMediaQuery } from '@mui/material';
 import CategoryMenu from '../CategoryMenu';
 import { SearchInputSelect } from '../UI/SearchInputSelect';
@@ -6,33 +6,32 @@ import ReusableSelect from '../UI/Select';
 
 import banner from '../../assets/images/main.png';
 import MobileBanner from '../../assets/images/mobile-banner.png';
-import { categories, metroOptions } from '../../utils/constants/main';
+import { categories } from '../../utils/constants/main';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../utils/constants/paths';
 import { serializeToQueryParams } from '../../utils/general/serialize';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllMetros } from '../../redux/main/mainThunk';
 
 export const MainBanner = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+   const { metros } = useSelector(state => state.main);
 
-   const [selectValue, setSelectValue] = useState('select-metro');
+   const [selectValue, setSelectValue] = useState('');
    const [selectedCategory, setSelectedCategory] = useState('По умолчанию');
    const [searchValue, setSearchValue] = useState('');
 
    const navigate = useNavigate();
+   const dispatch = useDispatch();
 
-   const searchChangeHandler = e => {
-      setSearchValue(e.target.value);
-   };
-
-   const selectMetroChangeHandler = e => {
-      setSelectValue(e.target.value);
-   };
+   const searchChangeHandler = e => setSearchValue(e.target.value);
+   const selectMetroChangeHandler = e => setSelectValue(e.target.value);
 
    const handleNavigate = () => {
       const queryParams = serializeToQueryParams({
          search: searchValue,
-         metro: selectValue === 'select-metro' ? '' : selectValue,
+         metro: selectValue,
          category: selectedCategory,
       });
       navigate({
@@ -40,6 +39,10 @@ export const MainBanner = () => {
          search: queryParams,
       });
    };
+
+   useEffect(() => {
+      dispatch(getAllMetros());
+   }, [dispatch]);
 
    return (
       <MainContainer banner={mobile ? MobileBanner : banner}>
@@ -55,8 +58,9 @@ export const MainBanner = () => {
                   {isMobile && (
                      <StyledSelect
                         onChange={selectMetroChangeHandler}
-                        options={metroOptions}
-                        value={selectValue || 'Выбрать метро'}
+                        options={metros}
+                        value={selectValue}
+                        placeholder={'выберите метро'}
                      />
                   )}
                </div>
@@ -64,7 +68,7 @@ export const MainBanner = () => {
                <SearchInputSelect
                   onClick={handleNavigate}
                   selectValue={selectValue}
-                  options={metroOptions}
+                  options={metros}
                   handleChangeSearch={searchChangeHandler}
                   search={searchValue}
                   onSelectChange={event => setSelectValue(event.target.value)}
