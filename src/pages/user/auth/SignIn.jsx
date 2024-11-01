@@ -60,7 +60,6 @@ export const SignIn = ({ open, onClose, onOpen }) => {
             </IconStyle>
             <Box onSubmit={handleSubmit}>
                <h2>Войти</h2>
-<<<<<<< HEAD
                <div style={{ position: 'relative' }}>
                   <InputContainer>
                      <Input
@@ -91,7 +90,6 @@ export const SignIn = ({ open, onClose, onOpen }) => {
                </div>
 
                <Button type={'submit'}>Войти</Button>
-=======
                <Input
                   placeholder="Введите email"
                   value={email}
@@ -113,7 +111,6 @@ export const SignIn = ({ open, onClose, onOpen }) => {
                ) : (
                   <Button type={'submit'}>Войти</Button>
                )}
->>>>>>> e0c7d76a2999fd4e8105943b2a8feaab2421d961
                <Typography align="center">
                   У вас нету аккаунта?{' '}
                   <NavLink to={''} onClick={handleOpenSignUp}>

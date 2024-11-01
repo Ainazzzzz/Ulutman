@@ -5,12 +5,9 @@ import { complaintsSlice } from './complaints.Slice';
 import { addsAdminSlice } from './slices/adminAddsSlice';
 import { usersSlice } from './users/usersSlice';
 import { dashboardSlices } from './dashboard/dashboardSlices';
-<<<<<<< HEAD
 import { favoriteSlice } from './users/favoriteSlice';
-=======
 import { mailingSlice } from './mailing/mailingSlice';
 import { categoriesSlice } from './categories/categoriesSlice';
->>>>>>> e0c7d76a2999fd4e8105943b2a8feaab2421d961
 import { publishesSlice } from './publishes/publishesSlice';
 
 export const store = configureStore({
