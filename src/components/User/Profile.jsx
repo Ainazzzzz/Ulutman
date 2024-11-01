@@ -103,10 +103,6 @@ const Form = styled('form')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
-   padding: '40px 57px',
-   [theme.breakpoints.down('md')]: {
-      padding: '40px 16px',
-   },
 }));
 
 const WrapperFullName = styled('div')(({ theme }) => ({
