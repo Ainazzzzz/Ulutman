@@ -4,10 +4,16 @@ import DeleteAll from '../../assets/icons/delete-all-icon.svg?react';
 import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react';
 import { MyAds } from './MyAds';
 import TabsUi from '../UI/TabsUi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DeleteMyAdsModal } from './DeleteMyAdsModal';
+import { getMyAds } from '../../redux/users/myAdsThunk';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Ads = () => {
+   // const dispatch = useDispatch();
+   // const { myAds } = useSelector(state => state.myAds);
+   // console.log(myAds);
+
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const [selectedIds, setSelectedIds] = useState([]);
    const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +29,10 @@ export const Ads = () => {
       console.log('selectedId', selectedIds);
       setIsModalOpen(!isModalOpen);
    };
+
+   // useEffect(() => {
+   //    dispatch(getMyAds());
+   // }, []);
 
    return (
       <Wrapper>

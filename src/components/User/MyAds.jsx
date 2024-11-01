@@ -8,12 +8,19 @@ import Call from '../../assets/icons/call-icon.svg?react';
 import Edit from '../../assets/icons/pensil-icon.svg?react';
 import Deactivate from '../../assets/icons/deactivate-icon.svg?react';
 import { styled } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMyAds } from '../../redux/users/myAdsThunk';
 
 export const MyAds = ({ selectedIds, setSelectedIds }) => {
    const [deactivatedIds, setDeactivatedIds] = useState([]); // Стейт для деактивации
+   const dispatch = useDispatch();
+   const { myAds } = useSelector(state => state.myAds);
+   console.log(myAds);
 
    const handleCheckboxChange = id => {
+      console.log('ID объявления:', id); // Выводим ID в консоль
+
       setSelectedIds(prev =>
          prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
       );
@@ -25,9 +32,12 @@ export const MyAds = ({ selectedIds, setSelectedIds }) => {
       );
    };
 
+   useEffect(() => {
+      dispatch(getMyAds());
+   }, []);
    return (
       <CONTAINER>
-         {my_ads.map(item => {
+         {myAds.map(item => {
             const isDeactivated = deactivatedIds.includes(item.id);
 
             return (
@@ -44,11 +54,11 @@ export const MyAds = ({ selectedIds, setSelectedIds }) => {
                      <Box>
                         <ImageStyle src={item.image} alt="room-image" />
                         <Container>
-                           <Title>{item.amount}х комнатная квартира</Title>
+                           <Title>{item.title}</Title>
                            <FirstBlock>
                               <MiniBlock>
                                  <Clock />
-                                 <span>{item.date}</span>
+                                 <span>{item.createDate}</span>
                               </MiniBlock>
                               <MiniBlock>
                                  <Eye />
@@ -56,10 +66,10 @@ export const MyAds = ({ selectedIds, setSelectedIds }) => {
                               </MiniBlock>
                            </FirstBlock>
                            <SecondBlock>
-                              <SecondMiniBlock>
+                              {/* <SecondMiniBlock>
                                  <Message />
                                  <span>{item.message}</span>
-                              </SecondMiniBlock>
+                              </SecondMiniBlock> */}
                               <SecondMiniBlock>
                                  <Favorite />
                                  <span>{item.favorites}</span>
