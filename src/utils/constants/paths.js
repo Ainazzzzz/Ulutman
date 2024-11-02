@@ -4,9 +4,10 @@ export const PATHS = {
       ROOT: '/user',
       CREATE_AD: '/user/create-ad',
       PROFILE: '/user/profile',
-      DETAIL_INFO: '/user/detail-info',
       CATEGORY: '/user/category/:subCategory',
       DETAILS: '/user/details/:detailsInfo',
+      RECOMMENDATIONS: '/user/recommendations',
+      MAIN_PHP: '/user/main.php',
    },
    ADMIN: {
       ROOT: '/admin',
