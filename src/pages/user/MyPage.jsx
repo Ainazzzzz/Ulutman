@@ -1,68 +1,30 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { styled } from '@mui/material';
-
-const StyledNav = styled('nav')({
-   display: 'flex',
-   gap: '20px',
-   alignItems: 'center',
-   backgroundColor: '#f5f5f8',
-});
-
-const StyledNavLink = styled(NavLink)({
-   color: 'black',
-   textDecoration: 'none',
-   fontWeight: '500',
-   fontSize: '16px',
-
-   '& .active-page': {
-      color: '#7b5bd1',
-      textDecoration: 'underline',
-      textUnderlineOffset: '4px',
-   },
-});
+import { PATHS } from '../../utils/constants/paths';
+import ArrowIcon from '../../assets/icons/arrowpurpul.svg?react';
 
 export const MyPage = () => {
    return (
       <Container>
          <StyledNav>
             <StyledNavLink
-               to="/user/my-page/profile"
-               className={({ isActive }) => {
-                  isActive ? 'active-page' : '';
-               }}
+               to={PATHS.USER.PROFILE}
+               className={({ isActive }) => (isActive ? 'active' : '')}
             >
                Профиль
             </StyledNavLink>
             <StyledNavLink
-               className={({ isActive }) => {
-                  isActive ? 'active-page' : '';
-               }}
-               to="/user/my-page/favorites"
-            >
-               Избранное
-            </StyledNavLink>
-            <StyledNavLink
-               className={({ isActive }) => {
-                  isActive ? 'active-page' : '';
-               }}
-               to="/messages"
-            >
-               Сообщения
-            </StyledNavLink>
-            <StyledNavLink
-               className={({ isActive }) => {
-                  isActive ? 'active-page' : '';
-               }}
-               to="/my-ads"
+               to={PATHS.USER.MY_ADS}
+               className={({ isActive }) => (isActive ? 'active' : '')}
             >
                Мои объявления
             </StyledNavLink>
-            <StyledNavLink
-               to="/"
+            <StyledNavLinkLast
+               to="/user"
                style={{ marginLeft: 'auto', color: '#7b5bd1' }}
             >
-               &larr; Назад
-            </StyledNavLink>
+               <ArrowIcon /> Назад
+            </StyledNavLinkLast>
          </StyledNav>
          <Outlet />
       </Container>
@@ -80,3 +42,33 @@ const Container = styled('div')(({ theme }) => ({
       gap: '30px',
    },
 }));
+
+const StyledNav = styled('nav')({
+   display: 'flex',
+   gap: '20px',
+   alignItems: 'center',
+   backgroundColor: '#f5f5f8',
+});
+
+const StyledNavLink = styled(NavLink)({
+   color: '#282828',
+   textDecoration: 'none',
+   fontWeight: '500',
+   fontSize: '20px',
+
+   '&.active': {
+      color: '#7E52FF',
+      textDecoration: 'underline',
+      textUnderlineOffset: '2px',
+   },
+});
+
+const StyledNavLinkLast = styled(NavLink)({
+   textDecoration: 'none',
+   fontWeight: '400',
+   fontSize: '16px',
+   color: '#7E52FF',
+
+   display: 'flex',
+   alignItems: 'center',
+});

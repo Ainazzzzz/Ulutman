@@ -99,10 +99,11 @@ export const Profile = () => {
    );
 };
 
-const Form = styled('form')(({ theme }) => ({
+const Form = styled('form')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
+   height: '57vh',
 }));
 
 const WrapperFullName = styled('div')(({ theme }) => ({

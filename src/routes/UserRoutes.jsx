@@ -83,6 +83,17 @@ export const UserRoutes = role => [
                />
             ),
          },
+         {
+            path: PATHS.USER.MY_ADS,
+            element: (
+               <PrivateAuthRouteByRole
+                  role={role}
+                  roles={['USER']}
+                  fallBackPath={PATHS.USER.ROOT}
+                  RouteComponent={<div>my ads</div>}
+               />
+            ),
+         },
       ],
    },
 ];

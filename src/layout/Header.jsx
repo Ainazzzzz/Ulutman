@@ -24,6 +24,7 @@ import { logOut } from '../redux/auth/authThunk.js';
 import { useNavigate } from 'react-router-dom';
 import DownIcon from '../assets/icons/select-down-icon.svg?react';
 import LogoOutIcon from '../assets/icons/logout-icon.svg?react';
+import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx';
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -44,19 +45,38 @@ const SearchIcon = ({ color = '#ffffff' }) => (
 );
 
 export const Header = () => {
-   const dispatch = useDispatch();
-   const { isAuth, userData } = useSelector(state => state.auth);
-   const navigate = useNavigate();
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const { isAuth, userData } = useSelector(state => state.auth);
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
 
    const [language, setLanguage] = useState('ru');
    const [openMenu, setOpenMenu] = useState(null);
    const [openModal, setOpenModal] = useState(false);
+
+   const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false);
    const [openOptionsProfile, setOpenOptionsProfile] = useState(null);
+
+   const handleClose = () => {
+      setOpenMenu(null);
+   };
+
+   const logOutHandler = () => {
+      setOpenOptionsProfile(null);
+      setOpenLogoutConfirm(true);
+   };
+
+   const confirmLogout = () => {
+      dispatch(logOut({ navigate, toggleModal: handleClose }));
+      setOpenLogoutConfirm(false);
+   };
 
    const handleSelect = event => setLanguage(event.target.value);
    const handleClick = event => setOpenMenu(event.currentTarget);
-   const handleClose = () => setOpenMenu(null);
+
+   const closeProfileOptions = () => {
+      setOpenOptionsProfile(null);
+   };
 
    const handleOpenModal = () => {
       setOpenModal(true);
@@ -65,29 +85,27 @@ export const Header = () => {
 
    const handleCloseModal = () => setOpenModal(false);
 
-   const logOutHandler = () => {
-      dispatch(logOut({ navigate, toggleModal: handleClose }));
-   };
-
    const handleNavigationPage = path => {
       navigate(path);
    };
 
    const navigateToPageHandler = path => {
-      navigate(path);
       handleClose();
+      closeProfileOptions();
+      navigate(path);
    };
 
    const profileHandler = event => {
       setOpenOptionsProfile(event.currentTarget);
    };
 
-   const closeProfileOptions = () => {
-      setOpenOptionsProfile(null);
-   };
-
    return (
       <>
+         <ConfirmLogoutModal
+            open={openLogoutConfirm}
+            onClose={() => setOpenLogoutConfirm(false)}
+            onConfirm={confirmLogout}
+         />
          <Wrapper>
             <LogoStyle onClick={() => handleNavigationPage('/user')}>
                <UlutmanLogo />
