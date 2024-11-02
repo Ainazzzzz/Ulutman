@@ -4,7 +4,7 @@ import SearchIcon from '../../assets/icons/search.svg?react';
 import { Button } from './Button';
 
 const SearchInput = forwardRef(
-   ({ placeholder, onChange, value, variant, ...rest }, ref) => (
+   ({ placeholder, onChange, value, variant, onSearch, ...rest }, ref) => (
       <StyledContainer variant={variant}>
          <SearchIcon />
 
@@ -16,7 +16,7 @@ const SearchInput = forwardRef(
             {...rest}
          />
 
-         <Button className="button" variant="search">
+         <Button className="button" variant="search" onClick={onSearch}>
             Поиск
          </Button>
       </StyledContainer>

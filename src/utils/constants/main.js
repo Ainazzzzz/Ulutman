@@ -138,12 +138,12 @@ export const categories = [
          {
             id: 'e1',
             value: 'House',
-            text: 'Дом',
+            text: 'Квартира',
          },
          {
             id: 'e2',
             value: 'Apartment',
-            text: 'Квартира',
+            text: 'Дом',
          },
          {
             id: 'e3',

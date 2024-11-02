@@ -1,30 +1,84 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '../UI/Modal';
 import CloseIcon from '../../assets/icons/close-icon.svg?react';
 import { styled, useMediaQuery } from '@mui/material';
 import Input from '../UI/Input';
 import ResetFilter from '../../assets/icons/reset-filter.svg?react';
 import { Button } from '../../components/UI/Button';
+import { useDispatch } from 'react-redux';
+import {
+   filtermodalThunks,
+   resertFilterThunks,
+} from '../../redux/categories/categoriesThunks';
 
 export const FilterModal = () => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-
+   const [minTotalArea, setMinTotalArea] = useState('');
+   const [maxTotalArea, setMaxTotalArea] = useState('');
+   const [minKitchenArea, setMinKitchenArea] = useState('');
+   const [maxKitchenArea, setMaxKitchenArea] = useState('');
+   const [minLivingArea, setMinLivingArea] = useState('');
+   const [maxLivingArea, setMaxLivingArea] = useState('');
+   const [minYear, setMinYear] = useState('');
+   const [maxYear, setMaxYear] = useState('');
+   const [walkingDistance, setWalkingDistance] = useState('');
+   const [transportDistance, setTransportDistance] = useState('');
+   const [selectedCategory, setSelectedCategory] = useState('');
    const [open, setOpen] = useState(true);
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const dispatch = useDispatch();
 
-   const handleCloseModal = () => setOpen(!open);
+   const handleApplyFilters = () => {
+      const filterData = {
+         minTotalArea,
+         maxTotalArea,
+         minKitchenArea,
+         maxKitchenArea,
+         minLivingArea,
+         maxLivingArea,
+         minYear,
+         maxYear,
+         walkingDistance,
+         transportDistance,
+         category: selectedCategory,
+      };
+
+      dispatch(filtermodalThunks(filterData));
+      setOpen(false);
+   };
+   const handleResetFilters = () => {
+      setMinTotalArea('');
+      setMaxTotalArea('');
+      setMinKitchenArea('');
+      setMaxKitchenArea('');
+      setMinLivingArea('');
+      setMaxLivingArea('');
+      setMinYear('');
+      setMaxYear('');
+      setWalkingDistance('');
+      setTransportDistance('');
+      setSelectedCategory('');
+
+      dispatch(resertFilterThunks());
+   };
+
+   const handleCloseModal = () => setOpen(false);
+   const handleOpenClick = () => setOpen(true);
    return (
       <ModalStyle open={open} handleClose={handleCloseModal}>
          <Wrapper>
             <DescriptionBlock>
                <h4>Ещё фильтры</h4>
-               <CloseIcon />
+               <CloseIcon onClick={handleCloseModal} />
             </DescriptionBlock>
             <Container>
                <Block>
                   <Description>До метро</Description>
                   <MiniBox>
                      {isMobile ? <></> : <Title>Не более</Title>}
-                     <InputStyle />
+                     <InputStyle
+                        value={walkingDistance}
+                        onChange={e => setWalkingDistance(e.target.value)}
+                     />
                      <Title>минут</Title>
                      <InputBox>
                         <SecondInput placeholder="Пешком" />
@@ -42,8 +96,16 @@ export const FilterModal = () => {
                      {isMobile ? <></> : <Title>Общяя</Title>}
 
                      <ThirdMiniBlock>
-                        <ThirdInputStyle placeholder="от" />
-                        <FourthInputStyle placeholder="до" />
+                        <ThirdInputStyle
+                           value={minTotalArea}
+                           onChange={e => setMinTotalArea(e.target.value)}
+                           placeholder="от"
+                        />
+                        <FourthInputStyle
+                           value={maxTotalArea}
+                           onChange={e => setMaxTotalArea(e.target.value)}
+                           placeholder="до"
+                        />
                      </ThirdMiniBlock>
                   </MiniBox>
                   {isMobile ? (
@@ -53,15 +115,39 @@ export const FilterModal = () => {
                         <MiniBox>
                            <Title>Кухня</Title>
                            <ThirdMiniBlock>
-                              <ThirdInputStyle placeholder="от" />
-                              <FourthInputStyle placeholder="до" />
+                              <ThirdInputStyle
+                                 value={minKitchenArea}
+                                 onChange={e =>
+                                    setMinKitchenArea(e.target.value)
+                                 }
+                                 placeholder="от"
+                              />
+                              <FourthInputStyle
+                                 value={maxKitchenArea}
+                                 onChange={e =>
+                                    setMaxKitchenArea(e.target.value)
+                                 }
+                                 placeholder="до"
+                              />
                            </ThirdMiniBlock>
                         </MiniBox>
                         <MiniBox>
                            <Title>Жилая</Title>
                            <ThirdMiniBlock>
-                              <ThirdInputStyle placeholder="от" />
-                              <FourthInputStyle placeholder="до" />
+                              <ThirdInputStyle
+                                 value={minLivingArea}
+                                 onChange={e =>
+                                    setMinLivingArea(e.target.value)
+                                 }
+                                 placeholder="от"
+                              />
+                              <FourthInputStyle
+                                 value={maxLivingArea}
+                                 onChange={e =>
+                                    setMaxLivingArea(e.target.value)
+                                 }
+                                 placeholder="до"
+                              />
                            </ThirdMiniBlock>
                         </MiniBox>
                      </>
@@ -72,22 +158,38 @@ export const FilterModal = () => {
                      <Description>Площадь</Description>
                      <p>Жилая</p>
                      <ThirdMiniBlock>
-                        <ThirdInputStyle placeholder="от" />
-                        <FourthInputStyle placeholder="до" />
+                        <ThirdInputStyle
+                           value={minLivingArea}
+                           onChange={e => setMinLivingArea(e.target.value)}
+                           placeholder="от"
+                        />
+                        <FourthInputStyle
+                           value={maxLivingArea}
+                           onChange={e => setMaxLivingArea(e.target.value)}
+                           placeholder="до"
+                        />
                      </ThirdMiniBlock>
                   </Block>
                )}
                <Block>
                   <Description>Год постройки</Description>
                   <ThirdMiniBlock>
-                     <ThirdInputStyle placeholder="от" />
-                     <FourthInputStyle placeholder="до" />
+                     <ThirdInputStyle
+                        value={minYear}
+                        onChange={e => setMinYear(e.target.value)}
+                        placeholder="от"
+                     />
+                     <FourthInputStyle
+                        value={maxYear}
+                        onChange={e => setMaxYear(e.target.value)}
+                        placeholder="до"
+                     />
                   </ThirdMiniBlock>
                </Block>
             </Container>
             <Box>
-               <ResetFilter />
-               <Button>Применить</Button>
+               <ResetFilter onClick={handleResetFilters} />
+               <Button onClick={handleApplyFilters}>Применить</Button>
             </Box>
          </Wrapper>
       </ModalStyle>

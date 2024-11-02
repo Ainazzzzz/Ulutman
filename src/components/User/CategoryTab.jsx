@@ -12,15 +12,66 @@ import { AdvertisingCategory } from './AdvertisingCategory';
 import AnnouncementsSorter from '../AnnouncementsSorter';
 import { CardList } from '../UI/Card/CardList';
 import { FilterModal } from './FilterModal';
+import { categories } from '../../utils/constants/main';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+   categoryFilter,
+   getSubCategory,
+} from '../../redux/categories/categoriesThunks';
+import { cardGetAdvertising } from '../../redux/adversitingThunks';
 
 export const CategoryTab = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const [value, setValue] = useState('e1');
+   const categoryCard = useSelector(state => state.categories.categories);
+   const [sortType, setSortType] = useState('newest');
+   const advertising = useSelector(state => state.advertising.advertising);
+   const categoriesCard = useSelector(state => state.categories.categories);
 
-   const [value, setValue] = useState('1');
+   const { subCategory } = useParams();
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+      dispatch(cardGetAdvertising());
+   }, [dispatch]);
+
+   const findSubCategory = categories.find(
+      ({ category }) => category === subCategory,
+   );
 
    const handleChange = (event, newValue) => {
       setValue(newValue);
+      const selectedSubCategory = findSubCategory?.subCategory.find(
+         item => item.id === newValue,
+      );
+
+      if (selectedSubCategory) {
+         dispatch(getSubCategory({ subCategory: selectedSubCategory.value }));
+      }
    };
+   const handleSortChange = sortValue => {
+      setSortType(sortValue);
+      dispatch(
+         categoryFilter({ categories: [subCategory], sortBy: sortValue }),
+      );
+   };
+
+   const SORTY_CATEGORY_OPTIONS = [
+      {
+         value: 'newest',
+         label: 'Сначала новые',
+      },
+      {
+         value: 'cheapest',
+         label: 'Сначала дешевые',
+      },
+      {
+         value: 'expensive',
+         label: 'Сначала дорогие',
+      },
+   ];
 
    return (
       <div>
@@ -31,10 +82,14 @@ export const CategoryTab = () => {
                      onChange={handleChange}
                      variant={isMobile ? 'scrollable' : 'standard'}
                   >
-                     <TabStyle label="Квартиры " value="1" />
-                     <TabStyle label="Дома" value="2" />
-                     <TabStyle label="Участок" value="3" />
-                     <TabStyle label="Помещение" value="4" />
+                     {findSubCategory.subCategory.map(item => (
+                        <TabStyle
+                           key={item.id}
+                           label={item.text}
+                           value={item.id}
+                        />
+                     ))}
+
                      <TabStyle
                         label={
                            <span>
@@ -44,26 +99,39 @@ export const CategoryTab = () => {
                         value="5"
                      />
                   </TabListStyle>
-                  <div>{!isMobile && <AnnouncementsSorter />}</div>
+                  <div>
+                     {!isMobile && (
+                        <AnnouncementsSorter
+                           onSortChange={handleSortChange}
+                           options={SORTY_CATEGORY_OPTIONS}
+                        />
+                     )}
+                  </div>
                </BoxStyle>
-               <TabPanelStyle value="1">
+
+               <TabPanelStyle value={value}>
                   {isMobile ? (
-                     <CardList cards={CARDS_MAIN} advertising={CARDS} />
+                     <CardList cards={categoryCard} advertising={advertising} />
                   ) : (
                      <>
                         <MiniBlock>
-                           <CategoryCard />
+                           <CategoryCard categories={categoriesCard} />
                         </MiniBlock>
                         <WrapperAdvertising>
-                           {CARDS?.map((image, i) => (
-                              <div>
-                                 <AdvertisingCategory image={image} key={i} />
+                           {advertising?.map(image => (
+                              <div key={image.id}>
+                                 <img
+                                    src={image.imagePath}
+                                    alt={`Advertisement ${image.id}`}
+                                 />
+                                 <AdvertisingCategory image={image.imagePath} />
                               </div>
                            ))}
                         </WrapperAdvertising>
                      </>
                   )}
                </TabPanelStyle>
+
                <TabPanel value="2">нет данных</TabPanel>
                <TabPanel value="3">нет данных</TabPanel>
                <TabPanel value="4">нет данных</TabPanel>
@@ -110,7 +178,7 @@ const TabStyle = styled(Tab)(({ theme }) => ({
    },
 }));
 
-const TabPanelStyle = styled(TabPanel)(() => ({
+const TabPanelStyle = styled(TabPanel)(({ theme }) => ({
    padding: '24px 0px',
    display: 'flex',
    justifyContent: 'space-between',
@@ -121,11 +189,11 @@ const BoxStyle = styled('div')(() => ({
    justifyContent: 'space-between',
 }));
 
-const WrapperAdvertising = styled('div')({
+const WrapperAdvertising = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
-});
+}));
 const MiniBlock = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',

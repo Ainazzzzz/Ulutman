@@ -1,16 +1,35 @@
 import Breadcrumbs from './UI/Breadcrumbs';
 import SearchInput from './UI/SearchInput';
 import { styled, useMediaQuery } from '@mui/material';
-import ChevronLeft from '../assets/icons/chevron-left-violet-icon.svg?react';
-import { Outlet, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { categoriesThunks } from '../redux/categories/caregoriesThunks';
+import ChevronLeft from '../assets/icons/chevron-left.svg?react';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import {
+   categoriesThunks,
+   searchInputThunks,
+} from '../redux/categories/categoriesThunks';
 import { useDispatch } from 'react-redux';
+import { serializeToQueryParams } from '../utils/general/serialize';
 
 export const Categories = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const { subCategory } = useParams();
    const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const [searchValue, setSearchValue] = useState('');
+
+   const handleSearch = () => {
+      const searchParams = serializeToQueryParams({
+         categories: subCategory,
+         titles: searchValue,
+      });
+
+      dispatch(searchInputThunks(searchParams));
+   };
+
+   const handleInputChange = e => {
+      setSearchValue(e.target.value);
+   };
 
    const path = {
       WORK: 'Работа',
@@ -28,8 +47,8 @@ export const Categories = () => {
    ];
 
    useEffect(() => {
-      dispatch(categoriesThunks(path[subCategory]));
-   }, [dispatch]);
+      dispatch(categoriesThunks({ subCategory: subCategory.toLowerCase() }));
+   }, [dispatch, subCategory]);
 
    return (
       <Wrapper>
@@ -38,13 +57,19 @@ export const Categories = () => {
                <FirstBlock>
                   <Breadcrumbs path={breadcrumbs} />
                   {!isMobile && (
-                     <span>
+                     <BackStyle onClick={() => navigate('/')}>
                         <ChevronLeft /> Назад
-                     </span>
+                     </BackStyle>
                   )}
                </FirstBlock>
-               <SearchInputStyle placeholder="Поиск по названию" />
+               <SearchInputStyle
+                  placeholder="Поиск по названию"
+                  value={searchValue}
+                  onChange={handleInputChange}
+                  onSearch={handleSearch}
+               />
             </Block>
+
             <Outlet />
          </Container>
       </Wrapper>
@@ -83,4 +108,8 @@ const Wrapper = styled('div')(({ theme }) => ({
 
 const SearchInputStyle = styled(SearchInput)(() => ({
    height: '64px',
+}));
+
+const BackStyle = styled('span')(() => ({
+   cursor: 'pointer',
 }));

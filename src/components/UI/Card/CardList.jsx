@@ -20,8 +20,14 @@ export const CardList = ({ cards, advertising, loading }) => {
 
          {isMobile && advertising && (
             <WrapperAdvertising>
-               {advertising?.map((image, i) => (
-                  <Advertising image={image} key={i} />
+               {advertising?.map(image => (
+                  <div key={image.id}>
+                     <img
+                        src={image.imagePath}
+                        alt={`Advertisement ${image.id}`}
+                     />
+                     <Advertising image={image.imagePath} />
+                  </div>
                ))}
             </WrapperAdvertising>
          )}
