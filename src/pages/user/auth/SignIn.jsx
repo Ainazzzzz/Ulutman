@@ -6,11 +6,13 @@ import SignUp from './signUp.jsx';
 import { signIn } from '../../../redux/auth/authThunk.js';
 import { styled, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react';
+import Spinner from '../../../components/UI/Spinner';
 
 export const SignIn = ({ open, onClose, onOpen }) => {
    const dispatch = useDispatch();
+   const { isLoading } = useSelector(state => state.auth);
 
    const [openSignUp, setOpenSignUp] = useState(false);
    const [email, setEmail] = useState('');
@@ -64,7 +66,13 @@ export const SignIn = ({ open, onClose, onOpen }) => {
                   id="pasword"
                   type="password"
                />
-               <Button type={'submit'}>Войти</Button>
+               {isLoading ? (
+                  <Button disabled={isLoading}>
+                     <Spinner />
+                  </Button>
+               ) : (
+                  <Button type={'submit'}>Войти</Button>
+               )}
                <Typography align="center">
                   У вас нету аккаунта?{' '}
                   <NavLink to={''} onClick={handleOpenSignUp}>

@@ -38,7 +38,12 @@ export const AdminHeaderFilter = ({
                ))}
 
                {selectsConfig?.map(select => (
-                  <div key={select.label}>
+                  <div
+                     style={{
+                        width: '200px',
+                     }}
+                     key={select.label}
+                  >
                      {select.label === 'date' ? (
                         <StyledDatePickerWrapper>
                            <DatePicker setDate={handleDateChange} />
@@ -50,6 +55,7 @@ export const AdminHeaderFilter = ({
                               onSelectChange(select.label, e.target.value)
                            }
                            options={select.options}
+                           fullWidth
                         />
                      )}
                   </div>
