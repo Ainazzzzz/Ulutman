@@ -40,6 +40,8 @@ export const signUp = createAsyncThunk(
       try {
          const { data } = await axiosInstance.post('auth/sign-up', val);
 
+         Cookies.set('ULUTMAN', JSON.stringify(data));
+
          showToast('success', 'Успешно');
          onClose();
 
