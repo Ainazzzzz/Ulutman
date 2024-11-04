@@ -6,6 +6,7 @@ import { addsAdminSlice } from './slices/adminAddsSlice';
 import { usersSlice } from './users/usersSlice';
 import { dashboardSlices } from './dashboard/dashboardSlices';
 import { favoriteSlice } from './users/favoriteSlice';
+import { mainSlice } from './main/mainSlice';
 import { mailingSlice } from './mailing/mailingSlice';
 import { categoriesSlice } from './categories/categoriesSlice';
 import { publishesSlice } from './publishes/publishesSlice';
@@ -18,6 +19,7 @@ export const store = configureStore({
       [usersSlice.name]: usersSlice.reducer,
       [dashboardSlices.name]: dashboardSlices.reducer,
       [favoriteSlice.name]: favoriteSlice.reducer,
+      [mainSlice.name]: mainSlice.reducer,
       [publishesSlice.name]: publishesSlice.reducer,
       [addsAdminSlice.name]: addsAdminSlice.reducer,
       [mailingSlice.name]: mailingSlice.reducer,
