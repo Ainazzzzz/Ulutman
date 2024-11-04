@@ -2,7 +2,6 @@ import { Card, CardContent, CardMedia, styled } from '@mui/material';
 import HomeIcon from '../../../assets/icons/home-icon.svg?react';
 import AddressIcon from '../../../assets/icons/address-icon.svg?react';
 import PhoneIcon from '../../../assets/icons/phone-icon.svg?react';
-import PhoneIcon from '../../../assets/icons/phone-icon.svg?react';
 import LikeIcon from '../../../assets/icons/like-icon.svg?react';
 import { useState } from 'react';
 import { PhoneModal } from '../PhoneModal';
