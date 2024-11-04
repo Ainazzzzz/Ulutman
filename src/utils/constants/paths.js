@@ -6,6 +6,7 @@ export const PATHS = {
       PROFILE: '/user/profile',
       CATEGORY: '/user/category/:subCategory',
       DETAILS: '/user/details/:detailsInfo',
+      FAVORITE: '/user/favorite',
       RECOMMENDATIONS: '/user/recommendations',
       MAIN_PHP: '/user/main.php',
    },

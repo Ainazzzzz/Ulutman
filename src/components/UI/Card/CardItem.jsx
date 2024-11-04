@@ -3,6 +3,8 @@ import HomeIcon from '../../../assets/icons/home-icon.svg?react';
 import AddressIcon from '../../../assets/icons/address-icon.svg?react';
 import PhoneIcon from '../../../assets/icons/phone-icon.svg?react';
 import LikeIcon from '../../../assets/icons/like-icon.svg?react';
+import { useState } from 'react';
+import { PhoneModal } from '../PhoneModal';
 import Modal from '../Modal';
 import { useState } from 'react';
 import emptyImageCard from '../../../assets/images/no-image.jpg';
@@ -19,6 +21,16 @@ export const CardItem = ({
    id,
    onNavigateDetail,
 }) => {
+   const [openPhoneModal, setOpenPhoneModal] = useState(false);
+
+   const handleOpenPhoneModal = () => {
+      setOpenPhoneModal(!openPhoneModal);
+   };
+
+   const handleClosePhoneModal = () => {
+      setOpenPhoneModal(false);
+   };
+
    const [phoneModal, setPhoneModal] = useState('');
 
    return (
@@ -28,6 +40,7 @@ export const CardItem = ({
             title={description}
             onClick={() => onNavigateDetail(id)}
          />
+         <StyledCardMedia image={image} title={title} />
 
          <ContainerInfo>
             <FirstBlock>
@@ -59,6 +72,18 @@ export const CardItem = ({
                   }}
                />
                <PhoneIcon onClick={() => setPhoneModal(id)} />
+               <LikeIcon
+                  className={detailFavorite ? 'like-red' : ''}
+                  onClick={() => onDeleteById(id)}
+               />
+               {openPhoneModal ? (
+                  <PhoneModal handleClose={handleClosePhoneModal} />
+               ) : (
+                  <PhoneIcon
+                     className="phone-icon"
+                     onClick={handleOpenPhoneModal}
+                  />
+               )}
             </SecondBlock>
             <Modal
                open={id === phoneModal}
@@ -163,6 +188,13 @@ export const SecondBlock = styled('div')(({ theme }) => ({
 
    '.like-red path, .message-red path': {
       fill: 'red',
+   },
+   '.phone-icon path': {
+      '&:hover': {
+         fill: '#5EB00E',
+
+         cursor: 'pointer',
+      },
    },
 }));
 

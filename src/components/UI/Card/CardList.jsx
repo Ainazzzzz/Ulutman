@@ -12,7 +12,7 @@ import { SignIn } from '../../../pages/user/auth/SignIn';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../../utils/constants/paths';
 
-export const CardList = ({ cards, advertising, loading }) => {
+export const CardList = ({ cards, advertising, loading, onDeleteById }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const { isAuth } = useSelector(state => state.auth);
    const dispatch = useDispatch();
@@ -44,6 +44,18 @@ export const CardList = ({ cards, advertising, loading }) => {
    };
    return (
       <StyledContainer>
+         {loading && <SceletonCard />}
+         <CardListBox container spacing={2.5}>
+            {cards?.map(card => (
+               <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
+                  <CardItem
+                     {...card}
+                     onDeleteById={onDeleteById}
+                     detailFavorite={card.detailFavorite}
+                  />
+               </Grid>
+            ))}
+         </CardListBox>
          {loading ? (
             <SceletonCard />
          ) : (

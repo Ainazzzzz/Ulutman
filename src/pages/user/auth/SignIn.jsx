@@ -17,13 +17,16 @@ export const SignIn = ({ open, onClose, onOpen }) => {
    const [openSignUp, setOpenSignUp] = useState(false);
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
+   const [error, setError] = useState('');
 
    const handleEmailChange = event => {
       setEmail(event.target.value);
+      setError('');
    };
 
    const handlePasswordChange = event => {
       setPassword(event.target.value);
+      setError('');
    };
 
    const handleOpenSignUp = () => {
@@ -35,6 +38,11 @@ export const SignIn = ({ open, onClose, onOpen }) => {
 
    const handleSubmit = e => {
       e.preventDefault();
+
+      if (!email || !password) {
+         setError('Пожалуйста, заполните все поля.');
+         return;
+      }
 
       const newData = {
          email,
@@ -52,6 +60,36 @@ export const SignIn = ({ open, onClose, onOpen }) => {
             </IconStyle>
             <Box onSubmit={handleSubmit}>
                <h2>Войти</h2>
+               <div style={{ position: 'relative' }}>
+                  <InputContainer>
+                     <Input
+                        placeholder="Введите email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        id="gmail"
+                        type="email"
+                     />
+                     <Input
+                        placeholder="Введите пароль"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        id="pasword"
+                        type="password"
+                     />
+                  </InputContainer>
+                  {error && (
+                     <ErrorText
+                        style={{
+                           position: 'absolute',
+                           left: '0px',
+                        }}
+                     >
+                        {error}
+                     </ErrorText>
+                  )}
+               </div>
+
+               <Button type={'submit'}>Войти</Button>
                <Input
                   placeholder="Введите email"
                   value={email}
@@ -116,4 +154,9 @@ const IconStyle = styled('div')(() => ({
 const ErrorText = styled('p')({
    color: 'red',
    fontSize: '12px',
+});
+const InputContainer = styled('div')({
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '20px',
 });

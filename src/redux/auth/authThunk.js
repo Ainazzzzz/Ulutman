@@ -29,6 +29,9 @@ export const signIn = createAsyncThunk(
 
          return updatedData;
       } catch (e) {
+         const errorMessage =
+            e.response?.data?.message || 'Неверные данные для входа';
+         showToast('error', errorMessage);
          return rejectedWithValue(e);
       }
    },

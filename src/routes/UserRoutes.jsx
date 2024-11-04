@@ -1,5 +1,6 @@
 import { Categories } from '../components/Categories.jsx';
 import { CategoryTab } from '../components/User/CategoryTab.jsx';
+import { FeaturedAds } from '../components/User/FeaturedAds.jsx';
 import { Profile } from '../components/User/Profile';
 import { MainPage } from '../pages/MainPage';
 import { CreateAdPage } from '../pages/user/CreateAdPage';
@@ -92,6 +93,17 @@ export const UserRoutes = role => [
             roles={['USER', 'GUEST']}
             fallBackPath={PATHS.USER.ROOT}
             RouteComponent={<SearchMainPage />}
+         />
+      ),
+   },
+   {
+      path: PATHS.USER.FAVORITE,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['USER']}
+            fallBackPath={PATHS.USER.ROOT}
+            RouteComponent={<FeaturedAds />}
          />
       ),
    },
