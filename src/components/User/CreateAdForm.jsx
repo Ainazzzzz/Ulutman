@@ -101,7 +101,10 @@ export const CreateAdForm = () => {
          />
 
          <ContainerFile>
-            <Label>Загрузите фото</Label>
+            <div style={{ display: 'flex', gap: '5px' }}>
+               <Label>Загрузите фото</Label>
+               <span>(до 6 фото)</span>
+            </div>
             <FileUpload
                setFieldValue={formik.setFieldValue}
                touched={formik.touched.image}

@@ -41,21 +41,23 @@ export const CategoryField = ({
 }) => (
    <StyledContainer>
       <Label>Категория</Label>
-      <SelectInfo>
-         {selectCategory.categoryTitle}{' '}
-         {selectCategory.subCategoryText ? '/' : null}{' '}
-         {selectCategory.subCategoryText}
-      </SelectInfo>
-      <Container>
-         <CategoryButton
-            variant="outlined"
-            type="button"
-            onClick={handleOpenCategoryModal}
-         >
-            Выбрать
-         </CategoryButton>
-         {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      </Container>
+      <WrapperCategory>
+         <SelectInfo>
+            {selectCategory.categoryTitle}{' '}
+            {selectCategory.subCategoryText ? '/' : null}{' '}
+            {selectCategory.subCategoryText}
+         </SelectInfo>
+         <Container>
+            <CategoryButton
+               variant="outlined"
+               type="button"
+               onClick={handleOpenCategoryModal}
+            >
+               Выбрать
+            </CategoryButton>
+            {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
+         </Container>
+      </WrapperCategory>
    </StyledContainer>
 );
 
@@ -129,7 +131,18 @@ const CategoryButton = styled(Button)({
 });
 
 const SelectInfo = styled('p')({
-   fontSize: '12px',
-   fontWeight: '400',
-   fontStyle: 'italic',
+   textWrap: 'nowrap',
+   fontSize: '18px',
+   fontWeight: '600',
+   color: '#7E52FF',
 });
+
+const WrapperCategory = styled('div')(({ theme }) => ({
+   display: 'flex',
+   alignItems: 'center',
+   gap: '8px',
+
+   [theme.breakpoints.down('md')]: {
+      flexWrap: 'wrap',
+   },
+}));
