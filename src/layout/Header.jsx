@@ -1,4 +1,4 @@
-import { styled, Typography, useMediaQuery } from '@mui/material';
+import { Popover, styled, Typography, useMediaQuery } from '@mui/material';
 import { IconButton } from '../components/IconButton';
 import { Button } from '../components/UI/Button';
 import ReusableSelect from '../components/UI/Select';
@@ -50,6 +50,18 @@ export const Header = () => {
    const [language, setLanguage] = useState('ru');
    const [openMenu, setOpenMenu] = useState(null);
    const [openModal, setOpenModal] = useState(false);
+   const [anchorEl, setAnchorEl] = useState(null);
+
+   const openUserMenu = event => {
+      setAnchorEl(event.currentTarget);
+   };
+
+   const closeUserMenu = () => {
+      setAnchorEl(null);
+   };
+
+   const open = Boolean(anchorEl);
+   const id = open ? 'simple-popover' : undefined;
 
    const handleSelect = event => setLanguage(event.target.value);
    const handleClick = event => setOpenMenu(event.currentTarget);
@@ -66,14 +78,17 @@ export const Header = () => {
 
    const logOutHandler = () => {
       dispatch(logOut({ navigate, toggleModal: handleClose }));
+      closeUserMenu();
    };
    const handleNavigationPage = path => {
       navigate(path);
+      closeUserMenu();
    };
 
    const navigateToPageHandler = path => {
       navigate(path);
       handleClose();
+      closeUserMenu();
    };
 
    return (
@@ -142,12 +157,36 @@ export const Header = () => {
                            </IconButton>
                            <a>Избранное</a>
                         </Block>
-                        <Block onClick={() => handleNavigationPage('profile')}>
+                        <Block onClick={openUserMenu}>
                            <IconButton>
                               <UserLogo />
                            </IconButton>
                            <UserName>{userData.name}</UserName>
                         </Block>
+                        <StyledPopover
+                           id={id}
+                           open={open}
+                           anchorEl={anchorEl}
+                           onClose={closeUserMenu}
+                           anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'left',
+                           }}
+                        >
+                           <Block
+                              onClick={() => handleNavigationPage('profile')}
+                           >
+                              Профиль
+                           </Block>
+
+                           <LogOutBtn
+                              onClick={logOutHandler}
+                              variant="warning"
+                              startIcon={<LogOutIcon />}
+                           >
+                              Выйти
+                           </LogOutBtn>
+                        </StyledPopover>
                      </>
                   ) : null}
                   <Block>
@@ -258,6 +297,27 @@ const MenuStyle = styled(Menu)(() => ({
       padding: '16px 0px',
       width: '230px',
       background: '#7e52ff',
+   },
+}));
+
+const LogOutBtn = styled(Button)(() => ({
+   svg: {
+      rotate: '180deg',
+
+      path: {
+         stroke: '#f00',
+      },
+   },
+}));
+
+const StyledPopover = styled(Popover)(() => ({
+   '& .MuiPaper-root': {
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '10px 10px 0',
+      gap: '5px',
+      alignItems: 'center',
+      borderRadius: '15px',
    },
 }));
 
