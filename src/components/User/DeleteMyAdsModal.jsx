@@ -1,10 +1,17 @@
 import { styled } from '@mui/material';
 import Modal from '../UI/Modal';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteAllAds } from '../../redux/users/myAdsThunk';
 
-export const DeleteMyAdsModal = () => {
+export const DeleteMyAdsModal = ({ userId }) => {
    const [isOpen, setIsOpen] = useState(true);
+   const dispatch = useDispatch();
 
+   const handleDeleteAds = () => {
+      dispatch(deleteAllAds(userId));
+      setIsOpen(false);
+   };
    const handleCloseModal = () => {
       setIsOpen(!isOpen);
    };
@@ -14,7 +21,7 @@ export const DeleteMyAdsModal = () => {
             <Title>Вы уверены, что хотите удалить?</Title>
             <div>
                <FirstButton onClick={handleCloseModal}>Отменить</FirstButton>
-               <SecondButton>Удалить</SecondButton>
+               <SecondButton onClick={handleDeleteAds}>Удалить</SecondButton>
             </div>
          </Container>
       </Modal>

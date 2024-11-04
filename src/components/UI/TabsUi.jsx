@@ -2,11 +2,12 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, colors, styled, Tab } from '@mui/material';
 import React, { useState } from 'react';
 
-const TabsUi = ({ tabs }) => {
+const TabsUi = ({ tabs, onTabChange }) => {
    const [value, setValue] = useState('1');
 
    const handleChange = (event, newValue) => {
       setValue(newValue);
+      if (onTabChange) onTabChange(newValue);
    };
    return (
       <BoxStyle>

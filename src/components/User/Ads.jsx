@@ -6,17 +6,19 @@ import { MyAds } from './MyAds';
 import TabsUi from '../UI/TabsUi';
 import { useEffect, useState } from 'react';
 import { DeleteMyAdsModal } from './DeleteMyAdsModal';
-import { getMyAds } from '../../redux/users/myAdsThunk';
+import { getMyAds, getRejectedPublishes } from '../../redux/users/myAdsThunk';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Ads = () => {
-   // const dispatch = useDispatch();
-   // const { myAds } = useSelector(state => state.myAds);
-   // console.log(myAds);
-
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const [activeTab, setActiveTab] = useState('1'); // По умолчанию "Активно"
+   const dispatch = useDispatch();
+
    const [selectedIds, setSelectedIds] = useState([]);
    const [isModalOpen, setIsModalOpen] = useState(false);
+
+   const userId = useSelector(state => state.auth.userData.userId);
+   const { myAds } = useSelector(state => state.myAds);
 
    const secondTab = [
       { value: '1', label: 'Активно' },
@@ -26,20 +28,37 @@ export const Ads = () => {
    ];
 
    const handleDelete = () => {
-      console.log('selectedId', selectedIds);
+      // console.log('selectedId', selectedIds);
       setIsModalOpen(!isModalOpen);
    };
 
-   // useEffect(() => {
-   //    dispatch(getMyAds());
-   // }, []);
+   const handleTabChange = tabValue => {
+      setActiveTab(tabValue);
+
+      // Логика запроса для каждой вкладки
+      tabValue === '1'
+         ? dispatch(getMyAds())
+         : tabValue === '2'
+           ? dispatch(getModerationAds())
+           : tabValue === '3'
+             ? dispatch(getDeactivatedAds())
+             : dispatch(getRejectedPublishes());
+   };
+
+   useEffect(() => {
+      dispatch(getMyAds()); // Загружаем данные по умолчанию для активной вкладки
+   }, [dispatch]);
 
    return (
       <Wrapper>
          <Container>
             <Line></Line>
             <Block>
-               <TabsUi tabs={secondTab} />
+               <TabsUi
+                  tabs={secondTab}
+                  activeTab={activeTab}
+                  onTabChange={handleTabChange}
+               />
 
                {isMobile ? (
                   <DeleteMobile onClick={handleDelete} />
@@ -52,8 +71,12 @@ export const Ads = () => {
             </Block>
          </Container>
 
-         <MyAds selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
-         {isModalOpen && <DeleteMyAdsModal />}
+         <MyAds
+            selectedIds={selectedIds}
+            setSelectedIds={setSelectedIds}
+            myAds={myAds}
+         />
+         {isModalOpen && <DeleteMyAdsModal userId={userId} />}
       </Wrapper>
    );
 };
