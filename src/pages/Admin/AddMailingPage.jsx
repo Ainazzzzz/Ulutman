@@ -3,7 +3,7 @@ import { MailingForm } from './mailing/MailingForm.jsx';
 import PrevIcon from '../../assets/icons/prev-icon.svg?react';
 import { useNavigate } from 'react-router-dom';
 
-export const AddMailingPage = () => {
+const AddMailingPage = () => {
    const navigate = useNavigate();
 
    const handlePrevious = () => {
@@ -49,6 +49,8 @@ export const AddMailingPage = () => {
       </Container>
    );
 };
+
+export default AddMailingPage;
 
 const Container = styled('div')(({ theme }) => ({
    padding: '40px 60px',

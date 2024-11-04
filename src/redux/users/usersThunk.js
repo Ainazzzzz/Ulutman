@@ -29,7 +29,7 @@ export const getUsersName = createAsyncThunk(
 
 export const getUsersFilter = createAsyncThunk(
    'users/getUsersFilter',
-   async ({ roles, createDates, statuses }) => {
+   async ({ roles, createDates, statuses, names }) => {
       try {
          const queryString = new URLSearchParams();
 
@@ -42,6 +42,7 @@ export const getUsersFilter = createAsyncThunk(
          }
 
          if (statuses) queryString.append('statuses', statuses);
+         if (names) queryString.append('names', names);
 
          const { data } = await axiosInstance.get(
             `/manage/users/filter?${queryString.toString()}`,
@@ -63,6 +64,23 @@ export const getResetFilter = createAsyncThunk(
          return data;
       } catch (error) {
          return error.message;
+      }
+   },
+);
+
+export const deleteUsers = createAsyncThunk(
+   'users/delete',
+   async ({ userIds, toggleModal }, { rejectWithValue, dispatch }) => {
+      try {
+         await axiosInstance.delete('/manage/users/delete/batch', {
+            data: userIds,
+         });
+
+         toggleModal('deleteAllModal');
+
+         dispatch(getAllUsers());
+      } catch (error) {
+         return rejectWithValue(error);
       }
    },
 );

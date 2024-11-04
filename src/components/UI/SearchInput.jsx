@@ -4,8 +4,8 @@ import SearchIcon from '../../assets/icons/search.svg?react';
 import { Button } from './Button';
 
 const SearchInput = forwardRef(
-   ({ placeholder, onChange, value, variant, ...rest }, ref) => (
-      <StyledContainer variant={variant}>
+   ({ placeholder, onChange, value, variant, onClick, ...rest }, ref) => (
+      <StyledContainer variant={variant} className="container">
          <SearchIcon />
 
          <InputBase
@@ -16,7 +16,7 @@ const SearchInput = forwardRef(
             {...rest}
          />
 
-         <Button className="button" variant="search">
+         <Button className="button" onClick={onClick} variant="search">
             Поиск
          </Button>
       </StyledContainer>
@@ -45,9 +45,16 @@ const StyledContainer = styled(Paper)(({ theme }) => ({
       fontSize: '18px',
       fontWeight: '400',
       lineHeight: '21.78px',
+
+      [theme.breakpoints.down('md')]: {
+         fontSize: '14px',
+         fontWeight: '400',
+      },
    },
 
    '& > .MuiButton-root': {
       width: '15%',
+      fontSize: '16px',
+      fontWeight: '400',
    },
 }));

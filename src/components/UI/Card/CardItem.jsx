@@ -1,27 +1,39 @@
 import { Card, CardContent, CardMedia, styled } from '@mui/material';
 import HomeIcon from '../../../assets/icons/home-icon.svg?react';
 import AddressIcon from '../../../assets/icons/address-icon.svg?react';
-import MessageIcon from '../../../assets/icons/message-gray-icon.svg?react';
+import PhoneIcon from '../../../assets/icons/phone-icon.svg?react';
 import LikeIcon from '../../../assets/icons/like-icon.svg?react';
+import Modal from '../Modal';
+import { useState } from 'react';
+import emptyImageCard from '../../../assets/images/no-image.jpg';
 
 export const CardItem = ({
-   title,
-   img,
    description,
+   images,
    price,
    address,
-   favoriteStatus,
-   messageStatus,
+   detailFavorite,
+   onUpdateFavorite,
+   onDeleteFavorite,
+   phoneNumber,
+   id,
+   onNavigateDetail,
 }) => {
+   const [phoneModal, setPhoneModal] = useState('');
+
    return (
       <StyledCard>
-         <StyledCardMedia image={img} title={title} />
+         <StyledCardMedia
+            image={images[0] || emptyImageCard}
+            title={description}
+            onClick={() => onNavigateDetail(id)}
+         />
 
          <ContainerInfo>
             <FirstBlock>
                <div>
                   <Price>{price} ₽</Price>
-                  <Title>{title}</Title>
+                  <Title>{description}</Title>
                </div>
 
                <WrapperAddressInfo>
@@ -38,9 +50,26 @@ export const CardItem = ({
             </FirstBlock>
 
             <SecondBlock>
-               <LikeIcon className={favoriteStatus ? 'like-red' : ''} />
-               <MessageIcon className={messageStatus ? 'message-red' : ''} />
+               <LikeIcon
+                  className={detailFavorite ? 'like-red' : ''}
+                  onClick={() => {
+                     detailFavorite
+                        ? onDeleteFavorite(id)
+                        : onUpdateFavorite(id);
+                  }}
+               />
+               <PhoneIcon onClick={() => setPhoneModal(id)} />
             </SecondBlock>
+            <Modal
+               open={id === phoneModal}
+               variant="phone"
+               handleClose={() => setPhoneModal('')}
+            >
+               <WrapperPhone>
+                  <TitlePhone>Номер телефона</TitlePhone>
+                  <PhoneNumberSingle>{phoneNumber}</PhoneNumberSingle>
+               </WrapperPhone>
+            </Modal>
          </ContainerInfo>
       </StyledCard>
    );
@@ -166,3 +195,23 @@ const AddressText = styled('p')(({ theme }) => ({
       fontWeight: '400',
    },
 }));
+
+export const WrapperPhone = styled('div')({
+   display: 'flex',
+   alignItems: 'center',
+   flexDirection: 'column',
+   gap: '24px',
+   padding: '10px 0 20px 0',
+});
+
+export const TitlePhone = styled('p')({
+   fontSize: '20px',
+   fontWeight: '400',
+   color: '#202020',
+});
+
+export const PhoneNumberSingle = styled('h1')({
+   fontSize: '24px',
+   fontWeight: '500',
+   color: '#282828',
+});

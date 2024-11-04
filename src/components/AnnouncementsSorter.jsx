@@ -5,15 +5,17 @@ import MenuItem from '@mui/material/MenuItem';
 import ArrowsIcon from '../assets/icons/arrows.svg?react';
 import { Button } from './UI/Button';
 
-const AnnouncementsSorter = () => {
+const AnnouncementsSorter = ({ onSortChange, options = [] }) => {
    const [anchorEl, setAnchorEl] = useState(null);
    const [selectedValue, setSelectedValue] = useState('Все категории');
 
    const handleClick = event => setAnchorEl(event.currentTarget);
 
-   const handleClose = value => {
+   const handleClose = option => {
       setAnchorEl(null);
-      setSelectedValue(value || selectedValue);
+      const newValue = option.label || selectedValue;
+      setSelectedValue(newValue);
+      onSortChange(option.value);
    };
 
    return (
@@ -40,21 +42,11 @@ const AnnouncementsSorter = () => {
                'aria-labelledby': 'basic-button',
             }}
          >
-            <MenuItem onClick={() => handleClose('По умолчанию')}>
-               Все категории
-            </MenuItem>
-
-            <MenuItem onClick={() => handleClose('Сначало новые')}>
-               Авиамоторная
-            </MenuItem>
-
-            <MenuItem onClick={() => handleClose('Сначало дешевле')}>
-               Сначало дешевле
-            </MenuItem>
-
-            <MenuItem onClick={() => handleClose('Сначало дороже')}>
-               Сначало дороже
-            </MenuItem>
+            {options.map(option => (
+               <MenuItem key={option.value} onClick={() => handleClose(option)}>
+                  {option.label}
+               </MenuItem>
+            ))}
          </StyledMenu>
       </>
    );

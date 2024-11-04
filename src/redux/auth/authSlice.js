@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { logOut, signIn, signUp } from './authThunk';
+import Cookies from 'js-cookie';
 
 const getInitialState = () => {
-   const json = localStorage.getItem('ULUTMAN');
+   const json = Cookies.get('ULUTMAN');
    if (json) {
       const parsedData = JSON.parse(json);
       return {
@@ -58,17 +59,33 @@ export const authSlice = createSlice({
          state.isLoading = false;
       });
 
-      builder.addCase(signIn.fulfilled, (state, action) => {
-         state.userData = {
-            ...action.payload,
-         };
-         state.isAuth = true;
-      });
+      builder
+         .addCase(signIn.fulfilled, (state, action) => {
+            state.userData = {
+               ...action.payload,
+            };
+            state.isAuth = true;
+            state.isLoading = false;
+         })
+         .addCase(signIn.pending, state => {
+            state.isLoading = true;
+         })
+         .addCase(signIn.rejected, state => {
+            state.isLoading = false;
+         });
 
-      builder.addCase(signUp.fulfilled, (state, action) => {
-         state.userData = action.payload;
-         state.isAuth = true;
-      });
+      builder
+         .addCase(signUp.fulfilled, (state, action) => {
+            state.userData = action.payload;
+            state.isAuth = true;
+            state.isLoading = false;
+         })
+         .addCase(signUp.pending, (state, action) => {
+            state.isLoading = true;
+         })
+         .addCase(signUp.rejected, (state, action) => {
+            state.isLoading = false;
+         });
    },
 });
 

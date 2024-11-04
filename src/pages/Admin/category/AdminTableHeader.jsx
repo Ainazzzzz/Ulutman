@@ -7,7 +7,8 @@ export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
       if (
          column.accessor &&
          typeof column.accessor === 'string' &&
-         column.accessor.toUpperCase() === 'STATUS'
+         column.accessor.toUpperCase() === 'STATUS' &&
+         column.accessor === 'publishStatus'
       ) {
          return {
             ...column,
@@ -18,7 +19,7 @@ export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
                const upperValue =
                   value && typeof value === 'string' ? value.toUpperCase() : '';
 
-               switch (upperValue) {
+               switch (value) {
                   case 'ОДОБРЕН':
                   case 'РЕШЕНО':
                   case 'АКТИВНЫЙ':
@@ -43,11 +44,11 @@ export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
                      <MiniBlock
                         color={color}
                         onClick={
-                           upperValue === 'ОЖИДАЕТ'
+                           value === 'ОЖИДАЕТ'
                               ? handleOpenWaitingModal
                               : undefined
                         }
-                        clickable={upperValue === 'ОЖИДАЕТ'}
+                        clickable={value === 'ОЖИДАЕТ'}
                      >
                         {value}
                      </MiniBlock>

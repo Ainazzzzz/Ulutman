@@ -9,6 +9,8 @@ export const PATHS = {
       DETAILS: '/user/details/:detailsInfo',
       MY_PAGE: '/user/my-page',
       MY_ADS: '/user/my-page/my-listings',
+      RECOMMENDATIONS: '/user/recommendations',
+      MAIN_PHP: '/user/main.php',
    },
    ADMIN: {
       ROOT: '/admin',
@@ -21,6 +23,7 @@ export const PATHS = {
       COMMENTS: '/admin/moderation/comments',
       IMAGES: '/admin/moderation/images',
       MAILING: '/admin/users/mailing',
+      ADD_MAILING: '/admin/users/add-mailing',
       ADD_ADMIN: '/admin/add-administrator',
       SETTINGS: '/admin/settings',
    },

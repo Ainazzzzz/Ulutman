@@ -33,12 +33,33 @@
          "title": "Statistika",
          "popularCategory": "Kategoriya ommaviyligi",
          "WORK": "Ish",
-         "rentals": "Ijara",
-         "hotel": "Mehmonxona",
+         "RENT": "Ijara",
+         "HOTEL": "Mehmonxona",
          "SERVICES": "Xizmatlar",
          "REAL_ESTATE": "Ko‘chmas mulk",
          "AUTO": "Avtomobil",
          "SELL": "Sotaman"
+      },
+
+      "users": {
+         "title": "Foydalanuvchilarni boshqarish",
+         "table": {
+            "columns": {
+               "name": "ISM",
+               "email": "ELEKTRON POCHTA",
+               "role": "ROL",
+               "dateOfRegistration": "RO'YXATDAN O'TGAN SANASI",
+               "status": "HOLATI"
+            },
+            "statuses": {
+               "АКТИВНЫЙ": "FAOL",
+               "ЗАБЛОКИРОВАН": "BLOKLANGAN"
+            },
+            "roles": {
+               "USER": "Foydalanuvchi",
+               "ADMIN": "Admin"
+            }
+         }
       }
    }
 }
