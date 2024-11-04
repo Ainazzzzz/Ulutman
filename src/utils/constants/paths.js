@@ -7,6 +7,7 @@ export const PATHS = {
       DETAIL_INFO: '/user/detail-info',
       CATEGORY: '/user/category/:subCategory',
       DETAILS: '/user/details/:detailsInfo',
+      FAVORITE: '/user/favorite',
    },
    ADMIN: {
       ROOT: '/admin',

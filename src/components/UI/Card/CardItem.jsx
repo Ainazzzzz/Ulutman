@@ -18,7 +18,6 @@ export const CardItem = ({
    detailFavorite,
 }) => {
    const [openPhoneModal, setOpenPhoneModal] = useState(false);
-   console.log(detailFavorite);
 
    const handleOpenPhoneModal = () => {
       setOpenPhoneModal(!openPhoneModal);

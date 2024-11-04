@@ -62,11 +62,16 @@ export const FeaturedAds = () => {
                {isOpenModal && <DeleteFavoriteModal onDelete={onDelete} />}
             </SecondBlock>
          </Container>
-         <CardList
-            cards={publishResponseList}
-            onDeleteById={onDeleteById}
-            favorite={favorite}
-         />
+
+         {publishResponseList.length === 0 ? (
+            <NoFavoritesMessage>Нет избранных объявлений</NoFavoritesMessage>
+         ) : (
+            <CardList
+               cards={publishResponseList}
+               onDeleteById={onDeleteById}
+               favorite={favorite}
+            />
+         )}
       </Wrapper>
    );
 };
@@ -121,4 +126,8 @@ const Wrapper = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       padding: '24px 16px 16px 16px',
    },
+}));
+
+const NoFavoritesMessage = styled('p')(({}) => ({
+   margin: '30px 0',
 }));
