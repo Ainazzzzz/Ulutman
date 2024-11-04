@@ -65,11 +65,26 @@ export const getRejectedPublishes = createAsyncThunk(
 
 export const putDeactivatePublishes = createAsyncThunk(
    'myAds/putDeactivatePublishes',
-   async (_, { getState, rejectWithValue }) => {
+   async (publishId, { getState, rejectWithValue }) => {
       try {
          const userId = getState().auth.userData.userId;
          const { data } = await axiosInstance.put(
-            `users/my-publishes/deactivate/${userId}/{5}`,
+            `users/my-publishes/deactivate/${userId}/${8}`,
+         );
+         return data;
+      } catch (error) {
+         return rejectWithValue(error.response?.data || error.message);
+      }
+   },
+);
+
+export const getDeactivatePublishes = createAsyncThunk(
+   'myAds/getDeactivatePublishes',
+   async (publishId, { getState, rejectWithValue }) => {
+      try {
+         const userId = getState().auth.userData.userId;
+         const { data } = await axiosInstance.put(
+            `users/my-publishes/inactive-publishes/${userId}`,
          );
          return data;
       } catch (error) {

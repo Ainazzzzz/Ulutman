@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteAllAds, getMyAds, getRejectedPublishes } from './myAdsThunk';
+import {
+   deleteAllAds,
+   getMyAds,
+   getRejectedPublishes,
+   putDeactivatePublishes,
+} from './myAdsThunk';
 
 export const myAdsSlice = createSlice({
    name: 'myAds',
@@ -9,14 +14,18 @@ export const myAdsSlice = createSlice({
    reducers: {},
 
    extraReducers: builder => {
-      builder.addCase(getMyAds.fulfilled, (state, action) => {
-         state.myAds = action.payload;
-      });
-      builder.addCase(deleteAllAds.fulfilled, state => {
-         state.myAds = [];
-      });
-      builder.addCase(getRejectedPublishes.fulfilled, (state, action) => {
-         state.myAds = action.payload;
-      });
+      builder
+         .addCase(getMyAds.fulfilled, (state, action) => {
+            state.myAds = action.payload;
+         })
+         .addCase(deleteAllAds.fulfilled, state => {
+            state.myAds = [];
+         })
+         .addCase(getRejectedPublishes.fulfilled, (state, action) => {
+            state.myAds = action.payload;
+         })
+         .addCase(putDeactivatePublishes.fulfilled, (state, action) => {
+            state.myAds = action.payload;
+         });
    },
 });

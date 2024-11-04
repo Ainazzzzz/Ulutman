@@ -6,7 +6,11 @@ import { MyAds } from './MyAds';
 import TabsUi from '../UI/TabsUi';
 import { useEffect, useState } from 'react';
 import { DeleteMyAdsModal } from './DeleteMyAdsModal';
-import { getMyAds, getRejectedPublishes } from '../../redux/users/myAdsThunk';
+import {
+   getMyAds,
+   getRejectedPublishes,
+   putDeactivatePublishes,
+} from '../../redux/users/myAdsThunk';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Ads = () => {
@@ -22,7 +26,6 @@ export const Ads = () => {
 
    const secondTab = [
       { value: '1', label: 'Активно' },
-      { value: '2', label: 'На модерации' },
       { value: '3', label: 'Деактивировано' },
       { value: '4', label: 'Отклонено' },
    ];
@@ -35,14 +38,11 @@ export const Ads = () => {
    const handleTabChange = tabValue => {
       setActiveTab(tabValue);
 
-      // Логика запроса для каждой вкладки
       tabValue === '1'
          ? dispatch(getMyAds())
          : tabValue === '2'
-           ? dispatch(getModerationAds())
-           : tabValue === '3'
-             ? dispatch(getDeactivatedAds())
-             : dispatch(getRejectedPublishes());
+           ? dispatch(putDeactivatePublishes())
+           : dispatch(getRejectedPublishes());
    };
 
    useEffect(() => {
