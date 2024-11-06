@@ -15,6 +15,7 @@ import { PublishesCategoryModal } from './PublishesCategoryModal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPublishesUser } from '../../redux/publishes/publishesThunk.js';
 import { getAllMetros } from '../../redux/main/mainThunk.js';
+import AdsFileUpload from './AdsFileUpload.jsx';
 
 export const CreateAdForm = () => {
    const { userData } = useSelector(state => state.auth);
@@ -36,7 +37,7 @@ export const CreateAdForm = () => {
          image: '',
          price: '',
          bank: 'SBERBANK',
-         // Дополнительные поля для недвижимости
+         publishStatus: 'ОЖИДАНИЕ',
          rooms: '',
          area: '',
          floor: '',
@@ -53,7 +54,6 @@ export const CreateAdForm = () => {
          dispatch(
             fetchPublishesUser({
                ...values,
-               publishStatus: 'ОДОБРЕН',
                categoryStatus: 'АКТИВНО',
                userId: userData.userId,
                phoneNumber: Number(values.phoneNumber),
@@ -117,7 +117,7 @@ export const CreateAdForm = () => {
                <Label>Загрузите фото</Label>
                <span>(до 6 фото)</span>
             </div>
-            <FileUpload
+            <AdsFileUpload
                setFieldValue={formik.setFieldValue}
                touched={formik.touched.image}
                errors={formik.errors.image}
@@ -171,34 +171,77 @@ export const CreateAdForm = () => {
             <WrapperRealEstate>
                <WrapperInputSelect>
                   <InputField
-                     placeholder={'6 комнат'}
-                     label={'Количество комнат'}
-                     required
+                     name="rooms"
+                     value={formik.values.rooms}
+                     onChange={formik.handleChange}
+                     placeholder="6 комнат"
+                     label="Количество комнат"
                   />
                   <InputField
-                     placeholder={'10'}
-                     label={'Площадь (м2)'}
-                     required
+                     name="area"
+                     value={formik.values.area}
+                     onChange={formik.handleChange}
+                     placeholder="10"
+                     label="Площадь (м2)"
                   />
-                  <InputField placeholder={'3'} label={'Этаж'} />
-                  <InputField placeholder={'2020'} label={'Год постройки'} />
                   <InputField
-                     placeholder={'Красная книга'}
-                     label={'Правоустанавливающие документы'}
+                     name="floor"
+                     value={formik.values.floor}
+                     onChange={formik.handleChange}
+                     placeholder="3"
+                     label="Этаж"
+                  />
+                  <InputField
+                     name="yearBuilt"
+                     value={formik.values.yearBuilt}
+                     onChange={formik.handleChange}
+                     placeholder="2020"
+                     label="Год постройки"
+                  />
+                  <InputField
+                     name="documents"
+                     value={formik.values.documents}
+                     onChange={formik.handleChange}
+                     placeholder="Красная книга"
+                     label="Правоустанавливающие документы"
                   />
                </WrapperInputSelect>
 
                <WrapperInputSelect>
-                  <InputField placeholder={'Ленинский район'} label={'Район'} />
-                  <InputField placeholder={'4'} label={'Площадь кухни (м2)'} />
-                  <InputField placeholder={'Евроремонт'} label={'Ремонт'} />
                   <InputField
-                     placeholder={'Газовое отопление'}
-                     label={'Отопление'}
+                     name="district"
+                     value={formik.values.district}
+                     onChange={formik.handleChange}
+                     placeholder="Ленинский район"
+                     label="Район"
                   />
                   <InputField
-                     placeholder={'AIT GROUP'}
-                     label={'Строительная компания'}
+                     name="kitchenArea"
+                     value={formik.values.kitchenArea}
+                     onChange={formik.handleChange}
+                     placeholder="4"
+                     label="Площадь кухни (м2)"
+                  />
+                  <InputField
+                     name="renovation"
+                     value={formik.values.renovation}
+                     onChange={formik.handleChange}
+                     placeholder="Евроремонт"
+                     label="Ремонт"
+                  />
+                  <InputField
+                     name="heating"
+                     value={formik.values.heating}
+                     onChange={formik.handleChange}
+                     placeholder="Газовое отопление"
+                     label="Отопление"
+                  />
+                  <InputField
+                     name="constructionCompany"
+                     value={formik.values.constructionCompany}
+                     onChange={formik.handleChange}
+                     placeholder="AIT GROUP"
+                     label="Строительная компания"
                   />
                </WrapperInputSelect>
             </WrapperRealEstate>
@@ -215,6 +258,7 @@ export const CreateAdForm = () => {
       </Form>
    );
 };
+
 const Form = styled('form')({
    display: 'flex',
    flexDirection: 'column',

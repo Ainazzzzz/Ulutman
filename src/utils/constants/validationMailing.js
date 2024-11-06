@@ -21,21 +21,4 @@ export const validationAdForm = Yup.object({
    price: Yup.number()
       .required('Цена обязательна')
       .typeError('Цена должна быть числом'),
-   bank: Yup.string().required('Банк обязателен'),
-   rooms: Yup.number()
-      .nullable()
-      .typeError('Количество комнат должно быть числом'),
-   area: Yup.number().nullable().typeError('Площадь должна быть числом'),
-   floor: Yup.number().nullable().typeError('Этаж должен быть числом'),
-   yearBuilt: Yup.number()
-      .nullable()
-      .typeError('Год постройки должен быть числом'),
-   documents: Yup.string().nullable(),
-   district: Yup.string().nullable(),
-   kitchenArea: Yup.number()
-      .nullable()
-      .typeError('Площадь кухни должна быть числом'),
-   renovation: Yup.string().nullable(),
-   heating: Yup.string().nullable(),
-   constructionCompany: Yup.string().nullable(),
 });

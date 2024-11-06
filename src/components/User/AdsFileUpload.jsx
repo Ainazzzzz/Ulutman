@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import CloseIcon from '../../../assets/icons/close-icon.svg?react';
+import CloseIcon from '../../assets/icons/close-icon.svg?react';
 import {
    Container,
    Label,
@@ -8,14 +8,18 @@ import {
    ErrorMessage,
    ImagePreview,
    StyledDropzone,
-} from './MailingFormStyles.jsx';
+} from '../../pages/Admin/mailing/MailingFormStyles';
+import { useDispatch } from 'react-redux';
+import { sendImageS3 } from '../../redux/s3/s3Thunk';
 
-const FileUpload = ({ setFieldValue, touched, errors, id }) => {
+const AdsFileUpload = ({ setFieldValue, touched, errors, id }) => {
    const [imagePreview, setImagePreview] = useState(null);
+   const dispatch = useDispatch();
 
    const onDrop = acceptedFiles => {
       const file = acceptedFiles[0];
       setFieldValue('image', file?.path);
+      dispatch(sendImageS3([file?.path]));
       const reader = new FileReader();
       reader.onloadend = () => {
          setImagePreview(reader.result);
@@ -79,4 +83,4 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
    );
 };
 
-export default FileUpload;
+export default AdsFileUpload;
