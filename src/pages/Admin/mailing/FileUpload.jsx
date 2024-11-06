@@ -55,7 +55,7 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
    });
 
    return (
-      <Box {...getRootProps()}>
+      <Box>
          <Box>
             <ImageContainer>
                {imagePreviews.map((image, index) => (
@@ -70,11 +70,8 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
                            position: 'absolute',
                            top: 8,
                            right: 8,
-                           backgroundColor: 'rgba(0, 0, 0, 0.5)',
+
                            color: 'white',
-                           '&:hover': {
-                              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                           },
                         }}
                         onClick={() => handleRemoveImage(index)}
                      >
@@ -90,20 +87,29 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
                      </MainImageButton>
                   </ImageWrapper>
                ))}
+               {imagePreviews.length === 6 || (
+                  <>
+                     <StyledBox
+                        textAlign="center"
+                        p={2}
+                        borderRadius={2}
+                        {...getRootProps()}
+                     >
+                        <input {...getInputProps()} id={id} />
+                        <CameraIcon fontSize="large" />
+                        <Typography variant="body1">Добавьте фото</Typography>
+                        <Typography variant="body2" color="textSecondary">
+                           Для добавления картинки щелкните или перетащите его
+                        </Typography>
+                     </StyledBox>
+                     {touched && errors && (
+                        <Typography color="error" variant="caption">
+                           {errors}
+                        </Typography>
+                     )}
+                  </>
+               )}
             </ImageContainer>
-            <StyledBox textAlign="center" p={2} borderRadius={2}>
-               <input {...getInputProps()} id={id} />
-               <CameraIcon fontSize="large" />
-               <Typography variant="body1">Добавьте фото</Typography>
-               <Typography variant="body2" color="textSecondary">
-                  Для добавления картинки щелкните или перетащите его
-               </Typography>
-            </StyledBox>
-            {touched && errors && (
-               <Typography color="error" variant="caption">
-                  {errors}
-               </Typography>
-            )}
          </Box>
       </Box>
    );
@@ -123,14 +129,24 @@ const StyledBox = styled(Box)({
 });
 
 const ImageContainer = styled(Box)(({ theme }) => ({
-   display: 'flex',
-   flexWrap: 'wrap',
-   gap: theme.spacing(2),
+   maxWidth: '805px',
+   display: 'grid',
+   gridTemplateColumns: 'repeat(3, 1fr)',
+   gap: '20px',
+
+   [theme.breakpoints.down('md')]: {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+   },
+
+   [theme.breakpoints.down('sm')]: {
+      gridTemplateColumns: 'repeat(1, 1fr)',
+   },
 }));
 
 const ImageWrapper = styled(Box)({
+   width: '255px',
+   height: '199px',
    position: 'relative',
-
    borderRadius: 8,
    overflow: 'hidden',
 });
@@ -144,7 +160,8 @@ const ImagePreview = styled('img')({
 const MainImageButton = styled(Button)(({ theme, isMain }) => ({
    position: 'absolute',
    bottom: theme.spacing(1),
-   left: theme.spacing(1),
+   left: theme.spacing(7),
+
    padding: theme.spacing(0.5, 1),
    backgroundColor: isMain
       ? theme.palette.primary.main

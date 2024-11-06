@@ -76,7 +76,7 @@ export const DescriptionField = ({
             value={description}
             onChange={onChange}
             onBlur={onBlur}
-            placeholder="Горячие акции: Скидка 20% на премиум-размещение: Разместите ваше объявление в топе и привлеките больше внимания! Предложение действует до [Дата]."
+            placeholder="Продаю iPhone 12 с объемом памяти 128GB в черном цвете. Телефон в отличном состоянии, использовался бережно и всегда носился в чехле с защитным стеклом на экране."
          />
          {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
       </Container>
@@ -88,6 +88,7 @@ export const SelectField = ({
    label,
    value,
    options,
+   placeholder,
    setFieldValue,
    onBlur,
    required,
@@ -99,6 +100,7 @@ export const SelectField = ({
          name={name}
          label={label}
          value={value}
+         placeholder={placeholder}
          options={options}
          onChange={e => setFieldValue(name, e.target.value)}
          onBlur={onBlur}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from '@mui/material';
 import { useFormik } from 'formik';
 import FileUpload from '../../pages/Admin/mailing/FileUpload.jsx';
@@ -14,14 +14,12 @@ import { WrapperInputSelect } from '../../pages/Admin/mailing/MailingFormStyles.
 import { PublishesCategoryModal } from './PublishesCategoryModal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPublishesUser } from '../../redux/publishes/publishesThunk.js';
-
-const options = [
-   { id: 2, value: 'БульварРокоссовкого', label: 'БульварРокоссовкого' },
-   { id: 3, value: 'Кожуховская', label: 'Кожуховская' },
-];
+import { getAllMetros } from '../../redux/main/mainThunk.js';
 
 export const CreateAdForm = () => {
    const { userData } = useSelector(state => state.auth);
+   const { metros } = useSelector(state => state.main);
+
    const [isOpen, setIsOpen] = useState(false);
    const [selectCategory, setSelectCategory] = useState({});
    const dispatch = useDispatch();
@@ -30,15 +28,25 @@ export const CreateAdForm = () => {
    const formik = useFormik({
       initialValues: {
          title: '',
-         description: '',
-         metro: 'metro',
-         address: '',
          phoneNumber: '',
-         image: '',
+         description: '',
+         address: '',
          category: '',
-         subcategory: '',
+         metro: '',
+         image: '',
          price: '',
          bank: 'SBERBANK',
+         // Дополнительные поля для недвижимости
+         rooms: '',
+         area: '',
+         floor: '',
+         yearBuilt: '',
+         documents: '',
+         district: '',
+         kitchenArea: '',
+         renovation: '',
+         heating: '',
+         constructionCompany: '',
       },
       validationSchema: validationAdForm,
       onSubmit: values => {
@@ -67,6 +75,10 @@ export const CreateAdForm = () => {
          subCategoryText: subCategory.text,
       });
    };
+
+   useEffect(() => {
+      dispatch(getAllMetros());
+   }, []);
 
    return (
       <Form onSubmit={formik.handleSubmit}>
@@ -137,15 +149,8 @@ export const CreateAdForm = () => {
                name="metro"
                label="Метро"
                value={formik.values.metro}
-               options={[
-                  {
-                     id: 1,
-                     value: 'metro',
-                     label: 'Выберите метро',
-                     disabled: true,
-                  },
-                  ...options,
-               ]}
+               options={metros}
+               placeholder="Выберите метро"
                setFieldValue={formik.setFieldValue}
                onBlur={formik.handleBlur}
                touched={formik.touched.metro}
@@ -162,6 +167,42 @@ export const CreateAdForm = () => {
                error={formik.errors.address}
             />
          </WrapperInputSelect>
+         {selectCategory.subCategoryText === 'Квартира' && (
+            <WrapperRealEstate>
+               <WrapperInputSelect>
+                  <InputField
+                     placeholder={'6 комнат'}
+                     label={'Количество комнат'}
+                     required
+                  />
+                  <InputField
+                     placeholder={'10'}
+                     label={'Площадь (м2)'}
+                     required
+                  />
+                  <InputField placeholder={'3'} label={'Этаж'} />
+                  <InputField placeholder={'2020'} label={'Год постройки'} />
+                  <InputField
+                     placeholder={'Красная книга'}
+                     label={'Правоустанавливающие документы'}
+                  />
+               </WrapperInputSelect>
+
+               <WrapperInputSelect>
+                  <InputField placeholder={'Ленинский район'} label={'Район'} />
+                  <InputField placeholder={'4'} label={'Площадь кухни (м2)'} />
+                  <InputField placeholder={'Евроремонт'} label={'Ремонт'} />
+                  <InputField
+                     placeholder={'Газовое отопление'}
+                     label={'Отопление'}
+                  />
+                  <InputField
+                     placeholder={'AIT GROUP'}
+                     label={'Строительная компания'}
+                  />
+               </WrapperInputSelect>
+            </WrapperRealEstate>
+         )}
 
          <StyledButton type="submit">Создать</StyledButton>
 
@@ -199,3 +240,15 @@ const ContainerFile = styled('div')({
 const StyledButton = styled(Button)({
    width: '123px',
 });
+
+const WrapperRealEstate = styled('div')(({ theme }) => ({
+   display: 'flex',
+   gap: '20px',
+
+   '& > div': {
+      paddingTop: '0',
+   },
+   [theme.breakpoints.down('md')]: {
+      flexWrap: 'wrap',
+   },
+}));
