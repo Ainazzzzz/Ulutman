@@ -66,10 +66,11 @@ export const AdminHeaderFilter = ({
                   <p>Сбросить фильтр</p>
                </FilterResetSection>
             </TopSection>
-
-            <div>
-               <RedDeleteIcon onClick={onDeleteModal} />
-            </div>
+            {onDeleteModal && (
+               <div>
+                  <RedDeleteIcon onClick={onDeleteModal} />
+               </div>
+            )}
          </InputsWrapper>
       </Container>
    );

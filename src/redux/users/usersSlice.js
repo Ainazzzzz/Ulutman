@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllUsers, getUsersName, getUsersFilter } from './usersThunk';
+import {
+   getAllUsers,
+   getUsersName,
+   getUsersFilter,
+   blockUserRequest,
+} from './usersThunk';
 
 export const usersSlice = createSlice({
    name: 'users',
@@ -59,6 +64,17 @@ export const usersSlice = createSlice({
             state.isLoading = true;
          })
          .addCase(getUsersFilter.rejected, state => {
+            state.isLoading = false;
+         });
+
+      builder
+         .addCase(blockUserRequest.fulfilled, state => {
+            state.isLoading = false;
+         })
+         .addCase(blockUserRequest.pending, state => {
+            state.isLoading = true;
+         })
+         .addCase(blockUserRequest.rejected, state => {
             state.isLoading = false;
          });
    },

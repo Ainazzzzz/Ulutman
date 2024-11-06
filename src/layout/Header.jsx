@@ -21,6 +21,7 @@ import Language from '../assets/icons/language-icon.svg?react';
 import LogOutIcon from '../assets/icons/come-icon.svg?react';
 import { logOut } from '../redux/auth/authThunk.js';
 import { useNavigate } from 'react-router-dom';
+import SignUp from '../pages/user/auth/signUp.jsx';
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -45,11 +46,12 @@ export const Header = () => {
    const { isAuth, userData } = useSelector(state => state.auth);
    const navigate = useNavigate();
 
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-
    const [language, setLanguage] = useState('ru');
    const [openMenu, setOpenMenu] = useState(null);
    const [openModal, setOpenModal] = useState(false);
+   const [openSignUp, setOpenSignUp] = useState(false);
+
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
    const handleSelect = event => setLanguage(event.target.value);
    const handleClick = event => setOpenMenu(event.currentTarget);
@@ -63,6 +65,13 @@ export const Header = () => {
    const handleCloseModal = () => {
       setOpenModal(false);
    };
+
+   const handleOpenSignUp = () => {
+      setOpenSignUp(true);
+      handleCloseModal();
+   };
+
+   const handleCloseSignUp = () => setOpenSignUp(false);
 
    const logOutHandler = () => {
       dispatch(logOut({ navigate, toggleModal: handleClose }));
@@ -171,11 +180,21 @@ export const Header = () => {
                </ContainerBlock>
             )}
          </Wrapper>
-         <SignIn
-            open={openModal}
-            onClose={handleCloseModal}
-            onOpen={handleOpenModal}
-         />
+         {openModal && (
+            <SignIn
+               open={openModal}
+               onClose={handleCloseModal}
+               handleOpenSignUp={handleOpenSignUp}
+            />
+         )}
+
+         {openSignUp && (
+            <SignUp
+               open={openSignUp}
+               onClose={handleCloseSignUp}
+               handleOpenModal={handleOpenModal}
+            />
+         )}
       </>
    );
 };
