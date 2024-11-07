@@ -6,7 +6,6 @@ import LikeIcon from '../../../assets/icons/like-icon.svg?react';
 import { useState } from 'react';
 import { PhoneModal } from '../PhoneModal';
 import Modal from '../Modal';
-import { useState } from 'react';
 import emptyImageCard from '../../../assets/images/no-image.jpg';
 
 export const CardItem = ({
@@ -20,6 +19,9 @@ export const CardItem = ({
    phoneNumber,
    id,
    onNavigateDetail,
+   title,
+   image,
+   onDeleteById,
 }) => {
    const [openPhoneModal, setOpenPhoneModal] = useState(false);
 

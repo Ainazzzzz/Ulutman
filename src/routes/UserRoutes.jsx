@@ -5,6 +5,7 @@ import { Profile } from '../components/User/Profile';
 import { MainPage } from '../pages/MainPage';
 import { CreateAdPage } from '../pages/user/CreateAdPage';
 import DetailInfo from '../pages/user/detail-info/DetailInfo.jsx';
+import { MyPage } from '../pages/user/MyPage.jsx';
 import { RecommendationPage } from '../pages/user/RecommendationPage.jsx';
 import { SearchMainPage } from '../pages/user/SearchMainPage.jsx';
 import { PATHS } from '../utils/constants/paths.js';
@@ -75,15 +76,39 @@ export const UserRoutes = role => [
       ),
    },
    {
-      path: PATHS.USER.PROFILE,
+      path: PATHS.USER.MY_PAGE,
       element: (
          <PrivateAuthRouteByRole
             role={role}
             roles={['USER']}
             fallBackPath={PATHS.USER.ROOT}
-            RouteComponent={<Profile />}
+            RouteComponent={<MyPage />}
          />
       ),
+      children: [
+         {
+            path: PATHS.USER.PROFILE,
+            element: (
+               <PrivateAuthRouteByRole
+                  role={role}
+                  roles={['USER']}
+                  fallBackPath={PATHS.USER.ROOT}
+                  RouteComponent={<Profile />}
+               />
+            ),
+         },
+         {
+            path: PATHS.USER.MY_ADS,
+            element: (
+               <PrivateAuthRouteByRole
+                  role={role}
+                  roles={['USER']}
+                  fallBackPath={PATHS.USER.ROOT}
+                  RouteComponent={<div>my ads</div>}
+               />
+            ),
+         },
+      ],
    },
    {
       path: PATHS.USER.MAIN_PHP,
