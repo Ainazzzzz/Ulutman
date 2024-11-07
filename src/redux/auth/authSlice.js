@@ -7,6 +7,7 @@ const getInitialState = () => {
    const json = Cookies.get('ULUTMAN');
    if (json) {
       const parsedData = JSON.parse(json);
+
       return {
          isAuth: true,
          isLoading: false,

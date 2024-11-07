@@ -12,7 +12,10 @@ export const updateUserProfile = createAsyncThunk(
          );
 
          const parsedData = JSON.parse(Cookies.get('ULUTMAN') || '{}');
-         Cookies.set('ULUTMAN', JSON.stringify({ ...parsedData, ...data }));
+         Cookies.set(
+            'ULUTMAN',
+            JSON.stringify({ ...parsedData, ...data, name: data.username }),
+         );
 
          return data;
       } catch (error) {
