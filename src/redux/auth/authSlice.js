@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { logOut, signIn, signUp } from './authThunk';
 import Cookies from 'js-cookie';
+import { updateUserProfile } from '../users/profileThunk';
 
 const getInitialState = () => {
    const json = Cookies.get('ULUTMAN');
@@ -17,6 +18,7 @@ const getInitialState = () => {
             role: parsedData.role,
             name: parsedData.name,
             status: parsedData.status,
+            userId: parsedData.userId,
          },
       };
    }
@@ -53,6 +55,7 @@ export const authSlice = createSlice({
          state.userData.status = '';
          state.userData.email = '';
          state.userData.token = '';
+         state.userData.userId = '';
 
          state.isAuth = false;
          state.error = null;
@@ -84,6 +87,26 @@ export const authSlice = createSlice({
             state.isLoading = true;
          })
          .addCase(signUp.rejected, (state, action) => {
+            state.isLoading = false;
+         });
+
+      builder;
+      builder
+         .addCase(updateUserProfile.fulfilled, (state, action) => {
+            state.isAuth = true;
+            state.isLoading = false;
+            state.userData = {
+               ...state.userData,
+               name: action.payload.username,
+               lastName: action.payload.lastName,
+               phoneNumber: action.payload.phoneNumber,
+               emailAddress: action.payload.emailAddress,
+            };
+         })
+         .addCase(updateUserProfile.pending, state => {
+            state.isLoading = true;
+         })
+         .addCase(updateUserProfile.rejected, state => {
             state.isLoading = false;
          });
    },
