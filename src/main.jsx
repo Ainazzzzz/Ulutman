@@ -12,6 +12,8 @@ import './index.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import './i18n';
 import { injectStore } from './config/axiosInstance.js';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 injectStore(store);
 
@@ -20,10 +22,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Provider store={store}>
          <SkeletonTheme color="#d9d9d9">
             <ThemeProvider theme={theme}>
-               <Toastify />
-               <Suspense fallback="...loading">
-                  <App />
-               </Suspense>
+               <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <Toastify />
+                  <Suspense fallback="...loading">
+                     <App />
+                  </Suspense>
+               </LocalizationProvider>
             </ThemeProvider>
          </SkeletonTheme>
       </Provider>

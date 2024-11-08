@@ -8,11 +8,14 @@ import {
    StyledButton,
    StyledWriting,
    ErrorMessage,
+   DateLabelStyle,
 } from './MailingFormStyles.jsx';
 import { validationSchema } from '../../../utils/constants/validationMailing.js';
 import { useDispatch } from 'react-redux';
 import { postMailing } from '../../../redux/mailing/mailingThunk.js';
 import { useNavigate } from 'react-router-dom';
+import DatePicker from '../../../components/UI/DatePicker.jsx';
+import dayjs from 'dayjs';
 
 const InputContainer = ({
    name,
@@ -44,11 +47,17 @@ export const MailingForm = ({ mailingType, recipients }) => {
 
    const formik = useFormik({
       initialValues: {
-         title: '',
          mailingType: 'Новости',
-         message: '',
          recipientsAllValue: 'Все пользователи',
-         files: null,
+
+         title: '',
+         message: '',
+         mailingStatus: '',
+         image: '',
+         promotionStartDate: dayjs(new Date()),
+         promotionEndDate: dayjs(new Date()).add(7, 'day'),
+         createDate: '',
+         recipientsIds: [],
       },
       validationSchema: validationSchema,
       onSubmit: values => {
@@ -128,11 +137,36 @@ export const MailingForm = ({ mailingType, recipients }) => {
                   error={
                      formik.touched.message && Boolean(formik.errors.message)
                   }
+                  multiline
                />
                {formik.touched.message && formik.errors.message ? (
                   <ErrorMessage>{formik.errors.message}</ErrorMessage>
                ) : null}
             </Container>
+            <DatePicker
+               value={formik.values.promotionStartDate}
+               onChange={newValue =>
+                  formik.setFieldValue('promotionStartDate', newValue)
+               }
+               error={
+                  formik.touched.promotionStartDate &&
+                  Boolean(formik.errors.promotionStartDate)
+               }
+               helperText={formik.errors.promotionStartDate}
+            />
+
+            <DatePicker
+               value={formik.values.promotionEndDate}
+               onChange={newValue =>
+                  formik.setFieldValue('promotionEndDate', newValue)
+               }
+               error={
+                  formik.touched.promotionEndDate &&
+                  Boolean(formik.errors.promotionEndDate)
+               }
+               helperText={formik.errors.promotionEndDate}
+               disableDate={formik.values.promotionStartDate}
+            />
          </WrapperInputSelect>
 
          <FileUpload

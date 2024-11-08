@@ -1,6 +1,7 @@
 import { styled } from '@mui/material';
 import CameraAltIcon from '../../../assets/icons/camera-icon.svg?react';
 import { Button } from '../../../components/UI/Button.jsx';
+import Input from '../../../components/UI/Input.jsx';
 
 export const WrapperInputSelect = styled('div')(({ theme }) => ({
    width: '327px',
@@ -98,18 +99,14 @@ export const StyledButton = styled(Button)(({ theme }) => ({
    },
 }));
 
-export const StyledWriting = styled('textarea')(({ theme }) => ({
+export const StyledWriting = styled(Input)(({ theme }) => ({
    width: '617px',
-   height: '122px',
    fontSize: '18px',
    fontWeight: '400',
    color: '#909090',
-   padding: '10px',
-   border: '1px solid #CFCFCF',
-   borderRadius: '10px',
    background: 'transparent',
    resize: 'none',
-   marginTop: '8px',
+   margin: '8px 0 3px',
    [theme.breakpoints.down('md')]: {
       width: '326px',
       height: '154px',
@@ -117,12 +114,6 @@ export const StyledWriting = styled('textarea')(({ theme }) => ({
          fontSize: '18px',
          fontWeight: '400',
       },
-   },
-   '&:hover': {
-      border: '1px solid #282828',
-   },
-   '&:focus': {
-      border: '1px solid #7e52ff',
    },
 }));
 
@@ -146,7 +137,13 @@ export const ImagePreview = styled('img')(() => ({
    maxWidth: '100%',
    height: '200px',
    objectFit: 'contain',
-   // marginTop: '10px',
-   // paddingTop: '20px',
    padding: '5px',
+}));
+
+export const DateLabelStyle = styled('p')(() => ({
+   fontWeight: 600,
+   lineHeight: '21px',
+   margin: '0 0 8px 0',
+   gap: '14px',
+   fontSize: '18px',
 }));
