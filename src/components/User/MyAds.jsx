@@ -9,9 +9,12 @@ import Edit from '../../assets/icons/pensil-icon.svg?react';
 import Deactivate from '../../assets/icons/deactivate-icon.svg?react';
 import { styled } from '@mui/material';
 import { useState } from 'react';
+import { putDeactivatePublishes } from '../../redux/users/myAdsThunk';
+import { useDispatch } from 'react-redux';
 
 export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
    const [deactivatedIds, setDeactivatedIds] = useState([]);
+   const dispatch = useDispatch();
 
    const handleCheckboxChange = id => {
       console.log('ID объявления:', id);
@@ -21,10 +24,15 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
       );
    };
 
-   const toggleActivation = id => {
-      setDeactivatedIds(prev =>
-         prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
-      );
+   const toggleActivation = async id => {
+      // setDeactivatedIds(prev =>
+      //    prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
+      // );
+      // dispatch(putDeactivatePublishes(id));
+
+      await dispatch(putDeactivatePublishes(id));
+      // Обновляем данные объявлений после запроса
+      dispatch(getMyAds());
    };
 
    return (
@@ -33,7 +41,7 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
             <p>Нет данных для выбранной вкладки</p>
          ) : (
             myAds.map(item => {
-               const isDeactivated = deactivatedIds.includes(item.id);
+               const isDeactivated = !item.active;
 
                return (
                   <Wrapper

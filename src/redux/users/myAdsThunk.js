@@ -63,13 +63,13 @@ export const getRejectedPublishes = createAsyncThunk(
    },
 );
 
-export const putDeactivatePublishes = createAsyncThunk(
-   'myAds/putDeactivatePublishes',
-   async (publishId, { getState, rejectWithValue }) => {
+export const getDeactivatePublishes = createAsyncThunk(
+   'myAds/getDeactivatePublishes',
+   async (_, { getState, rejectWithValue }) => {
       try {
          const userId = getState().auth.userData.userId;
-         const { data } = await axiosInstance.put(
-            `users/my-publishes/deactivate/${userId}/${8}`,
+         const { data } = await axiosInstance.get(
+            `users/my-publishes/inactive-publishes/${userId}`,
          );
          return data;
       } catch (error) {
@@ -78,14 +78,22 @@ export const putDeactivatePublishes = createAsyncThunk(
    },
 );
 
-export const getDeactivatePublishes = createAsyncThunk(
-   'myAds/getDeactivatePublishes',
+export const putDeactivatePublishes = createAsyncThunk(
+   'myAds/putDeactivatePublishes',
    async (publishId, { getState, rejectWithValue }) => {
       try {
          const userId = getState().auth.userData.userId;
+
          const { data } = await axiosInstance.put(
-            `users/my-publishes/inactive-publishes/${userId}`,
+            `users/my-publishes/deactivate/${userId}/${publishId}`,
          );
+
+         //  const endpoint = `users/my-publishes/${
+         //     active ? 'active' : 'deactive'
+         //  }/${userId}/${publishId}`; // Выбираем правильный путь в зависимости от isActive
+
+         //  const { data } = await axiosInstance.put(endpoint);
+
          return data;
       } catch (error) {
          return rejectWithValue(error.response?.data || error.message);

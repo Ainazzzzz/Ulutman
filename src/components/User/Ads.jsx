@@ -7,6 +7,7 @@ import TabsUi from '../UI/TabsUi';
 import { useEffect, useState } from 'react';
 import { DeleteMyAdsModal } from './DeleteMyAdsModal';
 import {
+   getDeactivatePublishes,
    getMyAds,
    getRejectedPublishes,
    putDeactivatePublishes,
@@ -26,8 +27,8 @@ export const Ads = () => {
 
    const secondTab = [
       { value: '1', label: 'Активно' },
-      { value: '3', label: 'Деактивировано' },
-      { value: '4', label: 'Отклонено' },
+      { value: '2', label: 'Деактивировано' },
+      { value: '3', label: 'Отклонено' },
    ];
 
    const handleDelete = () => {
@@ -41,12 +42,12 @@ export const Ads = () => {
       tabValue === '1'
          ? dispatch(getMyAds())
          : tabValue === '2'
-           ? dispatch(putDeactivatePublishes())
+           ? dispatch(getDeactivatePublishes())
            : dispatch(getRejectedPublishes());
    };
 
    useEffect(() => {
-      dispatch(getMyAds()); // Загружаем данные по умолчанию для активной вкладки
+      dispatch(getMyAds());
    }, [dispatch]);
 
    return (
