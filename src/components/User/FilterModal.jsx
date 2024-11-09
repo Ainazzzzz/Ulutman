@@ -78,11 +78,12 @@ export const FilterModal = () => {
                      <InputStyle
                         value={walkingDistance}
                         onChange={e => setWalkingDistance(e.target.value)}
+                        type="number"
                      />
                      <Title>минут</Title>
                      <InputBox>
-                        <SecondInput placeholder="Пешком" />
-                        <FirstInput placeholder="Транспортом" />
+                        <SecondInput type="number" placeholder="Пешком" />
+                        <FirstInput type="number" placeholder="Транспортом" />
                      </InputBox>
                   </MiniBox>
                </Block>
@@ -100,11 +101,13 @@ export const FilterModal = () => {
                            value={minTotalArea}
                            onChange={e => setMinTotalArea(e.target.value)}
                            placeholder="от"
+                           type="number"
                         />
                         <FourthInputStyle
                            value={maxTotalArea}
                            onChange={e => setMaxTotalArea(e.target.value)}
                            placeholder="до"
+                           type="number"
                         />
                      </ThirdMiniBlock>
                   </MiniBox>
@@ -121,6 +124,7 @@ export const FilterModal = () => {
                                     setMinKitchenArea(e.target.value)
                                  }
                                  placeholder="от"
+                                 type="number"
                               />
                               <FourthInputStyle
                                  value={maxKitchenArea}
@@ -128,6 +132,7 @@ export const FilterModal = () => {
                                     setMaxKitchenArea(e.target.value)
                                  }
                                  placeholder="до"
+                                 type="number"
                               />
                            </ThirdMiniBlock>
                         </MiniBox>
@@ -140,6 +145,7 @@ export const FilterModal = () => {
                                     setMinLivingArea(e.target.value)
                                  }
                                  placeholder="от"
+                                 type="number"
                               />
                               <FourthInputStyle
                                  value={maxLivingArea}
@@ -147,6 +153,7 @@ export const FilterModal = () => {
                                     setMaxLivingArea(e.target.value)
                                  }
                                  placeholder="до"
+                                 type="number"
                               />
                            </ThirdMiniBlock>
                         </MiniBox>
@@ -162,11 +169,13 @@ export const FilterModal = () => {
                            value={minLivingArea}
                            onChange={e => setMinLivingArea(e.target.value)}
                            placeholder="от"
+                           type="number"
                         />
                         <FourthInputStyle
                            value={maxLivingArea}
                            onChange={e => setMaxLivingArea(e.target.value)}
                            placeholder="до"
+                           type="number"
                         />
                      </ThirdMiniBlock>
                   </Block>
@@ -178,11 +187,13 @@ export const FilterModal = () => {
                         value={minYear}
                         onChange={e => setMinYear(e.target.value)}
                         placeholder="от"
+                        type="number"
                      />
                      <FourthInputStyle
                         value={maxYear}
                         onChange={e => setMaxYear(e.target.value)}
                         placeholder="до"
+                        type="number"
                      />
                   </ThirdMiniBlock>
                </Block>
@@ -240,6 +251,10 @@ const ThirdMiniBlock = styled('div')(({ theme }) => ({
 }));
 const InputStyle = styled(Input)(({ theme }) => ({
    width: '80px',
+
+   '.css-heatjl-MuiFormControl-root-MuiTextField-root': {
+      display: 'none',
+   },
    [theme.breakpoints.down('md')]: {
       width: '42px',
    },
@@ -250,6 +265,7 @@ const ThirdInputStyle = styled(Input)(({ theme }) => ({
       borderTopRightRadius: '0px',
       borderBottomRightRadius: '0px',
    },
+
    [theme.breakpoints.down('md')]: {
       width: '160px',
       '& .MuiInputBase-root': {

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { styled } from '@mui/material';
 import Wait from '../../../assets/icons/wait-icon.svg?react';
 import { green, red, orange } from '@mui/material/colors';
@@ -11,52 +11,165 @@ import { WaitingModal } from '../ads/WaitingModal.jsx';
 import Table from '../../../components/UI/Table.jsx';
 import { Button } from '../../../components/UI/Button.jsx';
 import Plus from '../../../assets/icons/plus.svg?react';
+import { useNavigate } from 'react-router-dom';
+import { checkAllUsers, checkUser } from '../../../redux/users/usersSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { CheckBox } from '../../../components/UI/Checkbox.jsx';
+import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
+import { useDebounce } from '../../../hooks/useDebounce.js';
+import {
+   filterMailing,
+   getAllMailing,
+} from '../../../redux/mailing/mailingThunk.js';
+import TableSkeleton from '../../../components/UI/TableSkeleton.jsx';
+
+const inputData = [{ id: 'name', value: 'По имени' }];
+const selectsConfig = [
+   {
+      label: 'type',
+      options: [
+         { id: 'e1', value: 'type', label: 'Тип' },
+         { id: 'e2', value: 'НОВОСТИ', label: 'Новости' },
+         { id: 'e3', value: 'АКЦИИ', label: 'Акции' },
+         { id: 'e4', value: 'ПОЗДРАВЛЕНИЯ', label: 'Поздравления' },
+      ],
+   },
+   { label: 'date', options: [{ id: 'e2', value: 'date', label: 'Дата' }] },
+   {
+      label: 'status',
+      options: [
+         { id: 'e5', value: 'status', label: 'Cтатус' },
+         { id: 'e6', value: 'ОШИБКА', label: 'Ошибка' },
+         { id: 'e7', value: 'ОТПРАВЛЕНО', label: 'Отправлено' },
+      ],
+   },
+];
+
+const initialState = {
+   deleteAllModal: false,
+   waitingModal: false,
+   inputValues: { name: '', date: [] },
+   selectedValues: { type: 'type', date: 'date', status: 'status' },
+};
+
+const reducer = (state, action) => {
+   switch (action.type) {
+      case 'TOGGLE_MODAL':
+         return { ...state, [action.payload]: !state[action.payload] };
+      case 'SET_VALUES':
+         return {
+            ...state,
+            [action.field]: { ...state[action.field], ...action.payload },
+         };
+      case 'RESET_FILTER':
+         return initialState;
+      default:
+         return state;
+   }
+};
 
 const AdminMailing = () => {
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const { mailing, isLoading } = useSelector(state => state.mailing);
+
+   const [state, dispatchFunc] = useReducer(reducer, initialState);
+
    const [open, setOpen] = useState(false);
    const [isOpen, setIsOpen] = useState(false);
-   const [selectedValue, setSelectedValue] = useState('Категория');
 
-   const ads = [
-      {
-         id: 1,
-         name: 'Новости 1',
-         type: 'Новости',
-         category: 'Услуги',
-         date: '19.01.2023',
-         status: 'Ошибка',
-      },
-      {
-         id: 2,
-         name: 'Акции 1',
-         type: 'Акции ',
-         category: 'Админ',
-         date: '19.01.2023',
-         status: 'Отправлено',
-      },
-      {
-         id: 3,
-         name: 'Новости 1',
-         type: 'Новости',
-         category: 'Админ',
-         date: '19.01.2023',
-         status: 'Отправлено',
-      },
-   ];
+   const debouncedName = useDebounce(state.inputValues.name, 1500);
 
-   const handleOpenDeleteModal = () => setOpen(true);
    const handleOpenWaitingModal = () => setIsOpen(true);
    const handleCloseWaitingModal = () => setIsOpen(true);
+
+   const formatDate = date => {
+      const [day, month, year] = date.split('.');
+
+      const currentYear = new Date().getFullYear();
+      const century = Math.floor(currentYear / 100) * 100;
+      const formattedYear =
+         year.length === 2 ? century + parseInt(year, 10) : year;
+
+      return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+   };
+
+   const fetchUsers = useCallback(() => {
+      const { date } = state.inputValues;
+      const { type, status } = state.selectedValues;
+
+      const filters = {};
+      if (type !== 'type') filters.type = type;
+      if (status !== 'status') filters.statuses = status;
+
+      if (date.length) {
+         const formattedDates = date.map(formatDate);
+         filters.createDates = formattedDates;
+      }
+
+      if (Object.keys(filters).length) {
+         dispatch(filterMailing(filters));
+      } else {
+         dispatch(getAllMailing());
+      }
+   }, [state.inputValues, state.selectedValues, dispatch]);
+
+   useEffect(() => {
+      if (debouncedName) {
+         // dispatch(getUsersName(debouncedName));
+      } else {
+         fetchUsers();
+      }
+   }, [debouncedName, fetchUsers, dispatch]);
+
+   const toggleModal = useCallback(modalType => {
+      dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });
+   }, []);
+
+   const setValues = useCallback((field, payload) => {
+      dispatchFunc({ type: 'SET_VALUES', field, payload });
+   }, []);
+
+   const resetFilterHandler = () => {
+      dispatchFunc({ type: 'RESET_FILTER' });
+      // dispatch(getResetFilter());
+   };
 
    const headers = useMemo(
       () => [
          {
+            Header: ({ data }) => (
+               <CheckBox
+                  onChange={e =>
+                     dispatch(
+                        checkAllUsers({ checked: e.target.checked, data }),
+                     )
+                  }
+               />
+            ),
+
+            accessor: 'check',
+            Cell: ({ row }) => (
+               <CheckBox
+                  checked={row.original.checked || false}
+                  onChange={e =>
+                     dispatch(
+                        checkUser({
+                           checked: e.target.checked,
+                           data: row.original,
+                        }),
+                     )
+                  }
+               />
+            ),
+         },
+         {
             Header: 'Название',
-            accessor: 'name',
+            accessor: 'title',
          },
          {
             Header: 'тип',
-            accessor: 'type',
+            accessor: 'mailingType',
          },
          {
             Header: 'Получатели',
@@ -64,7 +177,7 @@ const AdminMailing = () => {
          },
          {
             Header: 'ДАТА РЕГИСТРАЦИИ',
-            accessor: 'date',
+            accessor: 'createDate',
          },
 
          {
@@ -110,72 +223,44 @@ const AdminMailing = () => {
       [],
    );
 
-   const options = [
-      { id: 1, value: 'option1', label: 'Option 1' },
-      { id: 2, value: 'option2', label: 'Option 2' },
-   ];
+   const handleNavigate = () => {
+      navigate('/admin/users/add-mailing');
+   };
+
    return (
       <Wrapper>
          <TitleButtun>
             <Description>Создание и отправка email - рассылок</Description>
-            <ButtunStyle>
+            <ButtunStyle onClick={handleNavigate}>
                <Plus />
                Создать новую рассылку
             </ButtunStyle>
          </TitleButtun>
          <Container>
-            <FirstBlock>
-               <FilterStyle>
-                  <Filter />
-               </FilterStyle>
-               <Title>Название</Title>
-               <SelectStyle
-                  value={selectedValue}
-                  options={options}
-                  renderValue={value =>
-                     value
-                        ? 'Получатели'
-                        : options.find(option => option.value === value)?.label
-                  }
-               />
-               <SelectStyle
-                  value={selectedValue}
-                  options={options}
-                  renderValue={value =>
-                     value
-                        ? 'Тип'
-                        : options.find(option => option.value === value)?.label
-                  }
-               />
-               <SelectStyle
-                  value={selectedValue}
-                  options={options}
-                  renderValue={value =>
-                     value
-                        ? 'Дата'
-                        : options.find(option => option.value === value)?.label
-                  }
-               />
-               <SelectStyle
-                  value={selectedValue}
-                  options={options}
-                  renderValue={value =>
-                     value
-                        ? 'Статус'
-                        : options.find(option => option.value === value)?.label
-                  }
-               />
-               <SecondMiniBlock>
-                  <Replay />
-                  <p>Сбросить фильтр</p>
-               </SecondMiniBlock>
-            </FirstBlock>
-            <div>
-               <RedDeleteIcon onClick={handleOpenDeleteModal} />
-            </div>
+            <AdminHeaderFilter
+               selectedValues={state.selectedValues}
+               onSelectChange={(label, value) =>
+                  setValues('selectedValues', { [label]: value })
+               }
+               inputData={inputData}
+               selectsConfig={selectsConfig}
+               onDeleteModal={() => toggleModal('deleteAllModal')}
+               handleChange={(index, value) =>
+                  setValues('inputValues', { [index]: value })
+               }
+               onResetFilter={resetFilterHandler}
+               handleDateChange={date => setValues('inputValues', { date })}
+               value={state.inputValues}
+            />
+
             {open && <AdsDeleteModal />}
          </Container>
-         <Table data={ads} column={headers} />
+
+         {isLoading ? (
+            <TableSkeleton />
+         ) : (
+            <Table data={mailing} column={headers} />
+         )}
          {isOpen && <WaitingModal onClose={handleCloseWaitingModal} />}
       </Wrapper>
    );

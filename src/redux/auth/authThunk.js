@@ -29,6 +29,9 @@ export const signIn = createAsyncThunk(
 
          return updatedData;
       } catch (e) {
+         const errorMessage =
+            e.response?.data?.message || 'Неверные данные для входа';
+         showToast('error', errorMessage);
          return rejectedWithValue(e);
       }
    },
@@ -39,6 +42,8 @@ export const signUp = createAsyncThunk(
    async ({ val, onClose }, { rejectedWithValue }) => {
       try {
          const { data } = await axiosInstance.post('auth/sign-up', val);
+
+         Cookies.set('ULUTMAN', JSON.stringify(data));
 
          showToast('success', 'Успешно');
          onClose();

@@ -45,9 +45,16 @@ const StyledContainer = styled(Paper)(({ theme }) => ({
       fontSize: '18px',
       fontWeight: '400',
       lineHeight: '21.78px',
+
+      [theme.breakpoints.down('md')]: {
+         fontSize: '14px',
+         fontWeight: '400',
+      },
    },
 
    '& > .MuiButton-root': {
       width: '15%',
+      fontSize: '16px',
+      fontWeight: '400',
    },
 }));

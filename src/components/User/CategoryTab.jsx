@@ -4,7 +4,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { useEffect, useState } from 'react';
-import { styled, useMediaQuery } from '@mui/system';
+import { display, styled, useMediaQuery } from '@mui/system';
 import { CategoryCard } from '../UI/CategoryCard';
 import Filter from '../../assets/icons/filter-category-icon.svg?react';
 import { CARDS, CARDS_MAIN } from '../../utils/constants';
@@ -150,6 +150,12 @@ const TabListStyle = styled(TabList)(({ theme }) => ({
    '.MuiTabs-flexContainer': {
       display: 'flex',
       gap: '24px',
+      overflowX: 'auto',
+      scrollbarWidth: 'none',
+      '-ms-overflow-style': 'none',
+   },
+   '.MuiTabs-flexContainer::-webkit-scrollbar': {
+      display: 'none',
    },
    [theme.breakpoints.down('md')]: {
       overflowX: 'scroll',
@@ -163,6 +169,7 @@ const TabStyle = styled(Tab)(({ theme }) => ({
    fontWeight: '500',
    textTransform: 'inherit',
    padding: '20px 24px',
+
    [theme.breakpoints.down('md')]: {
       padding: '12px 24px',
    },
@@ -187,6 +194,7 @@ const TabPanelStyle = styled(TabPanel)(({ theme }) => ({
 const BoxStyle = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
+   overflowX: 'auto',
 }));
 
 const WrapperAdvertising = styled('div')(({ theme }) => ({

@@ -6,8 +6,7 @@ import MenuIcon from '../assets/icons/menu.svg?react';
 import { CATEGORY_MENU } from '../utils/constants';
 import { styled, TextField } from '@mui/material';
 
-const CategoryMenu = () => {
-   const [selectedCategory, setSelectedCategory] = useState('По умолчанию');
+const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
    const [categorySearchText, setCategorySearchText] = useState('');
    const [anchorEl, setAnchorEl] = useState(null);
 
@@ -15,10 +14,10 @@ const CategoryMenu = () => {
 
    const handleClose = value => {
       setAnchorEl(null);
-      setSelectedCategory(value || selectedCategory);
+      setSelectedCategory(value);
    };
 
-   const handleCloseFn = () => handleClose(null);
+   const handleCloseFn = () => handleClose('По умолчанию');
 
    const handleCategorySearch = e => setCategorySearchText(e.target.value);
 

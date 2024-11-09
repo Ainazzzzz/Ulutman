@@ -12,6 +12,7 @@ import {
 import { useTable } from 'react-table';
 import Pagination from './Pagination';
 import FileIcon from '../../assets/icons/file-icon.svg?react';
+import { CheckBox } from './Checkbox';
 
 const Table = ({ column: headers, data }) => {
    const [page, setPage] = useState(1);
@@ -32,7 +33,7 @@ const Table = ({ column: headers, data }) => {
    return (
       <StyledTableContainer>
          <TableCont>
-            <MuiTable {...getTableProps()}>
+            <MuiTable stickyHeader {...getTableProps()}>
                <TableHead>
                   {headerGroups.map((headerGroup, i) => (
                      <TableRow
@@ -122,7 +123,7 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
    flexDirection: 'column',
    justifyContent: 'space-between',
    alignItems: 'center',
-   gap: '100px',
+   gap: '50px',
 
    '& .MuiTableHead-root': {
       borderBottom: '1px solid  rgba(224, 224, 224, 1)',
@@ -150,7 +151,7 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
 }));
 
 const TableCont = styled('div')(() => ({
-   height: '520px',
+   height: '500px',
    width: '100%',
 
    overflowX: 'auto',

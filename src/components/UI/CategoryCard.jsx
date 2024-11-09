@@ -3,13 +3,12 @@ import SumIcon from '../../assets/icons/sum-icon.svg?react';
 import Geolocation from '../../assets/icons/geolocation-icon.svg?react';
 import Home from '../../assets/icons/home-icon.svg?react';
 import GrayHeart from '../../assets/icons/gray-heart-icon.svg?react';
-import Call from '../../assets/icons/call.svg?react';
+import Call from '../../assets/icons/phone-icon.svg?react';
 import emptyImageCard from '../../assets/images/no-image.jpg';
 
 import { IconButton } from '../IconButton';
 import { useState } from 'react';
 import Modal from './Modal';
-
 import { PATHS } from '../../utils/constants/paths';
 import { useNavigate } from 'react-router-dom';
 
@@ -184,6 +183,7 @@ const Block = styled('div')(({ theme }) => ({
 }));
 const Container = styled('div')(({ theme }) => ({
    height: '262px',
+   cursor: 'pointer',
    [theme.breakpoints.down('md')]: {
       height: '331px',
    },
