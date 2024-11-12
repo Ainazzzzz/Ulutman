@@ -17,14 +17,18 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
+   categoriesFavorite,
+   categoriesThunks,
    categoryFilter,
    getSubCategory,
+   removeFromFavorites,
 } from '../../redux/categories/categoriesThunks';
 import { cardGetAdvertising } from '../../redux/adversitingThunks';
 
 export const CategoryTab = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const [value, setValue] = useState('e1');
+   const [value, setValue] = useState('all');
+
    const categoryCard = useSelector(state => state.categories.categories);
    const [sortType, setSortType] = useState('newest');
    const advertising = useSelector(state => state.advertising.advertising);
@@ -32,6 +36,24 @@ export const CategoryTab = () => {
 
    const { subCategory } = useParams();
    const dispatch = useDispatch();
+
+   const handleToggleFavorite = adsData => {
+      if (adsData.detailFavorite) {
+         dispatch(
+            removeFromFavorites({
+               id: adsData.id,
+               subCategory: subCategory.toLowerCase(),
+            }),
+         );
+      } else {
+         dispatch(
+            categoriesFavorite({
+               id: adsData.id,
+               subCategory: subCategory.toLowerCase(),
+            }),
+         );
+      }
+   };
 
    useEffect(() => {
       dispatch(cardGetAdvertising());
@@ -43,12 +65,19 @@ export const CategoryTab = () => {
 
    const handleChange = (event, newValue) => {
       setValue(newValue);
-      const selectedSubCategory = findSubCategory?.subCategory.find(
-         item => item.id === newValue,
-      );
 
-      if (selectedSubCategory) {
-         dispatch(getSubCategory({ subCategory: selectedSubCategory.value }));
+      if (newValue === 'all') {
+         dispatch(categoriesThunks({ subCategory: subCategory.toLowerCase() }));
+      } else {
+         const selectedSubCategory = findSubCategory?.subCategory.find(
+            item => item.id === newValue,
+         );
+
+         if (selectedSubCategory) {
+            dispatch(
+               getSubCategory({ subCategory: selectedSubCategory.value }),
+            );
+         }
       }
    };
    const handleSortChange = sortValue => {
@@ -82,6 +111,7 @@ export const CategoryTab = () => {
                      onChange={handleChange}
                      variant={isMobile ? 'scrollable' : 'standard'}
                   >
+                     <TabStyle label="Все" value="all" />
                      {findSubCategory.subCategory.map(item => (
                         <TabStyle
                            key={item.id}
@@ -115,7 +145,10 @@ export const CategoryTab = () => {
                   ) : (
                      <>
                         <MiniBlock>
-                           <CategoryCard categories={categoriesCard} />
+                           <CategoryCard
+                              categories={categoriesCard}
+                              handleToggleFavorite={handleToggleFavorite}
+                           />
                         </MiniBlock>
                         <WrapperAdvertising>
                            {advertising?.map(image => (

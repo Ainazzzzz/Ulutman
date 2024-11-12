@@ -22,11 +22,11 @@ export const FilterModal = () => {
    const [maxYear, setMaxYear] = useState('');
    const [walkingDistance, setWalkingDistance] = useState('');
    const [transportDistance, setTransportDistance] = useState('');
-   const [selectedCategory, setSelectedCategory] = useState('');
+   const [walking, setWalking] = useState();
    const [open, setOpen] = useState(true);
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const dispatch = useDispatch();
-
+   const [isWalking, setIsWalking] = useState(true);
    const handleApplyFilters = () => {
       const filterData = {
          minTotalArea,
@@ -37,9 +37,10 @@ export const FilterModal = () => {
          maxLivingArea,
          minYear,
          maxYear,
-         walkingDistance,
-         transportDistance,
-         category: selectedCategory,
+         walking,
+         walkingDistance: walkingDistance ? Number(walkingDistance) : '',
+         transportDistance: transportDistance ? Number(transportDistance) : '',
+         transportType: 'TRANSPORT',
       };
 
       dispatch(filtermodalThunks(filterData));
@@ -56,8 +57,7 @@ export const FilterModal = () => {
       setMaxYear('');
       setWalkingDistance('');
       setTransportDistance('');
-      setSelectedCategory('');
-
+      setWalking(true);
       dispatch(resertFilterThunks());
    };
 
@@ -76,14 +76,29 @@ export const FilterModal = () => {
                   <MiniBox>
                      {isMobile ? <></> : <Title>Не более</Title>}
                      <InputStyle
-                        value={walkingDistance}
-                        onChange={e => setWalkingDistance(e.target.value)}
                         type="number"
+                        value={walking}
+                        onChange={e => setWalking(e.target.value)}
                      />
                      <Title>минут</Title>
                      <InputBox>
-                        <SecondInput type="number" placeholder="Пешком" />
-                        <FirstInput type="number" placeholder="Транспортом" />
+                        <SecondButtun
+                           value={walkingDistance}
+                           onChange={e => setWalkingDistance(e.target.value)}
+                           isWalking={isWalking}
+                           onClick={() => setIsWalking(true)}
+                        >
+                           Пешком
+                        </SecondButtun>
+
+                        <FirstButtun
+                           value={transportDistance}
+                           onChange={e => setTransportDistance(e.target.value)}
+                           isWalking={isWalking}
+                           onClick={() => setIsWalking(false)}
+                        >
+                           Транспортом
+                        </FirstButtun>
                      </InputBox>
                   </MiniBox>
                </Block>
@@ -288,19 +303,33 @@ const FourthInputStyle = styled(Input)(({ theme }) => ({
       },
    },
 }));
-const FirstInput = styled(Input)(() => ({
-   width: '125px',
-   '& .MuiInputBase-root': {
-      borderTopLeftRadius: '0px',
-      borderBottomLeftRadius: '0px',
-   },
+const FirstButtun = styled(Button)(({ isWalking }) => ({
+   width: '150px',
+   height: '40px',
+   padding: '6px 20px 6px 20px',
+   gap: '10px',
+   borderRadius: '0px 10px 10px 0px',
+   border: '1px solid #CFCFCF',
+   background: !isWalking ? '7E52FF' : 'white',
+   color: !isWalking ? 'white' : '#000000',
+   cursor: 'pointer',
+   fontSize: '18px',
+   fontWeight: '400',
+   lineHeight: '29.9px',
 }));
-const SecondInput = styled(Input)(() => ({
-   width: '100px',
-   '& .MuiInputBase-root': {
-      borderTopRightRadius: '0px',
-      borderBottomRightRadius: '0px',
-   },
+const SecondButtun = styled(Button)(({ isWalking }) => ({
+   width: '122px',
+   height: '40px',
+   padding: '6px 20px 6px 20px',
+   gap: '10px',
+   borderRadius: '10px 0px 0px 10px',
+   border: '1px solid #CFCFCF',
+   background: isWalking ? '7E52FF' : 'white',
+   color: isWalking ? 'white' : '#000000',
+   cursor: 'pointer',
+   fontSize: '18px',
+   fontWeight: '400',
+   lineHeight: '29.9px',
 }));
 
 const Title = styled('p')(() => ({

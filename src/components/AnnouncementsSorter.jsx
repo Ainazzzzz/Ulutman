@@ -7,7 +7,7 @@ import { Button } from './UI/Button';
 
 const AnnouncementsSorter = ({ onSortChange, options = [] }) => {
    const [anchorEl, setAnchorEl] = useState(null);
-   const [selectedValue, setSelectedValue] = useState('Все категории');
+   const [selectedValue, setSelectedValue] = useState('По умолчанию');
 
    const handleClick = event => setAnchorEl(event.currentTarget);
 

@@ -53,7 +53,7 @@ export const removeFromFavorites = createAsyncThunk(
             `/deleteFromFavorites/${id}`,
          );
 
-         dispatch(categoriesFavorite());
+         dispatch(categoriesThunks({ id }));
          return data;
       } catch (e) {
          console.error('Ошибка при удалении из избранного:', e.response?.data);
@@ -84,7 +84,7 @@ export const filtermodalThunks = createAsyncThunk(
    async ({ filterData }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.get('/publishes/filter', {
-            filterData,
+            params: filterData,
          });
 
          return data;

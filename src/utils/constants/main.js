@@ -14,11 +14,6 @@ export const categories = [
       background: '#B64D6B',
       subCategory: [
          {
-            id: 'e1',
-            text: 'Все',
-            value: 'work',
-         },
-         {
             id: 'e2',
             value: 'PartTime',
             text: 'Неполный рабочий день',
@@ -36,11 +31,6 @@ export const categories = [
       Icon: OccupancyIcon,
       background: '#B1AC38',
       subCategory: [
-         {
-            id: 'e1',
-            text: 'Все',
-            value: 'rent',
-         },
          {
             id: 'e2',
             value: 'I_RentRoom',
@@ -85,11 +75,6 @@ export const categories = [
       background: '#4465B8',
       subCategory: [
          {
-            id: 'e1',
-            text: 'Все',
-            value: 'hotel',
-         },
-         {
             id: 'e2',
             value: 'DailyRent',
             text: 'Посуточная аренда',
@@ -107,11 +92,6 @@ export const categories = [
       Icon: ServicesIcon,
       background: '#44A55F',
       subCategory: [
-         {
-            id: 'e1',
-            text: 'Все',
-            value: 'services',
-         },
          {
             id: 'e2',
             value: 'MEDICAL',
@@ -156,11 +136,6 @@ export const categories = [
       background: '#3A84A4',
       subCategory: [
          {
-            id: 'e1',
-            text: 'Все',
-            value: 'real_estate',
-         },
-         {
             id: 'e2',
             value: 'Apartment',
             text: 'Квартира',
@@ -189,11 +164,6 @@ export const categories = [
       background: '#953838',
       subCategory: [
          {
-            id: 'e1',
-            text: 'Все',
-            value: 'auto',
-         },
-         {
             id: 'e2',
             value: 'SaleOfCar',
             text: 'Продажа машины',
@@ -211,11 +181,6 @@ export const categories = [
       Icon: SellingIcon,
       background: '#8D3694',
       subCategory: [
-         {
-            id: 'e1',
-            text: 'Все',
-            value: 'sell',
-         },
          {
             id: 'e2',
             value: 'Clothes',

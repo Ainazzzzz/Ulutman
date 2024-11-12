@@ -43,12 +43,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                                  {item.price} <SumIcon />
                               </Price>
                               <IconButton
-                                 onClick={() =>
-                                    handleToggleFavorite(
-                                       item.id,
-                                       item.detailFavorite,
-                                    )
-                                 }
+                                 onClick={() => handleToggleFavorite(item)}
                               >
                                  <GrayHeart
                                     className={
@@ -93,16 +88,11 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                      <div>
                         <FirstBlock>
                            <Price>
-                              {item.price} <SumIcon />{' '}
+                              {item.price} <SumIcon />
                            </Price>
                            <div>
                               <IconButton
-                                 onClick={() =>
-                                    handleToggleFavorite(
-                                       item.id,
-                                       item.detailFavorite,
-                                    )
-                                 }
+                                 onClick={() => handleToggleFavorite(item)}
                               >
                                  <GrayHeart
                                     className={
@@ -236,6 +226,9 @@ const FirstBlock = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'space-between',
+   '.like-red path, .message-red path': {
+      fill: 'red',
+   },
    div: {
       display: 'flex',
       alignItems: 'center',
