@@ -33,6 +33,7 @@ const AdversitingPage = () => {
             </BoxSyleTitle>
             <FileUpload />
          </ContainerAddImageSehond>
+
          <Button>Добавить</Button>
       </WrapperContainer>
    );
