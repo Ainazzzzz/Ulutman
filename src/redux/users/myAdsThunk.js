@@ -18,12 +18,30 @@ export const getMyAds = createAsyncThunk(
    },
 );
 
-export const deleteAdsById = createAsyncThunk(
-   'myAds',
+export const MyAds = createAsyncThunk(
+   'myAds/getMyAds',
    async (__, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.delete(
-            `users/my-publishes/delete-by-user/{1}`,
+         const { data } = await axiosInstance.get('users/my-publishes/my-ads');
+
+         return data;
+      } catch (error) {
+         return rejectWithValue(error.response?.data || error.message);
+      }
+   },
+);
+
+export const RaisingPublication = createAsyncThunk(
+   'myAds/raising',
+   async (__, { getState, rejectWithValue }) => {
+      try {
+         const userId = getState().auth.userData.userId;
+
+         const { data } = await axiosInstance.get(
+            `users/my-publishes/raising-the- publication`,
+            {
+               params: { userId },
+            },
          );
 
          return data;
@@ -33,14 +51,18 @@ export const deleteAdsById = createAsyncThunk(
    },
 );
 
-export const deleteAllAds = createAsyncThunk(
-   'myAds/deleteAll',
-   async (userId, { rejectWithValue, dispatch }) => {
+export const deleteSelectedAds = createAsyncThunk(
+   'myAds/deleteSelectedAds',
+   async ({ userId, selectedIds }, { rejectWithValue, dispatch }) => {
       try {
          const { data } = await axiosInstance.delete(
-            `users/my-publishes/delete-all/${userId}`,
+            `users/my-publishes/delete-by-user/${userId}`,
+            {
+               data: selectedIds,
+            },
          );
          dispatch(getMyAds());
+
          return data;
       } catch (error) {
          return rejectWithValue(error.response?.data || error.message);
@@ -78,21 +100,19 @@ export const getDeactivatePublishes = createAsyncThunk(
    },
 );
 
-export const putDeactivatePublishes = createAsyncThunk(
-   'myAds/putDeactivatePublishes',
-   async (publishId, { getState, rejectWithValue }) => {
+export const getFavoriteCount = createAsyncThunk(
+   'myAds/favoriteCount',
+   async ({ publishId }, { getState, rejectWithValue }) => {
       try {
          const userId = getState().auth.userData.userId;
 
-         const { data } = await axiosInstance.put(
-            `users/my-publishes/deactivate/${userId}/${publishId}`,
-         );
-
-         //  const endpoint = `users/my-publishes/${
-         //     active ? 'active' : 'deactive'
-         //  }/${userId}/${publishId}`; // Выбираем правильный путь в зависимости от isActive
-
-         //  const { data } = await axiosInstance.put(endpoint);
+         const { data } = await axiosInstance.get(`users/my-publishes/count`, {
+            params: {
+               userId: userId,
+               publishId: publishId,
+            },
+         });
+         console.log(data);
 
          return data;
       } catch (error) {

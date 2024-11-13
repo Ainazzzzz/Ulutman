@@ -73,7 +73,6 @@ const TabsStyle = styled(Tab)(({ theme }) => ({
       left: '50%',
       transform: 'translateX(-50%)',
       width: '80%',
-      borderBottom: '2px solid #7E52FF',
    },
 
    [theme.breakpoints.down('md')]: {
@@ -81,5 +80,10 @@ const TabsStyle = styled(Tab)(({ theme }) => ({
    },
    '&.Mui-selected': {
       color: 'black',
+   },
+
+   '&.Mui-selected': {
+      color: '#7E52FF',
+      borderBottom: '2px solid #7E52FF',
    },
 }));

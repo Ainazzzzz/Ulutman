@@ -1,39 +1,46 @@
-import { my_ads } from '../../utils/constants/myads';
 import { CheckBox } from '../UI/Checkbox';
 import Clock from '../../assets/icons/clock-icon.svg?react';
-import Eye from '../../assets/icons/eye-icon.svg?react';
-import Message from '../../assets/icons/gray-message.svg?react';
 import Favorite from '../../assets/icons/gray-heart.svg?react';
 import Call from '../../assets/icons/call-icon.svg?react';
 import Edit from '../../assets/icons/pensil-icon.svg?react';
 import Deactivate from '../../assets/icons/deactivate-icon.svg?react';
 import { styled } from '@mui/material';
-import { useState } from 'react';
-import { putDeactivatePublishes } from '../../redux/users/myAdsThunk';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import {
+   getFavoriteCount,
+   RaisingPublication,
+} from '../../redux/users/myAdsThunk';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
-   const [deactivatedIds, setDeactivatedIds] = useState([]);
    const dispatch = useDispatch();
 
-   const handleCheckboxChange = id => {
-      console.log('ID объявления:', id);
+   const { favoriteCounts } = useSelector(state => state.myAds);
+   console.log(favoriteCounts);
 
+   const handleCheckboxChange = id => {
       setSelectedIds(prev =>
          prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
       );
    };
 
-   const toggleActivation = async id => {
-      // setDeactivatedIds(prev =>
-      //    prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
-      // );
-      // dispatch(putDeactivatePublishes(id));
-
-      await dispatch(putDeactivatePublishes(id));
-      // Обновляем данные объявлений после запроса
-      dispatch(getMyAds());
+   const handleRaising = () => {
+      dispatch(RaisingPublication());
    };
+
+   useEffect(() => {
+      myAds.forEach(item => {
+         dispatch(getFavoriteCount({ publishId: item.id }));
+      });
+   }, [dispatch, myAds]);
+
+   // const favoriteCountMap = favoriteCounts.reduce(
+   //    (acc, { publishId, favoriteCount }) => {
+   //       acc[publishId] = favoriteCount;
+   //       return acc;
+   //    },
+   //    {},
+   // );
 
    return (
       <CONTAINER>
@@ -41,20 +48,16 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
             <p>Нет данных для выбранной вкладки</p>
          ) : (
             myAds.map(item => {
-               const isDeactivated = !item.active;
-
+               const favoriteCount = favoriteCounts[item.id] || 0;
                return (
-                  <Wrapper
-                     key={item.id}
-                     style={{ opacity: isDeactivated ? 0.3 : 1 }}
-                  >
+                  <Wrapper key={item.id}>
                      <BigBox>
                         <CheckBox
                            checked={selectedIds.includes(item.id)}
                            onChange={() => handleCheckboxChange(item.id)}
                         />
                         <Box>
-                           <ImageStyle src={item.image} alt="room-image" />
+                           <ImageStyle src={item.images} alt="room-image" />
                            <Container>
                               <Title>{item.title}</Title>
                               <FirstBlock>
@@ -62,15 +65,11 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
                                     <Clock />
                                     <span>{item.createDate}</span>
                                  </MiniBlock>
-                                 <MiniBlock>
-                                    <Eye />
-                                    <span>{item.visibility}</span>
-                                 </MiniBlock>
                               </FirstBlock>
                               <SecondBlock>
                                  <SecondMiniBlock>
                                     <Favorite />
-                                    <span>{item.favorites}</span>
+                                    <span>{favoriteCount}</span>
                                  </SecondMiniBlock>
                                  <SecondMiniBlock>
                                     <Call />
@@ -82,18 +81,7 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
                      </BigBox>
                      <AnotherContainer>
                         <AnotherBlock>
-                           <Edit />
-                           <p>Редактировать</p>
-                        </AnotherBlock>
-                        <AnotherBlock onClick={() => toggleActivation(item.id)}>
-                           {isDeactivated ? (
-                              <p>Активировать</p>
-                           ) : (
-                              <>
-                                 <Deactivate />
-                                 <p>Деактивировать</p>
-                              </>
-                           )}
+                           <p onClick={handleRaising}>Поднять</p>
                         </AnotherBlock>
                      </AnotherContainer>
                   </Wrapper>

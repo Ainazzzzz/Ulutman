@@ -1,5 +1,4 @@
 import { styled, useMediaQuery } from '@mui/material';
-import ChevronLeft from '../../assets/icons/chevron-left.svg?react';
 import DeleteAll from '../../assets/icons/delete-all-icon.svg?react';
 import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react';
 import { MyAds } from './MyAds';
@@ -10,30 +9,40 @@ import {
    getDeactivatePublishes,
    getMyAds,
    getRejectedPublishes,
-   putDeactivatePublishes,
 } from '../../redux/users/myAdsThunk';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Ads = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const [activeTab, setActiveTab] = useState('1'); // По умолчанию "Активно"
+   const [activeTab, setActiveTab] = useState('1');
    const dispatch = useDispatch();
 
    const [selectedIds, setSelectedIds] = useState([]);
    const [isModalOpen, setIsModalOpen] = useState(false);
 
    const userId = useSelector(state => state.auth.userData.userId);
-   const { myAds } = useSelector(state => state.myAds);
+
+   const activeAdsCount = useSelector(state => state.myAds.activeAds.length);
+
+   const rejectedAdsCount = useSelector(
+      state => state.myAds.rejectedAds.length,
+   );
+   const myAdsCount = useSelector(state => state.myAds.rejectedAds.length);
+
+   const myAds = useSelector(state =>
+      activeTab === '1' ? state.myAds.activeAds : state.myAds.rejectedAds,
+   );
 
    const secondTab = [
-      { value: '1', label: 'Активно' },
-      { value: '2', label: 'Деактивировано' },
-      { value: '3', label: 'Отклонено' },
+      { value: '1', label: `Активно (${activeAdsCount})` },
+      { value: '2', label: `Отклонено (${rejectedAdsCount})` },
+      { value: '3', label: `Мои рекламы(${myAdsCount})` },
    ];
 
    const handleDelete = () => {
-      // console.log('selectedId', selectedIds);
-      setIsModalOpen(!isModalOpen);
+      if (selectedIds.length > 0) {
+         setIsModalOpen(true);
+      }
    };
 
    const handleTabChange = tabValue => {
@@ -62,10 +71,22 @@ export const Ads = () => {
                />
 
                {isMobile ? (
-                  <DeleteMobile onClick={handleDelete} />
+                  <DeleteMobile
+                     onClick={handleDelete}
+                     style={{
+                        cursor:
+                           selectedIds.length > 0 ? 'pointer' : 'not-allowed',
+                        opacity: selectedIds.length > 0 ? 1 : 0.5,
+                     }}
+                  />
                ) : (
                   <DeleteAll
-                     style={{ marginTop: '10px', cursor: 'pointer' }}
+                     style={{
+                        marginTop: '10px',
+                        cursor:
+                           selectedIds.length > 0 ? 'pointer' : 'not-allowed',
+                        opacity: selectedIds.length > 0 ? 1 : 0.5,
+                     }}
                      onClick={handleDelete}
                   />
                )}
@@ -77,7 +98,9 @@ export const Ads = () => {
             setSelectedIds={setSelectedIds}
             myAds={myAds}
          />
-         {isModalOpen && <DeleteMyAdsModal userId={userId} />}
+         {isModalOpen && (
+            <DeleteMyAdsModal userId={userId} selectedIds={selectedIds} />
+         )}
       </Wrapper>
    );
 };

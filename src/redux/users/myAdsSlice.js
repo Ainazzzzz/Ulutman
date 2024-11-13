@@ -1,40 +1,50 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-   deleteAllAds,
-   getDeactivatePublishes,
+   deleteSelectedAds,
+   getFavoriteCount,
    getMyAds,
-   getRejectedPublishes,
-   putDeactivatePublishes,
+   MyAds,
+   RaisingPublication,
 } from './myAdsThunk';
 
 export const myAdsSlice = createSlice({
    name: 'myAds',
    initialState: {
+      activeAds: [],
+      rejectedAds: [],
       myAds: [],
+      favoriteCounts: {},
+      raisingPublication: [],
    },
    reducers: {},
 
    extraReducers: builder => {
       builder
          .addCase(getMyAds.fulfilled, (state, action) => {
+            state.activeAds = action.payload.filter(ad => ad.active);
+            state.rejectedAds = action.payload.filter(ad => ad.rejected);
+            state.myAds = action.payload.filter(ad => ad.myAds);
+         })
+         .addCase(MyAds.fulfilled, (state, action) => {
             state.myAds = action.payload;
          })
-         .addCase(deleteAllAds.fulfilled, state => {
-            state.myAds = [];
+         .addCase(RaisingPublication.fulfilled, (state, action) => {
+            state.raisingPublication = action.payload;
          })
-         .addCase(getRejectedPublishes.fulfilled, (state, action) => {
-            state.myAds = action.payload;
+
+         .addCase(deleteSelectedAds.fulfilled, (state, action) => {
+            const idsToDelete = action.payload;
+            state.activeAds = state.activeAds.filter(
+               ad => !idsToDelete.includes(ad.id),
+            );
+
+            state.rejectedAds = state.rejectedAds.filter(
+               ad => !idsToDelete.includes(ad.id),
+            );
          })
-         .addCase(getDeactivatePublishes.fulfilled, (state, action) => {
-            state.myAds = action.payload;
-         })
-         .addCase(putDeactivatePublishes.fulfilled, (state, action) => {
-            state.loading = false;
-            const updatedAd = action.payload; // Предполагается, что API возвращает обновленное объявление
-            const index = state.myAds.findIndex(ad => ad.id === updatedAd.id);
-            if (index !== -1) {
-               state.myAds[index] = updatedAd;
-            }
+         .addCase(getFavoriteCount.fulfilled, (state, action) => {
+            const { publishId, favoriteCount } = action.payload; // Предполагаем, что экшен возвращает { publishId, favoriteCount }
+            state.favoriteCounts[publishId] = favoriteCount; // Сохраняем количество фаворитов по publishId
          });
    },
 });
