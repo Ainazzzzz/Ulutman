@@ -10,6 +10,9 @@ import {
    ErrorMessage,
 } from './MailingFormStyles.jsx';
 import { validationSchema } from '../../../utils/constants/validationMailing.js';
+import { useDispatch } from 'react-redux';
+import { postMailing } from '../../../redux/mailing/mailingThunk.js';
+import { useNavigate } from 'react-router-dom';
 
 const InputContainer = ({
    name,
@@ -36,17 +39,30 @@ const InputContainer = ({
 );
 
 export const MailingForm = ({ mailingType, recipients }) => {
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+
    const formik = useFormik({
       initialValues: {
-         mailings: '',
-         typeMailing: 'Новости',
-         writing: '',
+         title: '',
+         mailingType: 'Новости',
+         message: '',
          recipientsAllValue: 'Все пользователи',
          files: null,
       },
       validationSchema: validationSchema,
       onSubmit: values => {
-         console.log(values);
+         const mailingData = {
+            title: values.title,
+            mailingType: values.mailingType,
+            message: values.message,
+            // files: values.files,
+            image: 'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
+            promotionStartDate: '2024-08-02',
+            promotionEndDate: '2025-08-02',
+         };
+
+         dispatch(postMailing({ mailingData, navigate }));
       },
    });
 
@@ -54,30 +70,30 @@ export const MailingForm = ({ mailingType, recipients }) => {
       <form onSubmit={formik.handleSubmit}>
          <WrapperInputSelect>
             <InputContainer
-               name="mailings"
-               value={formik.values.mailings}
+               name="title"
+               value={formik.values.title}
                onChange={formik.handleChange}
                onBlur={formik.handleBlur}
-               touched={formik.touched.mailings}
-               errors={formik.errors.mailings}
+               touched={formik.touched.title}
+               errors={formik.errors.title}
                placeholder="Новости платформы"
                label="Название рассылки"
             />
 
             <Container>
                <ReusableSelect
-                  name="typeMailing"
-                  value={formik.values.typeMailing}
+                  name="mailingType"
+                  value={formik.values.mailingType}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  touched={formik.touched.typeMailing?.toString()}
-                  error={formik.errors.typeMailing}
+                  touched={formik.touched.mailingType?.toString()}
+                  error={formik.errors.mailingType}
                   label="Тип рассылки"
                   options={mailingType}
                />
-               {formik.touched.typeMailing &&
-               Boolean(formik.errors.typeMailing) ? (
-                  <ErrorMessage>{formik.errors.typeMailing}</ErrorMessage>
+               {formik.touched.mailingType &&
+               Boolean(formik.errors.mailingType) ? (
+                  <ErrorMessage>{formik.errors.mailingType}</ErrorMessage>
                ) : null}
             </Container>
 
@@ -101,20 +117,20 @@ export const MailingForm = ({ mailingType, recipients }) => {
             </Container>
 
             <Container>
-               <label htmlFor="writing">Описание рассылки</label>
+               <label htmlFor="message">Описание рассылки</label>
                <StyledWriting
-                  name="writing"
-                  id="writing"
-                  value={formik.values.writing}
+                  name="message"
+                  id="message"
+                  value={formik.values.message}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   placeholder="Горячие акции: Скидка 20% на премиум-размещение: Разместите ваше объявление в топе и привлеките больше внимания! Предложение действует до [Дата]."
                   error={
-                     formik.touched.writing && Boolean(formik.errors.writing)
+                     formik.touched.message && Boolean(formik.errors.message)
                   }
                />
-               {formik.touched.writing && formik.errors.writing ? (
-                  <ErrorMessage>{formik.errors.writing}</ErrorMessage>
+               {formik.touched.message && formik.errors.message ? (
+                  <ErrorMessage>{formik.errors.message}</ErrorMessage>
                ) : null}
             </Container>
          </WrapperInputSelect>

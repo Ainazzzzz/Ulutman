@@ -3,12 +3,24 @@ import { FormControl, Select, MenuItem, styled } from '@mui/material';
 import DownIcon from '../../assets/icons/select-down-icon.svg?react';
 
 const ReusableSelect = forwardRef(
-   ({ label, options, value, onChange, selectedOption, ...restProps }, ref) => {
+   (
+      {
+         label,
+         options,
+         value,
+         onChange,
+         selectedOption,
+         placeholder,
+         ...restProps
+      },
+      ref,
+   ) => {
       return (
          <FormControlStyle fullWidth>
             <LabelStyle>{label}</LabelStyle>
             <SelectStyle
-               value={value || ''}
+               displayEmpty
+               value={value}
                onChange={onChange}
                inputRef={ref}
                IconComponent={DownIcon}
@@ -19,6 +31,15 @@ const ReusableSelect = forwardRef(
                         borderRadius: '10px',
                      },
                   },
+               }}
+               renderValue={selected => {
+                  if (!selected) {
+                     return <Placeholder>{placeholder}</Placeholder>;
+                  }
+                  const selectedOption = options.find(
+                     option => option.value === selected,
+                  );
+                  return selectedOption ? selectedOption.label : '';
                }}
             >
                {options?.length === 0 ? (
@@ -89,3 +110,7 @@ const MenuItemStyle = styled(MenuItem)(() => ({
       backgroundColor: '#f2eeff',
    },
 }));
+
+const Placeholder = styled('span')({
+   color: '#959595',
+});

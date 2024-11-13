@@ -21,28 +21,26 @@ const Slider = () => {
    }, []);
 
    return (
-      <>
-         <StyledSwiper
-            ref={sliderRef}
-            navigation={true}
-            modules={[Navigation]}
-            slidesPerView={'auto'}
-            spaceBetween={30}
-            loop={true}
-         >
-            {slider.map(item => (
-               <StyledSwiperSlide key={item.id}>
-                  <img src={item.sliderImages} alt="slider image" />
-               </StyledSwiperSlide>
-            ))}
-            <PrevArrow className="prev-arrow" onClick={handlePrev}>
-               <SliderArrow />
-            </PrevArrow>
-            <NextArrow className="next-arrow" onClick={handleNext}>
-               <SliderArrow />
-            </NextArrow>
-         </StyledSwiper>
-      </>
+      <StyledSwiper
+         ref={sliderRef}
+         modules={[Navigation]}
+         slidesPerView={'auto'}
+         spaceBetween={30}
+         loop={true}
+         navigation={false}
+      >
+         {slider.map(item => (
+            <StyledSwiperSlide key={item.id}>
+               <img src={item.sliderImages} alt="slider image" />
+            </StyledSwiperSlide>
+         ))}
+         <PrevArrow className="prev-arrow" onClick={handlePrev}>
+            <SliderArrow />
+         </PrevArrow>
+         <NextArrow className="next-arrow" onClick={handleNext}>
+            <SliderArrow />
+         </NextArrow>
+      </StyledSwiper>
    );
 };
 

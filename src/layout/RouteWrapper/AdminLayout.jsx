@@ -22,6 +22,7 @@ export const AdminLayout = () => {
 
 const Nav = styled('div')(() => ({
    display: 'flex',
+   minHeight: '100vh',
 }));
 
 const Cont = styled('div')(() => ({

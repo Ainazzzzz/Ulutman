@@ -4,15 +4,45 @@ import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react';
 import ChevronLeft from '../../assets/icons/chevron-left.svg?react';
 import { styled, useMediaQuery } from '@mui/material';
 import { CardList } from '../UI/Card/CardList';
-import { CARDS_MAIN } from '../../utils/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import {
+   deleteAllFavorites,
+   deleteFavoritesById,
+   getAllFavorites,
+} from '../../redux/users/favoriteThunk';
+import { DeleteFavoriteModal } from './DeleteFavoriteModal';
 
 export const FeaturedAds = () => {
+   const [isOpenModal, setIsOpenModal] = useState(false);
+   const dispatch = useDispatch();
+   const favorite = useSelector(
+      state => state.favoriteProducts?.favoriteProducts || [],
+   );
+   const publishResponseList = favorite?.publishResponseList || [];
+
    const breadCrumbs = [
       { url: '/', title: 'Главная' },
       { url: 'featuredAds', title: 'Избранные объявления' },
    ];
 
+   const handleDeleteFavorite = () => {
+      setIsOpenModal(!isOpenModal);
+   };
+   const onDelete = () => {
+      dispatch(deleteAllFavorites());
+      setIsOpenModal(!isOpenModal);
+   };
+   const onDeleteById = id => {
+      dispatch(deleteFavoritesById(id));
+   };
+
+   useEffect(() => {
+      dispatch(getAllFavorites());
+   }, [dispatch]);
+
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+
    return (
       <Wrapper>
          <Container>
@@ -24,10 +54,24 @@ export const FeaturedAds = () => {
             </FirstBlock>
             <SecondBlock>
                <h3>Избранные объявления</h3>
-               {isMobile ? <DeleteMobile /> : <DeleteAll />}
+               {isMobile ? (
+                  <DeleteMobile onClick={handleDeleteFavorite} />
+               ) : (
+                  <DeleteAll onClick={handleDeleteFavorite} />
+               )}
+               {isOpenModal && <DeleteFavoriteModal onDelete={onDelete} />}
             </SecondBlock>
-            <CardList cards={CARDS_MAIN} />
          </Container>
+
+         {publishResponseList.length === 0 ? (
+            <NoFavoritesMessage>Нет избранных объявлений</NoFavoritesMessage>
+         ) : (
+            <CardList
+               cards={publishResponseList}
+               onDeleteById={onDeleteById}
+               favorite={favorite}
+            />
+         )}
       </Wrapper>
    );
 };
@@ -75,7 +119,6 @@ const Container = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
-   alignItems: 'center',
 }));
 
 const Wrapper = styled('div')(({ theme }) => ({
@@ -83,4 +126,8 @@ const Wrapper = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       padding: '24px 16px 16px 16px',
    },
+}));
+
+const NoFavoritesMessage = styled('p')(({}) => ({
+   margin: '30px 0',
 }));

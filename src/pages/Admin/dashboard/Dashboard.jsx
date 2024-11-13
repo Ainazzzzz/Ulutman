@@ -6,8 +6,8 @@ import { dashBoard } from '../../../redux/dashboard/dashboardThunks.js';
 
 const colorMappings = {
    WORK: 'rgba(255, 58, 41, 0.1)',
-   rentals: 'rgba(2, 160, 252, 0.1)',
-   hotel: 'rgba(67, 57, 242, 0.1)',
+   RENT: 'rgba(2, 160, 252, 0.1)',
+   HOTEL: 'rgba(67, 57, 242, 0.1)',
    SERVICES: 'rgba(52, 181, 58, 0.1)',
    REAL_ESTATE: 'rgba(255, 178, 0, 0.1)',
    AUTO: 'rgba(245, 25, 105, 0.1)',
@@ -25,7 +25,7 @@ const customBackgroundColor = (title, value) => {
       },
    };
 };
-export const Dashboard = () => {
+const Dashboard = () => {
    const { t } = useTranslation();
    const dispatch = useDispatch();
    const { infoDashboard, isLoading } = useSelector(state => state.dashboard);
@@ -69,9 +69,12 @@ export const Dashboard = () => {
    );
 };
 
+export default Dashboard;
+
 const StyledContainer = styled('div')(({ theme }) => ({
    width: '100%',
-   minHeight: '100vh',
+   maxHeight: '100vh',
+   height: '100%',
    background: '#F5F6FA',
    fontFamily: 'Kanit',
 

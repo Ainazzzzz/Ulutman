@@ -8,8 +8,9 @@ import { NavLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { signUpSchema } from '../../../utils/general/validation/authValidation.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '../../../redux/auth/authThunk.js'; // Импорт Yup
+import Spinner from '../../../components/UI/Spinner.jsx';
 
 const signUpInputs = [
    {
@@ -38,6 +39,7 @@ const signUpInputs = [
 
 const SignUp = ({ open, onClose, onOpen }) => {
    const dispatch = useDispatch();
+   const { isLoading } = useSelector(state => state.auth);
 
    const { values, handleChange, handleSubmit, errors, touched } = useFormik({
       initialValues: {
@@ -69,7 +71,7 @@ const SignUp = ({ open, onClose, onOpen }) => {
          <Box onSubmit={handleSubmit}>
             <h2>Регистрация</h2>
             {signUpInputs.map(item => (
-               <div key={item.label}>
+               <div key={item.label} style={{ position: 'relative' }}>
                   <Input
                      placeholder={item.label}
                      onChange={handleChange}
@@ -79,11 +81,25 @@ const SignUp = ({ open, onClose, onOpen }) => {
                      value={values[item.value]}
                   />
                   {errors[item.value] && touched[item.value] && (
-                     <ErrorText>{errors[item.value]}</ErrorText>
+                     <ErrorText
+                        style={{
+                           position: 'absolute',
+                           left: '0px',
+                           // top: '0px',
+                        }}
+                     >
+                        {errors[item.value]}
+                     </ErrorText>
                   )}
                </div>
             ))}
-            <Button type={'submit'}>Регистрация</Button>
+            {isLoading ? (
+               <Button disabled={isLoading}>
+                  <Spinner />
+               </Button>
+            ) : (
+               <Button type={'submit'}>Регистрация</Button>
+            )}
 
             <Typography align="center">
                У вас есть аккаунт?{' '}
@@ -101,7 +117,7 @@ export default SignUp;
 const Box = styled('form')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
-   gap: '10px',
+   gap: '20px',
    h2: {
       textAlign: 'center',
       fontWeight: '600',
