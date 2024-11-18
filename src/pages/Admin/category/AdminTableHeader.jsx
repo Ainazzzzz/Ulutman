@@ -11,7 +11,8 @@ export const getAdminTableHeaders = (
    return columns.map(column => {
       if (
          (column.accessor && column.accessor === 'status') ||
-         column.accessor === 'publishStatus'
+         column.accessor === 'publishStatus' ||
+         column.accessor === 'mailingStatus'
       ) {
          return {
             ...column,
@@ -38,11 +39,13 @@ export const getAdminTableHeaders = (
                   case 'РЕШЕНО':
                   case 'АКТИВНЫЙ':
                   case 'АКТИВНО':
+                  case 'ОТПРАВЛЕНО':
                      color = green[500];
                      break;
                   case 'ЗАБЛОКИРОВАН':
                   case 'ОТКЛОНЕН':
                   case 'НЕАКТИВНО':
+                  case 'ОШИБКА':
                      color = red[500];
                      break;
                   case 'ОЖИДАЕТ':

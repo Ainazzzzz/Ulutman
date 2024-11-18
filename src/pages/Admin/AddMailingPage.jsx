@@ -25,10 +25,10 @@ const AddMailingPage = () => {
          </ContainerTitle>
          <MailingForm
             mailingType={[
-               { value: 'Новости', label: 'Новости', id: 'opt1' },
-               { value: 'Акции', label: 'Акции', id: 'opt2' },
+               { value: 'НОВОСТИ', label: 'Новости', id: 'opt1' },
+               { value: 'АКЦИИ', label: 'Акции', id: 'opt2' },
                {
-                  value: 'Поздравления',
+                  value: 'ПОЗДРАВЛЕНИЯ',
                   label: 'Поздравления',
                   id: 'opt3',
                },

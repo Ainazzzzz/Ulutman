@@ -7,7 +7,7 @@ import { memo } from 'react';
 export const SceletonCard = memo(() => {
    return (
       <CardListBox container spacing={3}>
-         {Array(8)
+         {Array(4)
             .fill(0)
             .map((_, i) => (
                <Grid key={i} item xs={12} sm={6} md={4} lg={3}>

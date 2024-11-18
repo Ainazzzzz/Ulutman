@@ -76,6 +76,11 @@ const getButtonVariantStyles = variant => {
             },
          };
 
+      case 'warning':
+         return {
+            color: '#ff0000',
+         };
+
       case 'contained':
       default:
          return {

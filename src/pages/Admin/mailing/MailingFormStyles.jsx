@@ -4,7 +4,9 @@ import { Button } from '../../../components/UI/Button.jsx';
 import Input from '../../../components/UI/Input.jsx';
 
 export const WrapperInputSelect = styled('div')(({ theme }) => ({
-   width: '327px',
+   minWidth: '300px',
+   maxWidth: '700px',
+   width: '100%',
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
@@ -37,7 +39,6 @@ export const CameraIcon = styled(CameraAltIcon)({
 
 export const Container = styled('div')(({ theme }) => ({
    width: '100%',
-   position: 'relative',
 
    [theme.breakpoints.down('md')]: {
       '.MuiInputBase-root': {
@@ -47,6 +48,9 @@ export const Container = styled('div')(({ theme }) => ({
    '.container-error': {
       display: 'flex',
       justifyContent: 'center',
+   },
+   '.MuiFormControl-root': {
+      width: '100%',
    },
    '.block': {
       display: 'flex',
@@ -100,16 +104,13 @@ export const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 export const StyledWriting = styled(Input)(({ theme }) => ({
-   width: '617px',
    fontSize: '18px',
    fontWeight: '400',
    color: '#909090',
    background: 'transparent',
-   resize: 'none',
-   margin: '8px 0 3px',
+   margin: '0 0 3px',
    [theme.breakpoints.down('md')]: {
       width: '326px',
-      height: '154px',
       '::placeholder': {
          fontSize: '18px',
          fontWeight: '400',

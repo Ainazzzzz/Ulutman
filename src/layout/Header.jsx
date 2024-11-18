@@ -1,4 +1,4 @@
-import { styled, Typography, useMediaQuery } from '@mui/material';
+import { Popover, styled, Typography, useMediaQuery } from '@mui/material';
 import { IconButton } from '../components/IconButton';
 import { Button } from '../components/UI/Button';
 import ReusableSelect from '../components/UI/Select';
@@ -9,7 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { renderFlag } from '../utils/general/renderFlag';
 import { SignIn } from '../pages/user/auth/SignIn.jsx';
-
 import HeartLike from '../assets/icons/white-heart.svg?react';
 import UserLogo from '../assets/icons/user.svg?react';
 import Plus from '../assets/icons/plus.svg?react';
@@ -22,6 +21,9 @@ import LogOutIcon from '../assets/icons/come-icon.svg?react';
 import { logOut } from '../redux/auth/authThunk.js';
 import { useNavigate } from 'react-router-dom';
 import SignUp from '../pages/user/auth/signUp.jsx';
+import DownIcon from '../assets/icons/select-down-icon.svg?react';
+import LogoOutIcon from '../assets/icons/logout-icon.svg?react';
+import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx';
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -44,6 +46,7 @@ const SearchIcon = ({ color = '#ffffff' }) => (
 export const Header = () => {
    const dispatch = useDispatch();
    const { isAuth, userData } = useSelector(state => state.auth);
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const navigate = useNavigate();
 
    const [language, setLanguage] = useState('ru');
@@ -51,20 +54,44 @@ export const Header = () => {
    const [openModal, setOpenModal] = useState(false);
    const [openSignUp, setOpenSignUp] = useState(false);
 
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const [anchorEl, setAnchorEl] = useState(null);
+
+   const openUserMenu = event => {
+      setAnchorEl(event.currentTarget);
+   };
+
+   const closeUserMenu = () => {
+      setAnchorEl(null);
+   };
+
+   const open = Boolean(anchorEl);
+   const id = open ? 'simple-popover' : undefined;
+
+   const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false);
+   const [openOptionsProfile, setOpenOptionsProfile] = useState(null);
+
+   const handleClose = () => {
+      setOpenMenu(null);
+   };
+
+   const confirmLogout = () => {
+      dispatch(logOut({ navigate, toggleModal: handleClose }));
+      setOpenLogoutConfirm(false);
+   };
 
    const handleSelect = event => setLanguage(event.target.value);
    const handleClick = event => setOpenMenu(event.currentTarget);
-   const handleClose = () => setOpenMenu(null);
+
+   const closeProfileOptions = () => {
+      setOpenOptionsProfile(null);
+   };
 
    const handleOpenModal = () => {
       setOpenModal(true);
       handleClose();
    };
 
-   const handleCloseModal = () => {
-      setOpenModal(false);
-   };
+   const handleCloseModal = () => setOpenModal(false);
 
    const handleOpenSignUp = () => {
       setOpenSignUp(true);
@@ -75,18 +102,31 @@ export const Header = () => {
 
    const logOutHandler = () => {
       dispatch(logOut({ navigate, toggleModal: handleClose }));
+      setOpenOptionsProfile(null);
+      setOpenLogoutConfirm(true);
    };
    const handleNavigationPage = path => {
       navigate(path);
+      closeUserMenu();
    };
 
    const navigateToPageHandler = path => {
-      navigate(path);
       handleClose();
+      closeProfileOptions();
+      navigate(path);
+   };
+
+   const profileHandler = event => {
+      setOpenOptionsProfile(event.currentTarget);
    };
 
    return (
       <>
+         <ConfirmLogoutModal
+            open={openLogoutConfirm}
+            onClose={() => setOpenLogoutConfirm(false)}
+            onConfirm={confirmLogout}
+         />
          <Wrapper>
             <LogoStyle onClick={() => handleNavigationPage('/user')}>
                <UlutmanLogo />
@@ -107,22 +147,21 @@ export const Header = () => {
                         </MenuItemStyle>
                      ) : (
                         <MenuItemStyle onClick={logOutHandler}>
-                           <LogOutIcon />
-                           Выйти
+                           <LogOutIcon /> Выйти
                         </MenuItemStyle>
                      )}
                      <Line />
-
                      {isAuth && (
-                        <MenuItemStyle onClick={handleClose}>
-                           <UserLogo />
-                           Профиль
+                        <MenuItemStyle
+                           onClick={() =>
+                              navigateToPageHandler('my-page/profile')
+                           }
+                        >
+                           <UserLogo /> Профиль
                         </MenuItemStyle>
                      )}
-
                      <MenuItemStyle onClick={handleClose}>
-                        <SearchIcon color="#fff" />
-                        Поиск
+                        <SearchIcon color="#fff" /> Поиск
                      </MenuItemStyle>
                      <MenuItemStyle
                         onClick={() => navigateToPageHandler('create-ad')}
@@ -132,18 +171,16 @@ export const Header = () => {
                      <MenuItemStyle
                         onClick={() => handleNavigationPage('favorite')}
                      >
-                        <WhiteHeart />
-                        Избранное
+                        <WhiteHeart /> Избранное
                      </MenuItemStyle>
                      <MenuItemStyle onClick={handleClose}>
-                        <Language />
-                        Сменить язык
+                        <Language /> Сменить язык
                      </MenuItemStyle>
                   </MenuStyle>
                </div>
             ) : (
                <ContainerBlock>
-                  {isAuth ? (
+                  {isAuth && (
                      <>
                         <Block onClick={() => handleNavigationPage('favorite')}>
                            <IconButton>
@@ -151,14 +188,31 @@ export const Header = () => {
                            </IconButton>
                            <a>Избранное</a>
                         </Block>
-                        <Block onClick={() => handleNavigationPage('profile')}>
+                        <Block onClick={profileHandler}>
                            <IconButton>
                               <UserLogo />
                            </IconButton>
                            <UserName>{userData.name}</UserName>
+                           <DownIcon />
                         </Block>
+                        <MenuProfile
+                           anchorEl={openOptionsProfile}
+                           open={Boolean(openOptionsProfile)}
+                           onClose={closeProfileOptions}
+                        >
+                           <MenuItem
+                              onClick={() =>
+                                 navigateToPageHandler('my-page/profile')
+                              }
+                           >
+                              Профиль
+                           </MenuItem>
+                           <MenuItemLogOut onClick={logOutHandler}>
+                              <LogoOutIcon /> Выйти
+                           </MenuItemLogOut>
+                        </MenuProfile>
                      </>
-                  ) : null}
+                  )}
                   <Block>
                      <div>{renderFlag(language)}</div>
                      <SelectStyle
@@ -171,8 +225,7 @@ export const Header = () => {
                      <ButtonStyle
                         onClick={() => handleNavigationPage('create-ad')}
                      >
-                        <Plus />
-                        Опубликовать
+                        <Plus /> Опубликовать
                      </ButtonStyle>
                   ) : (
                      <ButtonStyle onClick={handleOpenModal}>Войти</ButtonStyle>
@@ -198,6 +251,16 @@ export const Header = () => {
       </>
    );
 };
+
+const MenuProfile = styled(Menu)({
+   width: '170px',
+});
+
+const MenuItemLogOut = styled(MenuItem)({
+   display: 'flex',
+   gap: '5px',
+   color: '#FF0000',
+});
 
 const Wrapper = styled('header')(({ theme }) => ({
    height: '84px',
@@ -277,6 +340,27 @@ const MenuStyle = styled(Menu)(() => ({
       padding: '16px 0px',
       width: '230px',
       background: '#7e52ff',
+   },
+}));
+
+const LogOutBtn = styled(Button)(() => ({
+   svg: {
+      rotate: '180deg',
+
+      path: {
+         stroke: '#f00',
+      },
+   },
+}));
+
+const StyledPopover = styled(Popover)(() => ({
+   '& .MuiPaper-root': {
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '10px 10px 0',
+      gap: '5px',
+      alignItems: 'center',
+      borderRadius: '15px',
    },
 }));
 
