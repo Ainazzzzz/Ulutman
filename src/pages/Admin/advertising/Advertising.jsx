@@ -1,10 +1,15 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import TableSkeleton from '../../../components/UI/TableSkeleton';
 import Table from '../../../components/UI/Table';
 import { styled } from '@mui/material';
 import { getAdminTableHeaders } from '../category/AdminTableHeader';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdversiting } from '../../../redux/advertising/advertisingThunk';
 
 const Advertising = () => {
+   const dispatch = useDispatch();
+   const { isLoading, advertising } = useSelector(state => state.advertising);
+
    const data = [
       {
          userName: 'Aziat',
@@ -51,7 +56,9 @@ const Advertising = () => {
       [toggleModal],
    );
 
-   const isLoading = false;
+   useEffect(() => {
+      dispatch(getAdversiting());
+   }, []);
 
    return (
       <Wrapper>
@@ -60,7 +67,7 @@ const Advertising = () => {
          {isLoading ? (
             <TableSkeleton />
          ) : (
-            <Table data={data} column={headers} />
+            <Table data={advertising} column={headers} />
          )}
       </Wrapper>
    );
