@@ -26,19 +26,41 @@
             "ru": "Rusça",
             "tj": "Tacikçe",
             "uz": "Özbekçe",
-            "en": "İngilizce"
+            "en": "İngilizce",
+            "tr": "Türkçe"
          }
       },
       "dashboard": {
          "title": "İstatistikler",
          "popularCategory": "Popüler Kategori",
          "WORK": "İş",
-         "rentals": "Kiralık",
-         "hotel": "Otel",
+         "RENT": "Kiralık",
+         "HOTEL": "Otel",
          "SERVICES": "Hizmetler",
          "REAL_ESTATE": "Gayrimenkul",
          "AUTO": "Araba",
          "SELL": "Satılık"
+      },
+
+      "users": {
+         "title": "Kullanıcı Yönetimi",
+         "table": {
+            "columns": {
+               "name": "İSİM",
+               "email": "E-POSTA",
+               "role": "ROL",
+               "dateOfRegistration": "KAYIT TARİHİ",
+               "status": "DURUM"
+            },
+            "statuses": {
+               "АКТИВНЫЙ": "AKTİF",
+               "ЗАБЛОКИРОВАН": "BLOKELİ"
+            },
+            "roles": {
+               "USER": "Kullanıcı",
+               "ADMIN": "Admin"
+            }
+         }
       }
    }
 }

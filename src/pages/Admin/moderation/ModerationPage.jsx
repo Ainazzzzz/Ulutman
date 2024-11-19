@@ -1,9 +1,11 @@
 import { Moderation } from './Moderation.jsx';
 
-export const ModerationPage = () => {
+const ModerationPage = () => {
    return (
       <div>
          <Moderation />
       </div>
    );
 };
+
+export default ModerationPage;

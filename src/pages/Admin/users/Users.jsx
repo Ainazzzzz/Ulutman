@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDebounce } from '../../../hooks/useDebounce';
 import Table from '../../../components/UI/Table';
 import { getAdminTableHeaders } from '../category/AdminTableHeader';
-import { USERS_COLUMNS } from '../../../utils/constants/moderation';
 import { AdsDeleteModal } from '../ads/AdsDeleteModal';
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter';
 import { WaitingModal } from '../ads/WaitingModal';
@@ -15,11 +14,16 @@ import { Button } from '../../../components/UI/Button';
 import Plus from '../../../assets/icons/plus.svg?react';
 
 import {
+   deleteUsers,
    getAllUsers,
    getResetFilter,
    getUsersFilter,
    getUsersName,
 } from '../../../redux/users/usersThunk';
+import { CheckBox } from '../../../components/UI/Checkbox';
+import { checkAllUsers, checkUser } from '../../../redux/users/usersSlice';
+import { useTranslation } from 'react-i18next';
+import TableSkeleton from '../../../components/UI/TableSkeleton';
 
 const inputData = [{ id: 'name', value: 'По имени' }];
 const selectsConfig = [
@@ -67,9 +71,10 @@ const reducer = (state, action) => {
 
 const Users = () => {
    const [state, dispatchFunc] = useReducer(reducer, initialState);
-   const { allUsers } = useSelector(state => state.users);
+   const { allUsers, isLoading } = useSelector(state => state.users);
    const navigate = useNavigate();
    const dispatch = useDispatch();
+   const { t } = useTranslation();
 
    const debouncedName = useDebounce(state.inputValues.name, 1500);
 
@@ -85,15 +90,17 @@ const Users = () => {
    };
 
    const fetchUsers = useCallback(() => {
-      const { date } = state.inputValues;
+      const { date, name } = state.inputValues;
       const { role, status } = state.selectedValues;
 
       const filters = {};
       if (role !== 'role') filters.roles = role;
       if (status !== 'status') filters.statuses = status;
+      if (name !== '') filters.names = debouncedName;
 
       if (date.length) {
          const formattedDates = date.map(formatDate);
+
          filters.createDates = formattedDates;
       }
 
@@ -102,14 +109,10 @@ const Users = () => {
       } else {
          dispatch(getAllUsers());
       }
-   }, [state.inputValues, state.selectedValues, dispatch]);
+   }, [debouncedName, state.selectedValues, dispatch]);
 
    useEffect(() => {
-      if (debouncedName) {
-         dispatch(getUsersName(debouncedName));
-      } else {
-         fetchUsers();
-      }
+      fetchUsers();
    }, [debouncedName, fetchUsers, dispatch]);
 
    const toggleModal = useCallback(modalType => {
@@ -120,21 +123,87 @@ const Users = () => {
       dispatchFunc({ type: 'SET_VALUES', field, payload });
    }, []);
 
+   const resetFilterHandler = () => {
+      dispatchFunc({ type: 'RESET_FILTER' });
+      dispatch(getResetFilter());
+   };
+
+   const handleDeleteUser = () => {
+      const filteredUsers = allUsers.filter(
+         user => user.checked && user.checked,
+      );
+
+      const userIds = filteredUsers.map(user => user.id);
+
+      dispatch(deleteUsers({ userIds, toggleModal }));
+   };
+
+   const USERS_COLUMNS = [
+      {
+         Header: ({ data }) => (
+            <CheckBox
+               onChange={e =>
+                  dispatch(checkAllUsers({ checked: e.target.checked, data }))
+               }
+            />
+         ),
+
+         accessor: 'check',
+         Cell: ({ row }) => (
+            <CheckBox
+               checked={row.original.checked || false}
+               onChange={e =>
+                  dispatch(
+                     checkUser({
+                        checked: e.target.checked,
+                        data: row.original,
+                     }),
+                  )
+               }
+            />
+         ),
+      },
+      {
+         Header: t('admin.users.table.columns.name'),
+         accessor: 'userName',
+      },
+      {
+         Header: t('admin.users.table.columns.email'),
+         accessor: 'email',
+      },
+      {
+         Header: t('admin.users.table.columns.role'),
+         accessor: 'role',
+         Cell: ({ row }) => (
+            <p>{t(`admin.users.table.roles.${row.original.role}`)}</p>
+         ),
+      },
+      {
+         Header: t('admin.users.table.columns.dateOfRegistration'),
+         accessor: 'createDate',
+      },
+      {
+         Header: t('admin.users.table.columns.status'),
+         accessor: 'status',
+
+         Cell: ({ row }) => (
+            <span>
+               {t(`admin.users.table.statuses.${row.original.status}`)}
+            </span>
+         ),
+      },
+   ];
+
    const headers = useMemo(
       () =>
          getAdminTableHeaders(() => toggleModal('waitingModal'), USERS_COLUMNS),
       [toggleModal],
    );
 
-   const resetFilterHandler = () => {
-      dispatchFunc({ type: 'RESET_FILTER' });
-      dispatch(getResetFilter());
-   };
-
    return (
       <Wrapper>
          <WrapperTitle>
-            <Description>Управление пользователем</Description>
+            <Description>{t('admin.users.title')}</Description>
             <Button onClick={() => navigate('/admin/add-administrator')}>
                <Plus /> Добавить администратора
             </Button>
@@ -154,10 +223,15 @@ const Users = () => {
             handleDateChange={date => setValues('inputValues', { date })}
             value={state.inputValues}
          />
-         <Table data={allUsers} column={headers} />
+         {isLoading ? (
+            <TableSkeleton />
+         ) : (
+            <Table data={allUsers} column={headers} />
+         )}
          <AdsDeleteModal
             isOpen={state.deleteAllModal}
             onClose={() => toggleModal('deleteAllModal')}
+            onDelete={handleDeleteUser}
          />
          <WaitingModal
             isOpen={state.waitingModal}
