@@ -1,86 +1,183 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
 import CloseIcon from '../../assets/icons/close-icon.svg?react';
-import {
-   Container,
-   Label,
-   CameraIcon,
-   ErrorMessage,
-   ImagePreview,
-   StyledDropzone,
-} from '../../pages/Admin/mailing/MailingFormStyles';
-import { useDispatch } from 'react-redux';
+import { Box, Typography, IconButton, styled } from '@mui/material';
+import { CameraIcon } from '../../pages/Admin/mailing/MailingFormStyles';
 import { sendImageS3 } from '../../redux/s3/s3Thunk';
 
-const AdsFileUpload = ({ setFieldValue, touched, errors, id }) => {
-   const [imagePreview, setImagePreview] = useState(null);
+const FileUpload = ({
+   setFieldValue,
+   setImageFiles,
+   imageFiles,
+   touched,
+   errors,
+}) => {
    const dispatch = useDispatch();
 
    const onDrop = acceptedFiles => {
-      const file = acceptedFiles[0];
-      setFieldValue('image', file?.path);
-      dispatch(sendImageS3([file?.path]));
-      const reader = new FileReader();
-      reader.onloadend = () => {
-         setImagePreview(reader.result);
-      };
-      if (file) {
-         reader.readAsDataURL(file);
-      } else {
-         setImagePreview(null);
+      const validFiles = acceptedFiles.filter(file =>
+         ['image/jpeg', 'image/png', 'image/gif'].includes(file.type),
+      );
+
+      const updatedFiles = [...imageFiles, ...validFiles];
+      setImageFiles(updatedFiles);
+
+      setFieldValue(
+         'images',
+         updatedFiles.map(file => file.name),
+      );
+
+      uploadImages(validFiles);
+   };
+
+   const uploadImages = async files => {
+      const formData = new FormData();
+      files.forEach(file => formData.append('files', file));
+
+      const response = await dispatch(sendImageS3(formData)).unwrap();
+      if (response.success) {
+         const uploadedFiles = response.data.map(file => ({
+            ...file,
+            name: file.name,
+         }));
+
+         const updatedFiles = [...imageFiles, ...uploadedFiles];
+         setImageFiles(updatedFiles);
+
+         setFieldValue(
+            'images',
+            updatedFiles.map(file => file.name),
+         );
       }
    };
 
-   const handleRemoveImage = () => {
-      setImagePreview(null);
-      setFieldValue('image', null);
+   const handleRemoveImage = index => {
+      const updatedFiles = imageFiles.filter((_, i) => i !== index);
+      setImageFiles(updatedFiles);
+
+      setFieldValue(
+         'images',
+         updatedFiles.map(file => file.name),
+      );
    };
 
    const { getRootProps, getInputProps } = useDropzone({
       accept: {
-         'image/*': ['.jpeg', '.jpg', '.png'],
-         'application/pdf': ['.pdf'],
-         'text/*': ['.txt'],
+         'image/jpeg': [],
+         'image/png': [],
+         'image/gif': [],
       },
       onDrop,
+      multiple: true,
    });
 
    return (
-      <StyledDropzone {...getRootProps({ className: 'dropzone' })}>
-         <input {...getInputProps()} id={id} />
-         <Label>
-            {imagePreview && (
-               <CloseIcon className="close" onClick={handleRemoveImage} />
-            )}
-
-            <Container>
-               {imagePreview ? (
-                  <div
-                     style={{
-                        position: 'relative',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
+      <Box>
+         <ImageContainer>
+            {imageFiles.map((file, index) => (
+               <ImageWrapper key={index}>
+                  <ImagePreview
+                     src={URL.createObjectURL(file)}
+                     alt={`Image ${index + 1}`}
+                  />
+                  <IconButton
+                     size="small"
+                     sx={{
+                        position: 'absolute',
+                        top: 8,
+                        right: 8,
+                        color: 'white',
                      }}
+                     onClick={() => handleRemoveImage(index)}
                   >
-                     <ImagePreview src={imagePreview} alt="Selected Image" />
-                  </div>
-               ) : (
-                  <div className="block">
-                     <CameraIcon />
-                     <b>Добавьте фото</b>
-                     <p>Для добавления картинки щелкните или перетащите его</p>
-                  </div>
-               )}
-               <div className="container-error">
-                  {touched && errors ? (
-                     <ErrorMessage className="files">{errors}</ErrorMessage>
-                  ) : null}
-               </div>
-            </Container>
-         </Label>
-      </StyledDropzone>
+                     <CloseIcon fontSize="small" />
+                  </IconButton>
+                  {index === 0 && (
+                     <MainPhotoButton>Главное фото</MainPhotoButton>
+                  )}
+               </ImageWrapper>
+            ))}
+            {imageFiles.length < 6 && (
+               <StyledBox
+                  textAlign="center"
+                  p={2}
+                  borderRadius={2}
+                  {...getRootProps()}
+               >
+                  <input {...getInputProps()} />
+                  <CameraIcon fontSize="large" />
+                  <Typography variant="body1">Добавьте фото</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                     Для добавления картинки щелкните или перетащите его
+                  </Typography>
+               </StyledBox>
+            )}
+            {touched && errors && (
+               <Typography color="error" variant="caption">
+                  {errors}
+               </Typography>
+            )}
+         </ImageContainer>
+      </Box>
    );
 };
 
-export default AdsFileUpload;
+export default FileUpload;
+
+const StyledBox = styled(Box)({
+   background: '#7E52FF1A',
+   width: '255px',
+   height: '199px',
+   display: 'flex',
+   flexDirection: 'column',
+   justifyContent: 'center',
+   alignItems: 'center',
+});
+
+const ImageContainer = styled(Box)(({ theme }) => ({
+   maxWidth: '805px',
+   display: 'grid',
+   gridTemplateColumns: 'repeat(3, 1fr)',
+   gap: '20px',
+   [theme.breakpoints.down('md')]: {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+   },
+   [theme.breakpoints.down('sm')]: {
+      gridTemplateColumns: 'repeat(1, 1fr)',
+   },
+}));
+
+const ImageWrapper = styled(Box)({
+   width: '255px',
+   height: '199px',
+   position: 'relative',
+   borderRadius: 8,
+   overflow: 'hidden',
+});
+
+const ImagePreview = styled('img')({
+   objectFit: 'contain',
+   width: '100%',
+   height: '100%',
+   borderRadius: '10px',
+   border: '1px solid #00000027',
+});
+
+const MainPhotoButton = styled(Box)({
+   width: '106px',
+   height: '29px',
+   display: 'flex',
+   alignItems: 'center',
+   justifyContent: 'center',
+   position: 'absolute',
+   bottom: '18px',
+   left: '50%',
+   transform: 'translateX(-50%)',
+   backgroundColor: '#7E52FF',
+   color: '#FFFFFF',
+   padding: '2px 6px',
+   borderRadius: 4,
+   fontSize: '0.75rem',
+   fontWeight: '400',
+});

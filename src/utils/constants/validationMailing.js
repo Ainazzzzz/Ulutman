@@ -17,7 +17,7 @@ export const validationAdForm = Yup.object({
    address: Yup.string().required('Адрес обязателен'),
    category: Yup.string().required('Категория обязательна'),
    metro: Yup.string().required('Метро обязательно'),
-   image: Yup.mixed().required('Загрузите фото'),
+   images: Yup.mixed().required('Загрузите фото'),
    price: Yup.number()
       .required('Цена обязательна')
       .typeError('Цена должна быть числом'),

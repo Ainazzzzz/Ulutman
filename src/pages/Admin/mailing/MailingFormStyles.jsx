@@ -146,7 +146,5 @@ export const ImagePreview = styled('img')(() => ({
    maxWidth: '100%',
    height: '200px',
    objectFit: 'contain',
-   // marginTop: '10px',
-   // paddingTop: '20px',
    padding: '5px',
 }));
