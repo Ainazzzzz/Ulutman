@@ -21,11 +21,10 @@ export const PATHS = {
       MODERATION: '/admin/moderation',
       COMPLAINTS: '/admin/moderation/complaints',
       COMMENTS: '/admin/moderation/comments',
-      IMAGES: '/admin/moderation/images',
       MAILING: '/admin/users/mailing',
       ADD_MAILING: '/admin/users/add-mailing',
       ADD_ADMIN: '/admin/add-administrator',
-      SETTINGS: '/admin/settings',
+      ADVERTISING: '/admin/advertising',
    },
    FALLBACK: '*',
 };

@@ -40,12 +40,14 @@ export const getAdminTableHeaders = (
                   case 'АКТИВНЫЙ':
                   case 'АКТИВНО':
                   case 'ОТПРАВЛЕНО':
+                  case 'ОПЛАЧЕНО':
                      color = green[500];
                      break;
                   case 'ЗАБЛОКИРОВАН':
                   case 'ОТКЛОНЕН':
                   case 'НЕАКТИВНО':
                   case 'ОШИБКА':
+                  case 'НЕ_ОПЛАЧЕНО':
                      color = red[500];
                      break;
                   case 'ОЖИДАЕТ':

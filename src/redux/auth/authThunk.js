@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from '../../config/axiosInstance.js';
-import Cookies from 'js-cookie';
 import { showToast } from '../../hooks/useToast.js';
 
 export const logOut = createAsyncThunk(
@@ -10,7 +9,7 @@ export const logOut = createAsyncThunk(
 
       toggleModal();
 
-      return Cookies.remove('ULUTMAN');
+      return localStorage.removeItem('ULUTMAN');
    },
 );
 
@@ -22,7 +21,7 @@ export const signIn = createAsyncThunk(
 
          const updatedData = { ...data, role: data.roleName };
 
-         Cookies.set('ULUTMAN', JSON.stringify(updatedData));
+         localStorage.setItem('ULUTMAN', JSON.stringify(updatedData));
 
          showToast('success', 'Успешно');
          onClose();
@@ -42,7 +41,7 @@ export const signUp = createAsyncThunk(
       try {
          const { data } = await axiosInstance.post('auth/sign-up', val);
 
-         Cookies.set('ULUTMAN', JSON.stringify(data));
+         localStorage.setItem('ULUTMAN', JSON.stringify(data));
 
          showToast('success', 'Успешно');
          onClose();

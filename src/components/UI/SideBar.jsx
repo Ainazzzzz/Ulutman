@@ -43,6 +43,7 @@ const dataArray = [
          },
       ],
    },
+   { key: 'advertising', value: 'Реклама' },
 ];
 
 export const SideBar = () => {

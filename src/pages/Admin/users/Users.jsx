@@ -24,7 +24,6 @@ import {
    getAllUsers,
    getResetFilter,
    getUsersFilter,
-   getUsersName,
 } from '../../../redux/users/usersThunk';
 import { CheckBox } from '../../../components/UI/Checkbox';
 import { checkAllUsers, checkUser } from '../../../redux/users/usersSlice';

@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { logOut, signIn, signUp } from './authThunk';
-import Cookies from 'js-cookie';
 import { updateUserProfile } from '../users/profileThunk';
 
 const getInitialState = () => {
-   const json = Cookies.get('ULUTMAN');
+   const json = localStorage.getItem('ULUTMAN');
    if (json) {
       const parsedData = JSON.parse(json);
 
@@ -84,11 +83,12 @@ export const authSlice = createSlice({
             state.isAuth = true;
             state.isLoading = false;
          })
-         .addCase(signUp.pending, (state, action) => {
+         .addCase(signUp.pending, state => {
             state.isLoading = true;
          })
          .addCase(signUp.rejected, (state, action) => {
             state.isLoading = false;
+            state.error = action.payload;
          });
 
       builder;

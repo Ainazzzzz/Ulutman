@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from '../../config/axiosInstance';
-import Cookies from 'js-cookie';
 
 export const updateUserProfile = createAsyncThunk(
    'profile/updateUserProfile',
@@ -11,8 +10,8 @@ export const updateUserProfile = createAsyncThunk(
             profileData,
          );
 
-         const parsedData = JSON.parse(Cookies.get('ULUTMAN') || '{}');
-         Cookies.set(
+         const parsedData = JSON.parse(localStorage.getItem('ULUTMAN') || '{}');
+         localStorage.setItem(
             'ULUTMAN',
             JSON.stringify({ ...parsedData, ...data, name: data.username }),
          );

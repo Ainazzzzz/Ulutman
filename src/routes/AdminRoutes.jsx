@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole.jsx';
 import { Loading } from '../components/UI/Loading.jsx';
 import { PATHS } from '../utils/constants/paths.js';
+import Advertising from '../pages/Admin/advertising/Advertising.jsx';
 
 const Dashboard = lazy(() => import('../pages/Admin/dashboard/Dashboard.jsx'));
 const AddMailingPage = lazy(() => import('../pages/Admin/AddMailingPage'));
@@ -86,6 +87,21 @@ export const AdminRoutes = role => {
                RouteComponent={
                   <Suspense fallback={<Loading />}>
                      <CategoryAdmin />
+                  </Suspense>
+               }
+            />
+         ),
+      },
+      {
+         path: PATHS.ADMIN.ADVERTISING,
+         element: (
+            <PrivateAuthRouteByRole
+               role={role}
+               roles={['ADMIN']}
+               fallBackPath={PATHS.HOME}
+               RouteComponent={
+                  <Suspense fallback={<Loading />}>
+                     <Advertising />
                   </Suspense>
                }
             />

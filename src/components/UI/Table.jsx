@@ -114,8 +114,6 @@ const Table = ({ column: headers, data }) => {
 
 export default memo(Table);
 
-// Остальная часть кода без изменений
-
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
    borderRadius: '6px',
 
@@ -127,6 +125,7 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
 
    '& .MuiTableHead-root': {
       borderBottom: '1px solid  rgba(224, 224, 224, 1)',
+      textTransform: 'uppercase',
    },
 
    '& .MuiTableCell-root': {
