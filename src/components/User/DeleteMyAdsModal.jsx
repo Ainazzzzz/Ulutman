@@ -1,12 +1,16 @@
 import { styled } from '@mui/material';
 import Modal from '../UI/Modal';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteSelectedAds } from '../../redux/users/myAdsThunk';
+import Toastify from '../UI/Toastify';
+import { showToast } from '../../hooks/useToast';
 
 export const DeleteMyAdsModal = ({ userId, selectedIds }) => {
    const [isOpen, setIsOpen] = useState(true);
    const dispatch = useDispatch();
+
+   const errorMessage = useSelector(state => state.myAds.errorMessage);
 
    const handleDeleteSelectedAds = () => {
       if (selectedIds.length > 0) {
@@ -18,10 +22,19 @@ export const DeleteMyAdsModal = ({ userId, selectedIds }) => {
    const handleCloseModal = () => {
       setIsOpen(!isOpen);
    };
+
+   // useEffect(() => {
+   //    if (errorMessage) {
+   //       // Toastify.error(errorMessage); /
+   //       showToast('error', errorMessage);
+   //    }
+   // }, [errorMessage]);
+
    return (
       <Modal open={isOpen} handleClose={handleCloseModal} variant="delete">
          <Container>
             <Title>Вы уверены, что хотите удалить?</Title>
+            {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <div>
                <FirstButton onClick={handleCloseModal}>Отменить</FirstButton>
 
@@ -77,3 +90,10 @@ const SecondButton = styled('button')(() => ({
    background: 'transparent',
    cursor: 'pointer',
 }));
+
+const ErrorText = styled('div')({
+   marginTop: '10px',
+   color: 'red',
+   fontSize: '14px',
+   textAlign: 'center',
+});

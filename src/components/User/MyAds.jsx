@@ -11,9 +11,12 @@ import {
    RaisingPublication,
 } from '../../redux/users/myAdsThunk';
 import { useDispatch, useSelector } from 'react-redux';
+import { PhoneModal } from '../UI/PhoneModal';
 
 export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
    const dispatch = useDispatch();
+   const [openPhoneModal, setOpenPhoneModal] = useState(false);
+   const [liftTimestamps, setLiftTimestamps] = useState({});
 
    const { favoriteCounts } = useSelector(state => state.myAds);
    console.log(favoriteCounts);
@@ -22,10 +25,27 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
       setSelectedIds(prev =>
          prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
       );
+      console.log(id);
    };
 
-   const handleRaising = () => {
+   const handleRaising = adId => {
       dispatch(RaisingPublication());
+      const now = Date.now();
+      setLiftTimestamps(prev => ({
+         ...prev,
+         [adId]: now,
+      }));
+   };
+
+   const handleOpenPhoneModal = () => {
+      setOpenPhoneModal(!openPhoneModal);
+   };
+
+   const canLiftAd = adId => {
+      const lastLift = liftTimestamps[adId];
+      if (!lastLift) return true; // Если объявление никогда не поднималось
+      const timeSinceLastLift = Date.now() - lastLift;
+      return timeSinceLastLift >= 24 * 60 * 60 * 1000; // 24 часа
    };
 
    useEffect(() => {
@@ -33,14 +53,6 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
          dispatch(getFavoriteCount({ publishId: item.id }));
       });
    }, [dispatch, myAds]);
-
-   // const favoriteCountMap = favoriteCounts.reduce(
-   //    (acc, { publishId, favoriteCount }) => {
-   //       acc[publishId] = favoriteCount;
-   //       return acc;
-   //    },
-   //    {},
-   // );
 
    return (
       <CONTAINER>
@@ -72,8 +84,8 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
                                     <span>{favoriteCount}</span>
                                  </SecondMiniBlock>
                                  <SecondMiniBlock>
-                                    <Call />
-                                    <span>{item.calls}</span>
+                                    <Call onClick={handleOpenPhoneModal} />
+                                    {openPhoneModal && <PhoneModal />}
                                  </SecondMiniBlock>
                               </SecondBlock>
                            </Container>
@@ -81,7 +93,23 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
                      </BigBox>
                      <AnotherContainer>
                         <AnotherBlock>
-                           <p onClick={handleRaising}>Поднять</p>
+                           <p
+                              onClick={() => {
+                                 if (canLiftAd(item.id)) {
+                                    handleRaising(item.id);
+                                 }
+                              }}
+                              style={{
+                                 cursor: canLiftAd(item.id)
+                                    ? 'pointer'
+                                    : 'not-allowed',
+                                 color: canLiftAd(item.id) ? 'black' : 'gray',
+                              }}
+                           >
+                              {canLiftAd(item.id)
+                                 ? 'Поднять'
+                                 : ' Повторно можно поднять через 24 часа'}
+                           </p>
                         </AnotherBlock>
                      </AnotherContainer>
                   </Wrapper>

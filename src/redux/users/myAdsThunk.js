@@ -85,21 +85,6 @@ export const getRejectedPublishes = createAsyncThunk(
    },
 );
 
-export const getDeactivatePublishes = createAsyncThunk(
-   'myAds/getDeactivatePublishes',
-   async (_, { getState, rejectWithValue }) => {
-      try {
-         const userId = getState().auth.userData.userId;
-         const { data } = await axiosInstance.get(
-            `users/my-publishes/inactive-publishes/${userId}`,
-         );
-         return data;
-      } catch (error) {
-         return rejectWithValue(error.response?.data || error.message);
-      }
-   },
-);
-
 export const getFavoriteCount = createAsyncThunk(
    'myAds/favoriteCount',
    async ({ publishId }, { getState, rejectWithValue }) => {
@@ -112,7 +97,6 @@ export const getFavoriteCount = createAsyncThunk(
                publishId: publishId,
             },
          });
-         console.log(data);
 
          return data;
       } catch (error) {

@@ -23,11 +23,8 @@ export const store = configureStore({
       [mainSlice.name]: mainSlice.reducer,
       [publishesSlice.name]: publishesSlice.reducer,
       [addsAdminSlice.name]: addsAdminSlice.reducer,
-<<<<<<< HEAD
       [myAdsSlice.name]: myAdsSlice.reducer,
-=======
       [mailingSlice.name]: mailingSlice.reducer,
       [categoriesSlice.name]: categoriesSlice.reducer,
->>>>>>> f45b30c7c8471f93d9cf89aba2bebdf9012fa736
    },
 });

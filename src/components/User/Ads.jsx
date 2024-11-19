@@ -5,11 +5,7 @@ import { MyAds } from './MyAds';
 import TabsUi from '../UI/TabsUi';
 import { useEffect, useState } from 'react';
 import { DeleteMyAdsModal } from './DeleteMyAdsModal';
-import {
-   getDeactivatePublishes,
-   getMyAds,
-   getRejectedPublishes,
-} from '../../redux/users/myAdsThunk';
+import { getMyAds, getRejectedPublishes } from '../../redux/users/myAdsThunk';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Ads = () => {
@@ -51,8 +47,8 @@ export const Ads = () => {
       tabValue === '1'
          ? dispatch(getMyAds())
          : tabValue === '2'
-           ? dispatch(getDeactivatePublishes())
-           : dispatch(getRejectedPublishes());
+           ? dispatch(getRejectedPublishes())
+           : dispatch(MyAds());
    };
 
    useEffect(() => {
