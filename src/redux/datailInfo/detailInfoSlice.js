@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-   deleteFavorite,
-   getDetailInfo,
-   postFavorite,
-} from '../thunks/detailInfoThunk';
+import { deleteFavorite, getDetailInfo, postFavorite } from './detailInfoThunk';
 
 export const detailInfoSlice = createSlice({
    name: 'detailInfo',
@@ -37,7 +33,7 @@ export const detailInfoSlice = createSlice({
          .addCase(deleteFavorite.fulfilled, (state, action) => {
             state.loading = false;
             state.favoriteRemoved = true;
-            state.detailInfo.detailFavorite = false; // Обновляем состояние избранного
+            state.detailInfo.detailFavorite = false;
             state.error = null;
          });
    },

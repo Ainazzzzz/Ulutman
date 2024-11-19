@@ -10,7 +10,7 @@ import { mainSlice } from './main/mainSlice';
 import { mailingSlice } from './mailing/mailingSlice';
 import { categoriesSlice } from './categories/categoriesSlice';
 import { publishesSlice } from './publishes/publishesSlice';
-import { detailInfoSlice } from './slices/detailInfoSlice';
+import { detailInfoSlice } from './datailInfo/detailInfoSlice';
 
 export const store = configureStore({
    reducer: {
@@ -23,11 +23,8 @@ export const store = configureStore({
       [mainSlice.name]: mainSlice.reducer,
       [publishesSlice.name]: publishesSlice.reducer,
       [addsAdminSlice.name]: addsAdminSlice.reducer,
-<<<<<<< HEAD
       [detailInfoSlice.name]: detailInfoSlice.reducer,
-=======
       [mailingSlice.name]: mailingSlice.reducer,
       [categoriesSlice.name]: categoriesSlice.reducer,
->>>>>>> f45b30c7c8471f93d9cf89aba2bebdf9012fa736
    },
 });

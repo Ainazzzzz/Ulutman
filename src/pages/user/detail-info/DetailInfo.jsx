@@ -9,16 +9,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 import { useEffect, useState } from 'react';
-import firstImage from '../../../assets/images/slider-images/first.png';
-import secondthImage from '../../../assets/images/slider-images/second.png';
-import thirdImage from '../../../assets/images/slider-images/third.png';
-import fourthImage from '../../../assets/images/slider-images/fourth.png';
-import fifthImage from '../../../assets/images/slider-images/fifth.png';
-import sixthImage from '../../../assets/images/slider-images/sixth.png';
-import seventhImage from '../../../assets/images/slider-images/seventh.png';
-import eightImage from '../../../assets/images/slider-images/eight.png';
-import ninthImage from '../../../assets/images/slider-images/ninth.png';
-import tenthImage from '../../../assets/images/slider-images/tenth.png';
+
 import Like from '../../../assets/icons/like-product-icon.svg?react';
 import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react';
 import { Button } from '../../../components/UI/Button';
@@ -28,7 +19,7 @@ import {
    deleteFavorite,
    getDetailInfo,
    postFavorite,
-} from '../../../redux/thunks/detailInfoThunk';
+} from '../../../redux/datailInfo/detailInfoThunk';
 import { useDispatch, useSelector } from 'react-redux';
 
 const DetailInfo = () => {
@@ -50,26 +41,12 @@ const DetailInfo = () => {
       { title: '2х комнатная квартира', url: '#' },
    ];
 
-   // const slides = [
-   //    { id: 1, image: firstImage },
-   //    { id: 2, image: secondthImage },
-   //    { id: 3, image: thirdImage },
-   //    { id: 4, image: fourthImage },
-   //    { id: 5, image: fifthImage },
-   //    { id: 6, image: sixthImage },
-   //    { id: 7, image: seventhImage },
-   //    { id: 8, image: eightImage },
-   //    { id: 9, image: ninthImage },
-   //    { id: 10, image: tenthImage },
-   // ];
-
    const handleFavorite = () => {
       const isFavorite = detailInfo?.detailInfo?.detailFavorite;
 
       if (isFavorite) {
          dispatch(deleteFavorite(detailInfo.detailInfo.id));
       } else {
-         // Иначе выполняем POST запрос для добавления в избранное
          dispatch(postFavorite(detailInfo.detailInfo.id));
       }
 
@@ -129,11 +106,11 @@ const DetailInfo = () => {
                            className="mySwiper"
                         >
                            {detailInfo?.detailInfo?.images?.map(slide => (
-                              <SwiperSlide key={slide.id}>
+                              <SwiperSlide key={slide}>
                                  <img
                                     className="slide-image"
-                                    src={slide.image}
-                                    alt={`Slide ${slide.id}`}
+                                    src={slide}
+                                    alt={`Slide ${slide}`}
                                  />
                               </SwiperSlide>
                            ))}
@@ -142,9 +119,9 @@ const DetailInfo = () => {
                         <Box className="images">
                            {detailInfo?.detailInfo?.images?.map(item => (
                               <img
-                                 key={item.id}
-                                 src={item.image}
-                                 alt={`Slide ${item.id}`}
+                                 key={item}
+                                 src={item}
+                                 alt={`Slide ${item}`}
                               />
                            ))}
                         </Box>
