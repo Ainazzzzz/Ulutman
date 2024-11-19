@@ -84,3 +84,22 @@ export const deleteUsers = createAsyncThunk(
       }
    },
 );
+
+export const blockUserRequest = createAsyncThunk(
+   'user/block',
+   async ({ userId, newStatus, onClose }, { rejectWithValue, dispatch }) => {
+      try {
+         await axiosInstance.put(`/manage/users/${userId}/status`, undefined, {
+            params: {
+               newStatus,
+            },
+         });
+
+         onClose();
+
+         dispatch(getAllUsers());
+      } catch (error) {
+         return rejectWithValue(error);
+      }
+   },
+);

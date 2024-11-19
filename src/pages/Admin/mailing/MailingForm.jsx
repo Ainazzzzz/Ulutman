@@ -8,11 +8,16 @@ import {
    StyledButton,
    StyledWriting,
    ErrorMessage,
+   DateLabelStyle,
 } from './MailingFormStyles.jsx';
 import { validationSchema } from '../../../utils/constants/validationMailing.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postMailing } from '../../../redux/mailing/mailingThunk.js';
 import { useNavigate } from 'react-router-dom';
+import DatePicker from '../../../components/UI/DatePicker.jsx';
+import dayjs from 'dayjs';
+import { postFile } from '../../../redux/files/fileThunk.js';
+import Spinner from '../../../components/UI/Spinner.jsx';
 
 const InputContainer = ({
    name,
@@ -41,28 +46,47 @@ const InputContainer = ({
 export const MailingForm = ({ mailingType, recipients }) => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
+   const { isLoading } = useSelector(state => state.file);
 
    const formik = useFormik({
       initialValues: {
-         title: '',
-         mailingType: 'Новости',
-         message: '',
+         mailingType: 'НОВОСТИ',
          recipientsAllValue: 'Все пользователи',
-         files: null,
+
+         title: '',
+         message: '',
+         mailingStatus: 'ОТПРАВЛЕНО',
+         image: '',
+         promotionStartDate: dayjs(new Date()),
+         promotionEndDate: dayjs(new Date()).add(7, 'day'),
+         recipientsIds: [],
       },
       validationSchema: validationSchema,
       onSubmit: values => {
-         const mailingData = {
-            title: values.title,
-            mailingType: values.mailingType,
-            message: values.message,
-            // files: values.files,
-            image: 'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
-            promotionStartDate: '2024-08-02',
-            promotionEndDate: '2025-08-02',
-         };
+         const { promotionStartDate, promotionEndDate, image, ...restValue } =
+            values;
 
-         dispatch(postMailing({ mailingData, navigate }));
+         dispatch(postFile(image))
+            .unwrap()
+            .then(res => {
+               const startDate = new Date(promotionStartDate);
+               const formattedStartDate = dayjs(startDate).format('YYYY-MM-DD');
+
+               const endDate = new Date(promotionEndDate);
+               const formattedEndDate = dayjs(endDate).format('YYYY-MM-DD');
+
+               dispatch(
+                  postMailing({
+                     mailingData: {
+                        ...restValue,
+                        promotionStartDate: formattedStartDate,
+                        promotionEndDate: formattedEndDate,
+                        image: res[0],
+                     },
+                     navigate,
+                  }),
+               );
+            });
       },
    });
 
@@ -78,6 +102,7 @@ export const MailingForm = ({ mailingType, recipients }) => {
                errors={formik.errors.title}
                placeholder="Новости платформы"
                label="Название рассылки"
+               disabled={isLoading}
             />
 
             <Container>
@@ -90,6 +115,7 @@ export const MailingForm = ({ mailingType, recipients }) => {
                   error={formik.errors.mailingType}
                   label="Тип рассылки"
                   options={mailingType}
+                  disabled={isLoading}
                />
                {formik.touched.mailingType &&
                Boolean(formik.errors.mailingType) ? (
@@ -107,6 +133,7 @@ export const MailingForm = ({ mailingType, recipients }) => {
                   errors={formik.errors.recipientsAllValue}
                   label="Получатели"
                   options={recipients}
+                  disabled={isLoading}
                />
                {formik.touched.recipientsAllValue &&
                Boolean(formik.errors.recipientsAllValue) ? (
@@ -128,20 +155,63 @@ export const MailingForm = ({ mailingType, recipients }) => {
                   error={
                      formik.touched.message && Boolean(formik.errors.message)
                   }
+                  multiline
+                  rows={5}
+                  disabled={isLoading}
                />
                {formik.touched.message && formik.errors.message ? (
                   <ErrorMessage>{formik.errors.message}</ErrorMessage>
                ) : null}
             </Container>
+            <Container>
+               <DateLabelStyle htmlFor="start-date">
+                  Описание рассылки
+               </DateLabelStyle>
+
+               <DatePicker
+                  value={formik.values.promotionStartDate}
+                  onChange={newValue =>
+                     formik.setFieldValue('promotionStartDate', newValue)
+                  }
+                  error={
+                     formik.touched.promotionStartDate &&
+                     Boolean(formik.errors.promotionStartDate)
+                  }
+                  helperText={formik.errors.promotionStartDate}
+                  disabled={isLoading}
+               />
+            </Container>
+
+            <Container>
+               <DateLabelStyle htmlFor="start-date">
+                  Описание рассылки
+               </DateLabelStyle>
+
+               <DatePicker
+                  value={formik.values.promotionEndDate}
+                  onChange={newValue =>
+                     formik.setFieldValue('promotionEndDate', newValue)
+                  }
+                  error={
+                     formik.touched.promotionEndDate &&
+                     Boolean(formik.errors.promotionEndDate)
+                  }
+                  helperText={formik.errors.promotionEndDate}
+                  disableDate={formik.values.promotionStartDate}
+                  disabled={isLoading}
+               />
+            </Container>
          </WrapperInputSelect>
 
          <FileUpload
             setFieldValue={formik.setFieldValue}
-            touched={formik.touched.files}
-            errors={formik.errors.files}
+            touched={formik.touched.image}
+            errors={formik.errors.image}
          />
 
-         <StyledButton type="submit">Отправить</StyledButton>
+         <StyledButton type="submit" disabled={isLoading}>
+            {isLoading ? <Spinner /> : 'Отправить'}
+         </StyledButton>
       </form>
    );
 };
