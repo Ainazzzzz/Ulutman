@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAdversiting } from './advertisingThunk';
+import { getAdvertising } from './advertisingThunk';
 
 const initialState = {
    advertising: [],
@@ -13,16 +13,16 @@ export const advertisingSlice = createSlice({
    reducers: {},
    extraReducers: builder => {
       builder
-         .addCase(getAdversiting.fulfilled, (state, action) => {
+         .addCase(getAdvertising.fulfilled, (state, action) => {
             state.advertising = action.payload;
             state.isLoading = false;
             state.error = '';
          })
-         .addCase(getAdversiting.pending, state => {
+         .addCase(getAdvertising.pending, state => {
             state.isLoading = true;
             state.error = '';
          })
-         .addCase(getAdversiting.rejected, (state, action) => {
+         .addCase(getAdvertising.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
          });

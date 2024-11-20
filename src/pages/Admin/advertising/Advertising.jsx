@@ -4,7 +4,7 @@ import Table from '../../../components/UI/Table';
 import { styled } from '@mui/material';
 import { getAdminTableHeaders } from '../category/AdminTableHeader';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdversiting } from '../../../redux/advertising/advertisingThunk';
+import { getAdvertising } from '../../../redux/advertising/advertisingThunk';
 
 const Advertising = () => {
    const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const Advertising = () => {
          email: 'abdimalikovaziat@gmail.com',
          category: 'Arenda',
          createDate: '20-12-2024',
-         status: 'ОПЛАЧЕНО',
+         status: 'ОДОБРЕН',
       },
    ];
 
@@ -57,7 +57,7 @@ const Advertising = () => {
    );
 
    useEffect(() => {
-      dispatch(getAdversiting());
+      dispatch(getAdvertising());
    }, []);
 
    return (

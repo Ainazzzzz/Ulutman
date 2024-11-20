@@ -107,41 +107,41 @@ export const AdminRoutes = role => {
             />
          ),
       },
-      {
-         path: PATHS.ADMIN.MODERATION,
-         element: <Navigate to={'complaints'} />,
-      },
-
-      {
-         path: PATHS.ADMIN.COMPLAINTS,
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath={PATHS.HOME}
-               RouteComponent={
-                  <Suspense fallback={<Loading />}>
-                     <ComplaintsModerationPage />
-                  </Suspense>
-               }
-            />
-         ),
-      },
-      {
-         path: PATHS.ADMIN.COMMENTS,
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath={PATHS.HOME}
-               RouteComponent={
-                  <Suspense fallback={<Loading />}>
-                     <ModerationPage />
-                  </Suspense>
-               }
-            />
-         ),
-      },
+      // {
+      //    path: PATHS.ADMIN.MODERATION,
+      //    element: <Navigate to={'complaints'} />,
+      // },
+      //
+      // {
+      //    path: PATHS.ADMIN.COMPLAINTS,
+      //    element: (
+      //       <PrivateAuthRouteByRole
+      //          role={role}
+      //          roles={['ADMIN']}
+      //          fallBackPath={PATHS.HOME}
+      //          RouteComponent={
+      //             <Suspense fallback={<Loading />}>
+      //                <ComplaintsModerationPage />
+      //             </Suspense>
+      //          }
+      //       />
+      //    ),
+      // },
+      // {
+      //    path: PATHS.ADMIN.COMMENTS,
+      //    element: (
+      //       <PrivateAuthRouteByRole
+      //          role={role}
+      //          roles={['ADMIN']}
+      //          fallBackPath={PATHS.HOME}
+      //          RouteComponent={
+      //             <Suspense fallback={<Loading />}>
+      //                <ModerationPage />
+      //             </Suspense>
+      //          }
+      //       />
+      //    ),
+      // },
       // {
       //    path: 'moderation/images',
       //    element: (

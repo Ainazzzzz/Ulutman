@@ -28,21 +28,23 @@ const dataArray = [
    },
    { key: 'ads', value: 'Объявления' },
    { key: 'categories', value: 'Категории' },
-   {
-      key: 'moderation',
-      value: 'Модерация',
-      icon: <StyledArrow />,
-      subData: [
-         {
-            key: 'complaints',
-            value: 'Управление жалобами и нарушениями',
-         },
-         {
-            key: 'comments',
-            value: 'Модерация комментариев и сообщений',
-         },
-      ],
-   },
+
+   // На время убрал Модерация
+   // {
+   //    key: 'moderation',
+   //    value: 'Модерация',
+   //    icon: <StyledArrow />,
+   //    subData: [
+   //       {
+   //          key: 'complaints',
+   //          value: 'Управление жалобами и нарушениями',
+   //       },
+   //       {
+   //          key: 'comments',
+   //          value: 'Модерация комментариев и сообщений',
+   //       },
+   //    ],
+   // },
    { key: 'advertising', value: 'Реклама' },
 ];
 

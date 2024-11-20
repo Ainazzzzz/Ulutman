@@ -8,10 +8,12 @@ import {
    Table as MuiTable,
    styled,
    Box,
+   Typography,
 } from '@mui/material';
 import { useTable } from 'react-table';
 import Pagination from './Pagination';
 import FileIcon from '../../assets/icons/file-icon.svg?react';
+import NoDataIcon from '../../assets/icons/no-data.svg?react';
 import { CheckBox } from './Checkbox';
 
 const Table = ({ column: headers, data }) => {
@@ -27,7 +29,12 @@ const Table = ({ column: headers, data }) => {
       });
 
    if (!data || data.length === 0) {
-      return <StyledAbsence>Пусто</StyledAbsence>;
+      return (
+         <StyledAbsence>
+            <NoDataIcon />
+            <Typography>Пока что ничего нету</Typography>
+         </StyledAbsence>
+      );
    }
 
    return (
@@ -160,8 +167,12 @@ const StyledAbsence = styled(Box)(() => ({
    display: 'grid',
    placeItems: 'center',
 
-   '& > img': {
-      width: '600px',
-      height: '600px',
+   '& > svg': {
+      width: '500px',
+   },
+
+   '& .MuiTypography-root': {
+      fontSize: '24px',
+      fontWeight: '600',
    },
 }));
