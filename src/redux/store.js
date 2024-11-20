@@ -10,6 +10,7 @@ import { mainSlice } from './main/mainSlice';
 import { mailingSlice } from './mailing/mailingSlice';
 import { categoriesSlice } from './categories/categoriesSlice';
 import { publishesSlice } from './publishes/publishesSlice';
+import { advertisingSlice } from './advertising/adverstitingPaySlices';
 
 export const store = configureStore({
    reducer: {
@@ -24,5 +25,6 @@ export const store = configureStore({
       [addsAdminSlice.name]: addsAdminSlice.reducer,
       [mailingSlice.name]: mailingSlice.reducer,
       [categoriesSlice.name]: categoriesSlice.reducer,
+      [advertisingSlice.name]: addsAdminSlice.reducer,
    },
 });

@@ -1,4 +1,3 @@
-import AdversitingPage from './pages/user/AdversitingPage';
 import { AppRoutes } from './routes/AppRoutes';
 
 const App = () => {

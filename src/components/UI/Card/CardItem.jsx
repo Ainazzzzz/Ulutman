@@ -40,7 +40,7 @@ export const CardItem = ({
             title={description}
             onClick={() => onNavigateDetail(id)}
          />
-         <StyledCardMedia image={image} title={title} />
+         <StyledCardMedia image={images} title={description} />
 
          <ContainerInfo>
             <FirstBlock>
@@ -74,7 +74,7 @@ export const CardItem = ({
                <PhoneIcon onClick={() => setPhoneModal(id)} />
                <LikeIcon
                   className={detailFavorite ? 'like-red' : ''}
-                  onClick={() => onDeleteById(id)}
+                  onClick={() => onDeleteFavorite(id)}
                />
                {openPhoneModal ? (
                   <PhoneModal handleClose={handleClosePhoneModal} />
