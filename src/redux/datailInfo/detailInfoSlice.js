@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteFavorite, getDetailInfo, postFavorite } from './detailInfoThunk';
+import {
+   deleteFavorite,
+   getDetailInfo,
+   getSimilarAds,
+   postFavorite,
+} from './detailInfoThunk';
 
 export const detailInfoSlice = createSlice({
    name: 'detailInfo',
@@ -9,6 +14,7 @@ export const detailInfoSlice = createSlice({
       favoriteAdded: false,
       favoriteRemoved: false,
       error: null,
+      similarAds: [],
    },
    extraReducers: builder => {
       builder
@@ -35,6 +41,9 @@ export const detailInfoSlice = createSlice({
             state.favoriteRemoved = true;
             state.detailInfo.detailFavorite = false;
             state.error = null;
+         })
+         .addCase(getSimilarAds.fulfilled, (state, action) => {
+            state.similarAds = action.payload;
          });
    },
 });

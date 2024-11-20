@@ -21,16 +21,23 @@ import {
    postFavorite,
 } from '../../../redux/datailInfo/detailInfoThunk';
 import { useDispatch, useSelector } from 'react-redux';
+import { PhoneModal } from '../../../components/UI/PhoneModal';
+import { SimilarAds } from './SimilarAds';
 
 const DetailInfo = () => {
    const dispatch = useDispatch();
    const detailInfo = useSelector(state => state.detailInfo);
    const [isExpanded, setIsExpanded] = useState(false);
+   const [openModal, setOpenModal] = useState(false);
+
+   const handleShowPhoneNumber = () => {
+      setOpenModal(!openModal);
+   };
 
    const description =
       detailInfo?.detailInfo?.description || 'Описание не доступно';
    const words = description.split(' ');
-   const shortDescription = words.slice(0, 1).join(' ');
+   const shortDescription = words.slice(0, 12).join(' ');
 
    const handleReadMore = () => {
       setIsExpanded(!isExpanded);
@@ -49,8 +56,6 @@ const DetailInfo = () => {
       } else {
          dispatch(postFavorite(detailInfo.detailInfo.id));
       }
-
-      dispatch(postFavorite());
    };
 
    useEffect(() => {
@@ -122,6 +127,11 @@ const DetailInfo = () => {
                                  key={item}
                                  src={item}
                                  alt={`Slide ${item}`}
+                                 style={{
+                                    width: '60px',
+                                    height: '64px',
+                                    borderRadius: '6px',
+                                 }}
                               />
                            ))}
                         </Box>
@@ -153,39 +163,42 @@ const DetailInfo = () => {
 
                            <Box className="info-box-container">
                               <Typography className="info-part">
-                                 Оплата ЖКХ <hr className="line" />
+                                 Оплата ЖКХ <span className="line" />
                                  {detailInfo?.detailInfo?.conditions
                                     ?.utilitiesIncluded || 'Не указано'}
                               </Typography>
 
                               <Typography className="info-part">
-                                 Залог <hr className="line" />{' '}
+                                 Залог <span className="line" />{' '}
                                  {detailInfo?.detailInfo?.conditions?.deposit} ₽
                               </Typography>
 
                               <Typography className="info-part">
-                                 Комиссия <hr className="line" />
+                                 Комиссия <span className="line" />
                                  {detailInfo?.detailInfo?.conditions
                                     ?.commission || 'Не указано'}
                               </Typography>
 
                               <Typography className="info-part">
                                  Предоплата
-                                 <hr className="line" />
+                                 <span className="line" />
                                  {detailInfo?.detailInfo?.conditions
                                     ?.prepayment || 'Не указано'}
                               </Typography>
 
                               <Typography className="info-part">
                                  Срок аренды
-                                 <hr className="line" />
+                                 <span className="line" />
                                  {detailInfo?.detailInfo?.conditions
                                     ?.leaseTerm || 'Не указано'}
                               </Typography>
                            </Box>
 
                            <Box className="btns-container">
-                              <Button>Показать телефон</Button>
+                              <Button onClick={handleShowPhoneNumber}>
+                                 Показать телефон
+                              </Button>
+                              {openModal && <PhoneModal />}
                            </Box>
                         </Box>
 
@@ -195,10 +208,11 @@ const DetailInfo = () => {
                            </Box>
                            <Box>
                               <Typography>Риелтор</Typography>
-                              {detailInfo?.detailInfo?.conditions?.realtor ||
-                                 'Не указано'}
 
-                              <Typography></Typography>
+                              <Typography>
+                                 {detailInfo?.detailInfo?.conditions?.realtor ||
+                                    'Не указано'}
+                              </Typography>
                               <Rating
                                  value={
                                     detailInfo?.detailInfo?.conditions
@@ -234,6 +248,7 @@ const DetailInfo = () => {
                </Box>
 
                <AboutApartment detailInfo={detailInfo} />
+               <SimilarAds />
             </StyledContainer>
          )}
       </div>
@@ -332,12 +347,11 @@ const StyledContainer = styled(Box)(() => ({
    '& .second_box': {
       display: 'flex',
       flexDirection: 'column',
-      gap: '0.5rem',
+      gap: '1rem',
       borderRadius: '10px',
       width: '460px',
       padding: '15px',
       paddingTop: '20px',
-      height: '350px',
       boxShadow: ' 0px 7px 12px 1px rgba(34, 60, 80, 0.14)',
       backgroundColor: 'white',
 
@@ -370,8 +384,15 @@ const StyledContainer = styled(Box)(() => ({
             color: '#282828',
 
             '& .line': {
-               border: '1px dotted #909090',
+               // border: '1px dotted #909090',
+               // width: '30%',
+               border: 'none' /* Убираем стандартный бордер */,
+               borderTop: '1px dotted #909090' /* Пунктирный верхний бордер */,
                width: '30%',
+               borderStyle: 'dashed' /* Более аккуратный стиль */,
+               borderWidth: '1px' /* Толщина линии */,
+               borderColor: '#909090' /* Цвет */,
+               borderSpacing: '1px',
             },
          },
       },
@@ -462,4 +483,9 @@ const StyledContainer = styled(Box)(() => ({
       lineHeight: '36px',
       letterSpacing: '-0.5px',
    },
+}));
+
+const ImageStyle = styled(() => ({
+   width: 'px',
+   height: '100px',
 }));
