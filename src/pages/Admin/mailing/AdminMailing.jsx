@@ -2,9 +2,6 @@ import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { styled } from '@mui/material';
 import Wait from '../../../assets/icons/wait-icon.svg?react';
 import { green, red, orange } from '@mui/material/colors';
-import Filter from '../../../assets/icons/filter-icon.svg?react';
-import Replay from '../../../assets/icons/replay-icon.svg?react';
-import RedDeleteIcon from '../../../assets/icons/red-delete-icon.svg?react';
 import ReusableSelect from '../../../components/UI/Select.jsx';
 import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';
 import { WaitingModal } from '../ads/WaitingModal.jsx';
@@ -22,6 +19,11 @@ import {
    getAllMailing,
 } from '../../../redux/mailing/mailingThunk.js';
 import TableSkeleton from '../../../components/UI/TableSkeleton.jsx';
+import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
+import {
+   checkAllMailing,
+   checkMailing,
+} from '../../../redux/mailing/mailingSlice.js';
 
 const inputData = [{ id: 'name', value: 'По имени' }];
 const selectsConfig = [
@@ -94,7 +96,7 @@ const AdminMailing = () => {
       return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
    };
 
-   const fetchUsers = useCallback(() => {
+   const fetchMailing = useCallback(() => {
       const { date } = state.inputValues;
       const { type, status } = state.selectedValues;
 
@@ -115,12 +117,12 @@ const AdminMailing = () => {
    }, [state.inputValues, state.selectedValues, dispatch]);
 
    useEffect(() => {
-      if (debouncedName) {
-         // dispatch(getUsersName(debouncedName));
-      } else {
-         fetchUsers();
-      }
-   }, [debouncedName, fetchUsers, dispatch]);
+      // if (debouncedName) {
+      //    // dispatch(getUsersName(debouncedName));
+      // } else {
+      fetchMailing();
+      // }
+   }, [debouncedName, state.selectedValues, fetchMailing, dispatch]);
 
    const toggleModal = useCallback(modalType => {
       dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });
@@ -135,92 +137,90 @@ const AdminMailing = () => {
       // dispatch(getResetFilter());
    };
 
-   const headers = useMemo(
-      () => [
-         {
-            Header: ({ data }) => (
-               <CheckBox
-                  onChange={e =>
-                     dispatch(
-                        checkAllUsers({ checked: e.target.checked, data }),
-                     )
-                  }
-               />
-            ),
-
-            accessor: 'check',
-            Cell: ({ row }) => (
-               <CheckBox
-                  checked={row.original.checked || false}
-                  onChange={e =>
-                     dispatch(
-                        checkUser({
-                           checked: e.target.checked,
-                           data: row.original,
-                        }),
-                     )
-                  }
-               />
-            ),
-         },
-         {
-            Header: 'Название',
-            accessor: 'title',
-         },
-         {
-            Header: 'тип',
-            accessor: 'mailingType',
-         },
-         {
-            Header: 'Получатели',
-            accessor: 'category',
-         },
-         {
-            Header: 'ДАТА РЕГИСТРАЦИИ',
-            accessor: 'createDate',
-         },
-
-         {
-            Header: 'СТАТУС',
-            accessor: 'status',
-            Cell: ({ cell: { value } }) => {
-               let color, Icon;
-
-               switch (value) {
-                  case 'Отправлено':
-                     color = green[500];
-                     break;
-                  case 'Ошибка':
-                     color = red[500];
-                     break;
-                  case 'Ожидает':
-                     color = orange[500];
-                     Icon = Wait;
-                     break;
-                  default:
-                     color = 'inherit';
-                     Icon = null;
+   const MAILING_COLUMNS = [
+      {
+         Header: ({ data }) => (
+            <CheckBox
+               onChange={e =>
+                  dispatch(checkAllMailing({ checked: e.target.checked, data }))
                }
+            />
+         ),
 
-               return (
-                  <Block>
-                     <MiniBlock
-                        style={{ background: color, cursor: 'pointer' }}
-                        onClick={
-                           value === 'Ожидает'
-                              ? handleOpenWaitingModal
-                              : undefined
-                        }
-                     >
-                        {value}
-                     </MiniBlock>
-                     {Icon && <Icon />}
-                  </Block>
-               );
-            },
+         accessor: 'check',
+         Cell: ({ row }) => (
+            <CheckBox
+               checked={row.original.checked || false}
+               onChange={e =>
+                  dispatch(
+                     checkMailing({
+                        checked: e.target.checked,
+                        data: row.original,
+                     }),
+                  )
+               }
+            />
+         ),
+      },
+      {
+         Header: 'Название',
+         accessor: 'title',
+      },
+      {
+         Header: 'тип',
+         accessor: 'mailingType',
+      },
+      {
+         Header: 'ДАТА РЕГИСТРАЦИИ',
+         accessor: 'createDate',
+      },
+
+      {
+         Header: 'СТАТУС',
+         accessor: 'mailingStatus',
+         Cell: ({ cell: { value } }) => {
+            let color, Icon;
+
+            switch (value) {
+               case 'Отправлено':
+                  color = green[500];
+                  break;
+               case 'Ошибка':
+                  color = red[500];
+                  break;
+               case 'Ожидает':
+                  color = orange[500];
+                  Icon = Wait;
+                  break;
+               default:
+                  color = 'inherit';
+                  Icon = null;
+            }
+
+            return (
+               <Block>
+                  <MiniBlock
+                     style={{ background: color, cursor: 'pointer' }}
+                     onClick={
+                        value === 'Ожидает' ? handleOpenWaitingModal : undefined
+                     }
+                  >
+                     {value}
+                  </MiniBlock>
+                  {Icon && <Icon />}
+               </Block>
+            );
          },
-      ],
-      [],
+      },
+   ];
+
+   const headers = useMemo(
+      () =>
+         getAdminTableHeaders(
+            () => toggleModal('waitingModal'),
+            MAILING_COLUMNS,
+         ),
+      [toggleModal],
    );
 
    const handleNavigate = () => {

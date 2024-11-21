@@ -4,9 +4,9 @@ import { showToast } from '../../hooks/useToast';
 
 export const getDetailInfo = createAsyncThunk(
    'detailInfo/getDetailInfo',
-   async (_, { rejectWithValue }) => {
+   async ({ id }, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get(`publishes/find/${22}`);
+         const { data } = await axiosInstance.get(`publishes/find/${id}`);
 
          return data;
       } catch (error) {
@@ -47,11 +47,10 @@ export const deleteFavorite = createAsyncThunk(
 );
 
 export const getSimilarAds = createAsyncThunk(
-   'detailInfo/getSimilarAds',
+   'similarAds/getSimilarAds',
    async (_, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get('publishes/getAll/');
-         console.log(data);
+         const { data } = await axiosInstance.get('publishes/getAll');
 
          return data;
       } catch (error) {

@@ -23,10 +23,14 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { PhoneModal } from '../../../components/UI/PhoneModal';
 import { SimilarAds } from './SimilarAds';
+import { useParams } from 'react-router-dom';
 
 const DetailInfo = () => {
    const dispatch = useDispatch();
+   const { id } = useParams();
+
    const detailInfo = useSelector(state => state.detailInfo);
+
    const [isExpanded, setIsExpanded] = useState(false);
    const [openModal, setOpenModal] = useState(false);
 
@@ -45,7 +49,7 @@ const DetailInfo = () => {
 
    const path = [
       { title: 'Главная', url: '#' },
-      { title: '2х комнатная квартира', url: '#' },
+      { title: detailInfo?.detailInfo?.title, url: '#' },
    ];
 
    const handleFavorite = () => {
@@ -59,8 +63,10 @@ const DetailInfo = () => {
    };
 
    useEffect(() => {
-      dispatch(getDetailInfo());
-   }, []);
+      if (id) {
+         dispatch(getDetailInfo({ id }));
+      }
+   }, [dispatch, id]);
 
    return (
       <div>
@@ -141,8 +147,12 @@ const DetailInfo = () => {
                         <Box className="second_box">
                            <Box className="main-info">
                               <Typography className="price">
-                                 {detailInfo?.detailInfo?.conditions
-                                    ?.pricePerMonth || 'Не указано'}
+                                 {detailInfo?.detailInfo?.price || 'Не указано'}
+                                 {detailInfo?.detailInfo?.category ===
+                                    'REAL_ESTATE' &&
+                                    (detailInfo?.detailInfo?.conditions
+                                       ?.pricePerMonth ||
+                                       'Не указано')}
                                  ₽/мес.
                               </Typography>
 
@@ -161,38 +171,69 @@ const DetailInfo = () => {
                               />
                            </Box>
 
-                           <Box className="info-box-container">
-                              <Typography className="info-part">
-                                 Оплата ЖКХ <span className="line" />
-                                 {detailInfo?.detailInfo?.conditions
-                                    ?.utilitiesIncluded || 'Не указано'}
+                           <Typography
+                              variant="h3"
+                              className="description_detail-info"
+                           >
+                              Описания объявления
+                           </Typography>
+                           <Typography className="descriptioon-text">
+                              {isExpanded ? description : shortDescription}
+                              {words.length > 20 && !isExpanded && '...'}{' '}
+                           </Typography>
+                           {words.length > 20 && (
+                              <Typography
+                                 className="read-more-text"
+                                 onClick={handleReadMore}
+                              >
+                                 {isExpanded ? 'Скрыть' : 'Читать дальше'}
+                                 <ArrowIcon
+                                    className={
+                                       isExpanded ? 'arrow-up' : 'arrow-down'
+                                    }
+                                 />
                               </Typography>
+                           )}
 
-                              <Typography className="info-part">
-                                 Залог <span className="line" />{' '}
-                                 {detailInfo?.detailInfo?.conditions?.deposit} ₽
-                              </Typography>
+                           {detailInfo?.detailInfo?.category ===
+                              'REAL_ESTATE' && (
+                              <Box className="info-box-container">
+                                 <Typography className="info-part">
+                                    Оплата ЖКХ <span className="line" />
+                                    {detailInfo?.detailInfo?.conditions
+                                       ?.utilitiesIncluded || 'Не указано'}
+                                 </Typography>
 
-                              <Typography className="info-part">
-                                 Комиссия <span className="line" />
-                                 {detailInfo?.detailInfo?.conditions
-                                    ?.commission || 'Не указано'}
-                              </Typography>
+                                 <Typography className="info-part">
+                                    Залог <span className="line" />{' '}
+                                    {
+                                       detailInfo?.detailInfo?.conditions
+                                          ?.deposit
+                                    }{' '}
+                                    ₽
+                                 </Typography>
 
-                              <Typography className="info-part">
-                                 Предоплата
-                                 <span className="line" />
-                                 {detailInfo?.detailInfo?.conditions
-                                    ?.prepayment || 'Не указано'}
-                              </Typography>
+                                 <Typography className="info-part">
+                                    Комиссия <span className="line" />
+                                    {detailInfo?.detailInfo?.conditions
+                                       ?.commission || 'Не указано'}
+                                 </Typography>
 
-                              <Typography className="info-part">
-                                 Срок аренды
-                                 <span className="line" />
-                                 {detailInfo?.detailInfo?.conditions
-                                    ?.leaseTerm || 'Не указано'}
-                              </Typography>
-                           </Box>
+                                 <Typography className="info-part">
+                                    Предоплата
+                                    <span className="line" />
+                                    {detailInfo?.detailInfo?.conditions
+                                       ?.prepayment || 'Не указано'}
+                                 </Typography>
+
+                                 <Typography className="info-part">
+                                    Срок аренды
+                                    <span className="line" />
+                                    {detailInfo?.detailInfo?.conditions
+                                       ?.leaseTerm || 'Не указано'}
+                                 </Typography>
+                              </Box>
+                           )}
 
                            <Box className="btns-container">
                               <Button onClick={handleShowPhoneNumber}>
@@ -202,53 +243,60 @@ const DetailInfo = () => {
                            </Box>
                         </Box>
 
-                        <Box className="rieltor-info">
-                           <Box className="user-icon-container">
-                              <UserIcon />
-                           </Box>
-                           <Box>
-                              <Typography>Риелтор</Typography>
+                        {detailInfo?.detailInfo?.category === 'REAL_ESTATE' && (
+                           <Box className="rieltor-info">
+                              <Box className="user-icon-container">
+                                 <UserIcon />
+                              </Box>
+                              <Box>
+                                 <Typography>Риелтор</Typography>
 
-                              <Typography>
-                                 {detailInfo?.detailInfo?.conditions?.realtor ||
-                                    'Не указано'}
-                              </Typography>
-                              <Rating
-                                 value={
-                                    detailInfo?.detailInfo?.conditions
-                                       ?.realtorRating || 0
-                                 }
-                                 readOnly
-                              />
+                                 <Typography>
+                                    {detailInfo?.detailInfo?.conditions
+                                       ?.realtor || 'Не указано'}
+                                 </Typography>
+                                 <Rating
+                                    value={
+                                       detailInfo?.detailInfo?.conditions
+                                          ?.realtorRating || 0
+                                    }
+                                    readOnly
+                                 />
+                              </Box>
                            </Box>
-                        </Box>
+                        )}
                      </Box>
                   </Box>
                </Box>
 
-               <Box className="description-container">
-                  <Typography variant="h3" className="description_detail-info">
-                     Описания объявления
-                  </Typography>
-                  <Typography className="descriptioon-text">
-                     {isExpanded ? description : shortDescription}
-                     {words.length > 1 && !isExpanded && '...'}{' '}
-                  </Typography>
-                  {words.length > 1 && (
+               {detailInfo?.detailInfo?.category === 'REAL_ESTATE' && (
+                  <Box className="description-container">
                      <Typography
-                        className="read-more-text"
-                        onClick={handleReadMore}
+                        variant="h3"
+                        className="description_detail-info"
                      >
-                        {isExpanded ? 'Скрыть' : 'Читать дальше'}
-                        <ArrowIcon
-                           className={isExpanded ? 'arrow-up' : 'arrow-down'}
-                        />
+                        Описания объявления
                      </Typography>
-                  )}
-               </Box>
+                     <Typography className="descriptioon-text">
+                        {isExpanded ? description : shortDescription}
+                        {words.length > 20 && !isExpanded && '...'}{' '}
+                     </Typography>
+                     {words.length > 20 && (
+                        <Typography
+                           className="read-more-text"
+                           onClick={handleReadMore}
+                        >
+                           {isExpanded ? 'Скрыть' : 'Читать дальше'}
+                           <ArrowIcon
+                              className={isExpanded ? 'arrow-up' : 'arrow-down'}
+                           />
+                        </Typography>
+                     )}
+                  </Box>
+               )}
 
                <AboutApartment detailInfo={detailInfo} />
-               <SimilarAds />
+               <SimilarAds currentCategory={detailInfo?.detailInfo?.category} />
             </StyledContainer>
          )}
       </div>

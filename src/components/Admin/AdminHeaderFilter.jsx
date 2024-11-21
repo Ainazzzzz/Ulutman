@@ -3,7 +3,7 @@ import ReusableSelect from '../UI/Select';
 import Filter from '../../assets/icons/filter-icon.svg?react';
 import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react';
 import ReplayIcon from '../../assets/icons/replay-icon.svg?react';
-import { DatePicker } from '../UI/DatePicker';
+import { MultiDatePicker } from '../UI/MultiDatePicker';
 
 export const AdminHeaderFilter = ({
    selectedValues = {},
@@ -46,7 +46,7 @@ export const AdminHeaderFilter = ({
                   >
                      {select.label === 'date' ? (
                         <StyledDatePickerWrapper>
-                           <DatePicker setDate={handleDateChange} />
+                           <MultiDatePicker setDate={handleDateChange} />
                         </StyledDatePickerWrapper>
                      ) : (
                         <StyledSelect
@@ -66,10 +66,11 @@ export const AdminHeaderFilter = ({
                   <p>Сбросить фильтр</p>
                </FilterResetSection>
             </TopSection>
-
-            <div>
-               <RedDeleteIcon onClick={onDeleteModal} />
-            </div>
+            {onDeleteModal && (
+               <div>
+                  <RedDeleteIcon onClick={onDeleteModal} />
+               </div>
+            )}
          </InputsWrapper>
       </Container>
    );

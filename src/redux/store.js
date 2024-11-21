@@ -11,6 +11,7 @@ import { mailingSlice } from './mailing/mailingSlice';
 import { categoriesSlice } from './categories/categoriesSlice';
 import { publishesSlice } from './publishes/publishesSlice';
 import { detailInfoSlice } from './datailInfo/detailInfoSlice';
+import { fileSlice } from './files/fileSlice';
 
 export const store = configureStore({
    reducer: {
@@ -26,5 +27,6 @@ export const store = configureStore({
       [detailInfoSlice.name]: detailInfoSlice.reducer,
       [mailingSlice.name]: mailingSlice.reducer,
       [categoriesSlice.name]: categoriesSlice.reducer,
+      [fileSlice.name]: fileSlice.reducer,
    },
 });
