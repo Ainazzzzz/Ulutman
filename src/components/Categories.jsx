@@ -3,26 +3,30 @@ import SearchInput from './UI/SearchInput';
 import { styled, useMediaQuery } from '@mui/material';
 import ChevronLeft from '../assets/icons/chevron-left-violet-icon.svg?react';
 import { Outlet, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const Categories = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const { subCategory } = useParams();
+   const { t } = useTranslation();
 
    const path = {
-      WORK: 'Работа',
-      RENT: 'Аренда',
-      HOTEL: 'Гостиница',
-      SERVICES: 'Услуги',
-      REAL_ESTATE: 'Недвижимость',
-      AUTO: 'Авто',
-      SELL: 'Продам',
+      WORK: t('user.categories.breadcrumbs.path.work'),
+      RENT: t('user.categories.breadcrumbs.path.rent'),
+      HOTEL: t('user.categories.breadcrumbs.path.hotel'),
+      SERVICES: t('user.categories.breadcrumbs.path.services'),
+      REAL_ESTATE: t('user.categories.breadcrumbs.path.real_estate'),
+      AUTO: t('user.categories.breadcrumbs.path.auto'),
+      SELL: t('user.categories.breadcrumbs.path.sell'),
    };
 
    const breadcrumbs = [
-      { url: '/', title: 'Главная ' },
-      { url: `/${subCategory}`, title: path[subCategory] },
+      { url: '/', title: t('user.categories.breadcrumbs.main') },
+      {
+         url: `/${subCategory}`,
+         title: path[subCategory],
+      },
    ];
-
    return (
       <Wrapper>
          <Container>
@@ -35,7 +39,9 @@ export const Categories = () => {
                      </span>
                   )}
                </FirstBlock>
-               <SearchInputStyle placeholder="Поиск по названию" />
+               <SearchInputStyle
+                  placeholder={t('user.categories.search.inputLabel')}
+               />
             </Block>
             <Outlet />
          </Container>

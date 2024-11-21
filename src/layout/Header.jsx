@@ -24,6 +24,7 @@ import SignUp from '../pages/user/auth/signUp.jsx';
 import DownIcon from '../assets/icons/select-down-icon.svg?react';
 import LogoOutIcon from '../assets/icons/logout-icon.svg?react';
 import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx';
+import { useTranslation } from 'react-i18next';
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -48,6 +49,7 @@ export const Header = () => {
    const { isAuth, userData } = useSelector(state => state.auth);
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const navigate = useNavigate();
+   const { i18n, t } = useTranslation();
 
    const [language, setLanguage] = useState('ru');
    const [openMenu, setOpenMenu] = useState(null);
@@ -79,7 +81,13 @@ export const Header = () => {
       setOpenLogoutConfirm(false);
    };
 
-   const handleSelect = event => setLanguage(event.target.value);
+   const handleSelect = event => {
+      const lng = event.target.value;
+      setLanguage(event.target.value);
+
+      i18n.changeLanguage(lng);
+   };
+
    const handleClick = event => setOpenMenu(event.currentTarget);
 
    const closeProfileOptions = () => {
@@ -119,6 +127,15 @@ export const Header = () => {
    const profileHandler = event => {
       setOpenOptionsProfile(event.currentTarget);
    };
+
+   const languages = [
+      { label: t('admin.header.select.ru'), value: 'ru' },
+      { label: t('admin.header.select.kg'), value: 'kg' },
+      { label: t('admin.header.select.tj'), value: 'tj' },
+      { label: t('admin.header.select.uz'), value: 'uz' },
+      { label: t('admin.header.select.en'), value: 'en' },
+      { label: t('admin.header.select.tr'), value: 'tr' },
+   ];
 
    return (
       <>
@@ -166,12 +183,12 @@ export const Header = () => {
                      <MenuItemStyle
                         onClick={() => navigateToPageHandler('create-ad')}
                      >
-                        <Plus /> Опубликовать
+                        <Plus /> {t('user.layout.header.create-ad')}
                      </MenuItemStyle>
                      <MenuItemStyle
                         onClick={() => handleNavigationPage('favorite')}
                      >
-                        <WhiteHeart /> Избранное
+                        <WhiteHeart /> {t('user.layout.header.favorite')}
                      </MenuItemStyle>
                      <MenuItemStyle onClick={handleClose}>
                         <Language /> Сменить язык
@@ -186,7 +203,7 @@ export const Header = () => {
                            <IconButton>
                               <HeartLike />
                            </IconButton>
-                           <a>Избранное</a>
+                           {t('user.layout.header.favorite')}
                         </Block>
                         <Block onClick={profileHandler}>
                            <IconButton>
@@ -225,7 +242,7 @@ export const Header = () => {
                      <ButtonStyle
                         onClick={() => handleNavigationPage('create-ad')}
                      >
-                        <Plus /> Опубликовать
+                        <Plus /> {t('user.layout.header.create-ad')}
                      </ButtonStyle>
                   ) : (
                      <ButtonStyle onClick={handleOpenModal}>Войти</ButtonStyle>

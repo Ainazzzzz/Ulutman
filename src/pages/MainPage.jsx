@@ -10,9 +10,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMainAds, sortPublishesRequest } from '../redux/main/mainThunk';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const MainPage = () => {
    const { publishes, isLoading } = useSelector(state => state.main);
+   const { t } = useTranslation();
 
    const [sortedAds, setSortedAds] = useState([]);
    const dispatch = useDispatch();
@@ -42,7 +44,7 @@ export const MainPage = () => {
          </SliderBox>
          <Container>
             <Block>
-               <Title>Страница объявлений</Title>
+               <Title>{t('user.home.publishes.title')}</Title>
                <AnnouncementsSorter
                   options={SORT_BY_CATEGROY_OPTIONS}
                   onSortChange={handleSortChange}

@@ -1,19 +1,22 @@
 import { styled } from '@mui/material';
 import React from 'react';
 import Calling from '../../assets/icons/calling.svg?react';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+   const { t } = useTranslation();
+
    return (
       <WrapperDiv>
          <TitleUlutman>Ulutman</TitleUlutman>
          <ContainerCategory>
-            <div>Работа</div>
-            <div>Аренда</div>
-            <div>Гостиница</div>
-            <div>Недвижимость</div>
-            <div>Услуги</div>
-            <div>Авто</div>
-            <div>Продам</div>
+            <div>{t('user.layout.footer.work')}</div>
+            <div>{t('user.layout.footer.rent')}</div>
+            <div>{t('user.layout.footer.hotel')}</div>
+            <div>{t('user.layout.footer.services')}</div>
+            <div>{t('user.layout.footer.real_estate')}</div>
+            <div>{t('user.layout.footer.auto')}</div>
+            <div>{t('user.layout.footer.sell')}</div>
          </ContainerCategory>
          <NumberContainer>
             <div>

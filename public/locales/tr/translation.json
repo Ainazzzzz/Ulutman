@@ -62,5 +62,59 @@
             }
          }
       }
+   },
+
+   "user": {
+      "layout": {
+         "header": {
+            "favorite": "Favoriler",
+            "create-ad": "İlan Ver"
+         },
+         "footer": {
+            "work": "İş",
+            "rent": "Kiralık",
+            "hotel": "Otel",
+            "services": "Hizmetler",
+            "real_estate": "Emlak",
+            "auto": "Otomobil",
+            "sell": "Satılık"
+         }
+      },
+      "home": {
+         "banner": {
+            "title": "İşiniz İçin Reklam ve Hizmetler",
+            "form": {
+               "category": "Varsayılan",
+               "search-publishes": "Başlığa göre ara",
+               "select-metro": "metro seçin",
+               "search-button": "Ara"
+            }
+         },
+         "categories": {
+            "work": "İş",
+            "rent": "Kiralık",
+            "hotel": "Otel",
+            "services": "Hizmetler",
+            "real_estate": "Emlak",
+            "auto": "Otomobil",
+            "sell": "Satılık"
+         },
+         "publishes": {
+            "title": "İlan Sayfası",
+            "category": {
+               "all-category": "Tüm Kategoriler",
+               "newest": "Önce Yeniler",
+               "cheapest": "Önce En Ucuz",
+               "expensive": "Önce En Pahalı"
+            },
+            "all-publishes-button": "Daha Fazla Gör"
+         },
+         "about": {
+            "title": "Hakkımızda",
+            "site": "ulutman.ru",
+            "description1": "Bu, daire ve ticari mülklerin satışı veya kiralanması için güvenilir ilanlar arayanlar için mükemmel bir yer.",
+            "description2": "Reklam vermek için geniş bir hizmet yelpazesi sunuyoruz. Sitemiz Özbekistan, Kırgızistan ve diğer ülkelerden gelen göçmenlere ve oda veya daire kiralamak isteyen Rusça konuşan kullanıcılara açıktır."
+         }
+      }
    }
 }

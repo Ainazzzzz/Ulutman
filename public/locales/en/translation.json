@@ -62,5 +62,59 @@
             }
          }
       }
+   },
+
+   "user": {
+      "layout": {
+         "header": {
+            "favorite": "Favorites",
+            "create-ad": "Publish"
+         },
+         "footer": {
+            "work": "Work",
+            "rent": "Rent",
+            "hotel": "Hotel",
+            "services": "Services",
+            "real_estate": "Real Estate",
+            "auto": "Auto",
+            "sell": "Sell"
+         }
+      },
+      "home": {
+         "banner": {
+            "title": "Advertising and Services for Your Business",
+            "form": {
+               "category": "Default",
+               "search-publishes": "Search by title",
+               "select-metro": "select metro",
+               "search-button": "Search"
+            }
+         },
+         "categories": {
+            "work": "Work",
+            "rent": "Rent",
+            "hotel": "Hotel",
+            "services": "Services",
+            "real_estate": "Real Estate",
+            "auto": "Auto",
+            "sell": "Sell"
+         },
+         "publishes": {
+            "title": "Listings Page",
+            "category": {
+               "all-category": "All Categories",
+               "newest": "Newest First",
+               "cheapest": "Cheapest First",
+               "expensive": "Most Expensive First"
+            },
+            "all-publishes-button": "See More"
+         },
+         "about": {
+            "title": "About Us",
+            "site": "ulutman.ru",
+            "description1": "This is the perfect place for those looking for reliable listings for buying and renting apartments or commercial properties.",
+            "description2": "We offer a wide range of services and opportunities for advertising. Our site is open to migrants from Uzbekistan, Kyrgyzstan, and other countries, as well as Russian-speaking users looking for rental rooms, apartments, and other necessary services."
+         }
+      }
    }
 }

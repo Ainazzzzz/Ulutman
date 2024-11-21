@@ -61,5 +61,59 @@
             }
          }
       }
+   },
+
+   "user": {
+      "layout": {
+         "header": {
+            "favorite": "Sevimlilar",
+            "create-ad": "E'lon berish"
+         },
+         "footer": {
+            "work": "Ish",
+            "rent": "Ijara",
+            "hotel": "Mehmonxona",
+            "services": "Xizmatlar",
+            "real_estate": "Ko‘chmas mulk",
+            "auto": "Avto",
+            "sell": "Sotish"
+         }
+      },
+      "home": {
+         "banner": {
+            "title": "Biznesingiz Uchun Reklama va Xizmatlar",
+            "form": {
+               "category": "Standart",
+               "search-publishes": "Nomi bo‘yicha qidirish",
+               "select-metro": "metroni tanlang",
+               "search-button": "Qidirish"
+            }
+         },
+         "categories": {
+            "work": "Ish",
+            "rent": "Ijara",
+            "hotel": "Mehmonxona",
+            "services": "Xizmatlar",
+            "real_estate": "Ko‘chmas mulk",
+            "auto": "Avto",
+            "sell": "Sotish"
+         },
+         "publishes": {
+            "title": "E'lonlar Sahifasi",
+            "category": {
+               "all-category": "Barcha Kategoriyalar",
+               "newest": "Yangi e'lonlar avval",
+               "cheapest": "Arzonlari avval",
+               "expensive": "Qimmatlari avval"
+            },
+            "all-publishes-button": "Ko‘proq Ko‘rish"
+         },
+         "about": {
+            "title": "Biz Haqimizda",
+            "site": "ulutman.ru",
+            "description1": "Bu kvartiralar va tijoriy ko‘chmas mulkni sotish yoki ijaraga olish uchun ishonchli e'lonlarni qidirayotganlar uchun ajoyib joy.",
+            "description2": "Biz reklama joylashtirish uchun keng ko‘lamli xizmatlarni taklif qilamiz. Bizning saytimiz O‘zbekiston, Qirg‘iziston va boshqa mamlakatlardan kelgan migrantlar, shuningdek, xona yoki kvartira ijaraga olishni xohlovchi rus tilida so‘zlashuvchi foydalanuvchilar uchun ochiq."
+         }
+      }
    }
 }
