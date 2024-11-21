@@ -12,6 +12,7 @@ import InputPay from '../../components/UI/InputPay';
 
 import { useDispatch } from 'react-redux';
 import { addAdvertisingThunks } from '../../redux/advertising/adversstitingpayThunks';
+import { useNavigate } from 'react-router-dom';
 
 const AdversitingPage = () => {
    const [bankName, setBankName] = useState('');
@@ -23,10 +24,16 @@ const AdversitingPage = () => {
    const [paymentReceiptFile, setPaymentReceiptFile] = useState(null);
    const [isLoading, setIsLoading] = useState(false);
    const dispatch = useDispatch();
+   const navigate = useNavigate();
+
    const breadcrumbs = [
       { url: '/', title: 'Главная ' },
-      { url: '/', title: 'Добавить рекламу' },
+      { url: '/advertising_page', title: 'Добавить рекламу' },
    ];
+
+   const handleGoBack = () => {
+      navigate('/');
+   };
 
    const validBanks = ['Сбербанк', 'Тбанк', 'Альфа-банк', 'ВТБ', 'Почта банк'];
 
@@ -95,7 +102,7 @@ const AdversitingPage = () => {
       <WrapperContainer>
          <FirstBlock>
             <Breadcrumbs path={breadcrumbs} />
-            <span>
+            <span onClick={handleGoBack}>
                <ChevronLeft /> Назад
             </span>
          </FirstBlock>

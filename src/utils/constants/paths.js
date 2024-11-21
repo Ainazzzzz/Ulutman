@@ -9,6 +9,7 @@ export const PATHS = {
       FAVORITE: '/user/favorite',
       RECOMMENDATIONS: '/user/recommendations',
       MAIN_PHP: '/user/main.php',
+      ADVERTISING_PAGE: '/user/advertising_page',
    },
    ADMIN: {
       ROOT: '/admin',

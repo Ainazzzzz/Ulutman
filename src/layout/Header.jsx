@@ -21,6 +21,7 @@ import Language from '../assets/icons/language-icon.svg?react';
 import LogOutIcon from '../assets/icons/come-icon.svg?react';
 import { logOut } from '../redux/auth/authThunk.js';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../components/UI/Modal.jsx';
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -49,6 +50,7 @@ export const Header = () => {
 
    const [language, setLanguage] = useState('ru');
    const [openMenu, setOpenMenu] = useState(null);
+   const [isModalOpen, setModalOpen] = useState(false);
    const [openModal, setOpenModal] = useState(false);
    const [anchorEl, setAnchorEl] = useState(null);
 
@@ -75,6 +77,8 @@ export const Header = () => {
    const handleCloseModal = () => {
       setOpenModal(false);
    };
+   const handleOpenPublishModal = () => setModalOpen(true);
+   const handleClosePublishModal = () => setModalOpen(false);
 
    const logOutHandler = () => {
       dispatch(logOut({ navigate, toggleModal: handleClose }));
@@ -199,7 +203,8 @@ export const Header = () => {
                   </Block>
                   {isAuth ? (
                      <ButtonStyle
-                        onClick={() => handleNavigationPage('create-ad')}
+                        // onClick={() => handleNavigationPage('create-ad')}
+                        onClick={handleOpenPublishModal}
                      >
                         <Plus />
                         Опубликовать
@@ -214,6 +219,11 @@ export const Header = () => {
             open={openModal}
             onClose={handleCloseModal}
             onOpen={handleOpenModal}
+         />
+         <Modal
+            open={isModalOpen}
+            handleClose={handleClosePublishModal}
+            variant="publish"
          />
       </>
    );
