@@ -71,49 +71,103 @@
          },
          "footer": {
             "work": "Ish",
-            "rent": "Ijara",
+            "rent": "Ijaraga",
             "hotel": "Mehmonxona",
             "services": "Xizmatlar",
-            "real_estate": "Ko‘chmas mulk",
-            "auto": "Avto",
-            "sell": "Sotish"
+            "real_estate": "Ko'chmas mulk",
+            "auto": "Avtomobil",
+            "sell": "Sotuv"
          }
       },
       "home": {
          "banner": {
-            "title": "Biznesingiz Uchun Reklama va Xizmatlar",
+            "title": "Biznesingiz uchun reklama va xizmatlar",
             "form": {
                "category": "Standart",
-               "search-publishes": "Nomi bo‘yicha qidirish",
-               "select-metro": "metroni tanlang",
-               "search-button": "Qidirish"
+               "search-publishes": "Nomi bo'yicha qidirish",
+               "select-metro": "Metro tanlash",
+               "search-button": "Qidiruv",
+               "category-menu": {
+                  "all_catogory": "Barcha kategoriyalar",
+                  "WORK": "Ish",
+                  "RENT": "Ijaraga",
+                  "HOTEL": "Mehmonxona",
+                  "SERVICES": "Xizmatlar",
+                  "REAL_ESTATE": "Ko'chmas mulk",
+                  "AUTO": "Avtomobil",
+                  "SELL": "Sotuv"
+               }
             }
          },
          "categories": {
-            "work": "Ish",
-            "rent": "Ijara",
-            "hotel": "Mehmonxona",
-            "services": "Xizmatlar",
-            "real_estate": "Ko‘chmas mulk",
-            "auto": "Avto",
-            "sell": "Sotish"
+            "WORK": "Ish",
+            "RENT": "Ijaraga",
+            "HOTEL": "Mehmonxona",
+            "SERVICES": "Xizmatlar",
+            "REAL_ESTATE": "Ko'chmas mulk",
+            "AUTO": "Avtomobil",
+            "SELL": "Sotuv"
          },
          "publishes": {
-            "title": "E'lonlar Sahifasi",
-            "category": {
-               "all-category": "Barcha Kategoriyalar",
-               "newest": "Yangi e'lonlar avval",
-               "cheapest": "Arzonlari avval",
-               "expensive": "Qimmatlari avval"
-            },
-            "all-publishes-button": "Ko‘proq Ko‘rish"
+            "title": "E'lonlar sahifasi",
+            "all-publishes-button": "Ko'proq ko'rish"
          },
          "about": {
-            "title": "Biz Haqimizda",
-            "site": "ulutman.ru",
-            "description1": "Bu kvartiralar va tijoriy ko‘chmas mulkni sotish yoki ijaraga olish uchun ishonchli e'lonlarni qidirayotganlar uchun ajoyib joy.",
-            "description2": "Biz reklama joylashtirish uchun keng ko‘lamli xizmatlarni taklif qilamiz. Bizning saytimiz O‘zbekiston, Qirg‘iziston va boshqa mamlakatlardan kelgan migrantlar, shuningdek, xona yoki kvartira ijaraga olishni xohlovchi rus tilida so‘zlashuvchi foydalanuvchilar uchun ochiq."
+            "title": "Biz haqimizda",
+            "description1": "Ishonchli ijaraga olish va sotish e'lonlarini qidirayotganlar uchun mukammal joy.",
+            "description2": "Biz keng turdagi xizmatlarni taklif etamiz va saytimiz O'zbekiston, Qirg'izistonlik muhojirlar va rus tilida so'zlashuvchilar uchun ochiq."
          }
+      },
+      "categories": {
+         "breadcrumbs": {
+            "main": "Bosh sahifa",
+            "path": {
+               "work": "Ish",
+               "rent": "Ijaraga",
+               "hotel": "Mehmonxona",
+               "services": "Xizmatlar",
+               "real_estate": "Ko'chmas mulk",
+               "auto": "Avtomobil",
+               "sell": "Sotuv"
+            }
+         },
+         "search": {
+            "inputLabel": "Nomi bo'yicha qidirish",
+            "searchButton": "Qidiruv"
+         }
+      },
+      "createAds": {
+         "title": "Yangi e'lon",
+         "breadcrumbs": {
+            "main": "Bosh sahifa",
+            "currentPage": "Yangi e'lon"
+         },
+         "adsForm": {
+            "name": "Ism",
+            "phone": "Telefon",
+            "category": "Kategoriya",
+            "uploadPhoto": {
+               "uploadLabel": "Rasm yuklash",
+               "uploadTitle": "Rasm qo'shish",
+               "uploadDescription": "Rasm yuklash uchun bosing yoki tortib qo'ying"
+            },
+            "description": "E'lon Tavsifi",
+            "descriptionPlaceholder": "Aksiya: Premium joylashuv uchun 20% chegirma!",
+            "price": "Narx",
+            "pricePlaceholder": "Kelishilgan",
+            "metro": "Metro",
+            "address": "Manzil",
+            "button": "Yaratish"
+         }
+      }
+   },
+   "global": {
+      "searchButton": "Qidiruv",
+      "all-category": "Barcha kategoriyalar",
+      "sortCategory": {
+         "newest": "Yangilaridan boshlab",
+         "cheapest": "Arzonlaridan boshlab",
+         "expensive": "Qimmatlaridan boshlab"
       }
    }
 }

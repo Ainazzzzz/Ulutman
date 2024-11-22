@@ -42,23 +42,107 @@
          "SELL": "For Sale"
       },
 
-      "users": {
-         "title": "User Management",
-         "table": {
-            "columns": {
-               "name": "NAME",
-               "email": "EMAIL",
-               "role": "ROLE",
-               "dateOfRegistration": "DATE OF REGISTRATION",
-               "status": "STATUS"
+      "user": {
+         "layout": {
+            "header": {
+               "favorite": "Favorites",
+               "create-ad": "Post Ad"
             },
-            "statuses": {
-               "АКТИВНЫЙ": "ACTIVE",
-               "ЗАБЛОКИРОВАН": "BLOCKED"
+            "footer": {
+               "work": "Work",
+               "rent": "Rent",
+               "hotel": "Hotel",
+               "services": "Services",
+               "real_estate": "Real Estate",
+               "auto": "Auto",
+               "sell": "Sell"
+            }
+         },
+         "home": {
+            "banner": {
+               "title": "Advertising and Services for Your Business",
+               "form": {
+                  "category": "Default",
+                  "search-publishes": "Search by Title",
+                  "select-metro": "Select Metro",
+                  "search-button": "Search",
+                  "category-menu": {
+                     "all_catogory": "All Categories",
+                     "WORK": "Work",
+                     "RENT": "Rent",
+                     "HOTEL": "Hotel",
+                     "SERVICES": "Services",
+                     "REAL_ESTATE": "Real Estate",
+                     "AUTO": "Auto",
+                     "SELL": "Sell"
+                  }
+               }
             },
-            "roles": {
-               "USER": "User",
-               "ADMIN": "Admin"
+            "categories": {
+               "WORK": "Work",
+               "RENT": "Rent",
+               "HOTEL": "Hotel",
+               "SERVICES": "Services",
+               "REAL_ESTATE": "Real Estate",
+               "AUTO": "Auto",
+               "SELL": "Sell"
+            },
+            "publishes": {
+               "title": "Listings Page",
+               "sortCategory": {
+                  "all-category": "All Categories",
+                  "newest": "Newest First",
+                  "cheapest": "Cheapest First",
+                  "expensive": "Most Expensive First"
+               },
+               "all-publishes-button": "View More"
+            },
+            "about": {
+               "title": "About Us",
+               "description1": "The perfect place for finding verified ads for housing, suburban, or commercial real estate.",
+               "description2": "We offer a wide range of services and advertising opportunities, catering to migrants from Uzbekistan, Kyrgyzstan, and Russian-speaking audiences."
+            }
+         },
+         "categories": {
+            "breadcrumbs": {
+               "main": "Home",
+               "path": {
+                  "work": "Work",
+                  "rent": "Rent",
+                  "hotel": "Hotel",
+                  "services": "Services",
+                  "real_estate": "Real Estate",
+                  "auto": "Auto",
+                  "sell": "Sell"
+               }
+            },
+            "search": {
+               "inputLabel": "Search by Title",
+               "searchButton": "Search"
+            }
+         },
+         "createAds": {
+            "title": "New Ad",
+            "breadcrumbs": {
+               "main": "Home",
+               "currentPage": "New Ad"
+            },
+            "adsForm": {
+               "name": "Name",
+               "phone": "Phone",
+               "category": "Category",
+               "uploadPhoto": {
+                  "uploadLabel": "Upload Photo",
+                  "uploadTitle": "Add Photo",
+                  "uploadDescription": "Click or drag to upload your photo"
+               },
+               "description": "Ad Description",
+               "descriptionPlaceholder": "Hot Deals: 20% Discount for Premium Placement!",
+               "price": "Price",
+               "pricePlaceholder": "Negotiable",
+               "metro": "Metro",
+               "address": "Address",
+               "button": "Create"
             }
          }
       }
@@ -91,22 +175,16 @@
             }
          },
          "categories": {
-            "work": "Work",
-            "rent": "Rent",
-            "hotel": "Hotel",
-            "services": "Services",
-            "real_estate": "Real Estate",
-            "auto": "Auto",
-            "sell": "Sell"
+            "WORK": "Work",
+            "RENT": "Rent",
+            "HOTEL": "Hotel",
+            "SERVICES": "Services",
+            "REAL_ESTATE": "Real Estate",
+            "AUTO": "Auto",
+            "SELL": "Sell"
          },
          "publishes": {
             "title": "Listings Page",
-            "category": {
-               "all-category": "All Categories",
-               "newest": "Newest First",
-               "cheapest": "Cheapest First",
-               "expensive": "Most Expensive First"
-            },
             "all-publishes-button": "See More"
          },
          "about": {
@@ -115,6 +193,15 @@
             "description1": "This is the perfect place for those looking for reliable listings for buying and renting apartments or commercial properties.",
             "description2": "We offer a wide range of services and opportunities for advertising. Our site is open to migrants from Uzbekistan, Kyrgyzstan, and other countries, as well as Russian-speaking users looking for rental rooms, apartments, and other necessary services."
          }
+      }
+   },
+   "global": {
+      "searchButton": "Search",
+      "all-category": "All Categories",
+      "category": {
+         "newest": "Newest First",
+         "cheapest": "Cheapest First",
+         "expensive": "Most Expensive First"
       }
    }
 }

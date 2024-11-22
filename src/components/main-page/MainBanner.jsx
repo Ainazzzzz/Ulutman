@@ -21,7 +21,9 @@ export const MainBanner = () => {
    const { t } = useTranslation();
 
    const [selectValue, setSelectValue] = useState('');
-   const [selectedCategory, setSelectedCategory] = useState('По умолчанию');
+   const [selectedCategory, setSelectedCategory] = useState(
+      t('user.home.banner.form.category'),
+   );
    const [searchValue, setSearchValue] = useState('');
 
    const navigate = useNavigate();
@@ -49,7 +51,7 @@ export const MainBanner = () => {
    const transformedCategories = categories.map(item => {
       return {
          ...item,
-         title: t(`user.home.categories.WORK`),
+         title: t(`user.home.categories.${item.category}`),
       };
    });
 
@@ -69,7 +71,7 @@ export const MainBanner = () => {
                         onChange={selectMetroChangeHandler}
                         options={metros}
                         value={selectValue}
-                        placeholder={'выберите метро'}
+                        placeholder={t('user.home.banner.form.select-metro')}
                      />
                   )}
                </div>

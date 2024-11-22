@@ -7,6 +7,7 @@ import {
 import Search from '../../assets/icons/search.svg?react';
 import { Button } from './Button';
 import ReusableSelect from './Select';
+import { useTranslation } from 'react-i18next';
 
 export const SearchInputSelect = ({
    onClick,
@@ -17,12 +18,13 @@ export const SearchInputSelect = ({
    search,
 }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const { t } = useTranslation();
    return (
       <Wrapper>
          <StyledInput
             fullWidth
             value={search}
-            placeholder="Поиск по названию"
+            placeholder={t('user.home.banner.form.search-publishes')}
             onChange={handleChangeSearch}
             InputProps={{
                startAdornment: (
@@ -39,7 +41,9 @@ export const SearchInputSelect = ({
                               value={selectValue}
                               options={options}
                               onChange={onSelectChange}
-                              placeholder={'выберите метро'}
+                              placeholder={t(
+                                 'user.home.banner.form.select-metro',
+                              )}
                            />
                         </InputAdornment>
                      )}
@@ -48,7 +52,7 @@ export const SearchInputSelect = ({
             }}
          />
          <Button variant="search" onClick={onClick}>
-            Поиск
+            {t('global.searchButton')}
          </Button>
       </Wrapper>
    );

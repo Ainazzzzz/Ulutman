@@ -87,7 +87,17 @@
                "category": "По умолчанию",
                "search-publishes": "Поиск по названию",
                "select-metro": "выберите метро",
-               "search-button": "Поиск"
+               "search-button": "Поиск",
+               "category-menu": {
+                  "all_catogory": "Все категории",
+                  "WORK": "Работа",
+                  "RENT": "Аренда",
+                  "HOTEL": "Гостиница",
+                  "SERVICES": "Услуги",
+                  "REAL_ESTATE": "Недвижимость",
+                  "AUTO": "Авто",
+                  "SELL": "Продам"
+               }
             }
          },
          "categories": {
@@ -101,12 +111,6 @@
          },
          "publishes": {
             "title": "Страница объявлений",
-            "category": {
-               "all-category": "Все категории",
-               "newest": "Сначала новые",
-               "cheapest": "Сначала дешевые",
-               "expensive": "Сначала дорогие"
-            },
             "all-publishes-button": "Посмотреть еще"
          },
          "about": {
@@ -160,6 +164,12 @@
    },
 
    "global": {
-      "searchButton": "Поиск"
+      "searchButton": "Поиск",
+      "all-category": "Все категории",
+      "sortCategory": {
+         "newest": "Сначала новые",
+         "cheapest": "Сначала дешевые",
+         "expensive": "Сначала дорогие"
+      }
    }
 }

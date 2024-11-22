@@ -35,6 +35,12 @@ export const MainPage = () => {
    const handleSortChange = sortValue => {
       dispatch(sortPublishesRequest(sortValue));
    };
+   const transformedSortCategory = SORT_BY_CATEGROY_OPTIONS.map(item => {
+      return {
+         ...item,
+         label: t(`global.sortCategory.${item.value}`),
+      };
+   });
 
    return (
       <div>
@@ -46,7 +52,7 @@ export const MainPage = () => {
             <Block>
                <Title>{t('user.home.publishes.title')}</Title>
                <AnnouncementsSorter
-                  options={SORT_BY_CATEGROY_OPTIONS}
+                  options={transformedSortCategory}
                   onSortChange={handleSortChange}
                />
             </Block>
@@ -56,7 +62,7 @@ export const MainPage = () => {
                loading={isLoading}
             />
             <Button variant="category-sort" onClick={seeMoreHandler}>
-               Посмотреть еще
+               {t('user.home.publishes.all-publishes-button')}
             </Button>
             <AboutUs />
          </Container>
