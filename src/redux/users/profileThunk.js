@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
 
 export const updateUserProfile = createAsyncThunk(
    'profile/updateUserProfile',
@@ -8,17 +8,17 @@ export const updateUserProfile = createAsyncThunk(
          const { data } = await axiosInstance.put(
             `user-accounts/${userId}`,
             profileData,
-         );
+         )
 
-         const parsedData = JSON.parse(localStorage.getItem('ULUTMAN') || '{}');
+         const parsedData = JSON.parse(localStorage.getItem('ULUTMAN') || '{}')
          localStorage.setItem(
             'ULUTMAN',
             JSON.stringify({ ...parsedData, ...data, name: data.username }),
-         );
+         )
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error.message);
+         return rejectWithValue(error.message)
       }
    },
-);
+)

@@ -27,4 +27,4 @@ export const PATHS = {
       ADVERTISING: '/admin/advertising',
    },
    FALLBACK: '*',
-};
+}

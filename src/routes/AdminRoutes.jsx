@@ -1,36 +1,27 @@
-import { Navigate } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
-import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole.jsx';
-import { Loading } from '../components/UI/Loading.jsx';
-import { PATHS } from '../utils/constants/paths.js';
-import Advertising from '../pages/Admin/advertising/Advertising.jsx';
+import { Navigate } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole'
+import { Loading } from '../components/UI/Loading'
+import { PATHS } from '../utils/constants/paths'
+import Advertising from '../pages/Admin/advertising/Advertising'
 
-const Dashboard = lazy(() => import('../pages/Admin/dashboard/Dashboard.jsx'));
-const AddMailingPage = lazy(() => import('../pages/Admin/AddMailingPage'));
-const ModerationPage = lazy(
-   () => import('../pages/Admin/moderation/ModerationPage'),
-);
-const Ads = lazy(() => import('../pages/Admin/ads/Ads.jsx'));
+const Dashboard = lazy(() => import('../pages/Admin/dashboard/Dashboard'))
+const AddMailingPage = lazy(() => import('../pages/Admin/AddMailingPage'))
+
+const Ads = lazy(() => import('../pages/Admin/ads/Ads'))
 const CategoryAdmin = lazy(
    () => import('../pages/Admin/category/CategoryAdmin'),
-);
-const ComplaintsModerationPage = lazy(
-   () => import('../pages/Admin/moderation/ComplaintsModerationPage'),
-);
-const MediaFilesModerationPage = lazy(
-   () => import('../pages/Admin/moderation/MediaFilesModerationPage'),
-);
-const Users = lazy(() => import('../pages/Admin/users/Users'));
-const AddAdmin = lazy(() => import('../pages/Admin/users/AddAdmin'));
-const AdminMailing = lazy(
-   () => import('../pages/Admin/mailing/AdminMailing.jsx'),
-);
+)
+
+const Users = lazy(() => import('../pages/Admin/users/Users'))
+const AddAdmin = lazy(() => import('../pages/Admin/users/AddAdmin'))
+const AdminMailing = lazy(() => import('../pages/Admin/mailing/AdminMailing'))
 
 export const AdminRoutes = role => {
    const adminRoutes = [
       {
          path: '',
-         element: <Navigate to={'dashboard'} />,
+         element: <Navigate to="dashboard" />,
       },
       {
          path: PATHS.ADMIN.DASHBOARD,
@@ -218,6 +209,6 @@ export const AdminRoutes = role => {
       //       />
       //    ),
       // },
-   ];
-   return adminRoutes;
-};
+   ]
+   return adminRoutes
+}

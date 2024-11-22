@@ -1,10 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { getModerationComments } from './moderationThunk';
+import { createSlice } from '@reduxjs/toolkit'
+import { getModerationComments } from './moderationThunk'
 
 const initialState = {
    comments: [],
    isLoading: false,
-};
+}
 
 export const moderationSlice = createSlice({
    name: 'moderation',
@@ -13,32 +13,32 @@ export const moderationSlice = createSlice({
       checkAllComments: (state, { payload }) => {
          state.comments = payload.data.map(item => {
             if (payload.checked) {
-               return { ...item, checked: true };
+               return { ...item, checked: true }
             }
-            return { ...item, checked: false };
-         });
+            return { ...item, checked: false }
+         })
       },
       checkComments: (state, { payload }) => {
          state.comments = state.comments.map(item => {
             if (item.userId === payload.data.userId) {
-               return { ...item, checked: payload.checked };
+               return { ...item, checked: payload.checked }
             }
-            return item;
-         });
+            return item
+         })
       },
    },
    extraReducers: builder => {
       builder
          .addCase(getModerationComments.fulfilled, (state, action) => {
-            state.comments = action.payload;
-            state.isLoading = false;
+            state.comments = action.payload
+            state.isLoading = false
          })
          .addCase(getModerationComments.pending, state => {
-            state.isLoading = true;
+            state.isLoading = true
          })
          .addCase(getModerationComments.rejected, state => {
-            state.isLoading = false;
-         });
+            state.isLoading = false
+         })
 
       // builder.addCase(
       //    getModerationCommentsFilter.fulfilled,
@@ -47,6 +47,6 @@ export const moderationSlice = createSlice({
       //    },
       // );
    },
-});
+})
 
-export const { checkAllComments, checkComments } = moderationSlice.actions;
+export const { checkAllComments, checkComments } = moderationSlice.actions

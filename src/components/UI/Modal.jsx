@@ -1,12 +1,13 @@
-import { forwardRef } from 'react';
-import { Dialog, Slide, styled } from '@mui/material';
-import DeleteIcon from '../../assets/icons/trash.svg?react';
-import InfoIcon from '../../assets/icons/info-warning.svg?react';
-import PhoneIcon from '../../assets/icons/phone-green-icon.svg?react';
+/* eslint-disable no-nested-ternary */
+import { forwardRef } from 'react'
+import { Dialog, Slide, styled } from '@mui/material'
+import DeleteIcon from '../../assets/icons/trash.svg?react'
+import InfoIcon from '../../assets/icons/info-warning.svg?react'
+import PhoneIcon from '../../assets/icons/phone-green-icon.svg?react'
 
 const Transition = forwardRef((props, ref) => (
    <Slide direction="up" ref={ref} {...props} />
-));
+))
 
 const Modal = ({ children, variant = 'custom', handleClose, open }) => (
    <StyledContainer
@@ -33,9 +34,9 @@ const Modal = ({ children, variant = 'custom', handleClose, open }) => (
 
       <div className="dialog-content">{children}</div>
    </StyledContainer>
-);
+)
 
-export default Modal;
+export default Modal
 
 const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
    '& ::-webkit-scrollbar-thumb': {
@@ -87,7 +88,7 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
       padding: ' 0rem',
       marginRight: '0.88rem',
    },
-}));
+}))
 
 const StyledCloseButton = styled('button')(() => ({
    width: '2.25rem',
@@ -98,4 +99,4 @@ const StyledCloseButton = styled('button')(() => ({
    border: 'none',
    backgroundColor: 'transparent',
    cursor: 'pointer',
-}));
+}))

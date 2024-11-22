@@ -1,27 +1,27 @@
-import { styled } from '@mui/material';
-import { Button } from '../../../components/UI/Button.jsx';
-import { CheckBox } from '../../../components/UI/Checkbox.jsx';
-import CloseIcon from '../../../assets/icons/cross-icon.svg?react';
-import Modal from '../../../components/UI/Modal.jsx';
-import { useState } from 'react';
-import { LoginConfirmation } from './LoginConfirmation.jsx';
+import { styled } from '@mui/material'
+import { useState } from 'react'
+import { Button } from '../../../components/UI/Button'
+import { CheckBox } from '../../../components/UI/Checkbox'
+import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
+import Modal from '../../../components/UI/Modal'
+import { LoginConfirmation } from './LoginConfirmation'
 
 export const ConditionConsent = ({ signInModal, conditionModal }) => {
-   const [isOpen, setIsOpen] = useState(true);
-   const [isChecked, setIsChecked] = useState(false);
-   const [isShow, setIsShow] = useState(false);
+   const [isOpen, setIsOpen] = useState(true)
+   const [isChecked, setIsChecked] = useState(false)
+   const [isShow, setIsShow] = useState(false)
 
-   const handleClose = () => setIsOpen(!isOpen);
+   const handleClose = () => setIsOpen(!isOpen)
    const handleOpenModal = () => {
-      setIsOpen(!isOpen);
-      setIsShow(!isShow);
-   };
-   const handleCheckBoxChange = event => setIsChecked(event.target.checked);
+      setIsOpen(!isOpen)
+      setIsShow(!isShow)
+   }
+   const handleCheckBoxChange = event => setIsChecked(event.target.checked)
 
    const handleBack = () => {
-      signInModal(true);
-      conditionModal(false);
-   };
+      signInModal(true)
+      conditionModal(false)
+   }
 
    return (
       <div>
@@ -54,8 +54,8 @@ export const ConditionConsent = ({ signInModal, conditionModal }) => {
             </Box>
          </Modal>
       </div>
-   );
-};
+   )
+}
 const Box = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
@@ -76,12 +76,12 @@ const Box = styled('div')(({ theme }) => ({
       paddingLeft: '28px',
       paddingBottom: '-30px',
    },
-}));
+}))
 const Block = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '16px',
-}));
+}))
 const IconStyle = styled('div')(() => ({
    svg: {
       position: 'absolute',
@@ -89,4 +89,4 @@ const IconStyle = styled('div')(() => ({
       right: '26px',
       cursor: 'pointer',
    },
-}));
+}))

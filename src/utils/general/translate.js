@@ -1,7 +1,7 @@
 export const translateRole = {
    USER: 'Пользователь',
    ADMIN: 'Админ',
-};
+}
 
 export const translateCategory = {
    RENT: 'Аренда',
@@ -11,4 +11,4 @@ export const translateCategory = {
    HOTEL: 'Гостиница',
    AUTO: 'Авто',
    REAL_ESTATE: 'Недвижимость',
-};
+}

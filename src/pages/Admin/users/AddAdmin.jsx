@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
-import Search from '../../../assets/icons/searchgreyinput.svg?react';
-import { InputBase, RadioGroup, styled } from '@mui/material';
-import ArrowPurpul from '../../../assets/icons/arrowpurpul.svg?react';
-import RadioButton from '../../../components/UI/RadioButton';
-import { CheckBox } from '../../../components/UI/Checkbox';
-import { Button } from '../../../components/UI/Button';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { InputBase, RadioGroup, styled } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import Search from '../../../assets/icons/searchgreyinput.svg?react'
+import ArrowPurpul from '../../../assets/icons/arrowpurpul.svg?react'
+import RadioButton from '../../../components/UI/RadioButton'
+import { CheckBox } from '../../../components/UI/Checkbox'
+import { Button } from '../../../components/UI/Button'
 
 const AddAdmin = () => {
-   const navigate = useNavigate();
-   const [selectedOption, setSelectedOption] = useState('');
-
-   const handleOptionChange = event => {
-      setSelectedOption(event.target.value);
-   };
+   const navigate = useNavigate()
+   const [selectedOption] = useState('')
 
    return (
       <div>
@@ -61,15 +57,15 @@ const AddAdmin = () => {
             <Button>Добавить</Button>
          </SehondBigContainer>
       </div>
-   );
-};
+   )
+}
 
-export default AddAdmin;
+export default AddAdmin
 const ContainerTitleArrow = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    padding: '0 60px 0 30px',
-}));
+}))
 const ArrowBox = styled('div')(({ theme }) => ({
    display: 'flex',
    paddingTop: '20px',
@@ -77,13 +73,13 @@ const ArrowBox = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       display: 'none',
    },
-}));
+}))
 const SehondBigContainer = styled('div')(({ theme }) => ({
    paddingLeft: '30px',
    [theme.breakpoints.down('md')]: {
       paddingLeft: '30px',
    },
-}));
+}))
 
 const TitleSyle = styled('div')(({ theme }) => ({
    color: 'rgb(40, 40, 40)',
@@ -98,7 +94,7 @@ const TitleSyle = styled('div')(({ theme }) => ({
       lineHeight: '36px',
       paddingBottom: '24px',
    },
-}));
+}))
 
 const InputStyle = styled('div')(() => ({
    display: 'flex',
@@ -108,10 +104,10 @@ const InputStyle = styled('div')(() => ({
    border: '0.6px solid rgb(213, 213, 213)',
    borderRadius: '19px',
    background: 'rgb(245, 246, 250)',
-}));
+}))
 const SearchIconStyle = styled('div')(() => ({
    padding: '10px 0 10px 10px',
-}));
+}))
 const RadioButtonStyle = styled('div')(() => ({
    display: 'flex',
    gap: '60px',
@@ -122,14 +118,14 @@ const RadioButtonStyle = styled('div')(() => ({
    fontSize: '14px',
    fontWeight: '700',
    lineHeight: '17px',
-}));
+}))
 
 const CheckboxStyle = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '35px',
    paddingBottom: '35px',
-}));
+}))
 const CheckboxFive = styled(CheckBox)(({ theme }) => ({
    color: 'rgb(0, 0, 0)',
    fontFamily: 'Inter',
@@ -142,11 +138,11 @@ const CheckboxFive = styled(CheckBox)(({ theme }) => ({
       fontWeight: '500',
       height: '17px',
    },
-}));
+}))
 const BackStyle = styled('p')(() => ({
    color: 'rgb(126, 82, 255)',
    fontFamily: 'Inter',
    fontSize: '14px',
    fontWeight: '400',
    lineHeight: '17px',
-}));
+}))

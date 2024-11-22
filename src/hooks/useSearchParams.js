@@ -1,15 +1,15 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom'
 
 export const useMainCategoryParams = () => {
-   const [searchParams, setSearchParams] = useSearchParams();
+   const [searchParams, setSearchParams] = useSearchParams()
 
    const onCloseCategory = () => {
-      setSearchParams({});
-   };
+      setSearchParams({})
+   }
 
-   const search = searchParams.get('search') || '';
-   const category = searchParams.get('category');
-   const metro = searchParams.get('metro');
+   const search = searchParams.get('search') || ''
+   const category = searchParams.get('category')
+   const metro = searchParams.get('metro')
 
-   return { search, category, metro, onCloseCategory };
-};
+   return { search, category, metro, onCloseCategory }
+}

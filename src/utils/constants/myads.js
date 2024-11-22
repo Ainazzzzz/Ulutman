@@ -1,4 +1,4 @@
-export const my_ads = [
+export const MY_ADS = [
    {
       id: 1,
       image: 'https://latqvbedpllwqek.skdesign.ru/wp-content/uploads/2022/12/238862_childrens-room_1-min.jpg',
@@ -19,4 +19,4 @@ export const my_ads = [
       favorites: 16,
       calls: 16,
    },
-];
+]

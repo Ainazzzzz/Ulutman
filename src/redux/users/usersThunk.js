@@ -1,14 +1,14 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
 
 export const getAllUsers = createAsyncThunk('users/getAllUsers', async () => {
    try {
-      const { data } = await axiosInstance.get('/manage/users/getAll');
-      return data;
+      const { data } = await axiosInstance.get('/manage/users/getAll')
+      return data
    } catch (error) {
-      return error.message;
+      return error.message
    }
-});
+})
 
 export const getUsersName = createAsyncThunk(
    'users/getUsersName',
@@ -18,55 +18,55 @@ export const getUsersName = createAsyncThunk(
             params: {
                name: value,
             },
-         });
+         })
 
-         return data;
+         return data
       } catch (error) {
-         return error.message;
+         return error.message
       }
    },
-);
+)
 
 export const getUsersFilter = createAsyncThunk(
    'users/getUsersFilter',
    async ({ roles, createDates, statuses, names }) => {
       try {
-         const queryString = new URLSearchParams();
+         const queryString = new URLSearchParams()
 
-         if (roles) queryString.append('roles', roles);
+         if (roles) queryString.append('roles', roles)
 
          if (createDates && Array.isArray(createDates)) {
             createDates.forEach(date => {
-               queryString.append('createDates', date);
-            });
+               queryString.append('createDates', date)
+            })
          }
 
-         if (statuses) queryString.append('statuses', statuses);
-         if (names) queryString.append('names', names);
+         if (statuses) queryString.append('statuses', statuses)
+         if (names) queryString.append('names', names)
 
          const { data } = await axiosInstance.get(
             `/manage/users/filter?${queryString.toString()}`,
-         );
+         )
 
-         return data;
+         return data
       } catch (error) {
-         return error.message;
+         return error.message
       }
    },
-);
+)
 
 export const getResetFilter = createAsyncThunk(
    'users/getResetFilter',
    async () => {
       try {
-         const { data } = await axiosInstance.get('/manage/users/resetFilter');
+         const { data } = await axiosInstance.get('/manage/users/resetFilter')
 
-         return data;
+         return data
       } catch (error) {
-         return error.message;
+         return error.message
       }
    },
-);
+)
 
 export const deleteUsers = createAsyncThunk(
    'users/delete',
@@ -74,16 +74,16 @@ export const deleteUsers = createAsyncThunk(
       try {
          await axiosInstance.delete('/manage/users/delete/batch', {
             data: userIds,
-         });
+         })
 
-         toggleModal('deleteAllModal');
+         toggleModal('deleteAllModal')
 
-         dispatch(getAllUsers());
+         return dispatch(getAllUsers())
       } catch (error) {
-         return rejectWithValue(error);
+         return rejectWithValue(error)
       }
    },
-);
+)
 
 export const blockUserRequest = createAsyncThunk(
    'user/block',
@@ -93,13 +93,13 @@ export const blockUserRequest = createAsyncThunk(
             params: {
                newStatus,
             },
-         });
+         })
 
-         onClose();
+         onClose()
 
-         dispatch(getAllUsers());
+         return dispatch(getAllUsers())
       } catch (error) {
-         return rejectWithValue(error);
+         return rejectWithValue(error)
       }
    },
-);
+)

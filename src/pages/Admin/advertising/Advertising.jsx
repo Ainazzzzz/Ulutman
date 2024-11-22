@@ -1,24 +1,14 @@
-import React, { useEffect, useMemo } from 'react';
-import TableSkeleton from '../../../components/UI/TableSkeleton';
-import Table from '../../../components/UI/Table';
-import { styled } from '@mui/material';
-import { getAdminTableHeaders } from '../category/AdminTableHeader';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAdvertising } from '../../../redux/advertising/advertisingThunk';
+import React, { useEffect, useMemo } from 'react'
+import { styled } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import TableSkeleton from '../../../components/UI/TableSkeleton'
+import Table from '../../../components/UI/Table'
+import { getAdminTableHeaders } from '../category/AdminTableHeader'
+import { getAdvertising } from '../../../redux/advertising/advertisingThunk'
 
 const Advertising = () => {
-   const dispatch = useDispatch();
-   const { isLoading, advertising } = useSelector(state => state.advertising);
-
-   const data = [
-      {
-         userName: 'Aziat',
-         email: 'abdimalikovaziat@gmail.com',
-         category: 'Arenda',
-         createDate: '20-12-2024',
-         status: 'ОДОБРЕН',
-      },
-   ];
+   const dispatch = useDispatch()
+   const { isLoading, advertising } = useSelector(state => state.advertising)
 
    const MAILING_COLUMN = [
       {
@@ -41,9 +31,9 @@ const Advertising = () => {
          Header: 'СТАТУС',
          accessor: 'status',
       },
-   ];
+   ]
 
-   const toggleModal = () => {};
+   const toggleModal = () => {}
 
    const headers = useMemo(
       () =>
@@ -54,11 +44,11 @@ const Advertising = () => {
             // setUserData,
          ),
       [toggleModal],
-   );
+   )
 
    useEffect(() => {
-      dispatch(getAdvertising());
-   }, []);
+      dispatch(getAdvertising())
+   }, [])
 
    return (
       <Wrapper>
@@ -70,10 +60,10 @@ const Advertising = () => {
             <Table data={advertising} column={headers} />
          )}
       </Wrapper>
-   );
-};
+   )
+}
 
-export default Advertising;
+export default Advertising
 
 const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -83,4 +73,4 @@ const Wrapper = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       overflowX: 'scroll',
    },
-}));
+}))
