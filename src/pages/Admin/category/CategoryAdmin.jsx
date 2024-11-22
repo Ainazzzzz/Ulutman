@@ -162,10 +162,6 @@ const CategoryAdmin = () => {
       <Wrapper>
          <TitleButton>
             <Description>Управление категориями и подкатегориями</Description>
-            <ButtonStyle>
-               <Plus />
-               Добавить
-            </ButtonStyle>
          </TitleButton>
 
          <AdminHeaderFilter
@@ -175,7 +171,7 @@ const CategoryAdmin = () => {
             }
             inputData={inputData}
             selectsConfig={selectsConfig}
-            onDeleteModal={() => toggleModal('deleteAllModal')}
+            // onDeleteModal={() => toggleModal('deleteAllModal')}
             handleChange={(index, value) =>
                setValues('inputValues', { [index]: value })
             }

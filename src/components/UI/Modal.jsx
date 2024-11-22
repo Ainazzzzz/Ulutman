@@ -75,11 +75,12 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
       zIndex: 1000,
       display: 'flex',
       top: '-50px',
+      left: '50%',
       width: '6.25rem',
       height: '6.25rem',
-      left: '8.438rem',
       alignItems: 'center',
       justifyContent: 'center',
+      translate: '-50% 0',
    },
 
    '& .dialog-content': {
