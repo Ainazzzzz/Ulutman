@@ -15,7 +15,11 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
 
    const onDrop = acceptedFiles => {
       const file = acceptedFiles[0];
+<<<<<<< HEAD
       setFieldValue('imageFile', file);
+=======
+      setFieldValue('image', file);
+>>>>>>> 8f69ec7750e84a5babc5ce287cac839e768d9e9a
       const reader = new FileReader();
       reader.onloadend = () => {
          setImagePreview(reader.result);

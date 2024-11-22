@@ -9,7 +9,24 @@ const initialState = {
 export const mailingSlice = createSlice({
    name: 'mailing',
    initialState,
-   reducers: {},
+   reducers: {
+      checkAllMailing: (state, { payload }) => {
+         state.mailing = payload.data.map(item => {
+            if (payload.checked) {
+               return { ...item, checked: true };
+            }
+            return { ...item, checked: false };
+         });
+      },
+      checkMailing: (state, { payload }) => {
+         state.mailing = state.mailing.map(item => {
+            if (item.id === payload.data.id) {
+               return { ...item, checked: payload.checked };
+            }
+            return item;
+         });
+      },
+   },
    extraReducers: builder => {
       builder
          .addCase(getAllMailing.fulfilled, (state, action) => {
@@ -36,3 +53,5 @@ export const mailingSlice = createSlice({
          });
    },
 });
+
+export const { checkAllMailing, checkMailing } = mailingSlice.actions;

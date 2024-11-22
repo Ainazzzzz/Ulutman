@@ -9,7 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { renderFlag } from '../utils/general/renderFlag';
 import { SignIn } from '../pages/user/auth/SignIn.jsx';
-
 import HeartLike from '../assets/icons/white-heart.svg?react';
 import UserLogo from '../assets/icons/user.svg?react';
 import Plus from '../assets/icons/plus.svg?react';
@@ -44,14 +43,15 @@ const SearchIcon = ({ color = '#ffffff' }) => (
 export const Header = () => {
    const dispatch = useDispatch();
    const { isAuth, userData } = useSelector(state => state.auth);
-   const navigate = useNavigate();
-
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const navigate = useNavigate();
 
    const [language, setLanguage] = useState('ru');
    const [openMenu, setOpenMenu] = useState(null);
    const [isModalOpen, setModalOpen] = useState(false);
    const [openModal, setOpenModal] = useState(false);
+   const [openSignUp, setOpenSignUp] = useState(false);
+
    const [anchorEl, setAnchorEl] = useState(null);
 
    const openUserMenu = event => {
@@ -65,24 +65,45 @@ export const Header = () => {
    const open = Boolean(anchorEl);
    const id = open ? 'simple-popover' : undefined;
 
+   const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false);
+   const [openOptionsProfile, setOpenOptionsProfile] = useState(null);
+
+   const handleClose = () => {
+      setOpenMenu(null);
+   };
+
+   const confirmLogout = () => {
+      dispatch(logOut({ navigate, toggleModal: handleClose }));
+      setOpenLogoutConfirm(false);
+   };
+
    const handleSelect = event => setLanguage(event.target.value);
    const handleClick = event => setOpenMenu(event.currentTarget);
-   const handleClose = () => setOpenMenu(null);
+
+   const closeProfileOptions = () => {
+      setOpenOptionsProfile(null);
+   };
 
    const handleOpenModal = () => {
       setOpenModal(true);
       handleClose();
    };
 
-   const handleCloseModal = () => {
-      setOpenModal(false);
+   const handleCloseModal = () => setOpenModal(false);
+
+   const handleOpenSignUp = () => {
+      setOpenSignUp(true);
+      handleCloseModal();
    };
    const handleOpenPublishModal = () => setModalOpen(true);
    const handleClosePublishModal = () => setModalOpen(false);
 
+   const handleCloseSignUp = () => setOpenSignUp(false);
+
    const logOutHandler = () => {
       dispatch(logOut({ navigate, toggleModal: handleClose }));
-      closeUserMenu();
+      setOpenOptionsProfile(null);
+      setOpenLogoutConfirm(true);
    };
    const handleNavigationPage = path => {
       navigate(path);
@@ -90,13 +111,22 @@ export const Header = () => {
    };
 
    const navigateToPageHandler = path => {
-      navigate(path);
       handleClose();
-      closeUserMenu();
+      closeProfileOptions();
+      navigate(path);
+   };
+
+   const profileHandler = event => {
+      setOpenOptionsProfile(event.currentTarget);
    };
 
    return (
       <>
+         <ConfirmLogoutModal
+            open={openLogoutConfirm}
+            onClose={() => setOpenLogoutConfirm(false)}
+            onConfirm={confirmLogout}
+         />
          <Wrapper>
             <LogoStyle onClick={() => handleNavigationPage('/user')}>
                <UlutmanLogo />
@@ -117,22 +147,21 @@ export const Header = () => {
                         </MenuItemStyle>
                      ) : (
                         <MenuItemStyle onClick={logOutHandler}>
-                           <LogOutIcon />
-                           Выйти
+                           <LogOutIcon /> Выйти
                         </MenuItemStyle>
                      )}
                      <Line />
-
                      {isAuth && (
-                        <MenuItemStyle onClick={handleClose}>
-                           <UserLogo />
-                           Профиль
+                        <MenuItemStyle
+                           onClick={() =>
+                              navigateToPageHandler('my-page/profile')
+                           }
+                        >
+                           <UserLogo /> Профиль
                         </MenuItemStyle>
                      )}
-
                      <MenuItemStyle onClick={handleClose}>
-                        <SearchIcon color="#fff" />
-                        Поиск
+                        <SearchIcon color="#fff" /> Поиск
                      </MenuItemStyle>
                      <MenuItemStyle
                         onClick={() => navigateToPageHandler('create-ad')}
@@ -142,18 +171,16 @@ export const Header = () => {
                      <MenuItemStyle
                         onClick={() => handleNavigationPage('favorite')}
                      >
-                        <WhiteHeart />
-                        Избранное
+                        <WhiteHeart /> Избранное
                      </MenuItemStyle>
                      <MenuItemStyle onClick={handleClose}>
-                        <Language />
-                        Сменить язык
+                        <Language /> Сменить язык
                      </MenuItemStyle>
                   </MenuStyle>
                </div>
             ) : (
                <ContainerBlock>
-                  {isAuth ? (
+                  {isAuth && (
                      <>
                         <Block onClick={() => handleNavigationPage('favorite')}>
                            <IconButton>
@@ -161,38 +188,31 @@ export const Header = () => {
                            </IconButton>
                            <a>Избранное</a>
                         </Block>
-                        <Block onClick={openUserMenu}>
+                        <Block onClick={profileHandler}>
                            <IconButton>
                               <UserLogo />
                            </IconButton>
                            <UserName>{userData.name}</UserName>
+                           <DownIcon />
                         </Block>
-                        <StyledPopover
-                           id={id}
-                           open={open}
-                           anchorEl={anchorEl}
-                           onClose={closeUserMenu}
-                           anchorOrigin={{
-                              vertical: 'bottom',
-                              horizontal: 'left',
-                           }}
+                        <MenuProfile
+                           anchorEl={openOptionsProfile}
+                           open={Boolean(openOptionsProfile)}
+                           onClose={closeProfileOptions}
                         >
-                           <Block
-                              onClick={() => handleNavigationPage('profile')}
+                           <MenuItem
+                              onClick={() =>
+                                 navigateToPageHandler('my-page/profile')
+                              }
                            >
                               Профиль
-                           </Block>
-
-                           <LogOutBtn
-                              onClick={logOutHandler}
-                              variant="warning"
-                              startIcon={<LogOutIcon />}
-                           >
-                              Выйти
-                           </LogOutBtn>
-                        </StyledPopover>
+                           </MenuItem>
+                           <MenuItemLogOut onClick={logOutHandler}>
+                              <LogoOutIcon /> Выйти
+                           </MenuItemLogOut>
+                        </MenuProfile>
                      </>
-                  ) : null}
+                  )}
                   <Block>
                      <div>{renderFlag(language)}</div>
                      <SelectStyle
@@ -206,8 +226,7 @@ export const Header = () => {
                         // onClick={() => handleNavigationPage('create-ad')}
                         onClick={handleOpenPublishModal}
                      >
-                        <Plus />
-                        Опубликовать
+                        <Plus /> Опубликовать
                      </ButtonStyle>
                   ) : (
                      <ButtonStyle onClick={handleOpenModal}>Войти</ButtonStyle>
@@ -228,6 +247,16 @@ export const Header = () => {
       </>
    );
 };
+
+const MenuProfile = styled(Menu)({
+   width: '170px',
+});
+
+const MenuItemLogOut = styled(MenuItem)({
+   display: 'flex',
+   gap: '5px',
+   color: '#FF0000',
+});
 
 const Wrapper = styled('header')(({ theme }) => ({
    height: '84px',

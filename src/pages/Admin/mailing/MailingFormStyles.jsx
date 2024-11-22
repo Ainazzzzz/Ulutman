@@ -1,9 +1,12 @@
 import { styled } from '@mui/material';
 import CameraAltIcon from '../../../assets/icons/camera-icon.svg?react';
 import { Button } from '../../../components/UI/Button.jsx';
+import Input from '../../../components/UI/Input.jsx';
 
 export const WrapperInputSelect = styled('div')(({ theme }) => ({
-   width: '327px',
+   minWidth: '300px',
+   maxWidth: '700px',
+   width: '100%',
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
@@ -36,7 +39,6 @@ export const CameraIcon = styled(CameraAltIcon)({
 
 export const Container = styled('div')(({ theme }) => ({
    width: '100%',
-   position: 'relative',
 
    [theme.breakpoints.down('md')]: {
       '.MuiInputBase-root': {
@@ -46,6 +48,9 @@ export const Container = styled('div')(({ theme }) => ({
    '.container-error': {
       display: 'flex',
       justifyContent: 'center',
+   },
+   '.MuiFormControl-root': {
+      width: '100%',
    },
    '.block': {
       display: 'flex',
@@ -98,31 +103,18 @@ export const StyledButton = styled(Button)(({ theme }) => ({
    },
 }));
 
-export const StyledWriting = styled('textarea')(({ theme }) => ({
-   width: '617px',
-   height: '122px',
+export const StyledWriting = styled(Input)(({ theme }) => ({
    fontSize: '18px',
    fontWeight: '400',
    color: '#909090',
-   padding: '10px',
-   border: '1px solid #CFCFCF',
-   borderRadius: '10px',
    background: 'transparent',
-   resize: 'none',
-   marginTop: '8px',
+   margin: '0 0 3px',
    [theme.breakpoints.down('md')]: {
       width: '326px',
-      height: '154px',
       '::placeholder': {
          fontSize: '18px',
          fontWeight: '400',
       },
-   },
-   '&:hover': {
-      border: '1px solid #282828',
-   },
-   '&:focus': {
-      border: '1px solid #7e52ff',
    },
 }));
 
@@ -146,7 +138,13 @@ export const ImagePreview = styled('img')(() => ({
    maxWidth: '100%',
    height: '200px',
    objectFit: 'contain',
-   // marginTop: '10px',
-   // paddingTop: '20px',
    padding: '5px',
+}));
+
+export const DateLabelStyle = styled('p')(() => ({
+   fontWeight: 600,
+   lineHeight: '21px',
+   margin: '0 0 8px 0',
+   gap: '14px',
+   fontSize: '18px',
 }));

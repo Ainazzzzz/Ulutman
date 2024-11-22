@@ -14,17 +14,17 @@ import Spinner from '../../../components/UI/Spinner.jsx';
 
 const signUpInputs = [
    {
-      label: 'Имя',
+      label: 'Введите имя',
       value: 'name',
       type: 'text',
    },
    {
-      label: 'Почта',
+      label: 'Введите email',
       value: 'email',
       type: 'email',
    },
    {
-      label: 'Пароль',
+      label: 'Введите пароль',
       value: 'password',
       type: 'password',
    },
@@ -37,7 +37,7 @@ const signUpInputs = [
 
 // Создаем схему валидации с помощью Yup
 
-const SignUp = ({ open, onClose, onOpen }) => {
+const SignUp = ({ open, onClose, handleOpenModal }) => {
    const dispatch = useDispatch();
    const { isLoading } = useSelector(state => state.auth);
 
@@ -59,7 +59,7 @@ const SignUp = ({ open, onClose, onOpen }) => {
    };
 
    const handleOpenSignInModal = () => {
-      onOpen();
+      handleOpenModal();
       onClose();
    };
 
@@ -71,7 +71,7 @@ const SignUp = ({ open, onClose, onOpen }) => {
          <Box onSubmit={handleSubmit}>
             <h2>Регистрация</h2>
             {signUpInputs.map(item => (
-               <div key={item.label} style={{ position: 'relative' }}>
+               <div key={item.value} style={{ position: 'relative' }}>
                   <Input
                      placeholder={item.label}
                      onChange={handleChange}
