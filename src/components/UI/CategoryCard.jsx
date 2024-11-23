@@ -27,10 +27,12 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
 
    return (
       <>
-         {categories.map(item => (
-            <Container key={item.id}>
-               {isMobile ? (
-                  <>
+         {categories.length === 0 ? (
+            <p>Данные пока отсутствуют.</p>
+         ) : (
+            categories.map(item => (
+               <Container key={item.id}>
+                  {isMobile ? (
                      <Block>
                         <ImageStyle
                            image={item.image || emptyImageCard}
@@ -75,70 +77,71 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                            <Description>{item.description}</Description>
                         </div>
                      </Block>
-                  </>
-               ) : (
-                  <Wrapper>
-                     <Block>
-                        <ImageStyle
-                           image={item.image || emptyImageCard}
-                           title={item.title}
-                           onClick={() => handleNavigateDetail(item.id)}
-                        />
-                     </Block>
-                     <div>
-                        <FirstBlock>
-                           <Price>
-                              {item.price} <SumIcon />
-                           </Price>
-                           <div>
-                              <IconButton
-                                 onClick={() => handleToggleFavorite(item)}
+                  ) : (
+                     <Wrapper>
+                        <Block>
+                           <ImageStyle
+                              image={item.image || emptyImageCard}
+                              title={item.title}
+                              onClick={() => handleNavigateDetail(item.id)}
+                           />
+                        </Block>
+                        <div>
+                           <FirstBlock>
+                              <Price>
+                                 {item.price} <SumIcon />
+                              </Price>
+                              <div>
+                                 <IconButton
+                                    onClick={() => handleToggleFavorite(item)}
+                                 >
+                                    <GrayHeart
+                                       className={
+                                          item.detailFavorite ? 'like-red' : ''
+                                       }
+                                    />
+                                 </IconButton>
+                                 <IconButton
+                                    onClick={() => handleOpen(item.id)}
+                                 >
+                                    <Call />
+                                 </IconButton>
+                              </div>
+                              <Modal
+                                 open={item.id === phoneModal}
+                                 variant="phone"
+                                 handleClose={handleClose}
                               >
-                                 <GrayHeart
-                                    className={
-                                       item.detailFavorite ? 'like-red' : ''
-                                    }
-                                 />
-                              </IconButton>
-
-                              <IconButton onClick={() => handleOpen(item.id)}>
-                                 <Call />
-                              </IconButton>
-                           </div>
-                           <Modal
-                              open={item.id === phoneModal}
-                              variant="phone"
-                              handleClose={handleClose}
-                           >
-                              <WrapperPhone>
-                                 <TitlePhone>Номер телефона</TitlePhone>
-                                 <PhoneNumberSingle>
-                                    {item.phoneNumber}
-                                 </PhoneNumberSingle>
-                              </WrapperPhone>
-                           </Modal>
-                        </FirstBlock>
-                        <RoomStyle>{item.title} </RoomStyle>
-                        <SecondBlock>
-                           <Geolocation />
-                           <p>
-                              {item.metro}, {item.address}
-                           </p>
-                        </SecondBlock>
-                        <SecondBlock>
-                           <Home />
-                           <p>
-                              {item.quantity} -комн. кв.{' '}
-                              {item.propertyDetails?.totalArea}м<sup>2</sup>{' '}
-                              {item.floor}
-                           </p>
-                        </SecondBlock>
-                        <Description>{item.description}</Description>
-                     </div>
-                  </Wrapper>
-               )}
-            </Container>
-         ))}
+                                 <WrapperPhone>
+                                    <TitlePhone>Номер телефона</TitlePhone>
+                                    <PhoneNumberSingle>
+                                       {item.phoneNumber}
+                                    </PhoneNumberSingle>
+                                 </WrapperPhone>
+                              </Modal>
+                           </FirstBlock>
+                           <RoomStyle>{item.title} </RoomStyle>
+                           <SecondBlock>
+                              <Geolocation />
+                              <p>
+                                 {item.metro}, {item.address}
+                              </p>
+                           </SecondBlock>
+                           <SecondBlock>
+                              <Home />
+                              <p>
+                                 {item.quantity} -комн. кв.{' '}
+                                 {item.propertyDetails?.totalArea}м<sup>2</sup>{' '}
+                                 {item.floor}
+                              </p>
+                           </SecondBlock>
+                           <Description>{item.description}</Description>
+                        </div>
+                     </Wrapper>
+                  )}
+               </Container>
+            ))
+         )}
       </>
    );
 };
