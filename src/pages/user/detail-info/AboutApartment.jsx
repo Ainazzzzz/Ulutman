@@ -16,9 +16,9 @@ const AboutApartment = ({ detailInfo }) => {
    console.log(detailInfo?.detailInfo?.propertyDetails);
    const propertyDetails = detailInfo?.detailInfo?.propertyDetails;
 
-   if (!propertyDetails) {
-      return <p>Нет данных</p>;
-   }
+   // if (!propertyDetails) {
+   //    return <p></p>;
+   // }
 
    const apartmentInfo = [
       {
@@ -95,7 +95,6 @@ const AboutApartment = ({ detailInfo }) => {
                ? detailInfo.detailInfo.propertyDetails.viewFromWindow
                : 'Не указано',
       },
-      // { title: 'Ремонт', value: 'Евроремонт' },
    ];
 
    const apartmentInfo2 = [
@@ -250,7 +249,7 @@ const AboutApartment = ({ detailInfo }) => {
 
 export default AboutApartment;
 
-const StyledContainer = styled(Box)(() => ({
+const StyledContainer = styled(Box)(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
 
@@ -276,6 +275,9 @@ const StyledContainer = styled(Box)(() => ({
          margin: '7px 0 ',
          marginRight: '6.25rem',
          color: '#282828',
+         [theme.breakpoints.down('md')]: {
+            fontSize: '14px',
+         },
       },
    },
 
@@ -291,14 +293,23 @@ const StyledContainer = styled(Box)(() => ({
       color: '#282828',
       letterSpacing: '-0.5px',
       marginBottom: '25px',
+      [theme.breakpoints.down('md')]: {
+         fontSize: '24px',
+      },
    },
 
    '& > .first-block_appartment': {
       display: 'flex',
       gap: '50px',
+      [theme.breakpoints.down('md')]: {
+         flexDirection: 'column',
+      },
 
       '& > .column': {
          width: '370px',
+         [theme.breakpoints.down('md')]: {
+            width: '315px',
+         },
 
          '& > .row': {
             display: 'flex',
@@ -307,6 +318,9 @@ const StyledContainer = styled(Box)(() => ({
             height: '50px',
             alignItems: 'center',
             borderBottom: '1px solid #E8E9EC',
+            [theme.breakpoints.down('md')]: {
+               width: '315px',
+            },
 
             '& > .name-of-title': {
                fontSize: '16px',

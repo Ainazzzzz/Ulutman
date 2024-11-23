@@ -47,18 +47,16 @@ export const SimilarAds = ({ currentCategory }) => {
 
    return (
       <Container>
-         <Block>
-            <Title>Похожие объявления</Title>
-            <AnnouncementsSorter
-               options={SORT_BY_CATEGROY_OPTIONS}
-               onSortChange={handleSortChange}
-            />
-         </Block>
-         <CardList
-            cards={sortedAds.slice(0, 8)}
-            advertising={CARDS}
-            loading={loading}
-         />
+         <div>
+            <Block>
+               <Title>Похожие объявления</Title>
+               <AnnouncementsSorter
+                  options={SORT_BY_CATEGROY_OPTIONS}
+                  onSortChange={handleSortChange}
+               />
+            </Block>
+            <CardList cards={sortedAds.slice(0, 8)} loading={loading} />
+         </div>
          <Button variant="category-sort" onClick={seeMoreHandler}>
             Посмотреть еще
          </Button>
@@ -69,8 +67,10 @@ export const SimilarAds = ({ currentCategory }) => {
 const Title = styled('h2')(({ theme }) => ({
    fontSize: '34px',
    fontWeight: '600',
+   color: '#152242',
+
    [theme.breakpoints.down('md')]: {
-      fontSize: '24px',
+      fontSize: '22px',
    },
 }));
 
@@ -84,7 +84,7 @@ const Block = styled('div')(({ theme }) => ({
 }));
 
 const Container = styled('div')(({ theme }) => ({
-   padding: '60px',
+   padding: '60px 0px 60px 0px',
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',

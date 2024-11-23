@@ -249,7 +249,9 @@ const DetailInfo = () => {
                                  <UserIcon />
                               </Box>
                               <Box>
-                                 <Typography>Риелтор</Typography>
+                                 <Typography className="rieltor-title">
+                                    Риелтор
+                                 </Typography>
 
                                  <Typography>
                                     {detailInfo?.detailInfo?.conditions
@@ -305,8 +307,11 @@ const DetailInfo = () => {
 
 export default DetailInfo;
 
-const StyledContainer = styled(Box)(() => ({
+const StyledContainer = styled(Box)(({ theme }) => ({
    padding: '0 3rem',
+   [theme.breakpoints.down('md')]: {
+      padding: '24px 16px',
+   },
 
    '& .locatio-time-box': {
       display: 'flex',
@@ -314,6 +319,9 @@ const StyledContainer = styled(Box)(() => ({
       alignItems: 'center',
       gap: '2rem',
       marginBottom: '1.3rem',
+      [theme.breakpoints.down('md')]: {
+         justifyContent: 'space-between',
+      },
 
       p: {
          fontSize: '12px',
@@ -358,6 +366,15 @@ const StyledContainer = styled(Box)(() => ({
       borderRadius: '10px',
       padding: '20px',
       gap: '1rem',
+      [theme.breakpoints.down('md')]: {
+         boxShadow: 'none',
+         backgroundColor: 'initial',
+      },
+      '& .rieltor-title': {
+         fontSize: '10px',
+         color: '#737A8E',
+         fontWeight: '700',
+      },
 
       '& > .user-icon-container': {
          width: '76px',
@@ -402,6 +419,11 @@ const StyledContainer = styled(Box)(() => ({
       paddingTop: '20px',
       boxShadow: ' 0px 7px 12px 1px rgba(34, 60, 80, 0.14)',
       backgroundColor: 'white',
+      [theme.breakpoints.down('md')]: {
+         width: '310px',
+         backgroundColor: 'initial',
+         boxShadow: 'none',
+      },
 
       '& .main-info': {
          display: 'flex',
@@ -432,14 +454,12 @@ const StyledContainer = styled(Box)(() => ({
             color: '#282828',
 
             '& .line': {
-               // border: '1px dotted #909090',
-               // width: '30%',
-               border: 'none' /* Убираем стандартный бордер */,
-               borderTop: '1px dotted #909090' /* Пунктирный верхний бордер */,
+               border: 'none',
+               borderTop: '1px dotted #909090',
                width: '30%',
-               borderStyle: 'dashed' /* Более аккуратный стиль */,
-               borderWidth: '1px' /* Толщина линии */,
-               borderColor: '#909090' /* Цвет */,
+               borderStyle: 'dashed',
+               borderWidth: '1px',
+               borderColor: '#909090',
                borderSpacing: '1px',
             },
          },
@@ -455,6 +475,10 @@ const StyledContainer = styled(Box)(() => ({
    '& .slide-image': {
       width: '760px !important',
       height: '446px !important',
+      [theme.breakpoints.down('md')]: {
+         width: '343px !important',
+         height: '202px !important',
+      },
    },
 
    '& .location-icon': {
@@ -470,6 +494,10 @@ const StyledContainer = styled(Box)(() => ({
    '& .fist-part_container': {
       display: 'flex',
       justifyContent: 'space-between',
+      [theme.breakpoints.down('md')]: {
+         flexDirection: 'column',
+         gap: '24px',
+      },
    },
 
    '& .slider': {
@@ -478,6 +506,10 @@ const StyledContainer = styled(Box)(() => ({
       alignItems: 'flex-start',
       width: '760px !important',
       gap: '1rem',
+      [theme.breakpoints.down('md')]: {
+         width: '343px !important',
+         height: '202px !important',
+      },
 
       '& .images': {
          display: 'flex',
@@ -489,6 +521,9 @@ const StyledContainer = styled(Box)(() => ({
          display: 'flex',
          borderRadius: '10px',
          justifyContent: 'start',
+         [theme.breakpoints.down('md')]: {
+            width: '343px !important',
+         },
       },
 
       '& .swiper-initialized': {
@@ -500,15 +535,43 @@ const StyledContainer = styled(Box)(() => ({
          justifyContent: 'start',
          width: '760px !important',
          height: '446px !important',
+         [theme.breakpoints.down('md')]: {
+            width: '343px !important',
+            height: '202px !important',
+         },
       },
 
       '& .swiper-button-prev': {
-         color: '#222222',
+         color: '#000',
          opacity: '1',
          backgroundColor: 'white',
-
          padding: '20px',
          borderRadius: '50%',
+         width: '52px',
+         height: '52px',
+         fontWeight: '700',
+         ':: after': {
+            fontSize: ' 20px',
+         },
+         [theme.breakpoints.down('md')]: {
+            display: 'none',
+         },
+      },
+      '& .swiper-button-next': {
+         color: '#000',
+         opacity: '1',
+         backgroundColor: 'white',
+         padding: '20px',
+         borderRadius: '50%',
+         width: '52px',
+         height: '52px',
+         fontWeight: '700',
+         ':: after': {
+            fontSize: ' 20px',
+         },
+         [theme.breakpoints.down('md')]: {
+            display: 'none',
+         },
       },
 
       '& .swiper-slide img': {
@@ -516,24 +579,32 @@ const StyledContainer = styled(Box)(() => ({
          width: '100%',
          height: '100%',
          objectFit: 'cover',
+         [theme.breakpoints.down('md')]: {
+            width: '343px !important',
+            height: '202px !important',
+         },
       },
    },
 
    '& .title': {
       fontSize: '34px',
       fontWeight: '500',
-      lineHeight: '41.15px',
+      lineHeight: '29.05px',
       marginBottom: '1rem',
+      [theme.breakpoints.down('md')]: {
+         fontSize: '24px',
+      },
    },
 
    '& .description_detail-info': {
       fontSize: '30px',
       lineHeight: '36px',
       letterSpacing: '-0.5px',
-   },
-}));
+      fontWeight: '600',
+      color: '#282828',
 
-const ImageStyle = styled(() => ({
-   width: 'px',
-   height: '100px',
+      [theme.breakpoints.down('md')]: {
+         fontSize: '24px',
+      },
+   },
 }));
