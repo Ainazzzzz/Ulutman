@@ -3,23 +3,34 @@ import { axiosInstance } from '../../config/axiosInstance';
 
 export const fetchPublishesUser = createAsyncThunk(
    'publishes/fetchPublishesUser',
-   async ({ publishe, paymentReceiptFile }, { rejectWithValue }) => {
+   async ({ publishe, publishesData }, { rejectWithValue }) => {
+      const { images, ...filteredPublishe } = publishe;
       try {
-         const filteredPublishe = Object.fromEntries(
-            Object.entries(publishe).filter(
+         const params = Object.fromEntries(
+            Object.entries(filteredPublishe).filter(
                ([_, value]) =>
                   value !== undefined && value !== null && value !== '',
             ),
          );
 
+         const formData = new FormData();
+         formData.append(
+            'paymentReceiptFile',
+            publishesData.paymentReceiptFile,
+         );
+
+         publishesData.images.forEach(image => {
+            formData.append(`images`, image);
+         });
+
          const { data } = await axiosInstance.post(
             'publishes/create',
-            { paymentReceiptFile },
+            formData,
             {
                headers: {
                   'Content-Type': 'multipart/form-data',
                },
-               params: filteredPublishe,
+               params,
             },
          );
 

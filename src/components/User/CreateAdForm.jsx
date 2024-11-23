@@ -74,30 +74,23 @@ export const CreateAdForm = () => {
       },
       validationSchema: validationAdForm,
       onSubmit: values => {
-         const imageParams = images
-            .map((image, index) => {
-               const encodedImage = encodeURIComponent(image);
-               return index === 0
-                  ? `${encodedImage}`
-                  : `images=${encodedImage}`;
-            })
-            .join('&');
-
          if (userData) {
             dispatch(
                fetchPublishesUser({
                   publishe: {
                      ...values,
                      userId: userData.userId,
-                     images: imageParams,
                   },
-                  paymentReceiptFile: fileName,
+                  publishesData: {
+                     paymentReceiptFile: fileName,
+                     images: images,
+                  },
                }),
             );
-            setImageFiles([]);
-            setSelectCategory({});
-            setFileName('Нет');
-            formik.resetForm();
+            // setImageFiles([]);
+            // setSelectCategory({});
+            // setFileName('Нет');
+            // formik.resetForm();
          }
       },
    });
