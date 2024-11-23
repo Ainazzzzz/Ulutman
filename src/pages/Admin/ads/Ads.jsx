@@ -99,12 +99,13 @@ const Ads = () => {
    };
 
    const fetchUsers = useCallback(() => {
-      const { date } = state.inputValues;
+      const { date, name } = state.inputValues;
       const { category, status } = state.selectedValues;
 
       const filters = {};
       if (category !== 'category') filters.categories = category;
       if (status !== 'status') filters.publishStatuses = status;
+      if (name !== '') filters.names = name;
 
       if (date.length) {
          const formattedDates = date.map(formatDate);
@@ -119,12 +120,12 @@ const Ads = () => {
    }, [state.inputValues, state.selectedValues, dispatch]);
 
    useEffect(() => {
-      if (debouncedName) {
-         dispatch(getName(debouncedName));
-      } else {
-         fetchUsers();
-      }
-   }, [debouncedName, fetchUsers, dispatch]);
+      // if (debouncedName) {
+      //    dispatch(getName(debouncedName));
+      // } else {
+      fetchUsers();
+      // }
+   }, [debouncedName, fetchUsers, dispatch, state.inputValues]);
 
    const toggleModal = useCallback(modalType => {
       dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });

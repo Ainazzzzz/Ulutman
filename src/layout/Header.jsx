@@ -20,6 +20,7 @@ import Language from '../assets/icons/language-icon.svg?react';
 import LogOutIcon from '../assets/icons/come-icon.svg?react';
 import { logOut } from '../redux/auth/authThunk.js';
 import { useNavigate } from 'react-router-dom';
+import SignUp from '../pages/user/auth/signUp.jsx';
 import DownIcon from '../assets/icons/select-down-icon.svg?react';
 import LogoOutIcon from '../assets/icons/logout-icon.svg?react';
 import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx';
@@ -43,14 +44,16 @@ const SearchIcon = ({ color = '#ffffff' }) => (
 );
 
 export const Header = () => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const { isAuth, userData } = useSelector(state => state.auth);
    const dispatch = useDispatch();
+   const { isAuth, userData } = useSelector(state => state.auth);
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
    const navigate = useNavigate();
 
    const [language, setLanguage] = useState('ru');
    const [openMenu, setOpenMenu] = useState(null);
    const [openModal, setOpenModal] = useState(false);
+   const [openSignUp, setOpenSignUp] = useState(false);
+
    const [anchorEl, setAnchorEl] = useState(null);
 
    const openUserMenu = event => {
@@ -69,11 +72,6 @@ export const Header = () => {
 
    const handleClose = () => {
       setOpenMenu(null);
-   };
-
-   const logOutHandler = () => {
-      setOpenOptionsProfile(null);
-      setOpenLogoutConfirm(true);
    };
 
    const confirmLogout = () => {
@@ -95,6 +93,18 @@ export const Header = () => {
 
    const handleCloseModal = () => setOpenModal(false);
 
+   const handleOpenSignUp = () => {
+      setOpenSignUp(true);
+      handleCloseModal();
+   };
+
+   const handleCloseSignUp = () => setOpenSignUp(false);
+
+   const logOutHandler = () => {
+      dispatch(logOut({ navigate, toggleModal: handleClose }));
+      setOpenOptionsProfile(null);
+      setOpenLogoutConfirm(true);
+   };
    const handleNavigationPage = path => {
       navigate(path);
       closeUserMenu();
@@ -223,11 +233,21 @@ export const Header = () => {
                </ContainerBlock>
             )}
          </Wrapper>
-         <SignIn
-            open={openModal}
-            onClose={handleCloseModal}
-            onOpen={handleOpenModal}
-         />
+         {openModal && (
+            <SignIn
+               open={openModal}
+               onClose={handleCloseModal}
+               handleOpenSignUp={handleOpenSignUp}
+            />
+         )}
+
+         {openSignUp && (
+            <SignUp
+               open={openSignUp}
+               onClose={handleCloseSignUp}
+               handleOpenModal={handleOpenModal}
+            />
+         )}
       </>
    );
 };

@@ -10,11 +10,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react';
 import Spinner from '../../../components/UI/Spinner';
 
-export const SignIn = ({ open, onClose, onOpen }) => {
+export const SignIn = ({ open, onClose, handleOpenSignUp }) => {
    const dispatch = useDispatch();
    const { isLoading } = useSelector(state => state.auth);
 
-   const [openSignUp, setOpenSignUp] = useState(false);
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [error, setError] = useState('');
@@ -28,13 +27,6 @@ export const SignIn = ({ open, onClose, onOpen }) => {
       setPassword(event.target.value);
       setError('');
    };
-
-   const handleOpenSignUp = () => {
-      setOpenSignUp(true);
-      onClose();
-   };
-
-   const handleCloseSignUp = () => setOpenSignUp(false);
 
    const handleSubmit = e => {
       e.preventDefault();
@@ -53,78 +45,43 @@ export const SignIn = ({ open, onClose, onOpen }) => {
    };
 
    return (
-      <>
-         <Modal open={open} onClose={onClose}>
-            <IconStyle>
-               <CloseIcon onClick={onClose} />
-            </IconStyle>
-            <Box onSubmit={handleSubmit}>
-               <h2>Войти</h2>
-               <div style={{ position: 'relative' }}>
-                  <InputContainer>
-                     <Input
-                        placeholder="Введите email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        id="gmail"
-                        type="email"
-                     />
-                     <Input
-                        placeholder="Введите пароль"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        id="pasword"
-                        type="password"
-                     />
-                  </InputContainer>
-                  {error && (
-                     <ErrorText
-                        style={{
-                           position: 'absolute',
-                           left: '0px',
-                        }}
-                     >
-                        {error}
-                     </ErrorText>
-                  )}
-               </div>
+      <Modal open={open} onClose={onClose}>
+         <IconStyle>
+            <CloseIcon onClick={onClose} />
+         </IconStyle>
+         <Box onSubmit={handleSubmit}>
+            <h2>Войти</h2>
 
+            <Input
+               placeholder="Введите email"
+               value={email}
+               onChange={handleEmailChange}
+               id="email"
+               type="email"
+            />
+            <Input
+               placeholder="Введите пароль"
+               value={password}
+               onChange={handlePasswordChange}
+               id="pasword"
+               type="password"
+            />
+
+            {isLoading ? (
+               <Button disabled={isLoading}>
+                  <Spinner />
+               </Button>
+            ) : (
                <Button type={'submit'}>Войти</Button>
-               <Input
-                  placeholder="Введите email"
-                  value={email}
-                  onChange={handleEmailChange}
-                  id="gmail"
-                  type="email"
-               />
-               <Input
-                  placeholder="Введите пароль"
-                  value={password}
-                  onChange={handlePasswordChange}
-                  id="pasword"
-                  type="password"
-               />
-               {isLoading ? (
-                  <Button disabled={isLoading}>
-                     <Spinner />
-                  </Button>
-               ) : (
-                  <Button type={'submit'}>Войти</Button>
-               )}
-               <Typography align="center">
-                  У вас нету аккаунта?{' '}
-                  <NavLink to={''} onClick={handleOpenSignUp}>
-                     Создайте её
-                  </NavLink>
-               </Typography>
-            </Box>
-         </Modal>
-         <SignUp
-            open={openSignUp}
-            onClose={handleCloseSignUp}
-            onOpen={onOpen}
-         />
-      </>
+            )}
+            <Typography align="center">
+               У вас нету аккаунта?{' '}
+               <NavLink to={''} onClick={handleOpenSignUp}>
+                  Создайте её
+               </NavLink>
+            </Typography>
+         </Box>
+      </Modal>
    );
 };
 
