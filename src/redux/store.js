@@ -10,7 +10,11 @@ import { mainSlice } from './main/mainSlice';
 import { mailingSlice } from './mailing/mailingSlice';
 import { categoriesSlice } from './categories/categoriesSlice';
 import { publishesSlice } from './publishes/publishesSlice';
+<<<<<<< HEAD
 import { s3Slice } from './s3/s3Slice';
+=======
+import { fileSlice } from './files/fileSlice';
+>>>>>>> 8f69ec7750e84a5babc5ce287cac839e768d9e9a
 
 export const store = configureStore({
    reducer: {
@@ -25,6 +29,10 @@ export const store = configureStore({
       [addsAdminSlice.name]: addsAdminSlice.reducer,
       [mailingSlice.name]: mailingSlice.reducer,
       [categoriesSlice.name]: categoriesSlice.reducer,
+<<<<<<< HEAD
       [s3Slice.name]: s3Slice.reducer,
+=======
+      [fileSlice.name]: fileSlice.reducer,
+>>>>>>> 8f69ec7750e84a5babc5ce287cac839e768d9e9a
    },
 });

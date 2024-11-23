@@ -44,18 +44,6 @@ export const CardList = ({ cards, advertising, loading, onDeleteById }) => {
    };
    return (
       <StyledContainer>
-         {loading && <SceletonCard />}
-         <CardListBox container spacing={2.5}>
-            {cards?.map(card => (
-               <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
-                  <CardItem
-                     {...card}
-                     onDeleteById={onDeleteById}
-                     detailFavorite={card.detailFavorite}
-                  />
-               </Grid>
-            ))}
-         </CardListBox>
          {loading ? (
             <SceletonCard />
          ) : (
@@ -86,7 +74,6 @@ export const CardList = ({ cards, advertising, loading, onDeleteById }) => {
 
 const StyledContainer = styled('div')(({ theme }) => ({
    padding: theme.breakpoints.down('md') ? '0' : '0 60px',
-   display: 'flex',
    gap: '10px',
    width: '100%',
 }));

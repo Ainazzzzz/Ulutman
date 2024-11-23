@@ -2,33 +2,50 @@ import { styled } from '@mui/material';
 import { green, red, orange } from '@mui/material/colors';
 import WaitIcon from '../../../assets/icons/address-icon.svg?react';
 
-export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
+export const getAdminTableHeaders = (
+   handleOpenWaitingModal,
+   columns,
+   type,
+   setData,
+) => {
    return columns.map(column => {
       if (
-         column.accessor &&
-         typeof column.accessor === 'string' &&
-         column.accessor.toUpperCase() === 'STATUS' &&
-         column.accessor === 'publishStatus'
+         (column.accessor && column.accessor === 'status') ||
+         column.accessor === 'publishStatus' ||
+         column.accessor === 'mailingStatus'
       ) {
          return {
             ...column,
-            Cell: ({ cell: { value } }) => {
+            Cell: ({ cell: { value, row } }) => {
+               const userData = row.original;
+
+               const openModal = () => {
+                  value === 'ОЖИДАЕТ'
+                     ? handleOpenWaitingModal()
+                     : type === 'user'
+                       ? handleOpenWaitingModal()
+                       : undefined;
+
+                  if (type === 'user') {
+                     setData(userData);
+                  }
+               };
+
                let color,
                   IconComponent = null;
-
-               const upperValue =
-                  value && typeof value === 'string' ? value.toUpperCase() : '';
 
                switch (value) {
                   case 'ОДОБРЕН':
                   case 'РЕШЕНО':
                   case 'АКТИВНЫЙ':
                   case 'АКТИВНО':
+                  case 'ОТПРАВЛЕНО':
                      color = green[500];
                      break;
                   case 'ЗАБЛОКИРОВАН':
                   case 'ОТКЛОНЕН':
                   case 'НЕАКТИВНО':
+                  case 'ОШИБКА':
                      color = red[500];
                      break;
                   case 'ОЖИДАЕТ':
@@ -41,15 +58,7 @@ export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
 
                return (
                   <Block>
-                     <MiniBlock
-                        color={color}
-                        onClick={
-                           value === 'ОЖИДАЕТ'
-                              ? handleOpenWaitingModal
-                              : undefined
-                        }
-                        clickable={value === 'ОЖИДАЕТ'}
-                     >
+                     <MiniBlock color={color} onClick={openModal}>
                         {value}
                      </MiniBlock>
                      {IconComponent && <IconComponent />}
@@ -64,19 +73,19 @@ export const getAdminTableHeaders = (handleOpenWaitingModal, columns) => {
 };
 
 const Block = styled('div')({
-   display: 'flex',
    alignItems: 'center',
    justifyContent: 'start',
    gap: '6px',
+   width: 'fit-content',
 });
 
-const MiniBlock = styled('div')(({ color, clickable }) => ({
+const MiniBlock = styled('div')(({ color }) => ({
    height: '29px',
    borderRadius: '4px',
    color: 'white',
    padding: '4px 20px',
    fontSize: '14px',
    fontWeight: '500',
+   cursor: 'pointer',
    background: color,
-   cursor: clickable ? 'pointer' : 'default',
 }));
