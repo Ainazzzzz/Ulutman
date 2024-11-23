@@ -1,15 +1,81 @@
-import React, { useState } from 'react'
-import { InputBase, RadioGroup, styled } from '@mui/material'
+import React from 'react'
+import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import Search from '../../../assets/icons/searchgreyinput.svg?react'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { useDispatch, useSelector } from 'react-redux'
 import ArrowPurpul from '../../../assets/icons/arrowpurpul.svg?react'
-import RadioButton from '../../../components/UI/RadioButton'
-import { CheckBox } from '../../../components/UI/Checkbox'
+import Input from '../../../components/UI/Input'
 import { Button } from '../../../components/UI/Button'
+import { addAdmin } from '../../../redux/auth/authThunk'
+import Spinner from '../../../components/UI/Spinner'
+
+const FORM_INPUTS = [
+   {
+      name: 'name',
+      label: 'Имя',
+      type: 'text',
+      placeholder: 'Ivan Pupkin',
+   },
+   {
+      name: 'email',
+      label: 'Почта',
+      type: 'email',
+      placeholder: 'example@gmail.com',
+   },
+   {
+      name: 'password',
+      label: 'Пароль',
+      type: 'password',
+      placeholder: '',
+   },
+   {
+      name: 'confirmPassword',
+      label: 'Подтвердите пароль',
+      type: 'password',
+      placeholder: '',
+   },
+]
+
+export const addAdminSchema = Yup.object().shape({
+   name: Yup.string()
+      .min(2, 'Имя должно быть не короче 2 символов')
+      .required('Имя обязательно'),
+   email: Yup.string()
+      .email('Некорректный email')
+      .matches(
+         /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
+         'Email должен быть адресом @gmail.com',
+      )
+      .required('Почта обязательна'),
+   password: Yup.string()
+      .min(6, 'Пароль должен быть не короче 6 символов')
+      .required('Пароль обязателен'),
+   confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
+      .required('Подтверждение пароля обязательно'),
+})
 
 const AddAdmin = () => {
+   const dispatch = useDispatch()
    const navigate = useNavigate()
-   const [selectedOption] = useState('')
+
+   const { isLoading, error } = useSelector(state => state.auth)
+
+   const onSubmit = values => {
+      dispatch(addAdmin({ adminData: values, navigate }))
+   }
+
+   const { handleChange, handleSubmit, errors } = useFormik({
+      initialValues: {
+         name: '',
+         email: '',
+         password: '',
+         confirmPassword: '',
+      },
+      onSubmit: values => onSubmit(values),
+      validationSchema: addAdminSchema,
+   })
 
    return (
       <div>
@@ -20,42 +86,26 @@ const AddAdmin = () => {
                <BackStyle>Назад</BackStyle>
             </ArrowBox>
          </ContainerTitleArrow>
-         <SehondBigContainer>
-            <InputStyle>
-               <SearchIconStyle>
-                  <Search />
-               </SearchIconStyle>
-               <InputBase placeholder="Поиск" />
-            </InputStyle>
-            <RadioGroup>
-               <RadioButtonStyle>
-                  <RadioButton
-                     label="Выбрать все"
-                     value="all"
-                     checked={selectedOption === 'all'}
-                  />
-                  <RadioButton
-                     label="Некоторые"
-                     value="some"
-                     checked={selectedOption === 'some'}
-                  />
-               </RadioButtonStyle>
-            </RadioGroup>
-            <CheckboxStyle>
-               <CheckboxFive type="checkbox" label="Dashboard" />
-               <CheckboxFive
-                  type="checkbox"
-                  label="Управление пользователями"
+         <FormContainer onSubmit={handleSubmit}>
+            {FORM_INPUTS.map(input => (
+               <Input
+                  key={input.name}
+                  label={input.label}
+                  placeholder={input.placeholder}
+                  type={input.type}
+                  name={input.name}
+                  helperText={errors[input.name]}
+                  error={errors[input.name]}
+                  onChange={handleChange}
                />
-               <CheckboxFive type="checkbox" label="Управление объявлениями" />
-               <CheckboxFive
-                  type="checkbox"
-                  label="Управление категориями и подкатегориями"
-               />
-               <CheckboxFive type="checkbox" label="Модерация контента" />
-            </CheckboxStyle>
-            <Button>Добавить</Button>
-         </SehondBigContainer>
+            ))}
+
+            <ErrorText>{error}</ErrorText>
+
+            <Button type="submit" disabled={isLoading}>
+               {isLoading ? <Spinner /> : 'Добавить'}
+            </Button>
+         </FormContainer>
       </div>
    )
 }
@@ -74,16 +124,18 @@ const ArrowBox = styled('div')(({ theme }) => ({
       display: 'none',
    },
 }))
-const SehondBigContainer = styled('div')(({ theme }) => ({
-   paddingLeft: '30px',
-   [theme.breakpoints.down('md')]: {
-      paddingLeft: '30px',
-   },
+const FormContainer = styled('form')(() => ({
+   padding: '0 30px',
+   maxWidth: '500px',
+   width: '100%',
+   minWidth: '200px',
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '10px',
 }))
 
 const TitleSyle = styled('div')(({ theme }) => ({
    color: 'rgb(40, 40, 40)',
-   fontFamily: 'Kanit',
    fontSize: '34px',
    fontWeight: '600',
    lineHeight: '51px',
@@ -96,49 +148,6 @@ const TitleSyle = styled('div')(({ theme }) => ({
    },
 }))
 
-const InputStyle = styled('div')(() => ({
-   display: 'flex',
-   gap: '15px',
-   width: '343px',
-   height: '38px',
-   border: '0.6px solid rgb(213, 213, 213)',
-   borderRadius: '19px',
-   background: 'rgb(245, 246, 250)',
-}))
-const SearchIconStyle = styled('div')(() => ({
-   padding: '10px 0 10px 10px',
-}))
-const RadioButtonStyle = styled('div')(() => ({
-   display: 'flex',
-   gap: '60px',
-   paddingTop: '33px',
-   paddingBottom: '47px',
-   color: 'rgb(0, 0, 0)',
-   fontFamily: 'Inter',
-   fontSize: '14px',
-   fontWeight: '700',
-   lineHeight: '17px',
-}))
-
-const CheckboxStyle = styled('div')(() => ({
-   display: 'flex',
-   flexDirection: 'column',
-   gap: '35px',
-   paddingBottom: '35px',
-}))
-const CheckboxFive = styled(CheckBox)(({ theme }) => ({
-   color: 'rgb(0, 0, 0)',
-   fontFamily: 'Inter',
-   fontSize: '14px',
-   fontWeight: '800',
-   lineHeight: '17px',
-   [theme.breakpoints.down('md')]: {
-      lineHeight: '16px',
-      fontSize: '14px',
-      fontWeight: '500',
-      height: '17px',
-   },
-}))
 const BackStyle = styled('p')(() => ({
    color: 'rgb(126, 82, 255)',
    fontFamily: 'Inter',
@@ -146,3 +155,8 @@ const BackStyle = styled('p')(() => ({
    fontWeight: '400',
    lineHeight: '17px',
 }))
+
+const ErrorText = styled('p')({
+   color: 'red',
+   fontSize: '12px',
+})

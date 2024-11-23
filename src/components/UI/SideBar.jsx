@@ -9,22 +9,16 @@ import { useTranslation } from 'react-i18next'
 import LogOutModal from './LogOutModal'
 
 import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react'
-import Arrow from '../../assets/icons/down-arrow-icon.svg?react'
-
-const StyledArrow = styled(Arrow)(() => ({}))
 
 const dataArray = [
    { key: 'dashboard', value: 'Статистика' },
    {
       key: 'users',
       value: 'Пользователи',
-      icon: <StyledArrow />,
-      subData: [
-         {
-            key: 'mailing',
-            value: 'email - рассылки',
-         },
-      ],
+   },
+   {
+      key: 'mailing',
+      value: 'email - рассылки',
    },
    { key: 'ads', value: 'Объявления' },
    { key: 'categories', value: 'Категории' },

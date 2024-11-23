@@ -21,7 +21,7 @@ export const PATHS = {
       MODERATION: '/admin/moderation',
       COMPLAINTS: '/admin/moderation/complaints',
       COMMENTS: '/admin/moderation/comments',
-      MAILING: '/admin/users/mailing',
+      MAILING: '/admin/mailing',
       ADD_MAILING: '/admin/users/add-mailing',
       ADD_ADMIN: '/admin/add-administrator',
       ADVERTISING: '/admin/advertising',

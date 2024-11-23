@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { logOut, signIn, signUp } from './authThunk'
+import { addAdmin, logOut, signIn, signUp } from './authThunk'
 import { updateUserProfile } from '../users/profileThunk'
 
 const getInitialState = () => {
@@ -108,6 +108,18 @@ export const authSlice = createSlice({
          })
          .addCase(updateUserProfile.rejected, state => {
             state.isLoading = false
+         })
+
+      builder
+         .addCase(addAdmin.fulfilled, state => {
+            state.isLoading = false
+         })
+         .addCase(addAdmin.pending, state => {
+            state.isLoading = true
+         })
+         .addCase(addAdmin.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.payload
          })
    },
 })

@@ -15,7 +15,7 @@ export const logOut = createAsyncThunk(
 
 export const signIn = createAsyncThunk(
    'auth/signIn',
-   async ({ userData, onClose }, { rejectedWithValue }) => {
+   async ({ userData, onClose }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.post('auth/sign-in', userData)
 
@@ -30,14 +30,14 @@ export const signIn = createAsyncThunk(
       } catch (e) {
          const errorMessage = e.response?.data || 'Неверные данные для входа'
          showToast('error', errorMessage)
-         return rejectedWithValue(errorMessage)
+         return rejectWithValue(errorMessage)
       }
    },
 )
 
 export const signUp = createAsyncThunk(
    'auth/signUp',
-   async ({ val, onClose }, { rejectedWithValue }) => {
+   async ({ val, onClose }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.post('auth/sign-up', val)
 
@@ -48,7 +48,30 @@ export const signUp = createAsyncThunk(
 
          return data
       } catch (e) {
-         return rejectedWithValue(e)
+         const errorMessage = e.response?.data || 'Неверные данные для входа'
+         showToast('error', errorMessage)
+         return rejectWithValue(errorMessage)
+      }
+   },
+)
+
+export const addAdmin = createAsyncThunk(
+   'auth/createAdmin',
+   async ({ adminData, navigate }, { rejectWithValue }) => {
+      try {
+         const { data } = await axiosInstance.post('admin/sign-up', {
+            ...adminData,
+            status: 'АКТИВНЫЙ',
+         })
+
+         navigate(-1)
+         showToast('success', 'Успешно добавлено')
+
+         return data
+      } catch (e) {
+         const errorMessage = e.response?.data || 'Неверные данные для входа'
+         showToast('error', errorMessage)
+         return rejectWithValue(errorMessage)
       }
    },
 )
