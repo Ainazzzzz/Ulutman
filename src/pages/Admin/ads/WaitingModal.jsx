@@ -4,14 +4,14 @@ import { toast } from 'react-toastify';
 import Toastify from '../../../components/UI/Toastify.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const WaitingModal = ({ onClose, isOpen }) => {
+export const WaitingModal = ({ onClose, isOpen, type }) => {
    const notifySuccess = () => {
       toast.success('Одобрено');
       onClose();
    };
 
    const notifyError = () => {
-      toast.error('Ошибка');
+      // toast.error('Ошибка');
       onClose();
    };
 

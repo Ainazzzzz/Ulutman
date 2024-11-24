@@ -1,4 +1,10 @@
-import React, { useMemo, useReducer, useCallback, useEffect } from 'react';
+import React, {
+   useMemo,
+   useReducer,
+   useCallback,
+   useEffect,
+   useState,
+} from 'react';
 import { styled } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,6 +30,7 @@ import { CheckBox } from '../../../components/UI/Checkbox';
 import { checkAllUsers, checkUser } from '../../../redux/users/usersSlice';
 import { useTranslation } from 'react-i18next';
 import TableSkeleton from '../../../components/UI/TableSkeleton';
+import BlockUserModal from './BlockUserModal';
 
 const inputData = [{ id: 'name', value: 'По имени' }];
 const selectsConfig = [
@@ -48,7 +55,7 @@ const selectsConfig = [
 
 const initialState = {
    deleteAllModal: false,
-   waitingModal: false,
+   blockUser: false,
    inputValues: { name: '', date: [] },
    selectedValues: { role: 'role', date: 'date', status: 'status' },
 };
@@ -71,10 +78,12 @@ const reducer = (state, action) => {
 
 const Users = () => {
    const [state, dispatchFunc] = useReducer(reducer, initialState);
+   const dispatch = useDispatch();
    const { allUsers, isLoading } = useSelector(state => state.users);
    const navigate = useNavigate();
-   const dispatch = useDispatch();
    const { t } = useTranslation();
+
+   const [userData, setUserData] = useState(null);
 
    const debouncedName = useDebounce(state.inputValues.name, 1500);
 
@@ -196,7 +205,12 @@ const Users = () => {
 
    const headers = useMemo(
       () =>
-         getAdminTableHeaders(() => toggleModal('waitingModal'), USERS_COLUMNS),
+         getAdminTableHeaders(
+            () => toggleModal('blockUser'),
+            USERS_COLUMNS,
+            'user',
+            setUserData,
+         ),
       [toggleModal],
    );
 
@@ -233,9 +247,10 @@ const Users = () => {
             onClose={() => toggleModal('deleteAllModal')}
             onDelete={handleDeleteUser}
          />
-         <WaitingModal
-            isOpen={state.waitingModal}
-            onClose={() => toggleModal('waitingModal')}
+         <BlockUserModal
+            isOpen={state.blockUser}
+            onClose={() => toggleModal('blockUser')}
+            userData={userData}
          />
       </Wrapper>
    );

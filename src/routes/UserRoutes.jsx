@@ -30,7 +30,7 @@ export const UserRoutes = role => [
       element: (
          <PrivateAuthRouteByRole
             role={role}
-            roles={['USER']}
+            roles={['GUEST', 'USER']}
             fallBackPath={PATHS.USER}
             RouteComponent={<Categories />}
          />
@@ -70,7 +70,7 @@ export const UserRoutes = role => [
       element: (
          <PrivateAuthRouteByRole
             role={role}
-            roles={['USER']}
+            roles={['GUEST', 'USER']}
             fallBackPath={PATHS.USER.ROOT}
             RouteComponent={<DetailInfo />}
          />
