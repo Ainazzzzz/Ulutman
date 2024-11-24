@@ -5,6 +5,7 @@ import {
    getSimilarAds,
    postFavorite,
 } from './detailInfoThunk';
+import { sortPublishesRequest } from '../main/mainThunk';
 
 export const detailInfoSlice = createSlice({
    name: 'detailInfo',
@@ -43,6 +44,9 @@ export const detailInfoSlice = createSlice({
             state.error = null;
          })
          .addCase(getSimilarAds.fulfilled, (state, action) => {
+            state.similarAds = action.payload;
+         })
+         .addCase(sortPublishesRequest.fulfilled, (state, action) => {
             state.similarAds = action.payload;
          });
    },

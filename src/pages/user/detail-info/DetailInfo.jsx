@@ -147,11 +147,14 @@ const DetailInfo = () => {
                         <Box className="second_box">
                            <Box className="main-info">
                               <Typography className="price">
-                                 {detailInfo?.detailInfo?.price || 'Не указано'}
                                  {detailInfo?.detailInfo?.category ===
                                     'REAL_ESTATE' &&
                                     (detailInfo?.detailInfo?.conditions
                                        ?.pricePerMonth ||
+                                       'Не указано')}
+                                 {detailInfo?.detailInfo?.category !==
+                                    'REAL_ESTATE' &&
+                                    (detailInfo?.detailInfo?.price ||
                                        'Не указано')}
                                  ₽/мес.
                               </Typography>
@@ -171,28 +174,39 @@ const DetailInfo = () => {
                               />
                            </Box>
 
-                           <Typography
-                              variant="h3"
-                              className="description_detail-info"
-                           >
-                              Описания объявления
-                           </Typography>
-                           <Typography className="descriptioon-text">
-                              {isExpanded ? description : shortDescription}
-                              {words.length > 20 && !isExpanded && '...'}{' '}
-                           </Typography>
-                           {words.length > 20 && (
-                              <Typography
-                                 className="read-more-text"
-                                 onClick={handleReadMore}
-                              >
-                                 {isExpanded ? 'Скрыть' : 'Читать дальше'}
-                                 <ArrowIcon
-                                    className={
-                                       isExpanded ? 'arrow-up' : 'arrow-down'
-                                    }
-                                 />
-                              </Typography>
+                           {detailInfo?.detailInfo?.category !==
+                              'REAL_ESTATE' && (
+                              <Box className="description-container">
+                                 <Typography
+                                    variant="h3"
+                                    className="description_detail-info"
+                                 >
+                                    Описание объявления
+                                 </Typography>
+
+                                 <Typography className="description-text">
+                                    {isExpanded
+                                       ? description
+                                       : shortDescription}
+                                    {words.length > 15 && !isExpanded && '...'}
+                                 </Typography>
+
+                                 {words.length > 15 && (
+                                    <Typography
+                                       className="read-more-text"
+                                       onClick={handleReadMore}
+                                    >
+                                       {isExpanded ? 'Скрыть' : 'Читать дальше'}
+                                       <ArrowIcon
+                                          className={
+                                             isExpanded
+                                                ? 'arrow-up'
+                                                : 'arrow-down'
+                                          }
+                                       />
+                                    </Typography>
+                                 )}
+                              </Box>
                            )}
 
                            {detailInfo?.detailInfo?.category ===
@@ -336,9 +350,6 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       display: 'flex',
       flexDirection: 'column',
       gap: '0.5rem',
-      width: '750px',
-      marginBottom: '120px',
-      marginTop: '30px',
 
       '& > .descriptioon-text': {
          marginTop: '0.6rem',

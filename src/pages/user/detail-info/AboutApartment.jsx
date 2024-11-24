@@ -16,9 +16,9 @@ const AboutApartment = ({ detailInfo }) => {
    console.log(detailInfo?.detailInfo?.propertyDetails);
    const propertyDetails = detailInfo?.detailInfo?.propertyDetails;
 
-   // if (!propertyDetails) {
-   //    return <p></p>;
-   // }
+   if (!propertyDetails) {
+      return <p></p>;
+   }
 
    const apartmentInfo = [
       {

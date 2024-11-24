@@ -15,7 +15,7 @@ export const SimilarAds = ({ currentCategory }) => {
 
    const [sortedAds, setSortedAds] = useState([]);
 
-   const { similarAds, loading } = useSelector(state => state.detailInfo);
+   const { similarAds } = useSelector(state => state.detailInfo);
 
    useEffect(() => {
       dispatch(getSimilarAds());
@@ -27,7 +27,6 @@ export const SimilarAds = ({ currentCategory }) => {
 
    const handleSortChange = sortValue => {
       dispatch(sortPublishesRequest(sortValue));
-      console.log(sortValue);
    };
 
    const seeMoreHandler = () => {
@@ -55,7 +54,7 @@ export const SimilarAds = ({ currentCategory }) => {
                   onSortChange={handleSortChange}
                />
             </Block>
-            <CardList cards={sortedAds.slice(0, 8)} loading={loading} />
+            <CardList cards={sortedAds.slice(0, 8)} />
          </div>
          <Button variant="category-sort" onClick={seeMoreHandler}>
             Посмотреть еще
