@@ -1,4 +1,5 @@
-import { Button as MuiButton, styled } from '@mui/material';
+import { Button as MuiButton, styled } from '@mui/material'
+
 const getButtonVariantStyles = variant => {
    const commonStyles = {
       background: 'rgba(126, 82, 255, 0.1)',
@@ -9,15 +10,15 @@ const getButtonVariantStyles = variant => {
          color: '#FFF',
          border: '1px solid transparent',
       },
-   };
+   }
    switch (variant) {
       case 'outlined':
-         return commonStyles;
+         return commonStyles
       case 'text':
          return {
             ...commonStyles,
             border: '1px solid transparent',
-         };
+         }
 
       case 'search':
          return {
@@ -30,7 +31,7 @@ const getButtonVariantStyles = variant => {
             '&:hover': {
                background: '#9774FF',
             },
-         };
+         }
 
       case 'sort':
          return {
@@ -47,7 +48,7 @@ const getButtonVariantStyles = variant => {
             '&:hover': {
                background: '#9774FF',
             },
-         };
+         }
 
       case 'category-sort':
          return {
@@ -74,12 +75,12 @@ const getButtonVariantStyles = variant => {
             '&.Mui-disabled': {
                opacity: '0.5',
             },
-         };
+         }
 
       case 'warning':
          return {
             color: '#ff0000',
-         };
+         }
 
       case 'contained':
       default:
@@ -90,9 +91,9 @@ const getButtonVariantStyles = variant => {
             '&:hover': {
                background: '#9774FF',
             },
-         };
+         }
    }
-};
+}
 
 export const Button = ({
    children,
@@ -112,8 +113,8 @@ export const Button = ({
       >
          {children}
       </StyledButton>
-   );
-};
+   )
+}
 
 const StyledButton = styled(MuiButton)(({ variant }) => ({
    '&.MuiButtonBase-root': {
@@ -134,4 +135,4 @@ const StyledButton = styled(MuiButton)(({ variant }) => ({
       color: '#FFF',
    },
    ...getButtonVariantStyles(variant),
-}));
+}))

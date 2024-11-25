@@ -1,26 +1,22 @@
-import {
-   Navigate,
-   RouterProvider,
-   createBrowserRouter,
-} from 'react-router-dom';
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import { AdminRoutes } from './AdminRoutes';
-import { MainLayout } from '../layout/RouteWrapper/MainLayout';
-import { AdminLayout } from '../layout/RouteWrapper/AdminLayout';
-import { PrivateAuthRouter } from './private/PrivateAuthRoute';
-import { UserRoutes } from './UserRoutes';
-import { useSelector } from 'react-redux';
-import NotFoundPage from '../pages/NotFound';
-import { PATHS } from '../utils/constants/paths';
+import { useSelector } from 'react-redux'
+import { AdminRoutes } from './AdminRoutes'
+import { MainLayout } from '../layout/RouteWrapper/MainLayout'
+import { AdminLayout } from '../layout/RouteWrapper/AdminLayout'
+import { PrivateAuthRouter } from './private/PrivateAuthRoute'
+import { UserRoutes } from './UserRoutes'
+import NotFoundPage from '../pages/NotFound'
+import { PATHS } from '../utils/constants/paths'
 
 export const AppRoutes = () => {
-   const { userData } = useSelector(state => state.auth);
+   const { userData } = useSelector(state => state.auth)
 
    const pathsByRole = {
       ADMIN: PATHS.ADMIN.ROOT,
       USER: PATHS.USER.ROOT,
       GUEST: PATHS.HOME,
-   };
+   }
 
    const router = createBrowserRouter([
       {
@@ -55,7 +51,7 @@ export const AppRoutes = () => {
          path: PATHS.FALLBACK,
          element: <NotFoundPage />,
       },
-   ]);
+   ])
 
-   return <RouterProvider router={router} />;
-};
+   return <RouterProvider router={router} />
+}

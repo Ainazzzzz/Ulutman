@@ -1,38 +1,37 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React, {
    useMemo,
    useReducer,
    useCallback,
    useEffect,
    useState,
-} from 'react';
-import { styled } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+} from 'react'
+import { styled } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { useDebounce } from '../../../hooks/useDebounce';
-import Table from '../../../components/UI/Table';
-import { getAdminTableHeaders } from '../category/AdminTableHeader';
-import { AdsDeleteModal } from '../ads/AdsDeleteModal';
-import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter';
-import { WaitingModal } from '../ads/WaitingModal';
-import { Button } from '../../../components/UI/Button';
+import { useTranslation } from 'react-i18next'
+import { useDebounce } from '../../../hooks/useDebounce'
+import Table from '../../../components/UI/Table'
+import { getAdminTableHeaders } from '../category/AdminTableHeader'
+import { AdsDeleteModal } from '../ads/AdsDeleteModal'
+import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter'
+import { Button } from '../../../components/UI/Button'
 
-import Plus from '../../../assets/icons/plus.svg?react';
+import Plus from '../../../assets/icons/plus.svg?react'
 
 import {
    deleteUsers,
    getAllUsers,
    getResetFilter,
    getUsersFilter,
-   getUsersName,
-} from '../../../redux/users/usersThunk';
-import { CheckBox } from '../../../components/UI/Checkbox';
-import { checkAllUsers, checkUser } from '../../../redux/users/usersSlice';
-import { useTranslation } from 'react-i18next';
-import TableSkeleton from '../../../components/UI/TableSkeleton';
-import BlockUserModal from './BlockUserModal';
+} from '../../../redux/users/usersThunk'
+import { CheckBox } from '../../../components/UI/Checkbox'
+import { checkAllUsers, checkUser } from '../../../redux/users/usersSlice'
+import TableSkeleton from '../../../components/UI/TableSkeleton'
+import BlockUserModal from './BlockUserModal'
 
-const inputData = [{ id: 'name', value: 'По имени' }];
+const inputData = [{ id: 'name', value: 'По имени' }]
 const selectsConfig = [
    {
       label: 'role',
@@ -51,101 +50,101 @@ const selectsConfig = [
          { id: 'e7', value: 'ЗАБЛОКИРОВАН', label: 'ЗАБЛОКИРОВАН' },
       ],
    },
-];
+]
 
 const initialState = {
    deleteAllModal: false,
    blockUser: false,
    inputValues: { name: '', date: [] },
    selectedValues: { role: 'role', date: 'date', status: 'status' },
-};
+}
 
 const reducer = (state, action) => {
    switch (action.type) {
       case 'TOGGLE_MODAL':
-         return { ...state, [action.payload]: !state[action.payload] };
+         return { ...state, [action.payload]: !state[action.payload] }
       case 'SET_VALUES':
          return {
             ...state,
             [action.field]: { ...state[action.field], ...action.payload },
-         };
+         }
       case 'RESET_FILTER':
-         return initialState;
+         return initialState
       default:
-         return state;
+         return state
    }
-};
+}
 
 const Users = () => {
-   const [state, dispatchFunc] = useReducer(reducer, initialState);
-   const dispatch = useDispatch();
-   const { allUsers, isLoading } = useSelector(state => state.users);
-   const navigate = useNavigate();
-   const { t } = useTranslation();
+   const [state, dispatchFunc] = useReducer(reducer, initialState)
+   const dispatch = useDispatch()
+   const { allUsers, isLoading } = useSelector(state => state.users)
+   const navigate = useNavigate()
+   const { t } = useTranslation()
 
-   const [userData, setUserData] = useState(null);
+   const [userData, setUserData] = useState(null)
 
-   const debouncedName = useDebounce(state.inputValues.name, 1500);
+   const debouncedName = useDebounce(state.inputValues.name, 1500)
 
    const formatDate = date => {
-      const [day, month, year] = date.split('.');
+      const [day, month, year] = date.split('.')
 
-      const currentYear = new Date().getFullYear();
-      const century = Math.floor(currentYear / 100) * 100;
+      const currentYear = new Date().getFullYear()
+      const century = Math.floor(currentYear / 100) * 100
       const formattedYear =
-         year.length === 2 ? century + parseInt(year, 10) : year;
+         year.length === 2 ? century + parseInt(year, 10) : year
 
-      return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-   };
+      return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+   }
 
    const fetchUsers = useCallback(() => {
-      const { date, name } = state.inputValues;
-      const { role, status } = state.selectedValues;
+      const { date, name } = state.inputValues
+      const { role, status } = state.selectedValues
 
-      const filters = {};
-      if (role !== 'role') filters.roles = role;
-      if (status !== 'status') filters.statuses = status;
-      if (name !== '') filters.names = debouncedName;
+      const filters = {}
+      if (role !== 'role') filters.roles = role
+      if (status !== 'status') filters.statuses = status
+      if (name !== '') filters.names = debouncedName
 
       if (date.length) {
-         const formattedDates = date.map(formatDate);
+         const formattedDates = date.map(formatDate)
 
-         filters.createDates = formattedDates;
+         filters.createDates = formattedDates
       }
 
       if (Object.keys(filters).length) {
-         dispatch(getUsersFilter(filters));
+         dispatch(getUsersFilter(filters))
       } else {
-         dispatch(getAllUsers());
+         dispatch(getAllUsers())
       }
-   }, [debouncedName, state.selectedValues, dispatch]);
+   }, [debouncedName, state.selectedValues, dispatch])
 
    useEffect(() => {
-      fetchUsers();
-   }, [debouncedName, fetchUsers, dispatch]);
+      fetchUsers()
+   }, [debouncedName, fetchUsers, dispatch])
 
    const toggleModal = useCallback(modalType => {
-      dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });
-   }, []);
+      dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType })
+   }, [])
 
    const setValues = useCallback((field, payload) => {
-      dispatchFunc({ type: 'SET_VALUES', field, payload });
-   }, []);
+      dispatchFunc({ type: 'SET_VALUES', field, payload })
+   }, [])
 
    const resetFilterHandler = () => {
-      dispatchFunc({ type: 'RESET_FILTER' });
-      dispatch(getResetFilter());
-   };
+      dispatchFunc({ type: 'RESET_FILTER' })
+      dispatch(getResetFilter())
+   }
 
    const handleDeleteUser = () => {
       const filteredUsers = allUsers.filter(
          user => user.checked && user.checked,
-      );
+      )
 
-      const userIds = filteredUsers.map(user => user.id);
+      const userIds = filteredUsers.map(user => user.id)
 
-      dispatch(deleteUsers({ userIds, toggleModal }));
-   };
+      dispatch(deleteUsers({ userIds, toggleModal }))
+   }
 
    const USERS_COLUMNS = [
       {
@@ -201,7 +200,7 @@ const Users = () => {
             </span>
          ),
       },
-   ];
+   ]
 
    const headers = useMemo(
       () =>
@@ -212,7 +211,7 @@ const Users = () => {
             setUserData,
          ),
       [toggleModal],
-   );
+   )
 
    return (
       <Wrapper>
@@ -253,10 +252,10 @@ const Users = () => {
             userData={userData}
          />
       </Wrapper>
-   );
-};
+   )
+}
 
-export default Users;
+export default Users
 
 const Description = styled('h2')(({ theme }) => ({
    fontWeight: 600,
@@ -265,7 +264,7 @@ const Description = styled('h2')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '22px',
    },
-}));
+}))
 
 const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -275,7 +274,7 @@ const Wrapper = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       overflowX: 'scroll',
    },
-}));
+}))
 
 const WrapperTitle = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -285,4 +284,4 @@ const WrapperTitle = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
    },
-}));
+}))

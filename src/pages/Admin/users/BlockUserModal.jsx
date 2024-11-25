@@ -1,19 +1,20 @@
-import React from 'react';
-import Modal from '../../../components/UI/Modal';
-import { styled } from '@mui/material';
-import { Button } from '../../../components/UI/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { blockUserRequest } from '../../../redux/users/usersThunk';
-import Spinner from '../../../components/UI/Spinner';
+/* eslint-disable no-nested-ternary */
+import React from 'react'
+import { styled } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import Modal from '../../../components/UI/Modal'
+import { Button } from '../../../components/UI/Button'
+import { blockUserRequest } from '../../../redux/users/usersThunk'
+import Spinner from '../../../components/UI/Spinner'
 
 const BlockUserModal = ({ onClose, isOpen, userData }) => {
-   const dispatch = useDispatch();
-   const { isLoading } = useSelector(state => state.users);
+   const dispatch = useDispatch()
+   const { isLoading } = useSelector(state => state.users)
 
    const isBlock = {
       ЗАБЛОКИРОВАН: false,
       АКТИВНЫЙ: true,
-   };
+   }
 
    const blockUser = () => {
       dispatch(
@@ -22,8 +23,8 @@ const BlockUserModal = ({ onClose, isOpen, userData }) => {
             newStatus: isBlock[userData.status] ? 'ЗАБЛОКИРОВАН' : 'АКТИВНЫЙ',
             onClose,
          }),
-      );
-   };
+      )
+   }
 
    return (
       <Modal open={isOpen} handleClose={onClose} variant="info">
@@ -43,10 +44,10 @@ const BlockUserModal = ({ onClose, isOpen, userData }) => {
             </div>
          </Container>
       </Modal>
-   );
-};
+   )
+}
 
-export default BlockUserModal;
+export default BlockUserModal
 
 const Container = styled('div')(() => ({
    display: 'flex',
@@ -57,13 +58,13 @@ const Container = styled('div')(() => ({
       display: 'flex',
       gap: '40px',
    },
-}));
+}))
 
 const Title = styled('p')(() => ({
    fontWeight: '500',
    color: '#202020',
    textAlign: 'center',
-}));
+}))
 const FirstButton = styled(Button)(() => ({
    fontWeight: '500',
    fontSize: '17px',
@@ -80,7 +81,7 @@ const FirstButton = styled(Button)(() => ({
    '&:active': {
       background: '#367608 !important',
    },
-}));
+}))
 const SecondButton = styled(Button)(() => ({
    fontWeight: '500',
    fontSize: '17px',
@@ -97,4 +98,4 @@ const SecondButton = styled(Button)(() => ({
    '&:active': {
       background: '#990000 !important',
    },
-}));
+}))

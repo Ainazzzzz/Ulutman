@@ -1,32 +1,34 @@
-import { useState } from 'react';
-import Modal from '../../components/UI/Modal';
-import CloseIcon from '../../assets/icons/cross-icon.svg?react';
-import UserLogo from '../../assets/icons/email-logo-icon.svg?react';
-import NextIcon from '../../assets/icons/next-violet-icon.svg?react';
-import { styled } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { Button } from '../../components/UI/Button';
+import { useState } from 'react'
+import { styled } from '@mui/material'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Modal from '../../components/UI/Modal'
+import CloseIcon from '../../assets/icons/cross-icon.svg?react'
+import UserLogo from '../../assets/icons/email-logo-icon.svg?react'
+import NextIcon from '../../assets/icons/next-violet-icon.svg?react'
+import { Button } from '../../components/UI/Button'
 
 export const AccountSelection = () => {
-   const [isOpen, setIsOpen] = useState(true);
-   const [anchorEl, setAnchorEl] = useState(null);
-   const [selectedEmail, setSelectedEmail] = useState('Jaka-imanaliev@mail.ru');
+   const [isOpen, setIsOpen] = useState(true)
+   const [anchorEl, setAnchorEl] = useState(null)
+   const [selectedEmail, setSelectedEmail] = useState('Jaka-imanaliev@mail.ru')
 
-   const open = Boolean(anchorEl);
+   const open = Boolean(anchorEl)
 
    const handleClick = event => {
-      setAnchorEl(event.currentTarget);
-   };
+      setAnchorEl(event.currentTarget)
+   }
+
+   const handleClose = () => {
+      setAnchorEl(null)
+   }
 
    const handleMenuItemClick = email => {
-      setSelectedEmail(email);
-      handleClose();
-   };
-   const handleClose = () => {
-      setAnchorEl(null);
-   };
-   const handleCloseModal = () => setIsOpen(!isOpen);
+      setSelectedEmail(email)
+      handleClose()
+   }
+
+   const handleCloseModal = () => setIsOpen(!isOpen)
    return (
       <Modal open={isOpen} onClose={handleClose}>
          <IconStyle>
@@ -59,8 +61,8 @@ export const AccountSelection = () => {
             </Menu>
          </Box>
       </Modal>
-   );
-};
+   )
+}
 
 const IconStyle = styled('div')(() => ({
    svg: {
@@ -69,7 +71,7 @@ const IconStyle = styled('div')(() => ({
       right: '26px',
       cursor: 'pointer',
    },
-}));
+}))
 const Box = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
@@ -83,7 +85,7 @@ const Box = styled('div')(({ theme }) => ({
          fontSize: '24px',
       },
    },
-}));
+}))
 
 const Block = styled('div')(() => ({
    display: 'flex',
@@ -103,7 +105,7 @@ const Block = styled('div')(() => ({
       fontSize: '18px',
       width: '206px',
    },
-}));
+}))
 const Container = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
@@ -111,4 +113,4 @@ const Container = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       gap: '40px',
    },
-}));
+}))

@@ -5,4 +5,4 @@ export const languages = [
    { label: 'Узбекский', value: 'uz' },
    { label: 'Английский', value: 'en' },
    { label: 'Турецкий', value: 'tr' },
-];
+]

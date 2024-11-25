@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
-import { Paper, InputBase, styled } from '@mui/material';
-import SearchIcon from '../../assets/icons/search.svg?react';
-import { Button } from './Button';
+import { forwardRef } from 'react'
+import { Paper, InputBase, styled } from '@mui/material'
+import SearchIcon from '../../assets/icons/search.svg?react'
+import { Button } from './Button'
 
 const SearchInput = forwardRef(
    ({ placeholder, onChange, value, variant, onClick, ...rest }, ref) => (
@@ -21,9 +21,9 @@ const SearchInput = forwardRef(
          </Button>
       </StyledContainer>
    ),
-);
+)
 
-export default SearchInput;
+export default SearchInput
 
 const StyledContainer = styled(Paper)(({ theme }) => ({
    width: '100%',
@@ -57,4 +57,4 @@ const StyledContainer = styled(Paper)(({ theme }) => ({
       fontSize: '16px',
       fontWeight: '400',
    },
-}));
+}))

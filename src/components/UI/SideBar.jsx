@@ -1,64 +1,61 @@
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import { styled, Typography } from '@mui/material';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { Fragment, useState } from 'react';
-import LogOutModal from './LogOutModal';
-import { useTranslation } from 'react-i18next';
+import Box from '@mui/material/Box'
+import List from '@mui/material/List'
+import Divider from '@mui/material/Divider'
+import ListItem from '@mui/material/ListItem'
+import { styled, Typography } from '@mui/material'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { Fragment, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import LogOutModal from './LogOutModal'
 
-import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react';
-import Arrow from '../../assets/icons/down-arrow-icon.svg?react';
-
-const StyledArrow = styled(Arrow)(() => ({}));
+import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react'
 
 const dataArray = [
    { key: 'dashboard', value: 'Статистика' },
    {
       key: 'users',
       value: 'Пользователи',
-      icon: <StyledArrow />,
-      subData: [
-         {
-            key: 'mailing',
-            value: 'email - рассылки',
-         },
-      ],
+   },
+   {
+      key: 'mailing',
+      value: 'email - рассылки',
    },
    { key: 'ads', value: 'Объявления' },
    { key: 'categories', value: 'Категории' },
-   {
-      key: 'moderation',
-      value: 'Модерация',
-      icon: <StyledArrow />,
-      subData: [
-         {
-            key: 'complaints',
-            value: 'Управление жалобами и нарушениями',
-         },
-         {
-            key: 'comments',
-            value: 'Модерация комментариев и сообщений',
-         },
-      ],
-   },
-];
+
+   // На время убрал Модерация
+   // {
+   //    key: 'moderation',
+   //    value: 'Модерация',
+   //    icon: <StyledArrow />,
+   //    subData: [
+   //       {
+   //          key: 'complaints',
+   //          value: 'Управление жалобами и нарушениями',
+   //       },
+   //       {
+   //          key: 'comments',
+   //          value: 'Модерация комментариев и сообщений',
+   //       },
+   //    ],
+   // },
+   { key: 'advertising', value: 'Реклама' },
+]
 
 export const SideBar = () => {
-   const { t } = useTranslation();
-   const navigate = useNavigate();
+   const { t } = useTranslation()
+   const navigate = useNavigate()
 
-   const [openModal, setOpenModal] = useState(false);
-   const [activeSubLink, setActiveSubLink] = useState(null);
-   const toggleModal = () => setOpenModal(prev => !prev);
+   const [openModal, setOpenModal] = useState(false)
+   const [activeSubLink, setActiveSubLink] = useState(null)
+   const toggleModal = () => setOpenModal(prev => !prev)
 
    const toggleSubLink = key => {
-      setActiveSubLink(prev => (prev === key ? null : key));
-   };
+      setActiveSubLink(prev => (prev === key ? null : key))
+   }
 
    const DrawerList = (
-      <Box sx={{ width: 250 }}>
+      <Box sx={{ width: 250, position: 'sticky', top: 0 }}>
          <UlutmanLogo onClick={() => navigate('/admin')}>
             <Ulutman />
          </UlutmanLogo>
@@ -101,15 +98,15 @@ export const SideBar = () => {
             </ListItemStyle>
          </List>
       </Box>
-   );
+   )
 
    return (
       <>
          <DrawerStyle>{DrawerList}</DrawerStyle>
          <LogOutModal open={openModal} onClose={toggleModal} />
       </>
-   );
-};
+   )
+}
 
 const UlutmanLogo = styled('div')(() => ({
    cursor: 'pointer',
@@ -118,27 +115,24 @@ const UlutmanLogo = styled('div')(() => ({
       height: '29px',
       margin: ' 22px 53px 60px 53px',
    },
-}));
+}))
 const DrawerStyle = styled(Box)(() => ({
    width: '250px',
-   position: 'sticky',
    background: '#fff',
-   top: '0',
-   left: '0',
    zIndex: '100',
-}));
+}))
 
 const ListItemStyle = styled(ListItem)(() => ({
    paddingTop: '0px',
    paddingBottom: '0px',
    margin: '0 0 5px 0',
-}));
+}))
 
 const SubListItem = styled(ListItem)(() => ({
    paddingTop: '0px',
    paddingBottom: '0px',
    margin: '0 0 5px 10px',
-}));
+}))
 
 const NavStyle = styled(NavLink)(() => ({
    width: '192px',
@@ -192,7 +186,7 @@ const NavStyle = styled(NavLink)(() => ({
    path: {
       fill: '#222',
    },
-}));
+}))
 
 const LogOutBtn = styled(Typography)(() => ({
    width: '192px',
@@ -209,4 +203,4 @@ const LogOutBtn = styled(Typography)(() => ({
       color: '#fff',
    },
    cursor: 'pointer',
-}));
+}))

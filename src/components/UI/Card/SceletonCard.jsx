@@ -1,8 +1,10 @@
-import { Grid } from '@mui/material';
-import Skeleton from 'react-loading-skeleton';
-import { CardListBox } from './CardList';
-import { ContainerInfo, FirstBlock, SecondBlock, StyledCard } from './CardItem';
-import { memo } from 'react';
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable import/no-cycle */
+import { Grid } from '@mui/material'
+import Skeleton from 'react-loading-skeleton'
+import { memo } from 'react'
+import { CardListBox } from './CardList'
+import { ContainerInfo, FirstBlock, SecondBlock, StyledCard } from './CardItem'
 
 export const SceletonCard = memo(() => {
    return (
@@ -29,5 +31,5 @@ export const SceletonCard = memo(() => {
                </Grid>
             ))}
       </CardListBox>
-   );
-});
+   )
+})

@@ -1,45 +1,47 @@
-import { useEffect, useState } from 'react';
-import { Button } from '../../../components/UI/Button.jsx';
-import Input from '../../../components/UI/Input.jsx';
-import Modal from '../../../components/UI/Modal.jsx';
-import { styled } from '@mui/material';
-import CloseIcon from '../../../assets/icons/cross-icon.svg?react';
-import { AccountSelection } from '../AccountSelection.jsx';
-import { SignIn } from './SignIn.jsx';
+/* eslint-disable consistent-return */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { useEffect, useState } from 'react'
+import { styled } from '@mui/material'
+import { Button } from '../../../components/UI/Button'
+import Input from '../../../components/UI/Input'
+import Modal from '../../../components/UI/Modal'
+import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
+import { AccountSelection } from '../AccountSelection'
 
 export const LoginConfirmation = ({ handleBack }) => {
-   const [isOpen, setIsOpen] = useState(true);
-   const [code, setCode] = useState('');
-   const [error, setError] = useState('');
-   const [resendTimeout, setResendTimeout] = useState(0);
-   const [openAccount, setOpenAccount] = useState(false);
+   const [isOpen, setIsOpen] = useState(true)
+   const [code, setCode] = useState('')
+   const [error, setError] = useState('')
+   const [resendTimeout, setResendTimeout] = useState(0)
+   const [openAccount, setOpenAccount] = useState(false)
 
-   const handleClose = () => setIsOpen(!isOpen);
+   const handleClose = () => setIsOpen(!isOpen)
 
-   const handleCheckBoxChange = event => setCode(event.target.value);
+   const handleCheckBoxChange = event => setCode(event.target.value)
 
    const handleLogin = () => {
       if (code !== '1234') {
-         setError('Введён неверный код. Попробуйте ещё раз.');
+         setError('Введён неверный код. Попробуйте ещё раз.')
       } else {
-         setError('');
-         setIsOpen(!isOpen);
-         setOpenAccount(!openAccount);
+         setError('')
+         setIsOpen(!isOpen)
+         setOpenAccount(!openAccount)
       }
-   };
+   }
 
-   const handleResendCode = () => setResendTimeout(30);
+   const handleResendCode = () => setResendTimeout(30)
 
-   const handleOpenSignIn = () => handleBack();
+   const handleOpenSignIn = () => handleBack()
 
    useEffect(() => {
       if (resendTimeout > 0) {
          const timer = setInterval(() => {
-            setResendTimeout(prev => prev - 1);
-         }, 1000);
-         return () => clearInterval(timer);
+            setResendTimeout(prev => prev - 1)
+         }, 1000)
+         return () => clearInterval(timer)
       }
-   }, [resendTimeout]);
+   }, [resendTimeout])
 
    return (
       <Modal open={isOpen} onClose={handleClose}>
@@ -65,17 +67,11 @@ export const LoginConfirmation = ({ handleBack }) => {
                   type="number"
                />
                {error && <ErrorMessage>{error}</ErrorMessage>}
-               <>
-                  {resendTimeout > 0 ? (
-                     <span>
-                        Отправить код повторно через {resendTimeout} сек.
-                     </span>
-                  ) : (
-                     <span onClick={handleResendCode}>
-                        Отправить код повторно
-                     </span>
-                  )}
-               </>
+               {resendTimeout > 0 ? (
+                  <span>Отправить код повторно через {resendTimeout} сек.</span>
+               ) : (
+                  <span onClick={handleResendCode}>Отправить код повторно</span>
+               )}
             </BlockInput>
             {openAccount ? (
                <AccountSelection />
@@ -86,8 +82,8 @@ export const LoginConfirmation = ({ handleBack }) => {
             )}
          </Box>
       </Modal>
-   );
-};
+   )
+}
 
 const Box = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -103,7 +99,7 @@ const Box = styled('div')(({ theme }) => ({
          width: '280px',
       },
    },
-}));
+}))
 
 const BlockInput = styled('div')(() => ({
    display: 'flex',
@@ -115,7 +111,7 @@ const BlockInput = styled('div')(() => ({
       color: '#1877f2',
       cursor: 'ponter',
    },
-}));
+}))
 
 const Block = styled('div')(() => ({
    display: 'flex',
@@ -132,13 +128,13 @@ const Block = styled('div')(() => ({
       color: '#1877f2',
       cursor: 'pointer',
    },
-}));
+}))
 
 const ErrorMessage = styled('div')(() => ({
    color: 'red',
    fontWeight: '400',
    fontSize: '14px',
-}));
+}))
 
 const IconStyle = styled('div')(() => ({
    svg: {
@@ -147,4 +143,4 @@ const IconStyle = styled('div')(() => ({
       right: '26px',
       cursor: 'pointer',
    },
-}));
+}))

@@ -1,31 +1,23 @@
-import React, {
-   useCallback,
-   useEffect,
-   useMemo,
-   useReducer,
-   useState,
-} from 'react';
-import { styled } from '@mui/material';
-import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
-import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
-import Table from '../../../components/UI/Table.jsx';
-import { AdsDeleteModal } from './AdsDeleteModal.jsx';
-import { WaitingModal } from './WaitingModal.jsx';
-import { useDispatch, useSelector } from 'react-redux';
+/* eslint-disable react/no-unstable-nested-components */
+import React, { useCallback, useEffect, useMemo, useReducer } from 'react'
+import { styled } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter'
+import { getAdminTableHeaders } from '../category/AdminTableHeader'
+import Table from '../../../components/UI/Table'
+import { AdsDeleteModal } from './AdsDeleteModal'
+import { WaitingModal } from './WaitingModal'
 import {
    deleteAdminAds,
    getAdminAdds,
    getAdminFilter,
-   getName,
    getResetFilter,
-} from '../../../redux/thunks/adminAddThunk.js';
-import { useDebounce } from '../../../hooks/useDebance.js';
-import { CheckBox } from '../../../components/UI/Checkbox.jsx';
-import { translateCategory } from '../../../utils/general/translate.js';
-import { checkAds, checkAllAds } from '../../../redux/slices/adminAddsSlice.js';
-import TableSkeleton from '../../../components/UI/TableSkeleton.jsx';
+} from '../../../redux/thunks/adminAddThunk'
+import { useDebounce } from '../../../hooks/useDebance'
+import { translateCategory } from '../../../utils/general/translate'
+import TableSkeleton from '../../../components/UI/TableSkeleton'
 
-const inputData = [{ id: 'name', value: 'По имени' }];
+const inputData = [{ id: 'name', value: 'По имени' }]
 
 const selectsConfig = [
    {
@@ -54,136 +46,136 @@ const selectsConfig = [
          { id: 'k4', value: 'ОЖИДАЕТ', label: 'Ожидает ' },
       ],
    },
-];
+]
 
 const initialState = {
    deleteAllModal: false,
    waitingModal: false,
    inputValues: { name: '', search: '', date: [] },
    selectedValues: { date: 'date', status: 'status', category: 'category' },
-};
+}
 
 const reducer = (state, action) => {
    switch (action.type) {
       case 'TOGGLE_MODAL':
-         return { ...state, [action.payload]: !state[action.payload] };
+         return { ...state, [action.payload]: !state[action.payload] }
       case 'SET_VALUES':
          return {
             ...state,
             [action.field]: { ...state[action.field], ...action.payload },
-         };
+         }
       case 'RESET_FILTER':
-         return initialState;
+         return initialState
       default:
-         return state;
+         return state
    }
-};
+}
 
 const Ads = () => {
-   const [state, dispatchFunc] = useReducer(reducer, initialState);
-   const dispatch = useDispatch();
+   const [state, dispatchFunc] = useReducer(reducer, initialState)
+   const dispatch = useDispatch()
 
-   const debouncedName = useDebounce(state.inputValues.name, 1500);
+   const debouncedName = useDebounce(state.inputValues.name, 1500)
 
-   const { adminAdds, isLoading } = useSelector(state => state.adminAdds);
+   const { adminAdds, isLoading } = useSelector(state => state.adminAdds)
 
    const formatDate = date => {
-      const [day, month, year] = date.split('.');
+      const [day, month, year] = date.split('.')
 
-      const currentYear = new Date().getFullYear();
-      const century = Math.floor(currentYear / 100) * 100;
+      const currentYear = new Date().getFullYear()
+      const century = Math.floor(currentYear / 100) * 100
       const formattedYear =
-         year.length === 2 ? century + parseInt(year, 10) : year;
+         year.length === 2 ? century + parseInt(year, 10) : year
 
-      return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-   };
+      return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+   }
 
    const fetchUsers = useCallback(() => {
-      const { date, name } = state.inputValues;
-      const { category, status } = state.selectedValues;
+      const { date, name } = state.inputValues
+      const { category, status } = state.selectedValues
 
-      const filters = {};
-      if (category !== 'category') filters.categories = category;
-      if (status !== 'status') filters.publishStatuses = status;
-      if (name !== '') filters.names = name;
+      const filters = {}
+      if (category !== 'category') filters.categories = category
+      if (status !== 'status') filters.publishStatuses = status
+      if (name !== '') filters.names = name
 
       if (date.length) {
-         const formattedDates = date.map(formatDate);
-         filters.createDates = formattedDates;
+         const formattedDates = date.map(formatDate)
+         filters.createDates = formattedDates
       }
 
       if (Object.keys(filters).length) {
-         dispatch(getAdminFilter(filters));
+         dispatch(getAdminFilter(filters))
       } else {
-         dispatch(getAdminAdds());
+         dispatch(getAdminAdds())
       }
-   }, [state.inputValues, state.selectedValues, dispatch]);
+   }, [state.inputValues, state.selectedValues, dispatch])
 
    useEffect(() => {
       // if (debouncedName) {
       //    dispatch(getName(debouncedName));
       // } else {
-      fetchUsers();
+      fetchUsers()
       // }
-   }, [debouncedName, fetchUsers, dispatch, state.inputValues]);
+   }, [debouncedName, fetchUsers, dispatch, state.inputValues])
 
    const toggleModal = useCallback(modalType => {
-      dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });
-   }, []);
+      dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType })
+   }, [])
 
    const setValues = useCallback((field, payload) => {
-      dispatchFunc({ type: 'SET_VALUES', field, payload });
-   }, []);
+      dispatchFunc({ type: 'SET_VALUES', field, payload })
+   }, [])
 
    const resetFilterHandler = () => {
-      dispatchFunc({ type: 'RESET_FILTER' });
-      dispatch(getResetFilter());
-   };
+      dispatchFunc({ type: 'RESET_FILTER' })
+      dispatch(getResetFilter())
+   }
 
    const handleDeleteAds = () => {
-      const filteredAds = adminAdds.filter(ads => ads.checked && ads.checked);
+      const filteredAds = adminAdds.filter(ads => ads.checked && ads.checked)
 
-      const adsIds = filteredAds.map(ads => ads.id);
+      const adsIds = filteredAds.map(ads => ads.id)
 
-      dispatch(deleteAdminAds({ ids: adsIds, toggleModal }));
-   };
+      dispatch(deleteAdminAds({ ids: adsIds, toggleModal }))
+   }
 
    const ADS_COLUMNS = [
-      {
-         Header: ({ data }) => (
-            <CheckBox
-               onChange={e =>
-                  dispatch(checkAllAds({ checked: e.target.checked, data }))
-               }
-            />
-         ),
+      // {
+      //    Header: ({ data }) => (
+      //       <CheckBox
+      //          onChange={e =>
+      //             dispatch(checkAllAds({ checked: e.target.checked, data }))
+      //          }
+      //       />
+      //    ),
 
-         accessor: 'check',
-         Cell: ({ row }) => (
-            <CheckBox
-               checked={row.original.checked || false}
-               onChange={e =>
-                  dispatch(
-                     checkAds({
-                        checked: e.target.checked,
-                        data: row.original,
-                     }),
-                  )
-               }
-            />
-         ),
-      },
+      //    accessor: 'check',
+      //    Cell: ({ row }) => (
+      //       <CheckBox
+      //          checked={row.original.checked || false}
+      //          onChange={e =>
+      //             dispatch(
+      //                checkAds({
+      //                   checked: e.target.checked,
+      //                   data: row.original,
+      //                }),
+      //             )
+      //          }
+      //       />
+      //    ),
+      // },
       {
          Header: 'ИМЯ',
          accessor: 'userName',
       },
       {
-         Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
-         accessor: 'email',
+         Header: 'номер карты',
+         accessor: 'cardNumber',
       },
       {
-         Header: 'КАТЕГОРИЯ',
-         accessor: 'category',
+         Header: 'Валюта',
+         accessor: 'Currency',
          Cell: ({ row }) => <p>{translateCategory[row.original.category]}</p>,
       },
       {
@@ -194,13 +186,13 @@ const Ads = () => {
          Header: 'СТАТУС',
          accessor: 'publishStatus',
       },
-   ];
+   ]
 
    const headers = useMemo(
       () =>
          getAdminTableHeaders(() => toggleModal('waitingModal'), ADS_COLUMNS),
       [toggleModal],
-   );
+   )
 
    return (
       <Wrapper>
@@ -237,14 +229,14 @@ const Ads = () => {
          <WaitingModal
             isOpen={state.waitingModal}
             onClose={() => {
-               toggleModal('waitingModal');
+               toggleModal('waitingModal')
             }}
          />
       </Wrapper>
-   );
-};
+   )
+}
 
-export default Ads;
+export default Ads
 
 const Description = styled('h2')(({ theme }) => ({
    fontWeight: 600,
@@ -253,7 +245,7 @@ const Description = styled('h2')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '22px',
    },
-}));
+}))
 
 const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -263,4 +255,4 @@ const Wrapper = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       overflowX: 'scroll',
    },
-}));
+}))
