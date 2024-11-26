@@ -18,6 +18,7 @@ import LogOutModal from '../UI/LogOutModal'
 import { IconButton } from '../IconButton'
 import LanguageModal from './LanguageModal'
 import { renderFlag } from '../../utils/general/renderFlag'
+import { useSelector } from 'react-redux'
 
 const AdminHeader = () => {
    const { i18n, t } = useTranslation()
@@ -26,6 +27,8 @@ const AdminHeader = () => {
    const [openMenu, setOpenMenu] = useState(null)
    const [openLogOutModal, setOpenLogOutModal] = useState(false)
    const [openLanguageModal, setOpenLanguageModal] = useState(false)
+
+   const { userData } = useSelector(state => state.auth)
 
    const handleSelect = event => {
       const lng = event.target.value
@@ -146,7 +149,7 @@ const AdminHeader = () => {
                         />
                      </FlagLanguageStyle>
                      <ContainerProfileTitle>
-                        <TitleAdmin>Administrator</TitleAdmin>
+                        <TitleAdmin>{userData.name}</TitleAdmin>
                      </ContainerProfileTitle>
                   </MiddleContainerBox>
                </SehondBigContainer>
