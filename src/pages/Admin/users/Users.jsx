@@ -46,8 +46,8 @@ const selectsConfig = [
       label: 'status',
       options: [
          { id: 'e5', value: 'status', label: 'Cтатус' },
-         { id: 'e6', value: 'АКТИВНЫЙ', label: 'АКТИВНЫЙ' },
-         { id: 'e7', value: 'ЗАБЛОКИРОВАН', label: 'ЗАБЛОКИРОВАН' },
+         { id: 'e6', value: 'АКТИВНЫЙ', label: 'Активный' },
+         { id: 'e7', value: 'ЗАБЛОКИРОВАН', label: 'Заблокирован' },
       ],
    },
 ]
