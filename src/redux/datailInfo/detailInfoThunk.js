@@ -20,7 +20,7 @@ export const postFavorite = createAsyncThunk(
    async (id, { rejectWithValue, dispatch }) => {
       try {
          const { data } = await axiosInstance.post(`addToFavorites/${id}`);
-         dispatch(getDetailInfo());
+         dispatch(getDetailInfo({ id }));
          showToast('success', 'Успешно добавлено в избранное');
          return data;
       } catch (error) {
@@ -36,7 +36,7 @@ export const deleteFavorite = createAsyncThunk(
          const { data } = await axiosInstance.delete(
             `deleteFromFavorites/${id}`,
          );
-         dispatch(getDetailInfo());
+         dispatch(getDetailInfo({ id }));
          showToast('success', 'Удалено');
 
          return data;

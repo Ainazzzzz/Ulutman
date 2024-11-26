@@ -13,11 +13,10 @@ const ApartmentInfo = ({ title, value }) => (
 );
 
 const AboutApartment = ({ detailInfo }) => {
-   console.log(detailInfo?.detailInfo?.propertyDetails);
    const propertyDetails = detailInfo?.detailInfo?.propertyDetails;
 
    if (!propertyDetails) {
-      return <p></p>;
+      return;
    }
 
    const apartmentInfo = [

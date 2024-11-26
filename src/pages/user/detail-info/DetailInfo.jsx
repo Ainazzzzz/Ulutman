@@ -86,7 +86,7 @@ const DetailInfo = () => {
                <Box className="locatio-time-box">
                   <Typography>
                      <LocationIcon className="location-icon" />
-                     {detailInfo?.detailInfo?.metro || 'Не указано'}
+                     {detailInfo?.detailInfo?.address || 'Не указано'}
                   </Typography>
 
                   <Typography>
@@ -121,7 +121,7 @@ const DetailInfo = () => {
                                  <img
                                     className="slide-image"
                                     src={slide}
-                                    alt={`Slide ${slide}`}
+                                    alt={`House`}
                                  />
                               </SwiperSlide>
                            ))}
@@ -132,7 +132,7 @@ const DetailInfo = () => {
                               <img
                                  key={item}
                                  src={item}
-                                 alt={`Slide ${item}`}
+                                 alt={`House`}
                                  style={{
                                     width: '60px',
                                     height: '64px',
@@ -149,13 +149,12 @@ const DetailInfo = () => {
                               <Typography className="price">
                                  {detailInfo?.detailInfo?.category ===
                                     'REAL_ESTATE' &&
-                                    (detailInfo?.detailInfo?.conditions
-                                       ?.pricePerMonth ||
-                                       'Не указано')}
-                                 {detailInfo?.detailInfo?.category !==
+                                    (detailInfo?.detailInfo?.price ||
+                                       'Не указано')}{' '}
+                                 {/* {detailInfo?.detailInfo?.category !==
                                     'REAL_ESTATE' &&
                                     (detailInfo?.detailInfo?.price ||
-                                       'Не указано')}
+                                       'Не указано')} */}
                                  ₽/мес.
                               </Typography>
 
@@ -164,12 +163,14 @@ const DetailInfo = () => {
                                  style={{
                                     cursor: 'pointer',
                                     fill: detailInfo?.detailInfo?.detailFavorite
-                                       ? 'red'
+                                       ? '#f00'
                                        : '',
-                                    stroke: detailInfo?.detailInfo
-                                       ?.detailFavorite
-                                       ? 'red'
-                                       : '',
+                                    path: {
+                                       stroke: detailInfo?.detailInfo
+                                          ?.detailFavorite
+                                          ? '#f00'
+                                          : '#282828',
+                                    },
                                  }}
                               />
                            </Box>
