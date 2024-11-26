@@ -80,7 +80,7 @@ const CARDS_MAIN = [
       address: 'Москва, р-н Центральный',
       description: '2-комн. кв. 59 м² 3/8 этаж',
    },
-];
+]
 
 const CATEGORY_MENU = [
    {
@@ -123,7 +123,7 @@ const CATEGORY_MENU = [
       value: 'SELL',
       id: 8,
    },
-];
+]
 
 const CARDS = [
    'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
@@ -131,7 +131,7 @@ const CARDS = [
    'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
    'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
    'https://dizayn-interera.moscow/images/detailed/106/dizayn-interera-kvartiry-v-zhk-marino-grad-1.jpg',
-];
+]
 
 const SORT_BY_CATEGROY_OPTIONS = [
    {
@@ -146,6 +146,6 @@ const SORT_BY_CATEGROY_OPTIONS = [
       value: 'expensive',
       label: 'Сначала дорогие',
    },
-];
+]
 
-export { CATEGORY_MENU, CARDS_MAIN, CARDS, SORT_BY_CATEGROY_OPTIONS };
+export { CATEGORY_MENU, CARDS_MAIN, CARDS, SORT_BY_CATEGROY_OPTIONS }

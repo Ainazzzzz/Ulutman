@@ -1,52 +1,52 @@
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers/DatePicker';
-import DatePickerIcon from '../../assets/icons/black-down.svg?react';
-import { styled, Typography } from '@mui/material';
-import { Button } from './Button';
-import { useState } from 'react';
+/* eslint-disable react/no-unstable-nested-components */
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers/DatePicker'
+import { styled, Typography } from '@mui/material'
+import { useState } from 'react'
+import DatePickerIcon from '../../assets/icons/black-down.svg?react'
+import { Button } from './Button'
 
 export const MultiDatePicker = ({ setDate }) => {
-   const [open, setOpen] = useState(false);
-   const [dates, setDates] = useState([]);
+   const [open, setOpen] = useState(false)
+   const [dates, setDates] = useState([])
 
-   const [selectedDates, setSelectedDates] = useState([]);
+   const [, setSelectedDates] = useState([])
 
    const handleDateChange = newDate => {
-      const formattedNewDate = newDate.format('DD.MM.YY');
+      const formattedNewDate = newDate.format('DD.MM.YY')
       setDates(prev => {
          if (!prev.includes(formattedNewDate)) {
-            return [...prev, formattedNewDate];
+            return [...prev, formattedNewDate]
          }
-         return prev;
-      });
+         return prev
+      })
 
       setSelectedDates(prevDates => {
-         const dateExists = prevDates.some(date => date.isSame(newDate, 'day'));
+         const dateExists = prevDates.some(date => date.isSame(newDate, 'day'))
          if (dateExists) {
-            return prevDates.filter(date => !date.isSame(newDate, 'day'));
-         } else {
-            return [...prevDates, newDate];
+            return prevDates.filter(date => !date.isSame(newDate, 'day'))
          }
-      });
-   };
+         return [...prevDates, newDate]
+      })
+   }
 
    const deleteDate = date => {
-      const updatedDate = dates.filter(item => item !== date);
-      setDates(updatedDate);
-   };
+      const updatedDate = dates.filter(item => item !== date)
+      setDates(updatedDate)
+   }
 
-   const handleOpen = () => setOpen(true);
-   const handleClose = () => setOpen(false);
+   const handleOpen = () => setOpen(true)
+   const handleClose = () => setOpen(false)
 
    const handleApply = () => {
-      const formattedDates = dates;
-      setDate(formattedDates);
-      handleClose();
-   };
+      const formattedDates = dates
+      setDate(formattedDates)
+      handleClose()
+   }
 
-   const CustomDatePicker = props => (
+   const CustomDatePicker = ({ children, onApply }) => (
       <Box>
-         {props.children}
+         {children}
          <>
             {dates && dates.length !== 0 ? (
                <DateContainer>
@@ -59,19 +59,14 @@ export const MultiDatePicker = ({ setDate }) => {
             ) : (
                <p>*Вы можете выбрать несколько дат</p>
             )}
-            <ButtonStyle
-               variant="contained"
-               color="primary"
-               onClick={props.onApply}
-            >
+            <ButtonStyle variant="contained" color="primary" onClick={onApply}>
                Применить
             </ButtonStyle>
          </>
       </Box>
-   );
+   )
 
    const renderDay = day => {
-      const formattedDay = day.format('DD.MM.YY');
       return (
          <Box
             onClick={() => handleDateChange(day)}
@@ -87,8 +82,8 @@ export const MultiDatePicker = ({ setDate }) => {
          >
             {day.date()}
          </Box>
-      );
-   };
+      )
+   }
 
    return (
       <DemoContainer components={['DateCalendar']}>
@@ -168,8 +163,8 @@ export const MultiDatePicker = ({ setDate }) => {
             }}
          />
       </DemoContainer>
-   );
-};
+   )
+}
 
 const DatePickerStyle = styled(MuiDatePicker)(() => ({
    '.MuiSvgIcon-root': {
@@ -189,7 +184,7 @@ const DatePickerStyle = styled(MuiDatePicker)(() => ({
       gridTemplateColumns: '1fr 0.5fr',
       padding: '0',
    },
-}));
+}))
 
 const Box = styled('div')(() => ({
    display: 'flex',
@@ -202,11 +197,11 @@ const Box = styled('div')(() => ({
       paddingBottom: '20px',
       paddingTop: '20px',
    },
-}));
+}))
 const ButtonStyle = styled(Button)(() => ({
    textTransform: 'inherit',
    fontWeight: '500',
-}));
+}))
 
 const DateContainer = styled('div')(() => ({
    display: 'flex',
@@ -218,7 +213,7 @@ const DateContainer = styled('div')(() => ({
    overflowY: 'auto',
    alignItems: 'start',
    gap: '5px',
-}));
+}))
 
 const Date = styled(Typography)(() => ({
    margin: 0,
@@ -226,4 +221,4 @@ const Date = styled(Typography)(() => ({
    border: '1px solid gray',
    borderRadius: '10px',
    cursor: 'pointer',
-}));
+}))

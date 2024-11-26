@@ -1,19 +1,19 @@
-import Modal from '../../../components/UI/Modal.jsx';
-import { styled } from '@mui/material';
-import { toast } from 'react-toastify';
-import Toastify from '../../../components/UI/Toastify.jsx';
-import 'react-toastify/dist/ReactToastify.css';
+import { styled } from '@mui/material'
+import { toast } from 'react-toastify'
+import Modal from '../../../components/UI/Modal'
+import Toastify from '../../../components/UI/Toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-export const WaitingModal = ({ onClose, isOpen, type }) => {
+export const WaitingModal = ({ onClose, isOpen }) => {
    const notifySuccess = () => {
-      toast.success('Одобрено');
-      onClose();
-   };
+      toast.success('Одобрено')
+      onClose()
+   }
 
    const notifyError = () => {
       // toast.error('Ошибка');
-      onClose();
-   };
+      onClose()
+   }
 
    return (
       <>
@@ -28,8 +28,8 @@ export const WaitingModal = ({ onClose, isOpen, type }) => {
          </Modal>
          <Toastify />
       </>
-   );
-};
+   )
+}
 
 const Container = styled('div')(() => ({
    display: 'flex',
@@ -40,13 +40,13 @@ const Container = styled('div')(() => ({
       display: 'flex',
       gap: '40px',
    },
-}));
+}))
 
 const Title = styled('p')(() => ({
    fontWeight: '500',
    color: '#202020',
    textAlign: 'center',
-}));
+}))
 const FirstButton = styled('button')(() => ({
    fontWeight: '500',
    fontSize: '17px',
@@ -57,7 +57,7 @@ const FirstButton = styled('button')(() => ({
    border: 'none',
    background: '#5eb00e',
    cursor: 'pointer',
-}));
+}))
 const SecondButton = styled('button')(() => ({
    fontWeight: '500',
    fontSize: '17px',
@@ -68,4 +68,4 @@ const SecondButton = styled('button')(() => ({
    border: 'none',
    background: '#f00',
    cursor: 'pointer',
-}));
+}))

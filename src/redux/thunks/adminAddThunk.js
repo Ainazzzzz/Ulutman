@@ -1,17 +1,19 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
 
 export const getAdminAdds = createAsyncThunk(
    'adminAdds/getAdminAdds',
    async (_, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get('manage/publishes/getAll');
-         return data;
+         const { data } = await axiosInstance.get(
+            '/payment/adversting/deactivated',
+         )
+         return data
       } catch (error) {
-         rejectWithValue(error.response.data);
+         return rejectWithValue(error.response.data)
       }
    },
-);
+)
 
 export const deleteAdminAds = createAsyncThunk(
    'adminAdds/deleteAdds',
@@ -19,16 +21,16 @@ export const deleteAdminAds = createAsyncThunk(
       try {
          await axiosInstance.delete('/manage/publishes/delete/batch', {
             data: ids,
-         });
+         })
 
-         toggleModal('deleteAllModal');
+         toggleModal('deleteAllModal')
 
-         dispatch(getAdminAdds());
+         dispatch(getAdminAdds())
       } catch (error) {
-         rejectWithValue(error.response.data);
+         rejectWithValue(error.response.data)
       }
    },
-);
+)
 
 // export const getName = createAsyncThunk(
 //    'adds/getName',
@@ -52,7 +54,7 @@ export const deleteAdminAds = createAsyncThunk(
 
 export const getName = createAsyncThunk(
    'adminAdds/getName',
-   async (name, { rejectWithValue, dispatch }) => {
+   async (name, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.get(
             '/manage/publishes/name/filter',
@@ -61,47 +63,47 @@ export const getName = createAsyncThunk(
                   names: name,
                },
             },
-         );
+         )
          // dispatch(getAdminAdds());
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error.response.data);
+         return rejectWithValue(error.response.data)
       }
    },
-);
+)
 
 export const getAdminFilter = createAsyncThunk(
    'adminAdds/getAdminFilter',
    async ({ categories, createDates, publishStatuses, names }) => {
       try {
-         const queryString = new URLSearchParams();
+         const queryString = new URLSearchParams()
 
-         if (categories) queryString.append('categories', categories);
+         if (categories) queryString.append('categories', categories)
 
          if (createDates && Array.isArray(createDates)) {
             createDates.forEach(date => {
-               queryString.append('createDates', date);
-            });
+               queryString.append('createDates', date)
+            })
          }
 
          if (publishStatuses) {
-            queryString.append('publishStatuses', publishStatuses);
+            queryString.append('publishStatuses', publishStatuses)
          }
 
          if (names) {
-            queryString.append('names', names);
+            queryString.append('names', names)
          }
 
          const { data } = await axiosInstance.get(
             `/manage/publishes/filter?${queryString.toString()}`,
-         );
+         )
 
-         return data;
+         return data
       } catch (error) {
-         return error.message;
+         return error.message
       }
    },
-);
+)
 
 export const getResetFilter = createAsyncThunk(
    'adminAdds/getResetFilter',
@@ -109,11 +111,11 @@ export const getResetFilter = createAsyncThunk(
       try {
          const { data } = await axiosInstance.get(
             '/manage/publishes/resetFilter',
-         );
+         )
 
-         return data;
+         return data
       } catch (error) {
-         return error.message;
+         return error.message
       }
    },
-);
+)

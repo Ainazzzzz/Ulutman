@@ -1,16 +1,16 @@
-import { Box, InputAdornment, TextField, styled } from '@mui/material';
-import React, { forwardRef, useState } from 'react';
-import EyeIcon from '../../assets/icons/eye-icon.svg?react';
-import CloseEyeIcon from '../../assets/icons/eye-close.svg?react';
-import { IconButton } from '../IconButton';
+import { Box, InputAdornment, TextField, styled } from '@mui/material'
+import React, { forwardRef, useState } from 'react'
+import EyeIcon from '../../assets/icons/eye-icon.svg?react'
+import CloseEyeIcon from '../../assets/icons/eye-close.svg?react'
+import { IconButton } from '../IconButton'
 
 const Input = forwardRef(
    ({ label = '', confirmed, required = false, type, ...props }, ref) => {
-      const [showPassword, setShowPassword] = useState(false);
+      const [showPassword, setShowPassword] = useState(false)
 
       const toggleShowPassword = () => {
-         setShowPassword(prev => !prev);
-      };
+         setShowPassword(prev => !prev)
+      }
 
       return (
          <Container>
@@ -44,16 +44,16 @@ const Input = forwardRef(
                {...props}
             />
          </Container>
-      );
+      )
    },
-);
+)
 
-export default Input;
+export default Input
 
 const Container = styled(Box)(() => ({
    display: 'flex',
    flexDirection: 'column',
-}));
+}))
 
 const StyledLabel = styled('label')(({ required }) => ({
    fontWeight: 600,
@@ -66,7 +66,7 @@ const StyledLabel = styled('label')(({ required }) => ({
       content: required ? '" *"' : '""',
       color: '#ff0000',
    },
-}));
+}))
 
 const Confirmed = styled('p')(() => ({
    width: '123px',
@@ -79,7 +79,7 @@ const Confirmed = styled('p')(() => ({
    background: '#FF0000',
    color: '#FFFFFF',
    borderRadius: '4px',
-}));
+}))
 
 const StyledInput = styled(TextField)(() => ({
    '& .MuiInputBase-root': {
@@ -99,4 +99,4 @@ const StyledInput = styled(TextField)(() => ({
    input: {
       padding: '8px',
    },
-}));
+}))

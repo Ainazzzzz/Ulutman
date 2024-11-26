@@ -1,7 +1,7 @@
-import { Box, Typography, List, ListItem, Avatar, styled } from '@mui/material';
-import LikeIcon from '../../assets/icons/like-product-icon.svg?react';
-import { Button } from '../UI/Button';
-import { Rating } from '../UI/Rating';
+import { Box, Typography, List, ListItem, Avatar, styled } from '@mui/material'
+import LikeIcon from '../../assets/icons/like-product-icon.svg?react'
+import { Button } from '../UI/Button'
+import { Rating } from '../UI/Rating'
 
 export const ProductInfo = ({ product, onWrite, onShowPhone, onLiked }) => {
    const productInfo = [
@@ -10,7 +10,7 @@ export const ProductInfo = ({ product, onWrite, onShowPhone, onLiked }) => {
       { label: 'Комиссия', value: `${product.commission}%` },
       { label: 'Предоплата', value: product.prepayment },
       { label: 'Срок аренды', value: product.rentalPeriod },
-   ];
+   ]
 
    return (
       <Box p={2}>
@@ -24,8 +24,8 @@ export const ProductInfo = ({ product, onWrite, onShowPhone, onLiked }) => {
             </Header>
 
             <StyledList>
-               {productInfo.map((item, index) => (
-                  <StyledListItem key={index}>
+               {productInfo.map(item => (
+                  <StyledListItem key={item.value}>
                      <Typography className="label">{item.label}</Typography>
 
                      <div className="divider">
@@ -62,8 +62,8 @@ export const ProductInfo = ({ product, onWrite, onShowPhone, onLiked }) => {
             </Box>
          </UserBox>
       </Box>
-   );
-};
+   )
+}
 
 const InfoBox = styled(Box)(({ theme }) => ({
    maxWidth: '460px',
@@ -90,7 +90,7 @@ const InfoBox = styled(Box)(({ theme }) => ({
          fontWeight: 700,
       },
    },
-}));
+}))
 
 const Header = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -105,7 +105,7 @@ const Header = styled('div')(({ theme }) => ({
       stroke: 'none',
       fill: 'red',
    },
-}));
+}))
 
 const StyledList = styled(List)(({ theme }) => ({
    padding: 0,
@@ -119,7 +119,7 @@ const StyledList = styled(List)(({ theme }) => ({
       lineHeight: '20px',
       color: '#282828',
    },
-}));
+}))
 
 const StyledListItem = styled(ListItem)({
    display: 'flex',
@@ -131,20 +131,20 @@ const StyledListItem = styled(ListItem)({
       flexGrow: 1,
       paddingBottom: '4px',
    },
-});
+})
 
 const DottedDivider = styled('div')({
    paddingBottom: '5px',
    borderBottom: '1px dotted',
    margin: '0 4px',
-});
+})
 
 const ActionsWrapper = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    gap: theme.spacing(2.25),
    marginTop: theme.spacing(2.5),
-}));
+}))
 
 const StyledButton = styled(Button)(() => ({
    height: '40px',
@@ -156,7 +156,7 @@ const StyledButton = styled(Button)(() => ({
       backgroundColor: '#9774FF',
       color: '#FFF',
    },
-}));
+}))
 
 const UserBox = styled(Box)(({ theme }) => ({
    display: 'flex',
@@ -191,11 +191,11 @@ const UserBox = styled(Box)(({ theme }) => ({
       flexDirection: 'column',
       gap: theme.spacing(0.25),
    },
-}));
+}))
 
-const StyledAvatar = styled(Avatar)(({ theme }) => ({
+const StyledAvatar = styled(Avatar)(() => ({
    width: '76px',
    height: '76px',
    borderRadius: '4px',
    backgroundColor: '#7E52FF33',
-}));
+}))

@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
-import Modal from './Modal';
-import { styled } from '@mui/material';
+import React from 'react'
+import { styled } from '@mui/material'
+import Modal from './Modal'
 
-export const PhoneModal = () => {
-   const [isOpen, setIsOpen] = useState(true);
-
-   const closeModal = () => setIsOpen(!isOpen);
-
+export const PhoneModal = ({ handleClose, open, phoneNumber }) => {
    return (
-      <Modal open={isOpen} handleClose={closeModal} variant="phone">
+      <Modal open={open} handleClose={handleClose} variant="phone">
          <Block>
             <p>Номер телефона</p>
-            <span>+7 965 137-95-07</span>
+            <span>{phoneNumber}</span>
          </Block>
       </Modal>
-   );
-};
+   )
+}
 
 const Block = styled('div')(() => ({
    display: 'flex',
@@ -34,4 +30,4 @@ const Block = styled('div')(() => ({
       fontWeight: '500',
       color: '#282828',
    },
-}));
+}))

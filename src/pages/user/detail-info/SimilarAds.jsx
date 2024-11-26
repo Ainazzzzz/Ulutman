@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import AnnouncementsSorter from '../../../components/AnnouncementsSorter';
-import { CARDS, SORT_BY_CATEGROY_OPTIONS } from '../../../utils/constants';
-import { CardList } from '../../../components/UI/Card/CardList';
-import { Button } from '../../../components/UI/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSimilarAds } from '../../../redux/datailInfo/detailInfoThunk';
-import { sortPublishesRequest } from '../../../redux/main/mainThunk';
-import { useNavigate } from 'react-router-dom';
-import { styled } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { styled } from '@mui/material'
+import AnnouncementsSorter from '../../../components/AnnouncementsSorter'
+import { SORT_BY_CATEGROY_OPTIONS } from '../../../utils/constants'
+import { CardList } from '../../../components/UI/Card/CardList'
+import { Button } from '../../../components/UI/Button'
+import { getSimilarAds } from '../../../redux/datailInfo/detailInfoThunk'
+import { sortPublishesRequest } from '../../../redux/main/mainThunk'
 
 export const SimilarAds = ({ currentCategory }) => {
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
 
-   const [sortedAds, setSortedAds] = useState([]);
+   const [sortedAds, setSortedAds] = useState([])
 
-   const { similarAds } = useSelector(state => state.detailInfo);
-
-   useEffect(() => {
-      dispatch(getSimilarAds());
-   }, [dispatch]);
+   const { similarAds } = useSelector(state => state.detailInfo)
 
    useEffect(() => {
-      setSortedAds(similarAds);
-   }, [similarAds]);
+      dispatch(getSimilarAds())
+   }, [dispatch])
+
+   useEffect(() => {
+      setSortedAds(similarAds)
+   }, [similarAds])
 
    const handleSortChange = sortValue => {
-      dispatch(sortPublishesRequest(sortValue));
-   };
+      dispatch(sortPublishesRequest(sortValue))
+   }
 
    const seeMoreHandler = () => {
-      navigate('/user/recommendations');
-   };
+      navigate('/user/recommendations')
+   }
 
    useEffect(() => {
       if (currentCategory) {
          const filteredAds = similarAds.filter(
             ad => ad.category === currentCategory,
-         );
-         setSortedAds(filteredAds);
+         )
+         setSortedAds(filteredAds)
       } else {
-         setSortedAds(similarAds);
+         setSortedAds(similarAds)
       }
-   }, [similarAds, currentCategory]);
+   }, [similarAds, currentCategory])
 
    return (
       <Container>
@@ -60,8 +60,8 @@ export const SimilarAds = ({ currentCategory }) => {
             Посмотреть еще
          </Button>
       </Container>
-   );
-};
+   )
+}
 
 const Title = styled('h2')(({ theme }) => ({
    fontSize: '34px',
@@ -71,7 +71,7 @@ const Title = styled('h2')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '22px',
    },
-}));
+}))
 
 const Block = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -80,7 +80,7 @@ const Block = styled('div')(({ theme }) => ({
       flexDirection: 'column',
       gap: '10px',
    },
-}));
+}))
 
 const Container = styled('div')(({ theme }) => ({
    padding: '60px 0px 60px 0px',
@@ -90,4 +90,4 @@ const Container = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       padding: '20px 16px 0px 16px',
    },
-}));
+}))

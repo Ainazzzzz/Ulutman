@@ -9,12 +9,13 @@
          "analitic": "Analitik",
          "settings": "Ayarlar",
          "logOut": "Çıkış Yap",
+         "advertising": "Reklam",
+         "mailing": "E-posta Bültenleri",
 
          "subLinks": {
             "complaints": "Şikayetler ve İhlallerin Yönetimi",
             "comments": "Yorumlar ve Mesajların Moderasyonu",
-            "images": "Görüntü ve Medya Dosyalarının İncelenmesi",
-            "mailing": "E-posta Bültenleri"
+            "images": "Görüntü ve Medya Dosyalarının İncelenmesi"
          },
 
          "changeLanguage": "Dili Değiştir"

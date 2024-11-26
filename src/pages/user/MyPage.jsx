@@ -1,7 +1,7 @@
-import { NavLink, Outlet } from 'react-router-dom';
-import { styled } from '@mui/material';
-import { PATHS } from '../../utils/constants/paths';
-import ArrowIcon from '../../assets/icons/arrowpurpul.svg?react';
+import { NavLink, Outlet } from 'react-router-dom'
+import { styled } from '@mui/material'
+import { PATHS } from '../../utils/constants/paths'
+import ArrowIcon from '../../assets/icons/arrowpurpul.svg?react'
 
 export const MyPage = () => {
    return (
@@ -28,8 +28,8 @@ export const MyPage = () => {
          </StyledNav>
          <Outlet />
       </Container>
-   );
-};
+   )
+}
 
 const Container = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -41,14 +41,14 @@ const Container = styled('div')(({ theme }) => ({
       padding: '40px 16px',
       gap: '30px',
    },
-}));
+}))
 
 const StyledNav = styled('nav')({
    display: 'flex',
    gap: '20px',
    alignItems: 'center',
    backgroundColor: '#f5f5f8',
-});
+})
 
 const StyledNavLink = styled(NavLink)({
    color: '#282828',
@@ -61,7 +61,7 @@ const StyledNavLink = styled(NavLink)({
       textDecoration: 'underline',
       textUnderlineOffset: '2px',
    },
-});
+})
 
 const StyledNavLinkLast = styled(NavLink)({
    textDecoration: 'none',
@@ -71,4 +71,4 @@ const StyledNavLinkLast = styled(NavLink)({
 
    display: 'flex',
    alignItems: 'center',
-});
+})

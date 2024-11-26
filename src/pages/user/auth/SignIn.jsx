@@ -1,48 +1,47 @@
-import { useState } from 'react';
-import Modal from '../../../components/UI/Modal.jsx';
-import Input from '../../../components/UI/Input.jsx';
-import { Button } from '../../../components/UI/Button.jsx';
-import SignUp from './signUp.jsx';
-import { signIn } from '../../../redux/auth/authThunk.js';
-import { styled, Typography } from '@mui/material';
-import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import CloseIcon from '../../../assets/icons/cross-icon.svg?react';
-import Spinner from '../../../components/UI/Spinner';
+import { useState } from 'react'
+import { styled, Typography } from '@mui/material'
+import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import Modal from '../../../components/UI/Modal'
+import Input from '../../../components/UI/Input'
+import { Button } from '../../../components/UI/Button'
+import { signIn } from '../../../redux/auth/authThunk'
+import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
+import Spinner from '../../../components/UI/Spinner'
 
 export const SignIn = ({ open, onClose, handleOpenSignUp }) => {
-   const dispatch = useDispatch();
-   const { isLoading } = useSelector(state => state.auth);
+   const dispatch = useDispatch()
+   const { isLoading } = useSelector(state => state.auth)
 
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
-   const [error, setError] = useState('');
+   const [email, setEmail] = useState('')
+   const [password, setPassword] = useState('')
+   const [, setError] = useState('')
 
    const handleEmailChange = event => {
-      setEmail(event.target.value);
-      setError('');
-   };
+      setEmail(event.target.value)
+      setError('')
+   }
 
    const handlePasswordChange = event => {
-      setPassword(event.target.value);
-      setError('');
-   };
+      setPassword(event.target.value)
+      setError('')
+   }
 
    const handleSubmit = e => {
-      e.preventDefault();
+      e.preventDefault()
 
       if (!email || !password) {
-         setError('Пожалуйста, заполните все поля.');
-         return;
+         setError('Пожалуйста, заполните все поля.')
+         return
       }
 
       const newData = {
          email,
          password,
-      };
+      }
 
-      dispatch(signIn({ userData: newData, onClose }));
-   };
+      dispatch(signIn({ userData: newData, onClose }))
+   }
 
    return (
       <Modal open={open} onClose={onClose}>
@@ -72,18 +71,18 @@ export const SignIn = ({ open, onClose, handleOpenSignUp }) => {
                   <Spinner />
                </Button>
             ) : (
-               <Button type={'submit'}>Войти</Button>
+               <Button type="submit">Войти</Button>
             )}
             <Typography align="center">
                У вас нету аккаунта?{' '}
-               <NavLink to={''} onClick={handleOpenSignUp}>
+               <NavLink to="" onClick={handleOpenSignUp}>
                   Создайте её
                </NavLink>
             </Typography>
          </Box>
       </Modal>
-   );
-};
+   )
+}
 
 const Box = styled('form')(({ theme }) => ({
    display: 'flex',
@@ -98,7 +97,7 @@ const Box = styled('form')(({ theme }) => ({
          fontSize: '24px',
       },
    },
-}));
+}))
 const IconStyle = styled('div')(() => ({
    svg: {
       position: 'absolute',
@@ -106,14 +105,4 @@ const IconStyle = styled('div')(() => ({
       right: '26px',
       cursor: 'pointer',
    },
-}));
-
-const ErrorText = styled('p')({
-   color: 'red',
-   fontSize: '12px',
-});
-const InputContainer = styled('div')({
-   display: 'flex',
-   flexDirection: 'column',
-   gap: '20px',
-});
+}))

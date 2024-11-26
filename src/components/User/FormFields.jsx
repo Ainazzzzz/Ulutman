@@ -1,12 +1,12 @@
-import { styled } from '@mui/material';
-import Input from '../UI/Input';
-import ReusableSelect from '../UI/Select';
-import { Button } from '../UI/Button';
+import { styled } from '@mui/material'
+import Input from '../UI/Input'
+import ReusableSelect from '../UI/Select'
+import { Button } from '../UI/Button'
 import {
    Container,
    ErrorMessage,
    StyledWriting,
-} from '../../pages/Admin/mailing/MailingFormStyles.jsx';
+} from '../../pages/Admin/mailing/MailingFormStyles'
 
 export const InputField = ({
    name,
@@ -31,7 +31,7 @@ export const InputField = ({
       />
       {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
    </Container>
-);
+)
 
 export const CategoryField = ({
    selectCategory,
@@ -57,7 +57,7 @@ export const CategoryField = ({
          {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
       </Container>
    </StyledContainer>
-);
+)
 
 export const DescriptionField = ({
    description,
@@ -79,7 +79,7 @@ export const DescriptionField = ({
          {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
       </Container>
    </StyledContainer>
-);
+)
 
 export const SelectField = ({
    name,
@@ -104,13 +104,13 @@ export const SelectField = ({
       />
       {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
    </Container>
-);
+)
 
 const StyledContainer = styled(Container)({
    display: 'flex',
    flexDirection: 'column',
    gap: '8px',
-});
+})
 
 const Label = styled('p')({
    fontSize: '18px',
@@ -119,17 +119,17 @@ const Label = styled('p')({
       content: '" *"',
       color: '#ff0000',
    },
-});
+})
 
 const CategoryButton = styled(Button)({
    width: '159px',
    height: '39px',
    fontSize: '16px',
    fontWeight: '600',
-});
+})
 
 const SelectInfo = styled('p')({
    fontSize: '12px',
    fontWeight: '400',
    fontStyle: 'italic',
-});
+})

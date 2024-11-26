@@ -1,72 +1,71 @@
-import { Box, Rating, Typography, styled } from '@mui/material';
-import Breadcrumbs from '../../../components/UI/Breadcrumbs';
-import LocationIcon from '../../../assets/icons/address-icon.svg?react';
-import ClockIcon from '../../../assets/icons/clock-icon.svg?react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
-import { useEffect, useState } from 'react';
+import { Box, Rating, Typography, styled } from '@mui/material'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules'
+import { useParams } from 'react-router-dom'
+import Breadcrumbs from '../../../components/UI/Breadcrumbs'
+import LocationIcon from '../../../assets/icons/address-icon.svg?react'
+import ClockIcon from '../../../assets/icons/clock-icon.svg?react'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
-import Like from '../../../assets/icons/like-product-icon.svg?react';
-import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react';
-import { Button } from '../../../components/UI/Button';
-import UserIcon from '../../../assets/icons/user.svg?react';
-import AboutApartment from './AboutApartment';
+import Like from '../../../assets/icons/like-product-icon.svg?react'
+import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react'
+import { Button } from '../../../components/UI/Button'
+import UserIcon from '../../../assets/icons/user.svg?react'
+import AboutApartment from './AboutApartment'
 import {
    deleteFavorite,
    getDetailInfo,
    postFavorite,
-} from '../../../redux/datailInfo/detailInfoThunk';
-import { useDispatch, useSelector } from 'react-redux';
-import { PhoneModal } from '../../../components/UI/PhoneModal';
-import { SimilarAds } from './SimilarAds';
-import { useParams } from 'react-router-dom';
+} from '../../../redux/datailInfo/detailInfoThunk'
+import { PhoneModal } from '../../../components/UI/PhoneModal'
+import { SimilarAds } from './SimilarAds'
 
 const DetailInfo = () => {
-   const dispatch = useDispatch();
-   const { id } = useParams();
+   const dispatch = useDispatch()
+   const { id } = useParams()
 
-   const detailInfo = useSelector(state => state.detailInfo);
+   const detailInfo = useSelector(state => state.detailInfo)
 
-   const [isExpanded, setIsExpanded] = useState(false);
-   const [openModal, setOpenModal] = useState(false);
+   const [isExpanded, setIsExpanded] = useState(false)
+   const [openModal, setOpenModal] = useState(false)
 
    const handleShowPhoneNumber = () => {
-      setOpenModal(!openModal);
-   };
+      setOpenModal(!openModal)
+   }
 
    const description =
-      detailInfo?.detailInfo?.description || 'Описание не доступно';
-   const words = description.split(' ');
-   const shortDescription = words.slice(0, 12).join(' ');
+      detailInfo?.detailInfo?.description || 'Описание не доступно'
+   const words = description.split(' ')
+   const shortDescription = words.slice(0, 12).join(' ')
 
    const handleReadMore = () => {
-      setIsExpanded(!isExpanded);
-   };
+      setIsExpanded(!isExpanded)
+   }
 
    const path = [
       { title: 'Главная', url: '#' },
       { title: detailInfo?.detailInfo?.title, url: '#' },
-   ];
+   ]
 
    const handleFavorite = () => {
-      const isFavorite = detailInfo?.detailInfo?.detailFavorite;
+      const isFavorite = detailInfo?.detailInfo?.detailFavorite
 
       if (isFavorite) {
-         dispatch(deleteFavorite(detailInfo.detailInfo.id));
+         dispatch(deleteFavorite(detailInfo.detailInfo.id))
       } else {
-         dispatch(postFavorite(detailInfo.detailInfo.id));
+         dispatch(postFavorite(detailInfo.detailInfo.id))
       }
-   };
+   }
 
    useEffect(() => {
       if (id) {
-         dispatch(getDetailInfo({ id }));
+         dispatch(getDetailInfo({ id }))
       }
-   }, [dispatch, id]);
+   }, [dispatch, id])
 
    return (
       <div>
@@ -103,11 +102,11 @@ const DetailInfo = () => {
                   <Box className="fist-part_container">
                      <Box className="slider">
                         <Swiper
-                           cssMode={true}
-                           navigation={true}
-                           pagination={true}
-                           mousewheel={true}
-                           keyboard={true}
+                           cssMode
+                           navigation
+                           pagination
+                           mousewheel
+                           keyboard
                            modules={[
                               Navigation,
                               Pagination,
@@ -121,7 +120,7 @@ const DetailInfo = () => {
                                  <img
                                     className="slide-image"
                                     src={slide}
-                                    alt={`House`}
+                                    alt="House"
                                  />
                               </SwiperSlide>
                            ))}
@@ -132,7 +131,7 @@ const DetailInfo = () => {
                               <img
                                  key={item}
                                  src={item}
-                                 alt={`House`}
+                                 alt="House"
                                  style={{
                                     width: '60px',
                                     height: '64px',
@@ -254,7 +253,15 @@ const DetailInfo = () => {
                               <Button onClick={handleShowPhoneNumber}>
                                  Показать телефон
                               </Button>
-                              {openModal && <PhoneModal />}
+                              {openModal && (
+                                 <PhoneModal
+                                    handleClose={handleShowPhoneNumber}
+                                    open={openModal}
+                                    phoneNumber={
+                                       detailInfo?.detailInfo?.phoneNumber
+                                    }
+                                 />
+                              )}
                            </Box>
                         </Box>
 
@@ -317,10 +324,10 @@ const DetailInfo = () => {
             </StyledContainer>
          )}
       </div>
-   );
-};
+   )
+}
 
-export default DetailInfo;
+export default DetailInfo
 
 const StyledContainer = styled(Box)(({ theme }) => ({
    padding: '0 3rem',
@@ -619,4 +626,4 @@ const StyledContainer = styled(Box)(({ theme }) => ({
          fontSize: '24px',
       },
    },
-}));
+}))

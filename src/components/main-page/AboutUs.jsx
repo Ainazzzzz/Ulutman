@@ -1,6 +1,6 @@
-import React from 'react';
-import AboutUsImg from '../../assets/images/about-us.png';
-import { Box, Typography, styled } from '@mui/material';
+import React from 'react'
+import { Box, Typography, styled } from '@mui/material'
+import AboutUsImg from '../../assets/images/about-us.png'
 
 const AboutUs = () => {
    return (
@@ -27,17 +27,17 @@ const AboutUs = () => {
             <Image src={AboutUsImg} alt="About Us" />
          </SecondContainer>
       </Container>
-   );
-};
+   )
+}
 
-export default AboutUs;
+export default AboutUs
 
 const Container = styled(Box)(({ theme }) => ({
    paddingTop: '60px',
    [theme.breakpoints.down('md')]: {
       padding: '0 1.25rem',
    },
-}));
+}))
 
 const Title = styled(Typography)(({ theme }) => ({
    fontWeight: 700,
@@ -48,7 +48,7 @@ const Title = styled(Typography)(({ theme }) => ({
       margin: '0',
       textAlign: 'center',
    },
-}));
+}))
 
 const SecondContainer = styled(Box)(({ theme }) => ({
    display: 'flex',
@@ -59,7 +59,7 @@ const SecondContainer = styled(Box)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
    },
-}));
+}))
 
 const SecondTitle = styled(Typography)(({ theme }) => ({
    fontWeight: 500,
@@ -70,7 +70,7 @@ const SecondTitle = styled(Typography)(({ theme }) => ({
       margin: '0',
       textAlign: 'center',
    },
-}));
+}))
 
 const Description = styled(Typography)(({ theme }) => ({
    fontWeight: 400,
@@ -85,7 +85,7 @@ const Description = styled(Typography)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       maxWidth: '100%',
    },
-}));
+}))
 
 const Image = styled('img')(() => ({
    objectFit: 'cover',
@@ -97,4 +97,4 @@ const Image = styled('img')(() => ({
 
    height: '100%',
    width: '100%',
-}));
+}))

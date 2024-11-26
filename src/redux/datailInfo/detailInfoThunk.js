@@ -1,33 +1,33 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance';
-import { showToast } from '../../hooks/useToast';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
+import { showToast } from '../../hooks/useToast'
 
 export const getDetailInfo = createAsyncThunk(
    'detailInfo/getDetailInfo',
    async ({ id }, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get(`publishes/find/${id}`);
+         const { data } = await axiosInstance.get(`publishes/find/${id}`)
 
-         return data;
+         return data
       } catch (error) {
-         rejectWithValue(error.response.data);
+         return rejectWithValue(error.response.data)
       }
    },
-);
+)
 
 export const postFavorite = createAsyncThunk(
    'favorite/postFavorite',
    async (id, { rejectWithValue, dispatch }) => {
       try {
-         const { data } = await axiosInstance.post(`addToFavorites/${id}`);
-         dispatch(getDetailInfo({ id }));
-         showToast('success', 'Успешно добавлено в избранное');
-         return data;
+         const { data } = await axiosInstance.post(`addToFavorites/${id}`)
+         dispatch(getDetailInfo({ id }))
+         showToast('success', 'Успешно добавлено в избранное')
+         return data
       } catch (error) {
-         rejectWithValue(error.response.data);
+         return rejectWithValue(error.response.data)
       }
    },
-);
+)
 
 export const deleteFavorite = createAsyncThunk(
    'favorite/deleteFavorite',
@@ -35,26 +35,26 @@ export const deleteFavorite = createAsyncThunk(
       try {
          const { data } = await axiosInstance.delete(
             `deleteFromFavorites/${id}`,
-         );
-         dispatch(getDetailInfo({ id }));
-         showToast('success', 'Удалено');
+         )
+         dispatch(getDetailInfo({ id }))
+         showToast('success', 'Удалено')
 
-         return data;
+         return data
       } catch (error) {
-         rejectWithValue(error.response.data);
+         return rejectWithValue(error.response.data)
       }
    },
-);
+)
 
 export const getSimilarAds = createAsyncThunk(
    'similarAds/getSimilarAds',
    async (_, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get('publishes/getAll');
+         const { data } = await axiosInstance.get('publishes/getAll')
 
-         return data;
+         return data
       } catch (error) {
-         rejectWithValue(error.response.data);
+         return rejectWithValue(error.response.data)
       }
    },
-);
+)
