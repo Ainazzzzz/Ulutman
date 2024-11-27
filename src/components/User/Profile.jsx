@@ -11,8 +11,6 @@ export const Profile = () => {
    const dispatch = useDispatch()
    const { userData } = useSelector(state => state.auth)
 
-   console.log(userData)
-
    const [isEdit, setIsEdit] = useState(false)
 
    const formik = useFormik({
@@ -23,7 +21,13 @@ export const Profile = () => {
       },
       validationSchema: profileValidation,
       onSubmit: profileData => {
-         dispatch(updateUserProfile({ profileData, userId: userData.userId }))
+         dispatch(
+            updateUserProfile({
+               profileData,
+               userId: userData.userId,
+               setIsEdit,
+            }),
+         )
       },
    })
 
