@@ -109,6 +109,8 @@ export const StyledWriting = styled(Input)(({ theme }) => ({
    color: '#909090',
    background: 'transparent',
    margin: '0 0 3px',
+   maxWidth: '700px',
+   minWidth: '300px',
    [theme.breakpoints.down('md')]: {
       width: '326px',
       '::placeholder': {

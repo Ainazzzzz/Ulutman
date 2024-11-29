@@ -24,7 +24,7 @@ export const fetchPublishesUser = createAsyncThunk(
          });
 
          const { data } = await axiosInstance.post(
-            'publishes/create',
+            'publishes/createDetails',
             formData,
             {
                headers: {

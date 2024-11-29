@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from '../../../components/UI/Modal.jsx';
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react';
 import Input from '../../../components/UI/Input.jsx';
@@ -6,7 +6,6 @@ import { Button } from '../../../components/UI/Button.jsx';
 import { styled, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { signUpSchema } from '../../../utils/general/validation/authValidation.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '../../../redux/auth/authThunk.js'; // Импорт Yup
@@ -35,8 +34,6 @@ const signUpInputs = [
    },
 ];
 
-// Создаем схему валидации с помощью Yup
-
 const SignUp = ({ open, onClose, handleOpenModal }) => {
    const dispatch = useDispatch();
    const { isLoading } = useSelector(state => state.auth);
@@ -64,51 +61,53 @@ const SignUp = ({ open, onClose, handleOpenModal }) => {
    };
 
    return (
-      <Modal open={open} handleClose={onClose}>
-         <IconStyle>
-            <CloseIcon onClick={onClose} />
-         </IconStyle>
-         <Box onSubmit={handleSubmit}>
-            <h2>Регистрация</h2>
-            {signUpInputs.map(item => (
-               <div key={item.value} style={{ position: 'relative' }}>
-                  <Input
-                     placeholder={item.label}
-                     onChange={handleChange}
-                     name={item.value}
-                     id={item.value}
-                     type={item.type}
-                     value={values[item.value]}
-                  />
-                  {errors[item.value] && touched[item.value] && (
-                     <ErrorText
-                        style={{
-                           position: 'absolute',
-                           left: '0px',
-                           // top: '0px',
-                        }}
-                     >
-                        {errors[item.value]}
-                     </ErrorText>
-                  )}
-               </div>
-            ))}
-            {isLoading ? (
-               <Button disabled={isLoading}>
-                  <Spinner />
-               </Button>
-            ) : (
-               <Button type={'submit'}>Регистрация</Button>
-            )}
+      <>
+         <Modal open={open} handleClose={onClose}>
+            <IconStyle>
+               <CloseIcon onClick={onClose} />
+            </IconStyle>
+            <Box onSubmit={handleSubmit}>
+               <h2>Регистрация</h2>
+               {signUpInputs.map(item => (
+                  <div key={item.value} style={{ position: 'relative' }}>
+                     <Input
+                        placeholder={item.label}
+                        onChange={handleChange}
+                        name={item.value}
+                        id={item.value}
+                        type={item.type}
+                        value={values[item.value]}
+                     />
+                     {errors[item.value] && touched[item.value] && (
+                        <ErrorText
+                           style={{
+                              position: 'absolute',
+                              left: '0px',
+                              // top: '0px',
+                           }}
+                        >
+                           {errors[item.value]}
+                        </ErrorText>
+                     )}
+                  </div>
+               ))}
+               {isLoading ? (
+                  <Button disabled={isLoading}>
+                     <Spinner />
+                  </Button>
+               ) : (
+                  <Button type={'submit'}>Регистрация</Button>
+               )}
 
-            <Typography align="center">
-               У вас есть аккаунт?{' '}
-               <NavLink to={''} onClick={handleOpenSignInModal}>
-                  Войти
-               </NavLink>
-            </Typography>
-         </Box>
-      </Modal>
+               <Typography align="center">
+                  У вас есть аккаунт?{' '}
+                  <NavLink to={''} onClick={handleOpenSignInModal}>
+                     Войти
+                  </NavLink>
+               </Typography>
+            </Box>
+         </Modal>
+      </>
    );
 };
 

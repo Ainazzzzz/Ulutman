@@ -77,6 +77,8 @@ export const DescriptionField = ({
             onChange={onChange}
             onBlur={onBlur}
             placeholder="Продаю iPhone 12 с объемом памяти 128GB в черном цвете. Телефон в отличном состоянии, использовался бережно и всегда носился в чехле с защитным стеклом на экране."
+            multiline
+            rows={4}
          />
          {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
       </Container>

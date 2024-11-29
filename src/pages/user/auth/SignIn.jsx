@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Modal from '../../../components/UI/Modal.jsx';
 import Input from '../../../components/UI/Input.jsx';
 import { Button } from '../../../components/UI/Button.jsx';
-import SignUp from './signUp.jsx';
 import { signIn } from '../../../redux/auth/authThunk.js';
 import { styled, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
