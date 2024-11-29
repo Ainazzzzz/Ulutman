@@ -1,7 +1,7 @@
-import { styled } from '@mui/material';
-import CameraAltIcon from '../../../assets/icons/camera-icon.svg?react';
-import { Button } from '../../../components/UI/Button.jsx';
-import Input from '../../../components/UI/Input.jsx';
+import { styled } from '@mui/material'
+import CameraAltIcon from '../../../assets/icons/camera-icon.svg?react'
+import { Button } from '../../../components/UI/Button'
+import Input from '../../../components/UI/Input'
 
 export const WrapperInputSelect = styled('div')(({ theme }) => ({
    minWidth: '300px',
@@ -23,19 +23,19 @@ export const WrapperInputSelect = styled('div')(({ theme }) => ({
       fontWeight: '600',
       marginBottom: '8px',
    },
-}));
+}))
 
 export const StyledDropzone = styled('div')(() => ({
    width: '255px',
-}));
+}))
 export const InputFile = styled('input')({
    display: 'none',
-});
+})
 
 export const CameraIcon = styled(CameraAltIcon)({
    fontSize: 48,
    color: '#777',
-});
+})
 
 export const Container = styled('div')(({ theme }) => ({
    width: '100%',
@@ -59,7 +59,7 @@ export const Container = styled('div')(({ theme }) => ({
       alignItems: 'center',
       gap: '10px',
    },
-}));
+}))
 
 export const Label = styled('label')(() => ({
    display: 'flex',
@@ -92,7 +92,7 @@ export const Label = styled('label')(() => ({
       fontSize: '14px',
       fontWeight: '400',
    },
-}));
+}))
 
 export const StyledButton = styled(Button)(({ theme }) => ({
    width: '144px',
@@ -101,7 +101,7 @@ export const StyledButton = styled(Button)(({ theme }) => ({
       width: '100%',
       maxWidth: '343px',
    },
-}));
+}))
 
 export const StyledWriting = styled(Input)(({ theme }) => ({
    fontSize: '18px',
@@ -118,14 +118,14 @@ export const StyledWriting = styled(Input)(({ theme }) => ({
          fontWeight: '400',
       },
    },
-}));
+}))
 
 export const ErrorMessage = styled('div')(() => ({
    color: 'red',
    fontSize: '14px',
    fontWeight: '300',
    position: 'absolute',
-}));
+}))
 
 export const DownloadTitle = styled('p')(({ theme }) => ({
    fontSize: '18px !important',
@@ -134,14 +134,14 @@ export const DownloadTitle = styled('p')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '14px',
    },
-}));
+}))
 
 export const ImagePreview = styled('img')(() => ({
    maxWidth: '100%',
    height: '200px',
    objectFit: 'contain',
    padding: '5px',
-}));
+}))
 
 export const DateLabelStyle = styled('p')(() => ({
    fontWeight: 600,
@@ -149,4 +149,4 @@ export const DateLabelStyle = styled('p')(() => ({
    margin: '0 0 8px 0',
    gap: '14px',
    fontSize: '18px',
-}));
+}))

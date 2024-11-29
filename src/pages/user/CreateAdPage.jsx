@@ -1,6 +1,6 @@
-import { styled } from '@mui/material';
-import Breadcrumbs from '../../components/UI/Breadcrumbs';
-import { CreateAdForm } from '../../components/User/CreateAdForm';
+import { styled } from '@mui/material'
+import Breadcrumbs from '../../components/UI/Breadcrumbs'
+import { CreateAdForm } from '../../components/User/CreateAdForm'
 
 export const CreateAdPage = () => {
    const path = [
@@ -115,4 +115,4 @@ const Paragraph = styled('p')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       marginBottom: theme.spacing(1),
    },
-}));
+}))

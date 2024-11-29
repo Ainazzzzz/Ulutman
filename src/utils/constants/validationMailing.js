@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
-import * as Yup from 'yup';
+import dayjs from 'dayjs'
+import * as Yup from 'yup'
 
 export const validationSchema = Yup.object().shape({
    title: Yup.string().required('Название рассылки обязательно'),
@@ -14,13 +14,13 @@ export const validationSchema = Yup.object().shape({
          'dates-test',
          'Дата окончания должна быть после даты начала',
          (value, context) => {
-            const startDate = dayjs(context.parent.promotionStartDate);
-            const endDate = dayjs(value);
+            const startDate = dayjs(context.parent.promotionStartDate)
+            const endDate = dayjs(value)
 
-            return endDate > startDate;
+            return endDate > startDate
          },
       ),
-});
+})
 
 export const validationAdForm = Yup.object({
    title: Yup.string().required('Название обязательно'),
@@ -35,4 +35,4 @@ export const validationAdForm = Yup.object({
    price: Yup.number()
       .required('Цена обязательна')
       .typeError('Цена должна быть числом'),
-});
+})

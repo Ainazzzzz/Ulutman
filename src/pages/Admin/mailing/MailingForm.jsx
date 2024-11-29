@@ -1,7 +1,10 @@
-import { useFormik } from 'formik';
-import ReusableSelect from '../../../components/UI/Select.jsx';
-import Input from '../../../components/UI/Input.jsx';
-import FileUpload from './FileUpload.jsx';
+import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import dayjs from 'dayjs'
+import ReusableSelect from '../../../components/UI/Select'
+import Input from '../../../components/UI/Input'
+import FileUpload from './FileUpload'
 import {
    WrapperInputSelect,
    Container,
@@ -9,15 +12,12 @@ import {
    StyledWriting,
    ErrorMessage,
    DateLabelStyle,
-} from './MailingFormStyles.jsx';
-import { validationSchema } from '../../../utils/constants/validationMailing.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { postMailing } from '../../../redux/mailing/mailingThunk.js';
-import { useNavigate } from 'react-router-dom';
-import DatePicker from '../../../components/UI/DatePicker.jsx';
-import dayjs from 'dayjs';
-import { postFile } from '../../../redux/files/fileThunk.js';
-import Spinner from '../../../components/UI/Spinner.jsx';
+} from './MailingFormStyles'
+import { validationSchema } from '../../../utils/constants/validationMailing'
+import { postMailing } from '../../../redux/mailing/mailingThunk'
+import DatePicker from '../../../components/UI/DatePicker'
+import { postFile } from '../../../redux/files/fileThunk'
+import Spinner from '../../../components/UI/Spinner'
 
 const InputContainer = ({
    name,
@@ -41,12 +41,12 @@ const InputContainer = ({
       />
       {touched && errors ? <ErrorMessage>{errors}</ErrorMessage> : null}
    </Container>
-);
+)
 
 export const MailingForm = ({ mailingType, recipients }) => {
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
-   const { isLoading } = useSelector(state => state.file);
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+   const { isLoading } = useSelector(state => state.file)
 
    const formik = useFormik({
       initialValues: {
@@ -61,19 +61,19 @@ export const MailingForm = ({ mailingType, recipients }) => {
          promotionEndDate: dayjs(new Date()).add(7, 'day'),
          recipientsIds: [],
       },
-      validationSchema: validationSchema,
+      validationSchema,
       onSubmit: values => {
          const { promotionStartDate, promotionEndDate, image, ...restValue } =
-            values;
+            values
 
          dispatch(postFile(image))
             .unwrap()
             .then(res => {
-               const startDate = new Date(promotionStartDate);
-               const formattedStartDate = dayjs(startDate).format('YYYY-MM-DD');
+               const startDate = new Date(promotionStartDate)
+               const formattedStartDate = dayjs(startDate).format('YYYY-MM-DD')
 
-               const endDate = new Date(promotionEndDate);
-               const formattedEndDate = dayjs(endDate).format('YYYY-MM-DD');
+               const endDate = new Date(promotionEndDate)
+               const formattedEndDate = dayjs(endDate).format('YYYY-MM-DD')
 
                dispatch(
                   postMailing({
@@ -85,10 +85,10 @@ export const MailingForm = ({ mailingType, recipients }) => {
                      },
                      navigate,
                   }),
-               );
-            });
+               )
+            })
       },
-   });
+   })
 
    return (
       <form onSubmit={formik.handleSubmit}>
@@ -213,5 +213,5 @@ export const MailingForm = ({ mailingType, recipients }) => {
             {isLoading ? <Spinner /> : 'Отправить'}
          </StyledButton>
       </form>
-   );
-};
+   )
+}

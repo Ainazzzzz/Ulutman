@@ -1,37 +1,37 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-import { styled } from '@mui/material';
-import { slider } from '../../utils/constants/slider';
-import SliderArrow from '../../assets/icons/slider-arrow.svg?react';
-import { useCallback, useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper/modules'
+import { styled } from '@mui/material'
+import { useCallback, useRef } from 'react'
+import { slider } from '../../utils/constants/slider'
+import SliderArrow from '../../assets/icons/slider-arrow.svg?react'
 
-import 'swiper/css';
+import 'swiper/css'
 
 const Slider = () => {
-   const sliderRef = useRef(null);
+   const sliderRef = useRef(null)
 
    const handlePrev = useCallback(() => {
-      if (!sliderRef.current) return;
-      sliderRef.current.swiper.slidePrev();
-   }, []);
+      if (!sliderRef.current) return
+      sliderRef.current.swiper.slidePrev()
+   }, [])
 
    const handleNext = useCallback(() => {
-      if (!sliderRef.current) return;
-      sliderRef.current.swiper.slideNext();
-   }, []);
+      if (!sliderRef.current) return
+      sliderRef.current.swiper.slideNext()
+   }, [])
 
    return (
       <StyledSwiper
          ref={sliderRef}
          modules={[Navigation]}
-         slidesPerView={'auto'}
+         slidesPerView="auto"
          spaceBetween={30}
-         loop={true}
+         loop
          navigation={false}
       >
          {slider.map(item => (
             <StyledSwiperSlide key={item.id}>
-               <img src={item.sliderImages} alt="slider image" />
+               <img src={item.sliderImages} alt="house" />
             </StyledSwiperSlide>
          ))}
          <PrevArrow className="prev-arrow" onClick={handlePrev}>
@@ -41,15 +41,15 @@ const Slider = () => {
             <SliderArrow />
          </NextArrow>
       </StyledSwiper>
-   );
-};
+   )
+}
 
-export default Slider;
+export default Slider
 
 const StyledSwiper = styled(Swiper)(() => ({
    width: '100%',
    position: 'relative',
-}));
+}))
 
 const StyledSwiperSlide = styled(SwiperSlide)(({ theme }) => ({
    width: '460px',
@@ -65,7 +65,7 @@ const StyledSwiperSlide = styled(SwiperSlide)(({ theme }) => ({
       height: '100%',
       borderRadius: '10px',
    },
-}));
+}))
 
 const PrevArrow = styled('div')(() => ({
    width: 'fit-content',
@@ -80,7 +80,7 @@ const PrevArrow = styled('div')(() => ({
    top: '40%',
    cursor: 'pointer',
    left: '15%',
-}));
+}))
 
 const NextArrow = styled('div')(() => ({
    width: 'fit-content',
@@ -96,4 +96,4 @@ const NextArrow = styled('div')(() => ({
    top: '40%',
    cursor: 'pointer',
    right: '15%',
-}));
+}))

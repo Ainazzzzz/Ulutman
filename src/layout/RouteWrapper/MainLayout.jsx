@@ -1,7 +1,7 @@
-import { Outlet } from 'react-router-dom';
-import { Header } from '../Header';
-import Footer from '../../components/main-page/Footer';
-import { styled } from '@mui/material';
+import { Outlet } from 'react-router-dom'
+import { styled } from '@mui/material'
+import { Header } from '../Header'
+import Footer from '../../components/main-page/Footer'
 
 export const MainLayout = () => {
    return (
@@ -12,9 +12,9 @@ export const MainLayout = () => {
          </OutletContent>
          <Footer />
       </div>
-   );
-};
+   )
+}
 
 const OutletContent = styled('div')(() => ({
    minHeight: '100vh',
-}));
+}))

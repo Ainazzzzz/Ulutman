@@ -1,6 +1,9 @@
-import { styled } from '@mui/material';
-import { green, red, orange } from '@mui/material/colors';
-import WaitIcon from '../../../assets/icons/address-icon.svg?react';
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-unused-expressions */
+import { styled } from '@mui/material'
+import { green, red, orange } from '@mui/material/colors'
+import WaitIcon from '../../../assets/icons/address-icon.svg?react'
 
 export const getAdminTableHeaders = (
    handleOpenWaitingModal,
@@ -17,22 +20,22 @@ export const getAdminTableHeaders = (
          return {
             ...column,
             Cell: ({ cell: { value, row } }) => {
-               const userData = row.original;
+               const userData = row.original
 
                const openModal = () => {
                   value === 'ОЖИДАЕТ'
                      ? handleOpenWaitingModal()
                      : type === 'user'
                        ? handleOpenWaitingModal()
-                       : undefined;
+                       : undefined
 
                   if (type === 'user') {
-                     setData(userData);
+                     setData(userData)
                   }
-               };
+               }
 
-               let color,
-                  IconComponent = null;
+               let color
+               let IconComponent = null
 
                switch (value) {
                   case 'ОДОБРЕН':
@@ -40,20 +43,22 @@ export const getAdminTableHeaders = (
                   case 'АКТИВНЫЙ':
                   case 'АКТИВНО':
                   case 'ОТПРАВЛЕНО':
-                     color = green[500];
-                     break;
+                  case 'ОПЛАЧЕНО':
+                     color = green[500]
+                     break
                   case 'ЗАБЛОКИРОВАН':
                   case 'ОТКЛОНЕН':
                   case 'НЕАКТИВНО':
                   case 'ОШИБКА':
-                     color = red[500];
-                     break;
+                  case 'НЕ_ОПЛАЧЕНО':
+                     color = red[500]
+                     break
                   case 'ОЖИДАЕТ':
-                     color = orange[500];
-                     IconComponent = WaitIcon;
-                     break;
+                     color = orange[500]
+                     IconComponent = WaitIcon
+                     break
                   default:
-                     color = 'inherit';
+                     color = 'inherit'
                }
 
                return (
@@ -63,21 +68,21 @@ export const getAdminTableHeaders = (
                      </MiniBlock>
                      {IconComponent && <IconComponent />}
                   </Block>
-               );
+               )
             },
-         };
+         }
       }
 
-      return column;
-   });
-};
+      return column
+   })
+}
 
 const Block = styled('div')({
    alignItems: 'center',
    justifyContent: 'start',
    gap: '6px',
    width: 'fit-content',
-});
+})
 
 const MiniBlock = styled('div')(({ color }) => ({
    height: '29px',
@@ -88,4 +93,4 @@ const MiniBlock = styled('div')(({ color }) => ({
    fontWeight: '500',
    cursor: 'pointer',
    background: color,
-}));
+}))

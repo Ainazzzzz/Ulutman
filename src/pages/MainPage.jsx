@@ -1,38 +1,38 @@
-import { styled } from '@mui/material';
-import { MainBanner } from '../components/main-page/MainBanner';
-import AnnouncementsSorter from '../components/AnnouncementsSorter';
-import AboutUs from '../components/main-page/AboutUs';
-import { Button } from '../components/UI/Button';
-import { CARDS, SORT_BY_CATEGROY_OPTIONS } from '../utils/constants';
-import { CardList } from '../components/UI/Card/CardList';
-import Slider from '../components/main-page/Slider';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMainAds, sortPublishesRequest } from '../redux/main/mainThunk';
-import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { MainBanner } from '../components/main-page/MainBanner'
+import AnnouncementsSorter from '../components/AnnouncementsSorter'
+import AboutUs from '../components/main-page/AboutUs'
+import { Button } from '../components/UI/Button'
+import { CARDS, SORT_BY_CATEGROY_OPTIONS } from '../utils/constants'
+import { CardList } from '../components/UI/Card/CardList'
+import Slider from '../components/main-page/Slider'
+import { getMainAds, sortPublishesRequest } from '../redux/main/mainThunk'
 
 export const MainPage = () => {
-   const { publishes, isLoading } = useSelector(state => state.main);
+   const { publishes, isLoading } = useSelector(state => state.main)
 
-   const [sortedAds, setSortedAds] = useState([]);
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
-
-   useEffect(() => {
-      dispatch(getMainAds());
-   }, [dispatch]);
+   const [sortedAds, setSortedAds] = useState([])
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
 
    useEffect(() => {
-      setSortedAds(publishes);
-   }, [publishes]);
+      dispatch(getMainAds())
+   }, [dispatch])
+
+   useEffect(() => {
+      setSortedAds(publishes)
+   }, [publishes])
 
    const seeMoreHandler = () => {
-      navigate('/user/recommendations');
-   };
+      navigate('/user/recommendations')
+   }
 
    const handleSortChange = sortValue => {
-      dispatch(sortPublishesRequest(sortValue));
-   };
+      dispatch(sortPublishesRequest(sortValue))
+   }
 
    return (
       <div>
@@ -59,8 +59,8 @@ export const MainPage = () => {
             <AboutUs />
          </Container>
       </div>
-   );
-};
+   )
+}
 
 const Title = styled('p')(({ theme }) => ({
    fontSize: '34px',
@@ -68,7 +68,7 @@ const Title = styled('p')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '24px',
    },
-}));
+}))
 const Block = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
@@ -76,7 +76,7 @@ const Block = styled('div')(({ theme }) => ({
       flexDirection: 'column',
       gap: '10px',
    },
-}));
+}))
 export const Container = styled('div')(({ theme }) => ({
    padding: '60px',
    display: 'flex',
@@ -85,11 +85,11 @@ export const Container = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       padding: '20px 16px 0px 16px',
    },
-}));
+}))
 
 const SliderBox = styled('div')(({ theme }) => ({
    margin: '-20px 0 0 0',
    [theme.breakpoints.down('md')]: {
       display: 'none',
    },
-}));
+}))

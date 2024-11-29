@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
 
 export const getAdminCategories = createAsyncThunk(
    'categories/getAll',
@@ -7,14 +7,14 @@ export const getAdminCategories = createAsyncThunk(
       try {
          const { data } = await axiosInstance.get(
             '/manage/category/with-publishes',
-         );
+         )
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error);
+         return rejectWithValue(error)
       }
    },
-);
+)
 
 export const filterAdminCategories = createAsyncThunk(
    'categories/filter',
@@ -22,13 +22,13 @@ export const filterAdminCategories = createAsyncThunk(
       try {
          const { data } = await axiosInstance.get('/manage/category/filter', {
             params,
-         });
+         })
 
          //  const {} = data;
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error);
+         return rejectWithValue(error)
       }
    },
-);
+)

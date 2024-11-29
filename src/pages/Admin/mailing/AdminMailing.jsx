@@ -1,31 +1,31 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
-import { styled } from '@mui/material';
-import Wait from '../../../assets/icons/wait-icon.svg?react';
-import { green, red, orange } from '@mui/material/colors';
-import ReusableSelect from '../../../components/UI/Select.jsx';
-import { AdsDeleteModal } from '../ads/AdsDeleteModal.jsx';
-import { WaitingModal } from '../ads/WaitingModal.jsx';
-import Table from '../../../components/UI/Table.jsx';
-import { Button } from '../../../components/UI/Button.jsx';
-import Plus from '../../../assets/icons/plus.svg?react';
-import { useNavigate } from 'react-router-dom';
-import { checkAllUsers, checkUser } from '../../../redux/users/usersSlice.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { CheckBox } from '../../../components/UI/Checkbox.jsx';
-import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter.jsx';
-import { useDebounce } from '../../../hooks/useDebounce.js';
+/* eslint-disable prefer-destructuring */
+/* eslint-disable react/no-unstable-nested-components */
+import { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
+import { styled } from '@mui/material'
+import { green, red, orange } from '@mui/material/colors'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import Wait from '../../../assets/icons/wait-icon.svg?react'
+import { AdsDeleteModal } from '../ads/AdsDeleteModal'
+import { WaitingModal } from '../ads/WaitingModal'
+import Table from '../../../components/UI/Table'
+import { Button } from '../../../components/UI/Button'
+import Plus from '../../../assets/icons/plus.svg?react'
+import { CheckBox } from '../../../components/UI/Checkbox'
+import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter'
+import { useDebounce } from '../../../hooks/useDebounce'
 import {
    filterMailing,
    getAllMailing,
-} from '../../../redux/mailing/mailingThunk.js';
-import TableSkeleton from '../../../components/UI/TableSkeleton.jsx';
-import { getAdminTableHeaders } from '../category/AdminTableHeader.jsx';
+} from '../../../redux/mailing/mailingThunk'
+import TableSkeleton from '../../../components/UI/TableSkeleton'
+import { getAdminTableHeaders } from '../category/AdminTableHeader'
 import {
    checkAllMailing,
    checkMailing,
-} from '../../../redux/mailing/mailingSlice.js';
+} from '../../../redux/mailing/mailingSlice'
 
-const inputData = [{ id: 'name', value: 'По имени' }];
+const inputData = [{ id: 'name', value: 'По имени' }]
 const selectsConfig = [
    {
       label: 'type',
@@ -45,97 +45,97 @@ const selectsConfig = [
          { id: 'e7', value: 'ОТПРАВЛЕНО', label: 'Отправлено' },
       ],
    },
-];
+]
 
 const initialState = {
    deleteAllModal: false,
    waitingModal: false,
    inputValues: { name: '', date: [] },
    selectedValues: { type: 'type', date: 'date', status: 'status' },
-};
+}
 
 const reducer = (state, action) => {
    switch (action.type) {
       case 'TOGGLE_MODAL':
-         return { ...state, [action.payload]: !state[action.payload] };
+         return { ...state, [action.payload]: !state[action.payload] }
       case 'SET_VALUES':
          return {
             ...state,
             [action.field]: { ...state[action.field], ...action.payload },
-         };
+         }
       case 'RESET_FILTER':
-         return initialState;
+         return initialState
       default:
-         return state;
+         return state
    }
-};
+}
 
 const AdminMailing = () => {
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
-   const { mailing, isLoading } = useSelector(state => state.mailing);
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+   const { mailing, isLoading } = useSelector(state => state.mailing)
 
-   const [state, dispatchFunc] = useReducer(reducer, initialState);
+   const [state, dispatchFunc] = useReducer(reducer, initialState)
 
-   const [open, setOpen] = useState(false);
-   const [isOpen, setIsOpen] = useState(false);
+   const [open] = useState(false)
+   const [isOpen, setIsOpen] = useState(false)
 
-   const debouncedName = useDebounce(state.inputValues.name, 1500);
+   const debouncedName = useDebounce(state.inputValues.name, 1500)
 
-   const handleOpenWaitingModal = () => setIsOpen(true);
-   const handleCloseWaitingModal = () => setIsOpen(true);
+   const handleOpenWaitingModal = () => setIsOpen(true)
+   const handleCloseWaitingModal = () => setIsOpen(true)
 
    const formatDate = date => {
-      const [day, month, year] = date.split('.');
+      const [day, month, year] = date.split('.')
 
-      const currentYear = new Date().getFullYear();
-      const century = Math.floor(currentYear / 100) * 100;
+      const currentYear = new Date().getFullYear()
+      const century = Math.floor(currentYear / 100) * 100
       const formattedYear =
-         year.length === 2 ? century + parseInt(year, 10) : year;
+         year.length === 2 ? century + parseInt(year, 10) : year
 
-      return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-   };
+      return `${formattedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+   }
 
    const fetchMailing = useCallback(() => {
-      const { date } = state.inputValues;
-      const { type, status } = state.selectedValues;
+      const { date } = state.inputValues
+      const { type, status } = state.selectedValues
 
-      const filters = {};
-      if (type !== 'type') filters.type = type;
-      if (status !== 'status') filters.statuses = status;
+      const filters = {}
+      if (type !== 'type') filters.type = type
+      if (status !== 'status') filters.statuses = status
 
       if (date.length) {
-         const formattedDates = date.map(formatDate);
-         filters.createDates = formattedDates;
+         const formattedDates = date.map(formatDate)
+         filters.createDates = formattedDates
       }
 
       if (Object.keys(filters).length) {
-         dispatch(filterMailing(filters));
+         dispatch(filterMailing(filters))
       } else {
-         dispatch(getAllMailing());
+         dispatch(getAllMailing())
       }
-   }, [state.inputValues, state.selectedValues, dispatch]);
+   }, [state.inputValues, state.selectedValues, dispatch])
 
    useEffect(() => {
       // if (debouncedName) {
       //    // dispatch(getUsersName(debouncedName));
       // } else {
-      fetchMailing();
+      fetchMailing()
       // }
-   }, [debouncedName, state.selectedValues, fetchMailing, dispatch]);
+   }, [debouncedName, state.selectedValues, fetchMailing, dispatch])
 
    const toggleModal = useCallback(modalType => {
-      dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType });
-   }, []);
+      dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType })
+   }, [])
 
    const setValues = useCallback((field, payload) => {
-      dispatchFunc({ type: 'SET_VALUES', field, payload });
-   }, []);
+      dispatchFunc({ type: 'SET_VALUES', field, payload })
+   }, [])
 
    const resetFilterHandler = () => {
-      dispatchFunc({ type: 'RESET_FILTER' });
+      dispatchFunc({ type: 'RESET_FILTER' })
       // dispatch(getResetFilter());
-   };
+   }
 
    const MAILING_COLUMNS = [
       {
@@ -179,22 +179,23 @@ const AdminMailing = () => {
          Header: 'СТАТУС',
          accessor: 'mailingStatus',
          Cell: ({ cell: { value } }) => {
-            let color, Icon;
+            let color
+            let Icon
 
             switch (value) {
                case 'Отправлено':
-                  color = green[500];
-                  break;
+                  color = green[500]
+                  break
                case 'Ошибка':
-                  color = red[500];
-                  break;
+                  color = red[500]
+                  break
                case 'Ожидает':
-                  color = orange[500];
-                  Icon = Wait;
-                  break;
+                  color = orange[500]
+                  Icon = Wait
+                  break
                default:
-                  color = 'inherit';
-                  Icon = null;
+                  color = 'inherit'
+                  Icon = null
             }
 
             return (
@@ -209,10 +210,10 @@ const AdminMailing = () => {
                   </MiniBlock>
                   {Icon && <Icon />}
                </Block>
-            );
+            )
          },
       },
-   ];
+   ]
 
    const headers = useMemo(
       () =>
@@ -221,11 +222,11 @@ const AdminMailing = () => {
             MAILING_COLUMNS,
          ),
       [toggleModal],
-   );
+   )
 
    const handleNavigate = () => {
-      navigate('/admin/users/add-mailing');
-   };
+      navigate('/admin/users/add-mailing')
+   }
 
    return (
       <Wrapper>
@@ -263,10 +264,10 @@ const AdminMailing = () => {
          )}
          {isOpen && <WaitingModal onClose={handleCloseWaitingModal} />}
       </Wrapper>
-   );
-};
+   )
+}
 
-export default AdminMailing;
+export default AdminMailing
 
 const Description = styled('h2')(({ theme }) => ({
    fontWeight: '600',
@@ -276,7 +277,7 @@ const Description = styled('h2')(({ theme }) => ({
       fontSize: '26px',
       paddingBottom: '15px',
    },
-}));
+}))
 
 const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -286,14 +287,14 @@ const Wrapper = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       overflowX: 'scroll',
    },
-}));
+}))
 const TitleButtun = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
    [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
    },
-}));
+}))
 const ButtunStyle = styled(Button)(({ theme }) => ({
    fontFamily: 'Inter',
    fontWeight: '500',
@@ -302,12 +303,12 @@ const ButtunStyle = styled(Button)(({ theme }) => ({
       width: '343px',
       height: '36px',
    },
-}));
+}))
 const Block = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
    gap: '6px',
-}));
+}))
 const MiniBlock = styled('div')(() => ({
    width: '108px',
    height: '29px',
@@ -316,7 +317,7 @@ const MiniBlock = styled('div')(() => ({
    padding: '4px 20px 0px 20px',
    fontSize: '14px',
    fontWeight: '500',
-}));
+}))
 const Container = styled('div')(({ theme }) => ({
    display: 'flex',
    alignItems: 'center',
@@ -328,89 +329,4 @@ const Container = styled('div')(({ theme }) => ({
       gap: '24px',
       alignItems: 'inherit',
    },
-}));
-const FirstBlock = styled('div')(() => ({
-   display: 'flex',
-   alignItems: 'center',
-
-   div: {
-      width: '200px',
-      height: '70px',
-
-      display: 'flex',
-      gap: '8px',
-      alignItems: 'center',
-      justifyContent: 'center',
-      p: {
-         color: '#ea0234',
-         fontWeight: '600',
-         fontSize: '14px',
-         cursor: 'pointer',
-      },
-   },
-}));
-
-const Title = styled('p')(() => ({
-   width: '115px',
-   height: '70px',
-   borderTop: '0.6px solid #d5d5d5',
-   borderBottom: '0.6px solid #d5d5d5',
-   display: 'flex',
-   gap: '8px',
-   alignItems: 'center',
-   justifyContent: 'center',
-   fontSize: '14px',
-   fontWeight: '700',
-   cursor: ' pointer',
-}));
-
-const FilterStyle = styled('p')(() => ({
-   width: '64px',
-   height: '70px',
-   display: 'flex',
-   gap: '8px',
-   alignItems: 'center',
-   justifyContent: 'center',
-   border: '0.6px solid #d5d5d5',
-   borderTopLeftRadius: '14px',
-   borderBottomLeftRadius: '14px',
-   svg: {
-      cursor: 'pointer',
-   },
-}));
-
-const SelectStyle = styled(ReusableSelect)(() => ({
-   marginBottom: '18px',
-   color: '#202224',
-   fontWeight: '700',
-   fontSize: '14px',
-
-   '.MuiSelect-icon': {
-      top: '30px',
-      right: '24px',
-   },
-   '.MuiOutlinedInput-notchedOutline': {
-      borderRadius: '0px',
-      height: '75px',
-      borderRight: 'none',
-   },
-   '&:hover .MuiOutlinedInput-notchedOutline': {
-      border: '1px solid #d5d5d5',
-      borderRight: 'none',
-   },
-   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      border: '1px solid #d5d5d5',
-      borderRight: 'none',
-   },
-   '.MuiSelect-select': {
-      paddingTop: '23px',
-   },
-}));
-
-const SecondMiniBlock = styled('div')(() => ({
-   width: '193px',
-   height: '70px',
-   border: '0.6px solid #d5d5d5',
-   borderTopRightRadius: '14px',
-   borderBottomRightRadius: '14px',
-}));
+}))

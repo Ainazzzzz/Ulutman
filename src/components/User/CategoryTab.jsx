@@ -1,26 +1,26 @@
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import { useState } from 'react';
-import { styled, useMediaQuery } from '@mui/system';
-import { CategoryCard } from '../UI/CategoryCard';
-import Filter from '../../assets/icons/filter-category-icon.svg?react';
-import { CARDS, CARDS_MAIN } from '../../utils/constants';
-import { AdvertisingCategory } from './AdvertisingCategory';
-import AnnouncementsSorter from '../AnnouncementsSorter';
-import { CardList } from '../UI/Card/CardList';
-import { FilterModal } from './FilterModal';
+import Box from '@mui/material/Box'
+import Tab from '@mui/material/Tab'
+import TabContext from '@mui/lab/TabContext'
+import TabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
+import { useState } from 'react'
+import { styled, useMediaQuery } from '@mui/system'
+import { CategoryCard } from '../UI/CategoryCard'
+import Filter from '../../assets/icons/filter-category-icon.svg?react'
+import { CARDS, CARDS_MAIN } from '../../utils/constants'
+import { AdvertisingCategory } from './AdvertisingCategory'
+import AnnouncementsSorter from '../AnnouncementsSorter'
+import { CardList } from '../UI/Card/CardList'
+import { FilterModal } from './FilterModal'
 
 export const CategoryTab = () => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
 
-   const [value, setValue] = useState('1');
+   const [value, setValue] = useState('1')
 
    const handleChange = (event, newValue) => {
-      setValue(newValue);
-   };
+      setValue(newValue)
+   }
    return (
       <div>
          <Box>
@@ -54,9 +54,9 @@ export const CategoryTab = () => {
                            <CategoryCard />
                         </MiniBlock>
                         <WrapperAdvertising>
-                           {CARDS?.map((image, i) => (
-                              <div>
-                                 <AdvertisingCategory image={image} key={i} />
+                           {CARDS?.map(image => (
+                              <div key={image}>
+                                 <AdvertisingCategory image={image} />
                               </div>
                            ))}
                         </WrapperAdvertising>
@@ -72,8 +72,8 @@ export const CategoryTab = () => {
             </TabContext>
          </Box>
       </div>
-   );
-};
+   )
+}
 const TabListStyle = styled(TabList)(({ theme }) => ({
    '.MuiTabs-indicator': {
       height: '0',
@@ -85,7 +85,7 @@ const TabListStyle = styled(TabList)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       overflowX: 'scroll',
    },
-}));
+}))
 const TabStyle = styled(Tab)(({ theme }) => ({
    background: 'rgba(126, 82, 255, 0.1)',
    color: '#000',
@@ -107,26 +107,26 @@ const TabStyle = styled(Tab)(({ theme }) => ({
       display: 'flex',
       gap: '10px',
    },
-}));
+}))
 
 const TabPanelStyle = styled(TabPanel)(() => ({
    padding: '24px 0px',
    display: 'flex',
    justifyContent: 'space-between',
-}));
+}))
 
 const BoxStyle = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
-}));
+}))
 
 const WrapperAdvertising = styled('div')({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
-});
+})
 const MiniBlock = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
-}));
+}))

@@ -1,54 +1,54 @@
-import { useEffect, useState } from 'react';
-import { styled } from '@mui/material';
-import { useFormik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '../UI/Button';
-import AdsFileUpload from './AdsFileUpload.jsx';
-import UploadReceipt from './UploadReceipt.jsx';
+import { useEffect, useState } from 'react'
+import { styled } from '@mui/material'
+import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button } from '../UI/Button'
+import AdsFileUpload from './AdsFileUpload.jsx'
+import UploadReceipt from './UploadReceipt.jsx'
 
 import {
    InputField,
    CategoryField,
    DescriptionField,
    SelectField,
-} from './FormFields';
-import { PublishesCategoryModal } from './PublishesCategoryModal.jsx';
-import { fetchPublishesUser } from '../../redux/publishes/publishesThunk.js';
-import { getAllMetros } from '../../redux/main/mainThunk.js';
-import { validationAdForm } from '../../utils/constants/validationMailing';
-import { WrapperInputSelect } from '../../pages/Admin/mailing/MailingFormStyles.jsx';
+} from './FormFields'
+import { PublishesCategoryModal } from './PublishesCategoryModal.jsx'
+import { fetchPublishesUser } from '../../redux/publishes/publishesThunk.js'
+import { getAllMetros } from '../../redux/main/mainThunk.js'
+import { validationAdForm } from '../../utils/constants/validationMailing'
+import { WrapperInputSelect } from '../../pages/Admin/mailing/MailingFormStyles.jsx'
 
 export const CreateAdForm = () => {
-   const dispatch = useDispatch();
-   const { userData } = useSelector(state => state.auth);
-   const { metros } = useSelector(state => state.main);
-   const { images } = useSelector(state => state.s3);
+   const dispatch = useDispatch()
+   const { userData } = useSelector(state => state.auth)
+   const { metros } = useSelector(state => state.main)
+   const { images } = useSelector(state => state.s3)
 
-   const [imageFiles, setImageFiles] = useState([]);
-   const [isOpen, setIsOpen] = useState(false);
-   const [selectCategory, setSelectCategory] = useState({});
-   const [fileName, setFileName] = useState('нет');
+   const [imageFiles, setImageFiles] = useState([])
+   const [isOpen, setIsOpen] = useState(false)
+   const [selectCategory, setSelectCategory] = useState({})
+   const [fileName, setFileName] = useState('нет')
 
    useEffect(() => {
-      if (!metros.length) dispatch(getAllMetros());
-   }, [dispatch, metros]);
+      if (!metros.length) dispatch(getAllMetros())
+   }, [dispatch, metros])
 
    const handleCategorySubmit = categories => {
-      setSelectCategory({ categoryTitle: categories.title });
-      formik.setFieldValue('category', categories.category);
-   };
+      setSelectCategory({ categoryTitle: categories.title })
+      formik.setFieldValue('category', categories.category)
+   }
 
    const handleSubCategorySubmit = subCategory => {
       setSelectCategory(prev => ({
          ...prev,
          subCategoryText: subCategory.text,
-      }));
-      formik.setFieldValue('subcategory', subCategory.value);
-   };
+      }))
+      formik.setFieldValue('subcategory', subCategory.value)
+   }
 
    const handlePaymentReceipt = pdfFile => {
-      setFileName(pdfFile);
-   };
+      setFileName(pdfFile)
+   }
 
    const formik = useFormik({
       initialValues: {
@@ -86,14 +86,14 @@ export const CreateAdForm = () => {
                      images: images,
                   },
                }),
-            );
+            )
             // setImageFiles([]);
             // setSelectCategory({});
             // setFileName('Нет');
             // formik.resetForm();
          }
       },
-   });
+   })
 
    const renderField = (
       name,
@@ -114,7 +114,7 @@ export const CreateAdForm = () => {
          error={formik.errors[name]}
          required={required}
       />
-   );
+   )
 
    const realEstateFields = selectCategory.categoryTitle === 'Недвижимость' && (
       <>
@@ -137,7 +137,7 @@ export const CreateAdForm = () => {
             )}
          </StyledWrapperInputSelect>
       </>
-   );
+   )
 
    return (
       <Form onSubmit={formik.handleSubmit}>
@@ -225,33 +225,33 @@ export const CreateAdForm = () => {
             onSubCategoryClick={handleSubCategorySubmit}
          />
       </Form>
-   );
-};
+   )
+}
 
 const Form = styled('form')({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
-});
+})
 
 const StyledWrapperInputSelect = styled(WrapperInputSelect)({
    padding: '0',
-});
+})
 
 const ContainerFile = styled('div')({
    display: 'flex',
    flexDirection: 'column',
    gap: '8px',
-});
+})
 
 const Label = styled('p')({
    fontWeight: '600',
-});
+})
 
 const StyledButton = styled(Button)({
    width: '123px',
-});
+})
 
 const Error = styled('div')({
    color: 'red',
-});
+})
