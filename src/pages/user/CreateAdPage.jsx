@@ -1,12 +1,12 @@
 import { styled } from '@mui/material'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
-import { CreateAdForm } from '../../components/User/CreateAdForm'
+import { CreateAdForm } from '../../components/User/create-ad/CreateAdForm'
 
 export const CreateAdPage = () => {
    const path = [
       { title: 'Главная', url: '/user' },
       { title: 'Новое объявление', url: '/create-ad' },
-   ];
+   ]
 
    return (
       <Wrapper>
@@ -28,8 +28,8 @@ export const CreateAdPage = () => {
 
             <Subtitle>Стоимость размещения баннера за месяц:</Subtitle>
             <UnorderedList>
-               <li>Для категории "Аренда": 1000 рублей</li>
-               <li>Для категории "Гостиница": 2000 рублей</li>
+               <li>Для категории &ldquo;Аренда&ldquo;: 1000 рублей</li>
+               <li>Для категории &ldquo;Гостиница&ldquo;: 2000 рублей</li>
             </UnorderedList>
 
             <Paragraph>Видимость рекламного баннера: от 50%.</Paragraph>
@@ -39,26 +39,26 @@ export const CreateAdPage = () => {
          </Container>
          <CreateAdForm />
       </Wrapper>
-   );
-};
+   )
+}
 
 const Wrapper = styled('div')(() => ({
    padding: '24px 52px 52px',
-}));
+}))
 
 const PageTitle = styled('h1')(() => ({
    padding: '8px',
    fontSize: '24px',
    fontWeight: '700',
    color: '#333',
-}));
+}))
 
 const Container = styled('div')(({ theme }) => ({
    padding: theme.spacing(3),
    [theme.breakpoints.down('md')]: {
       padding: '20px 0',
    },
-}));
+}))
 
 const sharedTextStyles = ({ theme }) => ({
    fontSize: '14px',
@@ -69,9 +69,9 @@ const sharedTextStyles = ({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       marginBottom: theme.spacing(1.5),
    },
-});
+})
 
-const Title = styled('h2')(sharedTextStyles);
+const Title = styled('h2')(sharedTextStyles)
 
 const Subtitle = styled('h3')(({ theme }) => ({
    ...sharedTextStyles({ theme }),
@@ -79,7 +79,7 @@ const Subtitle = styled('h3')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       marginTop: theme.spacing(1.5),
    },
-}));
+}))
 
 const List = styled('ol')(({ theme }) => ({
    listStyleType: 'decimal',
@@ -92,7 +92,7 @@ const List = styled('ol')(({ theme }) => ({
       marginBottom: theme.spacing(1),
       color: '#000000A3',
    },
-}));
+}))
 
 const UnorderedList = styled('ul')(({ theme }) => ({
    marginBottom: theme.spacing(2),
@@ -106,7 +106,7 @@ const UnorderedList = styled('ul')(({ theme }) => ({
       marginBottom: theme.spacing(1),
       color: '#000000A3',
    },
-}));
+}))
 
 const Paragraph = styled('p')(({ theme }) => ({
    marginBottom: theme.spacing(2),

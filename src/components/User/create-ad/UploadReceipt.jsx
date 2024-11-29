@@ -1,13 +1,13 @@
-import { useDropzone } from 'react-dropzone';
-import { Box, Typography, IconButton, TextField, styled } from '@mui/material';
-import PDFIcon from '../../assets/icons/arrows.svg?react';
+import { useDropzone } from 'react-dropzone'
+import { Box, Typography, IconButton, TextField, styled } from '@mui/material'
+import PDFIcon from '../../assets/icons/arrows.svg?react'
 
 const UploadReceipt = ({ setFileName, fileName }) => {
    const onDrop = acceptedFiles => {
       if (acceptedFiles && acceptedFiles.length > 0) {
-         setFileName(acceptedFiles[0]?.name || 'нет');
+         setFileName(acceptedFiles[0]?.name || 'нет')
       }
-   };
+   }
 
    const { getRootProps, getInputProps } = useDropzone({
       onDrop,
@@ -16,7 +16,7 @@ const UploadReceipt = ({ setFileName, fileName }) => {
          'image/*': ['.jpeg', '.jpg', '.png'],
          'application/pdf': ['.pdf'],
       },
-   });
+   })
 
    return (
       <Box display="flex" flexDirection="column" gap={1}>
@@ -52,12 +52,12 @@ const UploadReceipt = ({ setFileName, fileName }) => {
             </IconButton>
          </Box>
       </Box>
-   );
-};
+   )
+}
 
-export default UploadReceipt;
+export default UploadReceipt
 
 const Label = styled(Typography)({
    fontWeight: '600',
    fontSize: '18px',
-});
+})

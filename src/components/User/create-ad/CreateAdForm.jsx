@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { styled } from '@mui/material'
 import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button } from '../UI/Button'
-import AdsFileUpload from './AdsFileUpload.jsx'
-import UploadReceipt from './UploadReceipt.jsx'
+import { Button } from '../../UI/Button'
+import AdsFileUpload from './AdsFileUpload'
+import UploadReceipt from './UploadReceipt'
 
 import {
    InputField,
@@ -12,11 +12,11 @@ import {
    DescriptionField,
    SelectField,
 } from './FormFields'
-import { PublishesCategoryModal } from './PublishesCategoryModal.jsx'
-import { fetchPublishesUser } from '../../redux/publishes/publishesThunk.js'
-import { getAllMetros } from '../../redux/main/mainThunk.js'
-import { validationAdForm } from '../../utils/constants/validationMailing'
-import { WrapperInputSelect } from '../../pages/Admin/mailing/MailingFormStyles.jsx'
+import { PublishesCategoryModal } from './PublishesCategoryModal'
+import { fetchPublishesUser } from '../../../redux/publishes/publishesThunk'
+import { getAllMetros } from '../../../redux/main/mainThunk'
+import { validationAdForm } from '../../../utils/constants/validationMailing'
+import { WrapperInputSelect } from '../../../pages/Admin/mailing/MailingFormStyles'
 
 export const CreateAdForm = () => {
    const dispatch = useDispatch()
@@ -28,27 +28,6 @@ export const CreateAdForm = () => {
    const [isOpen, setIsOpen] = useState(false)
    const [selectCategory, setSelectCategory] = useState({})
    const [fileName, setFileName] = useState('нет')
-
-   useEffect(() => {
-      if (!metros.length) dispatch(getAllMetros())
-   }, [dispatch, metros])
-
-   const handleCategorySubmit = categories => {
-      setSelectCategory({ categoryTitle: categories.title })
-      formik.setFieldValue('category', categories.category)
-   }
-
-   const handleSubCategorySubmit = subCategory => {
-      setSelectCategory(prev => ({
-         ...prev,
-         subCategoryText: subCategory.text,
-      }))
-      formik.setFieldValue('subcategory', subCategory.value)
-   }
-
-   const handlePaymentReceipt = pdfFile => {
-      setFileName(pdfFile)
-   }
 
    const formik = useFormik({
       initialValues: {
@@ -83,7 +62,7 @@ export const CreateAdForm = () => {
                   },
                   publishesData: {
                      paymentReceiptFile: fileName,
-                     images: images,
+                     images,
                   },
                }),
             )
@@ -94,6 +73,27 @@ export const CreateAdForm = () => {
          }
       },
    })
+
+   useEffect(() => {
+      if (!metros.length) dispatch(getAllMetros())
+   }, [dispatch, metros])
+
+   const handleCategorySubmit = categories => {
+      setSelectCategory({ categoryTitle: categories.title })
+      formik.setFieldValue('category', categories.category)
+   }
+
+   const handleSubCategorySubmit = subCategory => {
+      setSelectCategory(prev => ({
+         ...prev,
+         subCategoryText: subCategory.text,
+      }))
+      formik.setFieldValue('subcategory', subCategory.value)
+   }
+
+   const handlePaymentReceipt = pdfFile => {
+      setFileName(pdfFile)
+   }
 
    const renderField = (
       name,
@@ -250,8 +250,4 @@ const Label = styled('p')({
 
 const StyledButton = styled(Button)({
    width: '123px',
-})
-
-const Error = styled('div')({
-   color: 'red',
 })

@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
 
 export const sendImageS3 = createAsyncThunk(
    's3/sendImageS3',
@@ -9,11 +9,11 @@ export const sendImageS3 = createAsyncThunk(
             headers: {
                'Content-Type': 'muitipart/form-data',
             },
-         });
+         })
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error.message);
+         return rejectWithValue(error.message)
       }
    },
-);
+)

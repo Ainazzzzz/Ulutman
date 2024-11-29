@@ -3,6 +3,7 @@ import { InputBase, MenuItem, styled, useMediaQuery, Menu } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
+import { useSelector } from 'react-redux'
 import Search from '../../assets/icons/searchgrey.svg?react'
 import UlutmanLogo from '../../assets/icons/ulutman-logo-icon.svg?react'
 import MenuAdmin from '../../assets/icons/menu-icon.svg?react'
@@ -18,7 +19,6 @@ import LogOutModal from '../UI/LogOutModal'
 import { IconButton } from '../IconButton'
 import LanguageModal from './LanguageModal'
 import { renderFlag } from '../../utils/general/renderFlag'
-import { useSelector } from 'react-redux'
 
 const AdminHeader = () => {
    const { i18n, t } = useTranslation()

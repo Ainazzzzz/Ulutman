@@ -1,12 +1,12 @@
 import { styled } from '@mui/material'
-import Input from '../UI/Input'
-import ReusableSelect from '../UI/Select'
-import { Button } from '../UI/Button'
+import Input from '../../UI/Input'
+import ReusableSelect from '../../UI/Select'
+import { Button } from '../../UI/Button'
 import {
    Container,
    ErrorMessage,
    StyledWriting,
-} from '../../pages/Admin/mailing/MailingFormStyles'
+} from '../../../pages/Admin/mailing/MailingFormStyles'
 
 export const InputField = ({
    name,
@@ -139,7 +139,7 @@ const SelectInfo = styled('p')({
    fontSize: '18px',
    fontWeight: '600',
    color: '#7E52FF',
-});
+})
 
 const WrapperCategory = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -149,4 +149,4 @@ const WrapperCategory = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       flexWrap: 'wrap',
    },
-}));
+}))

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useDropzone } from 'react-dropzone';
-import CloseIcon from '../../assets/icons/close-icon.svg?react';
-import { Box, Typography, IconButton, styled } from '@mui/material';
-import { CameraIcon } from '../../pages/Admin/mailing/MailingFormStyles';
-import { sendImageS3 } from '../../redux/s3/s3Thunk';
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { useDropzone } from 'react-dropzone'
+import { Box, Typography, IconButton, styled } from '@mui/material'
+import CloseIcon from '../../assets/icons/close-icon.svg?react'
+import { CameraIcon } from '../../../pages/Admin/mailing/MailingFormStyles'
+import { sendImageS3 } from '../../../redux/s3/s3Thunk'
 
 const FileUpload = ({
    setFieldValue,
@@ -13,54 +13,54 @@ const FileUpload = ({
    touched,
    errors,
 }) => {
-   const dispatch = useDispatch();
-
-   const onDrop = acceptedFiles => {
-      const validFiles = acceptedFiles.filter(file =>
-         ['image/jpeg', 'image/png', 'image/gif'].includes(file.type),
-      );
-
-      const updatedFiles = [...imageFiles, ...validFiles];
-      setImageFiles(updatedFiles);
-
-      setFieldValue(
-         'images',
-         updatedFiles.map(file => file.name),
-      );
-
-      uploadImages(validFiles);
-   };
+   const dispatch = useDispatch()
 
    const uploadImages = async files => {
-      const formData = new FormData();
-      files.forEach(file => formData.append('files', file));
+      const formData = new FormData()
+      files.forEach(file => formData.append('files', file))
 
-      const response = await dispatch(sendImageS3(formData)).unwrap();
+      const response = await dispatch(sendImageS3(formData)).unwrap()
       if (response.success) {
          const uploadedFiles = response.data.map(file => ({
             ...file,
             name: file.name,
-         }));
+         }))
 
-         const updatedFiles = [...imageFiles, ...uploadedFiles];
-         setImageFiles(updatedFiles);
+         const updatedFiles = [...imageFiles, ...uploadedFiles]
+         setImageFiles(updatedFiles)
 
          setFieldValue(
             'images',
             updatedFiles.map(file => file.name),
-         );
+         )
       }
-   };
+   }
 
-   const handleRemoveImage = index => {
-      const updatedFiles = imageFiles.filter((_, i) => i !== index);
-      setImageFiles(updatedFiles);
+   const onDrop = acceptedFiles => {
+      const validFiles = acceptedFiles.filter(file =>
+         ['image/jpeg', 'image/png', 'image/gif'].includes(file.type),
+      )
+
+      const updatedFiles = [...imageFiles, ...validFiles]
+      setImageFiles(updatedFiles)
 
       setFieldValue(
          'images',
          updatedFiles.map(file => file.name),
-      );
-   };
+      )
+
+      uploadImages(validFiles)
+   }
+
+   const handleRemoveImage = index => {
+      const updatedFiles = imageFiles.filter((_, i) => i !== index)
+      setImageFiles(updatedFiles)
+
+      setFieldValue(
+         'images',
+         updatedFiles.map(file => file.name),
+      )
+   }
 
    const { getRootProps, getInputProps } = useDropzone({
       accept: {
@@ -70,16 +70,16 @@ const FileUpload = ({
       },
       onDrop,
       multiple: true,
-   });
+   })
 
    return (
       <Box>
          <ImageContainer>
-            {imageFiles.map((file, index) => (
-               <ImageWrapper key={index}>
+            {imageFiles.map(file => (
+               <ImageWrapper key={file}>
                   <ImagePreview
                      src={URL.createObjectURL(file)}
-                     alt={`Image ${index + 1}`}
+                     alt="Upload file"
                   />
                   <IconButton
                      size="small"
@@ -89,11 +89,11 @@ const FileUpload = ({
                         right: 8,
                         color: 'white',
                      }}
-                     onClick={() => handleRemoveImage(index)}
+                     onClick={() => handleRemoveImage(file)}
                   >
                      <CloseIcon fontSize="small" />
                   </IconButton>
-                  {index === 0 && (
+                  {file === 0 && (
                      <MainPhotoButton>Главное фото</MainPhotoButton>
                   )}
                </ImageWrapper>
@@ -120,10 +120,10 @@ const FileUpload = ({
             )}
          </ImageContainer>
       </Box>
-   );
-};
+   )
+}
 
-export default FileUpload;
+export default FileUpload
 
 const StyledBox = styled(Box)({
    background: '#7E52FF1A',
@@ -133,7 +133,7 @@ const StyledBox = styled(Box)({
    flexDirection: 'column',
    justifyContent: 'center',
    alignItems: 'center',
-});
+})
 
 const ImageContainer = styled(Box)(({ theme }) => ({
    maxWidth: '805px',
@@ -146,7 +146,7 @@ const ImageContainer = styled(Box)(({ theme }) => ({
    [theme.breakpoints.down('sm')]: {
       gridTemplateColumns: 'repeat(1, 1fr)',
    },
-}));
+}))
 
 const ImageWrapper = styled(Box)({
    width: '255px',
@@ -154,7 +154,7 @@ const ImageWrapper = styled(Box)({
    position: 'relative',
    borderRadius: 8,
    overflow: 'hidden',
-});
+})
 
 const ImagePreview = styled('img')({
    objectFit: 'contain',
@@ -162,7 +162,7 @@ const ImagePreview = styled('img')({
    height: '100%',
    borderRadius: '10px',
    border: '1px solid #00000027',
-});
+})
 
 const MainPhotoButton = styled(Box)({
    width: '106px',
@@ -180,4 +180,4 @@ const MainPhotoButton = styled(Box)({
    borderRadius: 4,
    fontSize: '0.75rem',
    fontWeight: '400',
-});
+})

@@ -1,9 +1,9 @@
 import { styled } from '@mui/material'
 import { useState, useCallback, useMemo } from 'react'
-import Modal from '../UI/Modal'
-import CloseIcon from '../../assets/icons/close-icon.svg?react'
-import ArrowsIcon from '../../assets/icons/arrowpurpul.svg?react'
-import { categories } from '../../utils/constants/main'
+import Modal from '../../UI/Modal'
+import CloseIcon from '../../../assets/icons/close-icon.svg?react'
+import ArrowsIcon from '../../../assets/icons/arrowpurpul.svg?react'
+import { categories } from '../../../utils/constants/main'
 
 export const PublishesCategoryModal = ({
    open,
