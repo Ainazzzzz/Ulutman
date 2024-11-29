@@ -27,4 +27,4 @@ export const store = configureStore({
       [categoriesSlice.name]: categoriesSlice.reducer,
       [advertisingSlice.name]: addsAdminSlice.reducer,
    },
-});
+})

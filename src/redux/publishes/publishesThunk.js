@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
 
 export const fetchPublishesUser = createAsyncThunk(
    'publishes/fetchPublishesUser',
@@ -8,10 +8,10 @@ export const fetchPublishesUser = createAsyncThunk(
          const { data } = await axiosInstance.post(
             'publishes/create',
             userPublishesData,
-         );
-         return data;
+         )
+         return data
       } catch (error) {
-         return rejectWithValue(error.message);
+         return rejectWithValue(error.message)
       }
    },
-);
+)

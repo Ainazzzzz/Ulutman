@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { dashBoard } from './dashboardThunks';
+import { createSlice } from '@reduxjs/toolkit'
+import { dashBoard } from './dashboardThunks'
 
 export const dashboardSlices = createSlice({
    name: 'dashboard',
@@ -12,14 +12,14 @@ export const dashboardSlices = createSlice({
    extraReducers: builder => {
       builder
          .addCase(dashBoard.fulfilled, (state, { payload }) => {
-            state.infoDashboard = payload;
-            state.isLoading = false;
+            state.infoDashboard = payload
+            state.isLoading = false
          })
-         .addCase(dashBoard.pending, (state, { payload }) => {
-            state.isLoading = true;
+         .addCase(dashBoard.pending, state => {
+            state.isLoading = true
          })
-         .addCase(dashBoard.rejected, (state, { payload }) => {
-            state.isLoading = false;
-         });
+         .addCase(dashBoard.rejected, state => {
+            state.isLoading = false
+         })
    },
-});
+})

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Transition = forwardRef((props, ref) => (
    <Slide direction="up" ref={ref} {...props} />
-));
+))
 
 const Modal = ({ children, variant = 'custom', handleClose, open }) => {
    const navigate = useNavigate();
@@ -71,7 +71,7 @@ const Modal = ({ children, variant = 'custom', handleClose, open }) => {
    );
 };
 
-export default Modal;
+export default Modal
 
 const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
    '& ::-webkit-scrollbar-thumb': {
@@ -126,7 +126,7 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
       padding: ' 0rem',
       marginRight: '0.88rem',
    },
-}));
+}))
 
 const StyledCloseButton = styled('button')(() => ({
    width: '2.25rem',

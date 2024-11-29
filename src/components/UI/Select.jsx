@@ -1,6 +1,6 @@
-import React, { forwardRef } from 'react';
-import { FormControl, Select, MenuItem, styled } from '@mui/material';
-import DownIcon from '../../assets/icons/select-down-icon.svg?react';
+import React, { forwardRef } from 'react'
+import { FormControl, Select, MenuItem, styled } from '@mui/material'
+import DownIcon from '../../assets/icons/select-down-icon.svg?react'
 
 const ReusableSelect = forwardRef(
    (
@@ -34,12 +34,12 @@ const ReusableSelect = forwardRef(
                }}
                renderValue={selected => {
                   if (!selected) {
-                     return <Placeholder>{placeholder}</Placeholder>;
+                     return <Placeholder>{placeholder}</Placeholder>
                   }
                   const selectedOption = options.find(
                      option => option.value === selected,
-                  );
-                  return selectedOption ? selectedOption.label : '';
+                  )
+                  return selectedOption ? selectedOption.label : ''
                }}
             >
                {options?.length === 0 ? (
@@ -57,11 +57,11 @@ const ReusableSelect = forwardRef(
                )}
             </SelectStyle>
          </FormControlStyle>
-      );
+      )
    },
-);
+)
 
-export default ReusableSelect;
+export default ReusableSelect
 
 const SelectStyle = styled(Select)(() => ({
    '.MuiSelect-select': {
@@ -82,17 +82,17 @@ const SelectStyle = styled(Select)(() => ({
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: '1px solid #7e52ff',
    },
-}));
+}))
 
 const LabelStyle = styled('label')(() => ({
    fontWeight: '600',
    fontSize: '18px',
-}));
+}))
 
 const FormControlStyle = styled(FormControl)(() => ({
    display: 'flex',
    gap: '8px',
-}));
+}))
 
 const MenuItemStyle = styled(MenuItem)(() => ({
    fontSize: '18px',
@@ -109,8 +109,8 @@ const MenuItemStyle = styled(MenuItem)(() => ({
    '&:focus': {
       backgroundColor: '#f2eeff',
    },
-}));
+}))
 
 const Placeholder = styled('span')({
    color: '#959595',
-});
+})

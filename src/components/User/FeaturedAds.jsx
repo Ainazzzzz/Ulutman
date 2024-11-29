@@ -1,47 +1,47 @@
-import Breadcrumbs from '../UI/Breadcrumbs';
-import DeleteAll from '../../assets/icons/delete-all-icon.svg?react';
-import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react';
-import ChevronLeft from '../../assets/icons/chevron-left.svg?react';
-import { styled, useMediaQuery } from '@mui/material';
-import { CardList } from '../UI/Card/CardList';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { styled, useMediaQuery } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import Breadcrumbs from '../UI/Breadcrumbs'
+import DeleteAll from '../../assets/icons/delete-all-icon.svg?react'
+import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react'
+import ChevronLeft from '../../assets/icons/chevron-left.svg?react'
+import { CardList } from '../UI/Card/CardList'
 import {
    deleteAllFavorites,
    deleteFavoritesById,
    getAllFavorites,
-} from '../../redux/users/favoriteThunk';
-import { DeleteFavoriteModal } from './DeleteFavoriteModal';
+} from '../../redux/users/favoriteThunk'
+import { DeleteFavoriteModal } from './DeleteFavoriteModal'
 
 export const FeaturedAds = () => {
-   const [isOpenModal, setIsOpenModal] = useState(false);
-   const dispatch = useDispatch();
+   const [isOpenModal, setIsOpenModal] = useState(false)
+   const dispatch = useDispatch()
    const favorite = useSelector(
       state => state.favoriteProducts?.favoriteProducts || [],
-   );
-   const publishResponseList = favorite?.publishResponseList || [];
+   )
+   const publishResponseList = favorite?.publishResponseList || []
 
    const breadCrumbs = [
       { url: '/', title: 'Главная' },
       { url: 'featuredAds', title: 'Избранные объявления' },
-   ];
+   ]
 
    const handleDeleteFavorite = () => {
-      setIsOpenModal(!isOpenModal);
-   };
+      setIsOpenModal(!isOpenModal)
+   }
    const onDelete = () => {
-      dispatch(deleteAllFavorites());
-      setIsOpenModal(!isOpenModal);
-   };
+      dispatch(deleteAllFavorites())
+      setIsOpenModal(!isOpenModal)
+   }
    const onDeleteById = id => {
-      dispatch(deleteFavoritesById(id));
-   };
+      dispatch(deleteFavoritesById(id))
+   }
 
    useEffect(() => {
-      dispatch(getAllFavorites());
-   }, [dispatch]);
+      dispatch(getAllFavorites())
+   }, [dispatch])
 
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
 
    return (
       <Wrapper>
@@ -73,8 +73,8 @@ export const FeaturedAds = () => {
             />
          )}
       </Wrapper>
-   );
-};
+   )
+}
 
 const FirstBlock = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -92,7 +92,7 @@ const FirstBlock = styled('div')(({ theme }) => ({
          fontSize: '12px',
       },
    },
-}));
+}))
 
 const SecondBlock = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -114,20 +114,20 @@ const SecondBlock = styled('div')(({ theme }) => ({
       alignItems: 'start',
       gap: '24px',
    },
-}));
+}))
 const Container = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
-}));
+}))
 
 const Wrapper = styled('div')(({ theme }) => ({
    padding: '40px 60px 60px 60px',
    [theme.breakpoints.down('md')]: {
       padding: '24px 16px 16px 16px',
    },
-}));
+}))
 
-const NoFavoritesMessage = styled('p')(({}) => ({
+const NoFavoritesMessage = styled('p')(() => ({
    margin: '30px 0',
-}));
+}))

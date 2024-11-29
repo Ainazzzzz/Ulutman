@@ -1,26 +1,26 @@
-import KgFlag from '../../assets/icons/kg.svg?react';
-import RussianFlag from '../../assets/icons/russian-flag.svg?react';
-import TjFlag from '../../assets/icons/tj.svg?react';
-import UzFlag from '../../assets/icons/uz.svg?react';
-import UsaFlag from '../../assets/icons/usa.svg?react';
-import TurkeyFlag from '../../assets/icons/turkey.svg?react';
-import React from 'react';
+/* eslint-disable import/no-unresolved */
+import KgFlag from '../../assets/icons/kg.svg?react'
+import RussianFlag from '../../assets/icons/russian-flag.svg?react'
+import TjFlag from '../../assets/icons/tj.svg?react'
+import UzFlag from '../../assets/icons/uz.svg?react'
+import UsaFlag from '../../assets/icons/usa.svg?react'
+import TurkeyFlag from '../../assets/icons/turkey.svg?react'
 
 export const renderFlag = language => {
    switch (language) {
       case 'kg':
-         return <KgFlag />;
+         return <KgFlag />
       case 'ru':
-         return <RussianFlag />;
+         return <RussianFlag />
       case 'tj':
-         return <TjFlag />;
+         return <TjFlag />
       case 'uz':
-         return <UzFlag />;
+         return <UzFlag />
       case 'en':
-         return <UsaFlag />;
+         return <UsaFlag />
       case 'tr':
-         return <TurkeyFlag />;
+         return <TurkeyFlag />
       default:
-         return <RussianFlag />;
+         return <RussianFlag />
    }
-};
+}

@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react/no-array-index-key */
+import React from 'react'
 import {
    Table,
    TableBody,
@@ -6,7 +7,7 @@ import {
    TableHead,
    TableRow,
    Skeleton,
-} from '@mui/material';
+} from '@mui/material'
 
 const TableSkeleton = ({ rows = 5, columns = 1 }) => {
    return (
@@ -32,7 +33,7 @@ const TableSkeleton = ({ rows = 5, columns = 1 }) => {
             ))}
          </TableBody>
       </Table>
-   );
-};
+   )
+}
 
-export default TableSkeleton;
+export default TableSkeleton

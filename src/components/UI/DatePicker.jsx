@@ -1,6 +1,6 @@
-import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers/DatePicker';
-import { styled } from '@mui/material';
-import dayjs from 'dayjs';
+import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers/DatePicker'
+import { styled } from '@mui/material'
+import dayjs from 'dayjs'
 
 const DatePicker = ({
    setDates,
@@ -12,20 +12,20 @@ const DatePicker = ({
    ...props
 }) => {
    const handleDateChange = newDate => {
-      const formattedNewDate = newDate.format('DD.MM.YY');
+      const formattedNewDate = newDate.format('DD.MM.YY')
       handleChange(prev => {
          if (!prev.includes(formattedNewDate)) {
-            return [...prev, formattedNewDate];
+            return [...prev, formattedNewDate]
          }
-         return prev;
-      });
-   };
+         return prev
+      })
+   }
 
    const disablePastDates = date => {
-      if (disableDate) return date.isBefore(dayjs(disableDate), 'day');
+      if (disableDate) return date.isBefore(dayjs(disableDate), 'day')
 
-      return date.isBefore(dayjs(), 'day');
-   };
+      return date.isBefore(dayjs(), 'day')
+   }
 
    return (
       <DatePickerStyle
@@ -48,10 +48,10 @@ const DatePicker = ({
          }}
          {...props}
       />
-   );
-};
+   )
+}
 
-export default DatePicker;
+export default DatePicker
 
 const DatePickerStyle = styled(MuiDatePicker)(() => ({
    '.MuiInputLabel-root': {
@@ -76,4 +76,4 @@ const DatePickerStyle = styled(MuiDatePicker)(() => ({
       fontWeight: '300',
       margin: '0',
    },
-}));
+}))

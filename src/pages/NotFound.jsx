@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { Button } from '../components/UI/Button';
+import React from 'react'
+import { Box, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { Button } from '../components/UI/Button'
 
 const NotFoundPage = () => {
    return (
@@ -28,7 +28,7 @@ const NotFoundPage = () => {
             Вернуться на главную
          </Button>
       </Box>
-   );
-};
+   )
+}
 
-export default NotFoundPage;
+export default NotFoundPage

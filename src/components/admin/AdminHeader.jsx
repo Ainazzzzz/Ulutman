@@ -1,65 +1,60 @@
-import React, { useState } from 'react';
-import {
-   InputBase,
-   MenuItem,
-   styled,
-   useMediaQuery,
-   Menu,
-} from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react'
+import { InputBase, MenuItem, styled, useMediaQuery, Menu } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import { NavLink } from 'react-router-dom'
 
-import Search from '../../assets/icons/searchgrey.svg?react';
-import User from '../../assets/icons/userprofile.svg?react';
-import UlutmanLogo from '../../assets/icons/ulutman-logo-icon.svg?react';
-import MenuAdmin from '../../assets/icons/menu-icon.svg?react';
-import GoOut from '../../assets/icons/goout.svg?react';
-import Users from '../../assets/icons/usersicon.svg?react';
-import Announcement from '../../assets/icons/announcement.svg?react';
-import Category from '../../assets/icons/category.svg?react';
-import Modearation from '../../assets/icons/moderation.svg?react';
-import Language from '../../assets/icons/language-icon.svg?react';
+import Search from '../../assets/icons/searchgrey.svg?react'
+import UlutmanLogo from '../../assets/icons/ulutman-logo-icon.svg?react'
+import MenuAdmin from '../../assets/icons/menu-icon.svg?react'
+import GoOut from '../../assets/icons/goout.svg?react'
+import Users from '../../assets/icons/usersicon.svg?react'
+import Announcement from '../../assets/icons/announcement.svg?react'
+import Category from '../../assets/icons/category.svg?react'
+import Modearation from '../../assets/icons/moderation.svg?react'
+import Language from '../../assets/icons/language-icon.svg?react'
 
-import ReusableSelect from '../UI/Select';
-import LogOutModal from '../UI/LogOutModal';
-import { languages } from '../../utils/constants/languages';
-import { IconButton } from '../IconButton';
-import LanguageModal from './LanguageModal.jsx';
-import { renderFlag } from '../../utils/general/renderFlag.jsx';
+import ReusableSelect from '../UI/Select'
+import LogOutModal from '../UI/LogOutModal'
+import { IconButton } from '../IconButton'
+import LanguageModal from './LanguageModal'
+import { renderFlag } from '../../utils/general/renderFlag'
+import { useSelector } from 'react-redux'
 
 const AdminHeader = () => {
-   const { i18n, t } = useTranslation();
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const [language, setLanguage] = useState('ru');
-   const [openMenu, setOpenMenu] = useState(null);
-   const [openLogOutModal, setOpenLogOutModal] = useState(false);
-   const [openLanguageModal, setOpenLanguageModal] = useState(false);
+   const { i18n, t } = useTranslation()
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const [language, setLanguage] = useState('ru')
+   const [openMenu, setOpenMenu] = useState(null)
+   const [openLogOutModal, setOpenLogOutModal] = useState(false)
+   const [openLanguageModal, setOpenLanguageModal] = useState(false)
+
+   const { userData } = useSelector(state => state.auth)
 
    const handleSelect = event => {
-      const lng = event.target.value;
-      setLanguage(event.target.value);
+      const lng = event.target.value
+      setLanguage(event.target.value)
 
-      i18n.changeLanguage(lng);
-   };
+      i18n.changeLanguage(lng)
+   }
 
    const handleClose = () => {
-      setOpenMenu(null);
-   };
+      setOpenMenu(null)
+   }
 
    const handleClick = event => {
-      setOpenMenu(event.currentTarget);
-   };
+      setOpenMenu(event.currentTarget)
+   }
 
    const toggleLogOutModal = () => {
-      handleClose();
-      setOpenLogOutModal(prev => !prev);
-   };
+      handleClose()
+      setOpenLogOutModal(prev => !prev)
+   }
 
-   const closeLanguageModal = () => setOpenLanguageModal(false);
+   const closeLanguageModal = () => setOpenLanguageModal(false)
    const handleOpenLanguageModal = () => {
-      setOpenLanguageModal(true);
-      setOpenMenu(null);
-   };
+      setOpenLanguageModal(true)
+      setOpenMenu(null)
+   }
 
    const languages = [
       { label: t('admin.header.select.ru'), value: 'ru' },
@@ -68,7 +63,7 @@ const AdminHeader = () => {
       { label: t('admin.header.select.uz'), value: 'uz' },
       { label: t('admin.header.select.en'), value: 'en' },
       { label: t('admin.header.select.tr'), value: 'tr' },
-   ];
+   ]
 
    return (
       <>
@@ -97,7 +92,7 @@ const AdminHeader = () => {
                         <GoOut /> Выйти
                      </MenuItemStyle>
 
-                     <Line></Line>
+                     <Line />
 
                      <MenuItemStyle onClick={handleClose}>
                         <NavLink to="users">
@@ -107,20 +102,20 @@ const AdminHeader = () => {
                      </MenuItemStyle>
 
                      <MenuItemStyle onClick={handleClose}>
-                        <NavLink to={'ads'}>
+                        <NavLink to="ads">
                            <Announcement /> {t('admin.sideBar.ads')}
                         </NavLink>
                      </MenuItemStyle>
 
                      <MenuItemStyle onClick={handleClose}>
-                        <NavLink to={'categories'}>
+                        <NavLink to="categories">
                            <Category />
                            {t('admin.sideBar.categories')}
                         </NavLink>
                      </MenuItemStyle>
 
                      <MenuItemStyle onClick={handleClose}>
-                        <NavLink to={'moderation'}>
+                        <NavLink to="moderation">
                            <Modearation />
                            {t('admin.sideBar.moderation')}
                         </NavLink>
@@ -154,7 +149,7 @@ const AdminHeader = () => {
                         />
                      </FlagLanguageStyle>
                      <ContainerProfileTitle>
-                        <TitleAdmin>Administrator </TitleAdmin>
+                        <TitleAdmin>{userData.name}</TitleAdmin>
                      </ContainerProfileTitle>
                   </MiddleContainerBox>
                </SehondBigContainer>
@@ -164,10 +159,10 @@ const AdminHeader = () => {
          <LogOutModal open={openLogOutModal} onClose={toggleLogOutModal} />
          <LanguageModal open={openLanguageModal} onClose={closeLanguageModal} />
       </>
-   );
-};
+   )
+}
 
-export default AdminHeader;
+export default AdminHeader
 
 const WrapperAdminHeader = styled('div')(({ theme }) => ({
    background: 'rgb(255, 255, 255);',
@@ -176,17 +171,20 @@ const WrapperAdminHeader = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-around',
    paddingTop: '17px',
+   position: 'sticky',
+   top: 0,
+   zIndex: 10,
    [theme.breakpoints.down('md')]: {
       height: '60px',
       justifyContent: 'center',
       paddingTop: '10px',
    },
-}));
+}))
 const SehondBigContainer = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-around',
    width: '100%',
-}));
+}))
 const MobileSearch = styled('div')(({ theme }) => ({
    display: 'flex',
    alignItems: 'center',
@@ -194,31 +192,31 @@ const MobileSearch = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       paddingLeft: '110px',
    },
-}));
+}))
 
 const UlutmanLogoStyle = styled(UlutmanLogo)(({ theme }) => ({
    width: '134px',
    height: '29px',
 
    [theme.breakpoints.down('md')]: {},
-}));
+}))
 const LogoMobile = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       display: 'flex',
       alignItems: 'center',
    },
-}));
+}))
 
 const SearchIconStyle = styled('div')(() => ({
    padding: '6px  12px 12px 17px',
-}));
+}))
 const MiddleContainerBox = styled('div')(() => ({
    display: 'flex',
    gap: '50px',
    justifyContent: 'center',
    alignItems: 'center',
    paddingBottom: '10px',
-}));
+}))
 const InputStyle = styled('div')(() => ({
    width: '  388px',
    height: '38px',
@@ -231,12 +229,12 @@ const InputStyle = styled('div')(() => ({
    fontWeight: '400',
    lineHeight: '19px',
    display: 'flex',
-}));
+}))
 
 const SearchIcon = styled(Search)(() => ({
    width: '19px',
    height: '19px',
-}));
+}))
 const SelectStyle = styled(ReusableSelect)(() => ({
    alignItems: 'center',
    '.MuiOutlinedInput-notchedOutline': {
@@ -252,41 +250,33 @@ const SelectStyle = styled(ReusableSelect)(() => ({
    '.MuiSelect-select': {
       paddingLeft: '0px',
    },
-}));
-const FlagLanguageStyle = styled('div')(({ theme }) => ({
+}))
+const FlagLanguageStyle = styled('div')(() => ({
    display: 'flex',
    gap: '10px',
    alignItems: 'center',
-}));
+}))
 
-const FrameStyle = styled('div')(({ theme }) => ({
-   width: '20px',
-   height: '20px',
-}));
-const ProfileLogo = styled('div')(() => ({
-   width: '37px',
-   height: '37px',
-}));
-const ContainerProfileTitle = styled('div')(({ theme }) => ({
+const ContainerProfileTitle = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'center',
    alignItems: 'center',
    gap: '6px',
-}));
+}))
 const TitleAdmin = styled('p')(() => ({
    color: 'rgb(40, 40, 40);',
    fontFamily: 'Inter',
    fontSize: '16px',
    fontWeight: '400',
    lineHeight: '19px',
-}));
+}))
 const MenuStyle = styled(Menu)(() => ({
    '.MuiPaper-root': {
       padding: '16px 0px 16px 0px',
       width: '230px',
       background: '#7e52ff',
    },
-}));
+}))
 const MenuItemStyle = styled(MenuItem)(() => ({
    display: 'flex',
    gap: '10px',
@@ -315,10 +305,10 @@ const MenuItemStyle = styled(MenuItem)(() => ({
       alignItems: 'center',
       gap: '10px',
    },
-}));
+}))
 
 const Line = styled('div')(() => ({
    width: '100%',
    borderBottom: '1px solid #b2b2b2',
    margin: '16px 0px 16px 0px',
-}));
+}))

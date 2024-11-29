@@ -1,35 +1,34 @@
-import { Box, Rating, Typography, styled } from '@mui/material';
-import Breadcrumbs from '../../../components/UI/Breadcrumbs';
-import LocationIcon from '../../../assets/icons/address-icon.svg?react';
-import ClockIcon from '../../../assets/icons/clock-icon.svg?react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
-import { useState } from 'react';
-import firstImage from '../../../assets/images/slider-images/first.png';
-import secondthImage from '../../../assets/images/slider-images/second.png';
-import thirdImage from '../../../assets/images/slider-images/third.png';
-import fourthImage from '../../../assets/images/slider-images/fourth.png';
-import fifthImage from '../../../assets/images/slider-images/fifth.png';
-import sixthImage from '../../../assets/images/slider-images/sixth.png';
-import seventhImage from '../../../assets/images/slider-images/seventh.png';
-import eightImage from '../../../assets/images/slider-images/eight.png';
-import ninthImage from '../../../assets/images/slider-images/ninth.png';
-import tenthImage from '../../../assets/images/slider-images/tenth.png';
-import Like from '../../../assets/icons/like-product-icon.svg?react';
-import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react';
-import { Button } from '../../../components/UI/Button';
-import UserIcon from '../../../assets/icons/user.svg?react';
-import AboutApartment from './AboutApartment';
+import { Box, Rating, Typography, styled } from '@mui/material'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules'
+import Breadcrumbs from '../../../components/UI/Breadcrumbs'
+import LocationIcon from '../../../assets/icons/address-icon.svg?react'
+import ClockIcon from '../../../assets/icons/clock-icon.svg?react'
+import firstImage from '../../../assets/images/slider-images/first.png'
+import secondthImage from '../../../assets/images/slider-images/second.png'
+import thirdImage from '../../../assets/images/slider-images/third.png'
+import fourthImage from '../../../assets/images/slider-images/fourth.png'
+import fifthImage from '../../../assets/images/slider-images/fifth.png'
+import sixthImage from '../../../assets/images/slider-images/sixth.png'
+import seventhImage from '../../../assets/images/slider-images/seventh.png'
+import eightImage from '../../../assets/images/slider-images/eight.png'
+import ninthImage from '../../../assets/images/slider-images/ninth.png'
+import tenthImage from '../../../assets/images/slider-images/tenth.png'
+import Like from '../../../assets/icons/like-product-icon.svg?react'
+import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react'
+import { Button } from '../../../components/UI/Button'
+import UserIcon from '../../../assets/icons/user.svg?react'
+import AboutApartment from './AboutApartment'
+
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 const DetailInfo = () => {
    const path = [
       { title: 'Главная', url: '#' },
       { title: '2х комнатная квартира', url: '#' },
-   ];
+   ]
 
    const slides = [
       { id: 1, image: firstImage },
@@ -42,7 +41,7 @@ const DetailInfo = () => {
       { id: 8, image: eightImage },
       { id: 9, image: ninthImage },
       { id: 10, image: tenthImage },
-   ];
+   ]
 
    return (
       <StyledContainer>
@@ -74,11 +73,11 @@ const DetailInfo = () => {
             <Box className="fist-part_container">
                <Box className="slider">
                   <Swiper
-                     cssMode={true}
-                     navigation={true}
-                     pagination={true}
-                     mousewheel={true}
-                     keyboard={true}
+                     cssMode
+                     navigation
+                     pagination
+                     mousewheel
+                     keyboard
                      modules={[Navigation, Pagination, Mousewheel, Keyboard]}
                      className="mySwiper"
                   >
@@ -164,10 +163,10 @@ const DetailInfo = () => {
                Описания объявления
             </Typography>
             <Typography className="descriptioon-text">
-               ЖК "Водный", предлогается 2-х комнатная квартира с новым
-               ремонтом.Кухня -гостиная, спальня, балкон. Имеется вся мебель и
-               бытовая техника включая кондиционер. Есть возможность аренды
-               машино-место.
+               ЖК &#34;Водный&ldquo;, предлогается 2-х комнатная квартира с
+               новым ремонтом.Кухня -гостиная, спальня, балкон. Имеется вся
+               мебель и бытовая техника включая кондиционер. Есть возможность
+               аренды машино-место.
             </Typography>
 
             <Typography className="read-more-text">
@@ -178,10 +177,10 @@ const DetailInfo = () => {
 
          <AboutApartment />
       </StyledContainer>
-   );
-};
+   )
+}
 
-export default DetailInfo;
+export default DetailInfo
 
 const StyledContainer = styled(Box)(() => ({
    padding: '0 3rem',
@@ -403,4 +402,4 @@ const StyledContainer = styled(Box)(() => ({
       lineHeight: '36px',
       letterSpacing: '-0.5px',
    },
-}));
+}))

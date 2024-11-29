@@ -1,5 +1,5 @@
-import Modal from '../../../components/UI/Modal.jsx';
-import { styled } from '@mui/material';
+import { styled } from '@mui/material'
+import Modal from '../../../components/UI/Modal'
 
 export const AdsDeleteModal = ({ isOpen, onClose, onDelete }) => {
    return (
@@ -12,8 +12,8 @@ export const AdsDeleteModal = ({ isOpen, onClose, onDelete }) => {
             </div>
          </Container>
       </Modal>
-   );
-};
+   )
+}
 
 const Container = styled('div')(() => ({
    display: 'flex',
@@ -24,7 +24,7 @@ const Container = styled('div')(() => ({
       display: 'flex',
       gap: '40px',
    },
-}));
+}))
 
 const Title = styled('p')(({ theme }) => ({
    fontWeight: '500',
@@ -35,7 +35,7 @@ const Title = styled('p')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '16px',
    },
-}));
+}))
 const FirstButton = styled('button')(() => ({
    fontWeight: '500',
    fontSize: '17px',
@@ -46,7 +46,7 @@ const FirstButton = styled('button')(() => ({
    border: '1px solid #282828',
    background: 'transparent',
    cursor: 'pointer',
-}));
+}))
 const SecondButton = styled('button')(() => ({
    fontWeight: '500',
    fontSize: '17px',
@@ -57,4 +57,4 @@ const SecondButton = styled('button')(() => ({
    border: '1px solid #ff0000',
    background: 'transparent',
    cursor: 'pointer',
-}));
+}))

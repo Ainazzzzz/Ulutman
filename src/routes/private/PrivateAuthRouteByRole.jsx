@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom'
 
 export const PrivateAuthRouteByRole = ({
    RouteComponent,
@@ -7,8 +7,8 @@ export const PrivateAuthRouteByRole = ({
    fallBackPath,
 }) => {
    if (roles.includes(role)) {
-      return RouteComponent;
+      return RouteComponent
    }
 
-   return <Navigate to={fallBackPath} replace />;
-};
+   return <Navigate to={fallBackPath} replace />
+}

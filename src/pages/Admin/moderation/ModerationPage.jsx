@@ -1,11 +1,11 @@
-import { Moderation } from './Moderation.jsx';
+import { Moderation } from './Moderation'
 
 const ModerationPage = () => {
    return (
       <div>
          <Moderation />
       </div>
-   );
-};
+   )
+}
 
-export default ModerationPage;
+export default ModerationPage

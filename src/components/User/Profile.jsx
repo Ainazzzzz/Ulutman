@@ -1,15 +1,15 @@
-import { styled } from '@mui/material';
-import { Button } from '../UI/Button';
-import Input from '../UI/Input';
-import { useFormik } from 'formik';
-import { profileValidation } from '../../utils/general/validation/profileValidation';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateUserProfile } from '../../redux/users/profileThunk';
+import { styled } from '@mui/material'
+import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button } from '../UI/Button'
+import Input from '../UI/Input'
+import { profileValidation } from '../../utils/general/validation/profileValidation'
+import { updateUserProfile } from '../../redux/users/profileThunk'
 
 export const Profile = () => {
-   const { userData } = useSelector(state => state.auth);
+   const { userData } = useSelector(state => state.auth)
 
-   const dispatch = useDispatch();
+   const dispatch = useDispatch()
 
    const formik = useFormik({
       initialValues: {
@@ -20,9 +20,9 @@ export const Profile = () => {
       },
       validationSchema: profileValidation,
       onSubmit: profileData => {
-         dispatch(updateUserProfile({ profileData, userId: userData.userId }));
+         dispatch(updateUserProfile({ profileData, userId: userData.userId }))
       },
-   });
+   })
 
    return (
       <Form onSubmit={formik.handleSubmit}>
@@ -96,15 +96,15 @@ export const Profile = () => {
 
          <StyledButton type="submit">Сохранить</StyledButton>
       </Form>
-   );
-};
+   )
+}
 
 const Form = styled('form')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
    height: '57vh',
-}));
+}))
 
 const WrapperFullName = styled('div')(({ theme }) => ({
    width: '100%',
@@ -113,7 +113,7 @@ const WrapperFullName = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
    },
-}));
+}))
 
 const StyledInput = styled(Input)(({ theme }) => ({
    width: '327px',
@@ -121,7 +121,7 @@ const StyledInput = styled(Input)(({ theme }) => ({
       width: '100%',
       maxWidth: '463px',
    },
-}));
+}))
 
 const EmailInput = styled(Input)(({ theme }) => ({
    maxWidth: '678px',
@@ -129,7 +129,7 @@ const EmailInput = styled(Input)(({ theme }) => ({
       width: '100%',
       maxWidth: '463px',
    },
-}));
+}))
 
 const StyledButton = styled(Button)(({ theme }) => ({
    width: '144px',
@@ -139,7 +139,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
       width: '100%',
       maxWidth: '463px',
    },
-}));
+}))
 
 const ErrorMessage = styled('div')(() => ({
    color: 'red',
@@ -147,10 +147,10 @@ const ErrorMessage = styled('div')(() => ({
    position: 'absolute',
    bottom: '-15px',
    left: '5px',
-}));
+}))
 
 const Container = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    position: 'relative',
-}));
+}))

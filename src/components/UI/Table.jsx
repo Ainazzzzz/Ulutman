@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react'
 import {
    TableContainer,
    TableHead,
@@ -8,26 +8,32 @@ import {
    Table as MuiTable,
    styled,
    Box,
-} from '@mui/material';
-import { useTable } from 'react-table';
-import Pagination from './Pagination';
-import FileIcon from '../../assets/icons/file-icon.svg?react';
-import { CheckBox } from './Checkbox';
+   Typography,
+} from '@mui/material'
+import { useTable } from 'react-table'
+import Pagination from './Pagination'
+import FileIcon from '../../assets/icons/file-icon.svg?react'
+import NoDataIcon from '../../assets/icons/no-data.svg?react'
 
 const Table = ({ column: headers, data }) => {
-   const [page, setPage] = useState(1);
-   const [rowsPerPage, setRowsPerPage] = useState(9);
+   const [page, setPage] = useState(1)
+   const [rowsPerPage] = useState(9)
 
-   const columns = useMemo(() => headers, [headers]);
+   const columns = useMemo(() => headers, [headers])
 
    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
       useTable({
          columns,
          data,
-      });
+      })
 
    if (!data || data.length === 0) {
-      return <StyledAbsence>Пусто</StyledAbsence>;
+      return (
+         <StyledAbsence>
+            <NoDataIcon />
+            <Typography>Пока что ничего нету</Typography>
+         </StyledAbsence>
+      )
    }
 
    return (
@@ -59,7 +65,7 @@ const Table = ({ column: headers, data }) => {
                   {rows
                      .slice((page - 1) * rowsPerPage, page * rowsPerPage)
                      .map(row => {
-                        prepareRow(row);
+                        prepareRow(row)
                         return (
                            <TableRow
                               {...row.getRowProps()}
@@ -93,10 +99,10 @@ const Table = ({ column: headers, data }) => {
                                           cell.render('Cell')
                                        )}
                                     </TableCell>
-                                 );
+                                 )
                               })}
                            </TableRow>
-                        );
+                        )
                      })}
                </TableBody>
             </MuiTable>
@@ -109,14 +115,12 @@ const Table = ({ column: headers, data }) => {
             totalItems={rows.length}
          />
       </StyledTableContainer>
-   );
-};
+   )
+}
 
-export default memo(Table);
+export default memo(Table)
 
-// Остальная часть кода без изменений
-
-const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+const StyledTableContainer = styled(TableContainer)(() => ({
    borderRadius: '6px',
 
    display: 'flex',
@@ -127,6 +131,7 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
 
    '& .MuiTableHead-root': {
       borderBottom: '1px solid  rgba(224, 224, 224, 1)',
+      textTransform: 'uppercase',
    },
 
    '& .MuiTableCell-root': {
@@ -148,21 +153,25 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
       fontSize: '14px',
       padding: '10px',
    },
-}));
+}))
 
 const TableCont = styled('div')(() => ({
    height: '500px',
    width: '100%',
 
    overflowX: 'auto',
-}));
+}))
 
 const StyledAbsence = styled(Box)(() => ({
    display: 'grid',
    placeItems: 'center',
 
-   '& > img': {
-      width: '600px',
-      height: '600px',
+   '& > svg': {
+      width: '500px',
    },
-}));
+
+   '& .MuiTypography-root': {
+      fontSize: '24px',
+      fontWeight: '600',
+   },
+}))

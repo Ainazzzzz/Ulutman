@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+import * as Yup from 'yup'
 
 export const signUpSchema = Yup.object().shape({
    name: Yup.string()
@@ -17,4 +17,4 @@ export const signUpSchema = Yup.object().shape({
    confirmPassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
       .required('Подтверждение пароля обязательно'),
-});
+})
