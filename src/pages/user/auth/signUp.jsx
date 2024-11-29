@@ -34,8 +34,6 @@ const signUpInputs = [
    },
 ]
 
-// Создаем схему валидации с помощью Yup
-
 const SignUp = ({ open, onClose, handleOpenModal }) => {
    const dispatch = useDispatch()
    const { isLoading } = useSelector(state => state.auth)

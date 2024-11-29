@@ -1,105 +1,124 @@
-import React, { useState } from 'react';
-import Breadcrumbs from '../../components/UI/Breadcrumbs';
-import FileUpload from '../Admin/mailing/FileUpload';
-import { Button } from '../../components/UI/Button';
-import { styled } from '@mui/material';
-import ChevronLeft from '../../assets/icons/chevron-left-violet-icon.svg?react';
-import Input from '../../components/UI/Input';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from 'react'
+import Breadcrumbs from '../../components/UI/Breadcrumbs'
+import FileUpload from '../Admin/mailing/FileUpload'
+import { Button } from '../../components/UI/Button'
+import { styled } from '@mui/material'
+import ChevronLeft from '../../assets/icons/chevron-left-violet-icon.svg?react'
+import Input from '../../components/UI/Input'
+import 'react-toastify/dist/ReactToastify.css'
 
-import InputPay from '../../components/UI/InputPay';
+import InputPay from '../../components/UI/InputPay'
 
-import { useDispatch } from 'react-redux';
-import { addAdvertisingThunks } from '../../redux/advertising/adversstitingpayThunks';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+import { addAdvertisingThunks } from '../../redux/advertising/adversstitingpayThunks'
+import { useNavigate } from 'react-router-dom'
+import { Loading } from '../../components/UI/Loading'
 
 const AdversitingPage = () => {
-   const [bankName, setBankName] = useState('');
+   const [bankName, setBankName] = useState('')
 
-   const [bankError, setBankError] = useState('');
-   const [imageError, setImageError] = useState('');
-   const [receiptError, setReceiptError] = useState('');
-   const [imageFile, setImageFile] = useState('');
-   const [paymentReceiptFile, setPaymentReceiptFile] = useState(null);
-   const [isLoading, setIsLoading] = useState(false);
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
+   const [bankError, setBankError] = useState('')
+   const [imageError, setImageError] = useState('')
+   const [receiptError, setReceiptError] = useState('')
+   const [imageFile, setImageFile] = useState('')
+   const [paymentReceiptFile, setPaymentReceiptFile] = useState(null)
+   const [isLoading, setIsLoading] = useState(false)
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
 
    const breadcrumbs = [
-      { url: '/', title: 'Главная ' },
+      { url: '/user', title: 'Главная ' },
       { url: '/advertising_page', title: 'Добавить рекламу' },
-   ];
+   ]
 
    const handleGoBack = () => {
-      navigate('/');
-   };
+      navigate('/')
+   }
 
-   const validBanks = ['Сбербанк', 'Тбанк', 'Альфа-банк', 'ВТБ', 'Почта банк'];
+   const validBanks = ['Сбербанк', 'Тбанк', 'Альфа-банк', 'ВТБ', 'Почта банк']
 
    const handleImage = (file, type) => {
       if (type === 'image') {
-         setImageFile(file);
+         setImageFile(file)
       } else if (type === 'receipt') {
-         setPaymentReceiptFile(file);
+         setPaymentReceiptFile(file)
       }
-   };
+   }
 
    const handleSubmit = async () => {
-      setBankError('');
-      setImageError('');
-      setReceiptError('');
+      setBankError('')
+      setImageError('')
+      setReceiptError('')
 
-      let isValid = true;
+      let isValid = true
 
       if (!validBanks.includes(bankName)) {
-         setBankError('Пожалуйста, выберите допустимый банк.');
-         isValid = false;
+         setBankError('Пожалуйста, выберите допустимый банк.')
+         isValid = false
       }
 
       if (!imageFile) {
-         setImageError('Пожалуйста, загрузите изображение.');
-         isValid = false;
+         setImageError('Пожалуйста, загрузите изображение.')
+         isValid = false
       } else {
-         const isCorrectSize =
-            imageFile.size === 285 * 407 || imageFile.size === 564 * 246;
-         if (!isCorrectSize) {
-            setImageError(
-               'Изображение должно быть размером 285x407 или 564x246.',
-            );
-            isValid = false;
+         const validSizes = [
+            { width: 285, height: 407 },
+            { width: 564, height: 246 },
+         ]
+
+         const image = new Image()
+         const imageFileUrl = URL.createObjectURL(imageFile)
+
+         image.onload = () => {
+            const isValidSize = validSizes.some(
+               size =>
+                  image.width === size.width && image.height === size.height,
+            )
+
+            if (!isValidSize) {
+               setImageError(
+                  'Изображение должно быть размером 285x407 или 564x246.',
+               )
+               isValid = false
+            } else {
+               setImageError('')
+            }
+
+            URL.revokeObjectURL(imageFileUrl)
          }
+
+         image.src = imageFileUrl
+
+         if (!isValid) return
       }
 
       if (!paymentReceiptFile) {
-         setReceiptError('Пожалуйста, загрузите чек.');
-         isValid = false;
+         setReceiptError('Пожалуйста, загрузите чек.')
+         isValid = false
       }
 
       if (!isValid) {
-         return;
+         return
       }
 
-      setIsLoading(true);
+      setIsLoading(true)
       dispatch(
          addAdvertisingThunks({
             bank: bankName,
             imageFile,
-
             paymentReceiptFile,
+            setIsLoading,
          }),
-      );
-      toast.success('Реклама успешно создана!', {
-         position: 'top-right',
-         autoClose: 5000,
-      });
+      )
 
-      setBankName('');
-      setImageFile('');
-      setPaymentReceiptFile('');
-   };
+      setBankName('')
+      setImageFile('')
+      setPaymentReceiptFile('')
+   }
+
    return (
       <WrapperContainer>
+         {isLoading && <Loading />}
          <FirstBlock>
             <Breadcrumbs path={breadcrumbs} />
             <span onClick={handleGoBack}>
@@ -154,12 +173,11 @@ const AdversitingPage = () => {
          <ContainerAddImage>
             <BoxSyleTitle>
                <PragrafTitile>Загрузите фото</PragrafTitile>
-               {/* <SizeStyle>(размер фото 407 на 285)</SizeStyle> */}
             </BoxSyleTitle>
             <FileUpload
                setFieldValue={(field, value) => {
                   if (field === 'imageFile') {
-                     setImageFile(value);
+                     setImageFile(value)
                   }
                }}
             />
@@ -168,16 +186,16 @@ const AdversitingPage = () => {
 
          <Button onClick={handleSubmit}>Добавить</Button>
       </WrapperContainer>
-   );
-};
+   )
+}
 
-export default AdversitingPage;
+export default AdversitingPage
 const WrapperContainer = styled('div')(({ theme }) => ({
-   padding: '60px 0 0 60px',
+   padding: '60px',
    [theme.breakpoints.down('sm')]: {
-      padding: '30px 0 0 30px',
+      padding: '30px',
    },
-}));
+}))
 const ParagrahStyle = styled('p')(({ theme }) => ({
    fontSize: '12px',
    fontWeight: '600',
@@ -187,7 +205,7 @@ const ParagrahStyle = styled('p')(({ theme }) => ({
       fontSize: '10px',
       lineHeight: '15px',
    },
-}));
+}))
 const Titile = styled('h1')(({ theme }) => ({
    fontSize: '34px',
    fontWeight: '600',
@@ -195,10 +213,8 @@ const Titile = styled('h1')(({ theme }) => ({
    [theme.breakpoints.down('sm')]: {
       fontSize: '28px',
    },
-}));
-const SizeStyle = styled('span')(() => ({
-   color: 'red',
-}));
+}))
+
 const ContainerAddImage = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
@@ -207,7 +223,7 @@ const ContainerAddImage = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('sm')]: {
       paddingBottom: '20px',
    },
-}));
+}))
 const ContainerAddImageSehond = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
@@ -216,17 +232,17 @@ const ContainerAddImageSehond = styled('div')(({ theme }) => ({
    '.css-evt46c-MuiFormControl-root-MuiTextField-root .MuiInputBase-root': {
       width: '365px',
    },
-}));
+}))
 const PragrafTitile = styled('p')(() => ({
    fontSize: '18px',
    fontWeight: '600',
    lineHeight: '21.78px',
-}));
+}))
 const BoxSyleTitle = styled('div')(() => ({
    display: 'flex',
    gap: '10px',
    paddingTop: '24px',
-}));
+}))
 const FirstBlock = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
@@ -244,10 +260,10 @@ const FirstBlock = styled('div')(({ theme }) => ({
       flexDirection: 'column',
       alignItems: 'flex-start',
    },
-}));
+}))
 const InfoBank = styled('div')(() => ({
    display: 'flex',
-}));
+}))
 const ContainerBank = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
@@ -256,7 +272,7 @@ const ContainerBank = styled('div')(() => ({
    '.css-evt46c-MuiFormControl-root-MuiTextField-root .MuiInputBase-root': {
       width: '365px',
    },
-}));
+}))
 const BoxInputStyle = styled('div')(() => ({
    display: 'flex',
 
@@ -264,11 +280,11 @@ const BoxInputStyle = styled('div')(() => ({
    '.css-wxfmmo-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root': {
       width: '365px',
    },
-}));
+}))
 const TitleBank = styled('div')(() => ({
    color: '#282828',
    fontWeight: '600',
-}));
+}))
 const NumberBunkStyle = styled('div')(() => ({
    width: '365px',
    height: '44px',
@@ -278,4 +294,4 @@ const NumberBunkStyle = styled('div')(() => ({
    alignItems: 'center',
    paddingLeft: '20px',
    color: ' #000000A3',
-}));
+}))

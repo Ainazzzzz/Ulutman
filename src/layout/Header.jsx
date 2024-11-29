@@ -1,14 +1,22 @@
-import { Popover, styled, Typography, useMediaQuery } from '@mui/material'
-import { IconButton } from '../components/IconButton'
-import { Button } from '../components/UI/Button'
-import ReusableSelect from '../components/UI/Select'
-import { languages } from '../utils/constants/languages'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { Popover, styled, Typography, useMediaQuery } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { useDispatch, useSelector } from 'react-redux'
-import { renderFlag } from '../utils/general/renderFlag'
+
+import { IconButton } from '../components/IconButton'
+import { Button } from '../components/UI/Button'
 import { SignIn } from '../pages/user/auth/SignIn.jsx'
+import ReusableSelect from '../components/UI/Select'
+import Modal from '../components/UI/Modal.jsx'
+import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx'
+
+import { languages } from '../utils/constants/languages'
+import { renderFlag } from '../utils/general/renderFlag'
+
+import { logOut } from '../redux/auth/authThunk.js'
+
 import HeartLike from '../assets/icons/white-heart.svg?react'
 import UserLogo from '../assets/icons/user.svg?react'
 import Plus from '../assets/icons/plus.svg?react'
@@ -18,11 +26,8 @@ import ComeIcon from '../assets/icons/come-icon.svg?react'
 import WhiteHeart from '../assets/icons/white-heart-icon.svg?react'
 import Language from '../assets/icons/language-icon.svg?react'
 import LogOutIcon from '../assets/icons/logout-icon.svg?react'
-import { logOut } from '../redux/auth/authThunk.js'
-import { useNavigate } from 'react-router-dom'
-import Modal from '../components/UI/Modal.jsx'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
-import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx'
+import SignUp from '../pages/user/auth/signUp.jsx'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -54,18 +59,9 @@ export const Header = () => {
    const [openModal, setOpenModal] = useState(false)
    const [openSignUp, setOpenSignUp] = useState(false)
 
-   const [anchorEl, setAnchorEl] = useState(null)
-
-   const openUserMenu = event => {
-      setAnchorEl(event.currentTarget)
-   }
-
    const closeUserMenu = () => {
       setAnchorEl(null)
    }
-
-   const open = Boolean(anchorEl)
-   const id = open ? 'simple-popover' : undefined
 
    const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false)
    const [openOptionsProfile, setOpenOptionsProfile] = useState(null)
@@ -97,13 +93,15 @@ export const Header = () => {
       setOpenSignUp(true)
       handleCloseModal()
    }
-   const handleOpenPublishModal = () => setModalOpen(true)
+   const handleOpenPublishModal = () => {
+      setOpenMenu(null)
+      setModalOpen(true)
+   }
    const handleClosePublishModal = () => setModalOpen(false)
 
    const handleCloseSignUp = () => setOpenSignUp(false)
 
    const logOutHandler = () => {
-      dispatch(logOut({ navigate, toggleModal: handleClose }))
       setOpenOptionsProfile(null)
       setOpenLogoutConfirm(true)
    }
@@ -165,9 +163,7 @@ export const Header = () => {
                      <MenuItemStyle onClick={handleClose}>
                         <SearchIcon color="#fff" /> Поиск
                      </MenuItemStyle>
-                     <MenuItemStyle
-                        onClick={() => navigateToPageHandler('create-ad')}
-                     >
+                     <MenuItemStyle onClick={handleOpenPublishModal}>
                         <Plus /> Опубликовать
                      </MenuItemStyle>
                      <MenuItemStyle
@@ -210,7 +206,7 @@ export const Header = () => {
                               Профиль
                            </MenuItem>
                            <MenuItemLogOut onClick={logOutHandler}>
-                              <LogoOutIcon /> Выйти
+                              <LogOutIcon /> Выйти
                            </MenuItemLogOut>
                         </MenuProfile>
                      </>
@@ -224,9 +220,7 @@ export const Header = () => {
                      />
                   </Block>
                   {isAuth ? (
-                     <ButtonStyle
-                        onClick={handleOpenPublishModal}
-                     >
+                     <ButtonStyle onClick={handleOpenPublishModal}>
                         <Plus /> Опубликовать
                      </ButtonStyle>
                   ) : (
@@ -238,7 +232,12 @@ export const Header = () => {
          <SignIn
             open={openModal}
             onClose={handleCloseModal}
-            onOpen={handleOpenModal}
+            onOpen={handleOpenSignUp}
+         />
+         <SignUp
+            open={openSignUp}
+            onClose={handleCloseSignUp}
+            handleOpenModal={handleOpenModal}
          />
          <Modal
             open={isModalOpen}

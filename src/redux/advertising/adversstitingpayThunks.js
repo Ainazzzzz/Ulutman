@@ -1,14 +1,18 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
+import { toast } from 'react-toastify'
 
 export const addAdvertisingThunks = createAsyncThunk(
    'advertising/add',
-   async ({ bank, imageFile, paymentReceiptFile }, { rejectWithValue }) => {
+   async (
+      { bank, imageFile, paymentReceiptFile, setIsLoading },
+      { rejectWithValue },
+   ) => {
       try {
-         const formData = new FormData();
+         const formData = new FormData()
 
-         formData.append('imageFile', imageFile);
-         formData.append('paymentReceiptFile', paymentReceiptFile);
+         formData.append('imageFile', imageFile)
+         formData.append('paymentReceiptFile', paymentReceiptFile)
 
          const response = await axiosInstance.post(
             `/advertising?bank=${bank}`,
@@ -18,12 +22,17 @@ export const addAdvertisingThunks = createAsyncThunk(
                   'Content-Type': 'multipart/form-data',
                },
             },
-         );
+         )
+         setIsLoading(false)
+         toast.success('Реклама успешно создана!', {
+            position: 'top-right',
+            autoClose: 5000,
+         })
 
-         return response.data;
+         return response.data
       } catch (error) {
-         console.error('Error adding advertising:', error);
-         return rejectWithValue(error.response?.data || error.message);
+         console.error('Error adding advertising:', error)
+         return rejectWithValue(error.response?.data || error.message)
       }
    },
-);
+)
