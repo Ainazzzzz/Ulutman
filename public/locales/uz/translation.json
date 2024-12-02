@@ -160,6 +160,24 @@
             "address": "Manzil",
             "button": "Yaratish"
          }
+      },
+      "advertising": {
+         "title": "Reklamani qo'shish",
+         "back": "Orqaga",
+         "breadcrumbs": {
+            "main": "Asosiy sahifa",
+            "currentPage": "Reklamani qo'shish"
+         },
+         "descriptions": {
+            "title1": "Banner joylash narxi: oyiga 1500 rubl",
+            "title2": "Banner ko'rinish darajasi: 50% dan yuqori",
+            "title3": "Bannerni ko'tarish imkoniyati: har 3 soatda",
+            "title4": "Birinchi o'rin ko'rinish: 99%."
+         },
+         "uploadPhotoLabel": "Rasm yuklang",
+         "uploadPhotoTitle": "Rasm qo'shing",
+         "uploadPhotoDesc": "Rasm qo'shish uchun bosing yoki tortib o'tkazing",
+         "advertisiingBtn": "Qo'shish"
       }
    },
    "global": {

@@ -161,6 +161,24 @@
             "address": "Adres",
             "button": "Oluştur"
          }
+      },
+      "advertising": {
+         "title": "Reklamayı Ekle",
+         "back": "Geri",
+         "breadcrumbs": {
+            "main": "Ana Sayfa",
+            "currentPage": "Reklam Ekle"
+         },
+         "descriptions": {
+            "title1": "Banner yerleştirme maliyeti: ayda 1500 ruble",
+            "title2": "Banner görünürlüğü: %50'den itibaren",
+            "title3": "Banner yükseltme olanağı: her 3 saatte bir",
+            "title4": "Birinci sıra görünürlüğü: %99."
+         },
+         "uploadPhotoLabel": "Fotoğraf Yükleyin",
+         "uploadPhotoTitle": "Fotoğraf Ekleyin",
+         "uploadPhotoDesc": "Fotoğraf eklemek için tıklayın veya sürükleyin",
+         "advertisiingBtn": "Ekle"
       }
    },
    "global": {

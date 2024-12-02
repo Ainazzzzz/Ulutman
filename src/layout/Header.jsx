@@ -1,30 +1,29 @@
-import { Popover, styled, Typography, useMediaQuery } from '@mui/material';
-import { IconButton } from '../components/IconButton';
-import { Button } from '../components/UI/Button';
-import ReusableSelect from '../components/UI/Select';
-import { languages } from '../utils/constants/languages';
-import { useState } from 'react';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { useDispatch, useSelector } from 'react-redux';
-import { renderFlag } from '../utils/general/renderFlag';
-import { SignIn } from '../pages/user/auth/SignIn.jsx';
-import HeartLike from '../assets/icons/white-heart.svg?react';
-import UserLogo from '../assets/icons/user.svg?react';
-import Plus from '../assets/icons/plus.svg?react';
-import MenuIcon from '../assets/icons/menu-icon.svg?react';
-import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react';
-import ComeIcon from '../assets/icons/come-icon.svg?react';
-import WhiteHeart from '../assets/icons/white-heart-icon.svg?react';
-import Language from '../assets/icons/language-icon.svg?react';
-import LogOutIcon from '../assets/icons/come-icon.svg?react';
-import { logOut } from '../redux/auth/authThunk.js';
-import { useNavigate } from 'react-router-dom';
-import SignUp from '../pages/user/auth/signUp.jsx';
-import DownIcon from '../assets/icons/select-down-icon.svg?react';
-import LogoOutIcon from '../assets/icons/logout-icon.svg?react';
-import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx';
-import { useTranslation } from 'react-i18next';
+import { styled, Typography, useMediaQuery } from '@mui/material'
+import { IconButton } from '../components/IconButton'
+import { Button } from '../components/UI/Button'
+import ReusableSelect from '../components/UI/Select'
+import { useState } from 'react'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import { useDispatch, useSelector } from 'react-redux'
+import { renderFlag } from '../utils/general/renderFlag'
+import { SignIn } from '../pages/user/auth/SignIn.jsx'
+import HeartLike from '../assets/icons/white-heart.svg?react'
+import UserLogo from '../assets/icons/user.svg?react'
+import Plus from '../assets/icons/plus.svg?react'
+import MenuIcon from '../assets/icons/menu-icon.svg?react'
+import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react'
+import ComeIcon from '../assets/icons/come-icon.svg?react'
+import WhiteHeart from '../assets/icons/white-heart-icon.svg?react'
+import Language from '../assets/icons/language-icon.svg?react'
+import LogOutIcon from '../assets/icons/come-icon.svg?react'
+import { logOut } from '../redux/auth/authThunk.js'
+import { useNavigate } from 'react-router-dom'
+import SignUp from '../pages/user/auth/signUp.jsx'
+import DownIcon from '../assets/icons/select-down-icon.svg?react'
+import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx'
+import { useTranslation } from 'react-i18next'
+import Modal from '../components/UI/Modal.jsx'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -45,11 +44,11 @@ const SearchIcon = ({ color = '#ffffff' }) => (
 )
 
 export const Header = () => {
-   const dispatch = useDispatch();
-   const { isAuth, userData } = useSelector(state => state.auth);
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const navigate = useNavigate();
-   const { i18n, t } = useTranslation();
+   const dispatch = useDispatch()
+   const { isAuth, userData } = useSelector(state => state.auth)
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const navigate = useNavigate()
+   const { i18n, t } = useTranslation()
 
    const [language, setLanguage] = useState('ru')
    const [openMenu, setOpenMenu] = useState(null)
@@ -74,13 +73,13 @@ export const Header = () => {
    }
 
    const handleSelect = event => {
-      const lng = event.target.value;
-      setLanguage(event.target.value);
+      const lng = event.target.value
+      setLanguage(event.target.value)
 
-      i18n.changeLanguage(lng);
-   };
+      i18n.changeLanguage(lng)
+   }
 
-   const handleClick = event => setOpenMenu(event.currentTarget);
+   const handleClick = event => setOpenMenu(event.currentTarget)
 
    const closeProfileOptions = () => {
       setOpenOptionsProfile(null)
@@ -131,7 +130,7 @@ export const Header = () => {
       { label: t('admin.header.select.uz'), value: 'uz' },
       { label: t('admin.header.select.en'), value: 'en' },
       { label: t('admin.header.select.tr'), value: 'tr' },
-   ];
+   ]
 
    return (
       <>
@@ -177,7 +176,7 @@ export const Header = () => {
                         <SearchIcon color="#fff" /> Поиск
                      </MenuItemStyle>
                      <MenuItemStyle
-                        onClick={() => navigateToPageHandler('create-ad')}
+                        onClick={() => handleOpenPublishModal('create-ad')}
                      >
                         <Plus /> {t('user.layout.header.create-ad')}
                      </MenuItemStyle>
@@ -236,7 +235,7 @@ export const Header = () => {
                   </Block>
                   {isAuth ? (
                      <ButtonStyle
-                        onClick={() => handleNavigationPage('create-ad')}
+                        onClick={() => handleOpenPublishModal('create-ad')}
                      >
                         <Plus /> {t('user.layout.header.create-ad')}
                      </ButtonStyle>
@@ -273,6 +272,9 @@ const MenuItemLogOut = styled(MenuItem)({
    display: 'flex',
    gap: '5px',
    color: '#FF0000',
+   '& svg path': {
+      stroke: 'red',
+   },
 })
 
 const Wrapper = styled('header')(({ theme }) => ({
@@ -353,27 +355,6 @@ const MenuStyle = styled(Menu)(() => ({
       padding: '16px 0px',
       width: '230px',
       background: '#7e52ff',
-   },
-}))
-
-const LogOutBtn = styled(Button)(() => ({
-   svg: {
-      rotate: '180deg',
-
-      path: {
-         stroke: '#f00',
-      },
-   },
-}))
-
-const StyledPopover = styled(Popover)(() => ({
-   '& .MuiPaper-root': {
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '10px 10px 0',
-      gap: '5px',
-      alignItems: 'center',
-      borderRadius: '15px',
    },
 }))
 

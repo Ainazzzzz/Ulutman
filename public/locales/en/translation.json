@@ -194,6 +194,24 @@
             "description1": "This is the perfect place for those looking for reliable listings for buying and renting apartments or commercial properties.",
             "description2": "We offer a wide range of services and opportunities for advertising. Our site is open to migrants from Uzbekistan, Kyrgyzstan, and other countries, as well as Russian-speaking users looking for rental rooms, apartments, and other necessary services."
          }
+      },
+      "advertising": {
+         "title": "Add Advertisement",
+         "back": "Back",
+         "breadcrumbs": {
+            "main": "Home",
+            "currentPage": "Add Advertisement"
+         },
+         "descriptions": {
+            "title1": "Banner placement cost: 1500 rubles per month",
+            "title2": "Banner visibility: from 50%",
+            "title3": "Ability to raise the banner: every 3 hours",
+            "title4": "First place visibility: 99%."
+         },
+         "uploadPhotoLabel": "Upload Photo",
+         "uploadPhotoTitle": "Add Photo",
+         "uploadPhotoDesc": "Click or drag to add a photo",
+         "advertisiingBtn": "Add"
       }
    },
    "global": {

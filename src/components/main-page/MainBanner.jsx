@@ -6,27 +6,25 @@ import CategoryMenu from '../CategoryMenu'
 import { SearchInputSelect } from '../UI/SearchInputSelect'
 import ReusableSelect from '../UI/Select'
 
-import banner from '../../assets/images/main.png';
-import MobileBanner from '../../assets/images/mobile-banner.png';
-import { categories } from '../../utils/constants/main';
-import { useNavigate } from 'react-router-dom';
-import { PATHS } from '../../utils/constants/paths';
-import { serializeToQueryParams } from '../../utils/general/serialize';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllMetros } from '../../redux/main/mainThunk';
-import { useTranslation } from 'react-i18next';
+import banner from '../../assets/images/main.png'
+import MobileBanner from '../../assets/images/mobile-banner.png'
+import { categories } from '../../utils/constants/main'
+import { PATHS } from '../../utils/constants/paths'
+import { serializeToQueryParams } from '../../utils/general/serialize'
+import { getAllMetros } from '../../redux/main/mainThunk'
+import { useTranslation } from 'react-i18next'
 
 export const MainBanner = () => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
-   const { metros } = useSelector(state => state.main);
-   const { t } = useTranslation();
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
+   const { metros } = useSelector(state => state.main)
+   const { t } = useTranslation()
 
-   const [selectValue, setSelectValue] = useState('');
+   const [selectValue, setSelectValue] = useState('')
    const [selectedCategory, setSelectedCategory] = useState(
       t('user.home.banner.form.category'),
-   );
-   const [searchValue, setSearchValue] = useState('');
+   )
+   const [searchValue, setSearchValue] = useState('')
 
    const navigate = useNavigate()
    const dispatch = useDispatch()
@@ -54,8 +52,8 @@ export const MainBanner = () => {
       return {
          ...item,
          title: t(`user.home.categories.${item.category}`),
-      };
-   });
+      }
+   })
 
    return (
       <MainContainer banner={mobile ? MobileBanner : banner}>
@@ -97,12 +95,12 @@ export const MainBanner = () => {
                         key={title}
                         onClick={() => navigate(`category/${category}`)}
                      >
-                        <a href="#">
+                        <span>
                            <IconWrapper background={background}>
                               <Icon />
                            </IconWrapper>
                            <p>{title}</p>
-                        </a>
+                        </span>
                      </NavItem>
                   ),
                )}

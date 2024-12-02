@@ -13,10 +13,11 @@ import { useDispatch } from 'react-redux'
 import { addAdvertisingThunks } from '../../redux/advertising/adversstitingpayThunks'
 import { useNavigate } from 'react-router-dom'
 import { Loading } from '../../components/UI/Loading'
+import { useTranslation } from 'react-i18next'
 
 const AdversitingPage = () => {
    const [bankName, setBankName] = useState('')
-
+   const { t } = useTranslation()
    const [bankError, setBankError] = useState('')
    const [imageError, setImageError] = useState('')
    const [receiptError, setReceiptError] = useState('')
@@ -26,9 +27,12 @@ const AdversitingPage = () => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
-   const breadcrumbs = [
-      { url: '/user', title: 'Главная ' },
-      { url: '/advertising_page', title: 'Добавить рекламу' },
+   const path = [
+      { title: t('user.advertising.breadcrumbs.main'), url: '/user' },
+      {
+         title: t('user.advertising.breadcrumbs.currentPage'),
+         url: '/advertising_page',
+      },
    ]
 
    const handleGoBack = () => {
@@ -120,22 +124,26 @@ const AdversitingPage = () => {
       <WrapperContainer>
          {isLoading && <Loading />}
          <FirstBlock>
-            <Breadcrumbs path={breadcrumbs} />
+            <Breadcrumbs path={path} />
             <span onClick={handleGoBack}>
-               <ChevronLeft /> Назад
+               <ChevronLeft /> {t('user.advertising.back')}
             </span>
          </FirstBlock>
-         <Titile>Добавить рекламу</Titile>
+         <Titile>{t('user.advertising.title')}</Titile>
          <InfoBank>
             <div>
                <ParagrahStyle>
-                  Стоимость размещения баннера: 1500 рублей в месяц
+                  {t('user.advertising.descriptions.title1')}
                </ParagrahStyle>
-               <ParagrahStyle>Видимость баннера:от 50%</ParagrahStyle>
                <ParagrahStyle>
-                  Возможность поднять баннер: каждые 3 часа
+                  {t('user.advertising.descriptions.title2')}
                </ParagrahStyle>
-               <ParagrahStyle>Первое место видимости: 99%.</ParagrahStyle>
+               <ParagrahStyle>
+                  {t('user.advertising.descriptions.title3')}
+               </ParagrahStyle>
+               <ParagrahStyle>
+                  {t('user.advertising.descriptions.title4')}
+               </ParagrahStyle>
             </div>
          </InfoBank>
          <BoxInputStyle>
@@ -172,7 +180,9 @@ const AdversitingPage = () => {
 
          <ContainerAddImage>
             <BoxSyleTitle>
-               <PragrafTitile>Загрузите фото</PragrafTitile>
+               <PragrafTitile>
+                  {t('user.advertising.uploadPhotoLabel')}
+               </PragrafTitile>
             </BoxSyleTitle>
             <FileUpload
                setFieldValue={(field, value) => {
@@ -184,7 +194,9 @@ const AdversitingPage = () => {
             {imageError && <p style={{ color: 'red' }}>{imageError}</p>}
          </ContainerAddImage>
 
-         <Button onClick={handleSubmit}>Добавить</Button>
+         <Button onClick={handleSubmit}>
+            {t('user.advertising.advertisiingBtn')}
+         </Button>
       </WrapperContainer>
    )
 }

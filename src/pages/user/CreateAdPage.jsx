@@ -1,9 +1,10 @@
 import { styled } from '@mui/material'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import { CreateAdForm } from '../../components/User/CreateAdForm'
+import { useTranslation } from 'react-i18next'
 
 export const CreateAdPage = () => {
-   const { t } = useTranslation();
+   const { t } = useTranslation()
 
    const path = [
       { title: t('user.createAds.breadcrumbs.main'), url: '/' },
@@ -11,7 +12,7 @@ export const CreateAdPage = () => {
          title: t('user.createAds.breadcrumbs.currentPage'),
          url: '/create-ad',
       },
-   ];
+   ]
    return (
       <Container>
          <Breadcrumbs path={path} />
