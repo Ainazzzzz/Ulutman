@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
-import { styled, useMediaQuery } from '@mui/material';
-import CategoryMenu from '../CategoryMenu';
-import { SearchInputSelect } from '../UI/SearchInputSelect';
-import ReusableSelect from '../UI/Select';
+import { useEffect, useState } from 'react'
+import { styled, useMediaQuery } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import CategoryMenu from '../CategoryMenu'
+import { SearchInputSelect } from '../UI/SearchInputSelect'
+import ReusableSelect from '../UI/Select'
 
 import banner from '../../assets/images/main.png';
 import MobileBanner from '../../assets/images/mobile-banner.png';
@@ -26,27 +28,27 @@ export const MainBanner = () => {
    );
    const [searchValue, setSearchValue] = useState('');
 
-   const navigate = useNavigate();
-   const dispatch = useDispatch();
+   const navigate = useNavigate()
+   const dispatch = useDispatch()
 
-   const searchChangeHandler = e => setSearchValue(e.target.value);
-   const selectMetroChangeHandler = e => setSelectValue(e.target.value);
+   const searchChangeHandler = e => setSearchValue(e.target.value)
+   const selectMetroChangeHandler = e => setSelectValue(e.target.value)
 
    const handleNavigate = () => {
       const queryParams = serializeToQueryParams({
          search: searchValue,
          metro: selectValue,
          category: selectedCategory,
-      });
+      })
       navigate({
          pathname: PATHS.USER.MAIN_PHP,
          search: queryParams,
-      });
-   };
+      })
+   }
 
    useEffect(() => {
-      dispatch(getAllMetros());
-   }, [dispatch]);
+      dispatch(getAllMetros())
+   }, [dispatch])
 
    const transformedCategories = categories.map(item => {
       return {
@@ -107,8 +109,8 @@ export const MainBanner = () => {
             </NavList>
          </NavContainer>
       </MainContainer>
-   );
-};
+   )
+}
 
 const MainContainer = styled('div')(({ banner, theme }) => ({
    backgroundImage: `url(${banner})`,
@@ -123,7 +125,7 @@ const MainContainer = styled('div')(({ banner, theme }) => ({
       backgroundSize: 'contain',
       backgroundPosition: 'top center',
    },
-}));
+}))
 
 const ContentWrapper = styled('article')(({ theme }) => ({
    width: '810px',
@@ -140,7 +142,7 @@ const ContentWrapper = styled('article')(({ theme }) => ({
       padding: '64px 24px 0 24px',
       gap: '24px',
    },
-}));
+}))
 
 const Title = styled('h1')(({ theme }) => ({
    fontSize: '72px',
@@ -151,7 +153,7 @@ const Title = styled('h1')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '30px',
    },
-}));
+}))
 
 const InputWrapper = styled('section')(({ theme }) => ({
    display: 'flex',
@@ -183,7 +185,7 @@ const InputWrapper = styled('section')(({ theme }) => ({
          },
       },
    },
-}));
+}))
 
 const StyledSelect = styled(ReusableSelect)(() => ({
    maxWidth: '154px',
@@ -204,7 +206,7 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
-}));
+}))
 
 const NavContainer = styled('nav')(({ theme }) => ({
    display: 'flex',
@@ -218,7 +220,7 @@ const NavContainer = styled('nav')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       justifyContent: 'start',
    },
-}));
+}))
 
 const NavList = styled('ul')(({ theme }) => ({
    display: 'flex',
@@ -226,11 +228,11 @@ const NavList = styled('ul')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       gap: '0',
    },
-}));
+}))
 
 const NavItem = styled('li')(({ theme }) => ({
    minWidth: '100px',
-   a: {
+   span: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -245,12 +247,12 @@ const NavItem = styled('li')(({ theme }) => ({
          },
       },
    },
-}));
+}))
 
 const IconWrapper = styled('div')(({ background, theme }) => ({
    width: '66px',
    height: '66px',
-   background: background,
+   background,
    borderRadius: '50%',
    display: 'flex',
    alignItems: 'center',
@@ -259,4 +261,4 @@ const IconWrapper = styled('div')(({ background, theme }) => ({
       width: '54px',
       height: '54px',
    },
-}));
+}))

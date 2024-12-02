@@ -42,7 +42,7 @@ const SearchIcon = ({ color = '#ffffff' }) => (
          strokeLinejoin="round"
       />
    </svg>
-);
+)
 
 export const Header = () => {
    const dispatch = useDispatch();
@@ -51,35 +51,27 @@ export const Header = () => {
    const navigate = useNavigate();
    const { i18n, t } = useTranslation();
 
-   const [language, setLanguage] = useState('ru');
-   const [openMenu, setOpenMenu] = useState(null);
-   const [openModal, setOpenModal] = useState(false);
-   const [openSignUp, setOpenSignUp] = useState(false);
-
-   const [anchorEl, setAnchorEl] = useState(null);
-
-   const openUserMenu = event => {
-      setAnchorEl(event.currentTarget);
-   };
+   const [language, setLanguage] = useState('ru')
+   const [openMenu, setOpenMenu] = useState(null)
+   const [isModalOpen, setModalOpen] = useState(false)
+   const [openModal, setOpenModal] = useState(false)
+   const [openSignUp, setOpenSignUp] = useState(false)
 
    const closeUserMenu = () => {
-      setAnchorEl(null);
-   };
+      setAnchorEl(null)
+   }
 
-   const open = Boolean(anchorEl);
-   const id = open ? 'simple-popover' : undefined;
-
-   const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false);
-   const [openOptionsProfile, setOpenOptionsProfile] = useState(null);
+   const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false)
+   const [openOptionsProfile, setOpenOptionsProfile] = useState(null)
 
    const handleClose = () => {
-      setOpenMenu(null);
-   };
+      setOpenMenu(null)
+   }
 
    const confirmLogout = () => {
-      dispatch(logOut({ navigate, toggleModal: handleClose }));
-      setOpenLogoutConfirm(false);
-   };
+      dispatch(logOut({ navigate, toggleModal: handleClose }))
+      setOpenLogoutConfirm(false)
+   }
 
    const handleSelect = event => {
       const lng = event.target.value;
@@ -91,42 +83,46 @@ export const Header = () => {
    const handleClick = event => setOpenMenu(event.currentTarget);
 
    const closeProfileOptions = () => {
-      setOpenOptionsProfile(null);
-   };
+      setOpenOptionsProfile(null)
+   }
 
    const handleOpenModal = () => {
-      setOpenModal(true);
-      handleClose();
-   };
+      setOpenModal(true)
+      handleClose()
+   }
 
-   const handleCloseModal = () => setOpenModal(false);
+   const handleCloseModal = () => setOpenModal(false)
 
    const handleOpenSignUp = () => {
-      setOpenSignUp(true);
-      handleCloseModal();
-   };
+      setOpenSignUp(true)
+      handleCloseModal()
+   }
+   const handleOpenPublishModal = () => {
+      setOpenMenu(null)
+      setModalOpen(true)
+   }
+   const handleClosePublishModal = () => setModalOpen(false)
 
-   const handleCloseSignUp = () => setOpenSignUp(false);
+   const handleCloseSignUp = () => setOpenSignUp(false)
 
    const logOutHandler = () => {
-      dispatch(logOut({ navigate, toggleModal: handleClose }));
-      setOpenOptionsProfile(null);
-      setOpenLogoutConfirm(true);
-   };
+      setOpenOptionsProfile(null)
+      setOpenLogoutConfirm(true)
+   }
    const handleNavigationPage = path => {
-      navigate(path);
-      closeUserMenu();
-   };
+      navigate(path)
+      closeUserMenu()
+   }
 
    const navigateToPageHandler = path => {
-      handleClose();
-      closeProfileOptions();
-      navigate(path);
-   };
+      handleClose()
+      closeProfileOptions()
+      navigate(path)
+   }
 
    const profileHandler = event => {
-      setOpenOptionsProfile(event.currentTarget);
-   };
+      setOpenOptionsProfile(event.currentTarget)
+   }
 
    const languages = [
       { label: t('admin.header.select.ru'), value: 'ru' },
@@ -225,7 +221,7 @@ export const Header = () => {
                               Профиль
                            </MenuItem>
                            <MenuItemLogOut onClick={logOutHandler}>
-                              <LogoOutIcon /> Выйти
+                              <LogOutIcon /> Выйти
                            </MenuItemLogOut>
                         </MenuProfile>
                      </>
@@ -250,34 +246,34 @@ export const Header = () => {
                </ContainerBlock>
             )}
          </Wrapper>
-         {openModal && (
-            <SignIn
-               open={openModal}
-               onClose={handleCloseModal}
-               handleOpenSignUp={handleOpenSignUp}
-            />
-         )}
-
-         {openSignUp && (
-            <SignUp
-               open={openSignUp}
-               onClose={handleCloseSignUp}
-               handleOpenModal={handleOpenModal}
-            />
-         )}
+         <SignIn
+            open={openModal}
+            onClose={handleCloseModal}
+            onOpen={handleOpenSignUp}
+         />
+         <SignUp
+            open={openSignUp}
+            onClose={handleCloseSignUp}
+            handleOpenModal={handleOpenModal}
+         />
+         <Modal
+            open={isModalOpen}
+            handleClose={handleClosePublishModal}
+            variant="publish"
+         />
       </>
-   );
-};
+   )
+}
 
 const MenuProfile = styled(Menu)({
    width: '170px',
-});
+})
 
 const MenuItemLogOut = styled(MenuItem)({
    display: 'flex',
    gap: '5px',
    color: '#FF0000',
-});
+})
 
 const Wrapper = styled('header')(({ theme }) => ({
    height: '84px',
@@ -288,7 +284,7 @@ const Wrapper = styled('header')(({ theme }) => ({
    padding: '14px 60px',
    svg: { cursor: 'pointer' },
    [theme.breakpoints.down('md')]: { padding: '16px', height: '59px' },
-}));
+}))
 
 const Block = styled('div')(() => ({
    display: 'flex',
@@ -313,27 +309,27 @@ const Block = styled('div')(() => ({
          stroke: '#5C24FF',
       },
    },
-}));
+}))
 
 const UserName = styled(Typography)(() => ({
    maxidth: '150px',
    overflow: 'hidden',
    textOverflow: 'ellipsis',
    textWrap: 'nowrap',
-}));
+}))
 
 const ContainerBlock = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
    gap: '32px',
-}));
+}))
 
 const LogoStyle = styled('div')(({ theme }) => ({
    display: 'flex',
    alignItems: 'center',
    gap: '10px',
    svg: { [theme.breakpoints.down('md')]: { width: '134px', height: '29px' } },
-}));
+}))
 
 const ButtonStyle = styled(Button)(() => ({
    display: 'flex',
@@ -342,7 +338,7 @@ const ButtonStyle = styled(Button)(() => ({
    fontWeight: '500',
    textTransform: 'inherit',
    height: '36px',
-}));
+}))
 
 const SelectStyle = styled(ReusableSelect)(() => ({
    '.MuiOutlinedInput-notchedOutline': { border: 'none' },
@@ -350,7 +346,7 @@ const SelectStyle = styled(ReusableSelect)(() => ({
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 'none' },
    '.MuiSelect-icon': { right: '5px', top: '15px' },
    '.MuiSelect-select': { paddingLeft: '0px' },
-}));
+}))
 
 const MenuStyle = styled(Menu)(() => ({
    '.MuiPaper-root': {
@@ -358,7 +354,7 @@ const MenuStyle = styled(Menu)(() => ({
       width: '230px',
       background: '#7e52ff',
    },
-}));
+}))
 
 const LogOutBtn = styled(Button)(() => ({
    svg: {
@@ -368,7 +364,7 @@ const LogOutBtn = styled(Button)(() => ({
          stroke: '#f00',
       },
    },
-}));
+}))
 
 const StyledPopover = styled(Popover)(() => ({
    '& .MuiPaper-root': {
@@ -379,7 +375,7 @@ const StyledPopover = styled(Popover)(() => ({
       alignItems: 'center',
       borderRadius: '15px',
    },
-}));
+}))
 
 const MenuItemStyle = styled(MenuItem)(() => ({
    display: 'flex',
@@ -402,10 +398,10 @@ const MenuItemStyle = styled(MenuItem)(() => ({
       marginRight: '16px',
       '& svg path': { stroke: '#7e51ff' },
    },
-}));
+}))
 
 const Line = styled('div')(() => ({
    width: '100%',
    borderBottom: '1px solid #b2b2b2',
    margin: '16px 0px',
-}));
+}))

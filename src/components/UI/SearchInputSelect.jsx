@@ -55,8 +55,8 @@ export const SearchInputSelect = ({
             {t('global.searchButton')}
          </Button>
       </Wrapper>
-   );
-};
+   )
+}
 
 const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -67,7 +67,7 @@ const Wrapper = styled('div')(({ theme }) => ({
          height: '45px',
       },
    },
-}));
+}))
 
 const StyledInput = styled(TextField)(({ theme }) => ({
    borderRadius: '10px 0px 0px 10px',
@@ -102,7 +102,7 @@ const StyledInput = styled(TextField)(({ theme }) => ({
       },
 
    '& fieldset': { border: 'none' },
-}));
+}))
 
 const StyledSelect = styled(ReusableSelect)(() => ({
    ' .MuiInputBase-input': {
@@ -122,4 +122,4 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
-}));
+}))

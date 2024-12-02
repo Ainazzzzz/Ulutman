@@ -25,10 +25,10 @@ const Footer = () => {
             <NumverTitle>+7(903) 263 18 65</NumverTitle>
          </NumberContainer>
       </WrapperDiv>
-   );
-};
+   )
+}
 
-export default Footer;
+export default Footer
 const WrapperDiv = styled('footer')(({ theme }) => ({
    display: 'flex',
    background: '#fff',
@@ -45,7 +45,7 @@ const WrapperDiv = styled('footer')(({ theme }) => ({
       justifyContent: 'flex-start',
       paddingLeft: '10px',
    },
-}));
+}))
 const ContainerCategory = styled('div')(({ theme }) => ({
    display: 'flex',
 
@@ -64,7 +64,7 @@ const ContainerCategory = styled('div')(({ theme }) => ({
       gridTemplateColumns: ' 1fr 1fr ',
       columnGap: '160px',
    },
-}));
+}))
 
 const TitleUlutman = styled('p')(({ theme }) => ({
    display: 'flex',
@@ -83,7 +83,7 @@ const TitleUlutman = styled('p')(({ theme }) => ({
       justifyContent: 'center',
       padding: '24px',
    },
-}));
+}))
 const NumberContainer = styled('div')(({ theme }) => ({
    display: 'flex',
    fontFamily: 'Inter',
@@ -98,7 +98,7 @@ const NumberContainer = styled('div')(({ theme }) => ({
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
    },
-}));
+}))
 const NumverTitle = styled('div')(({ theme }) => ({
    fontFamily: 'Inter',
    fontSize: '1.125rem',
@@ -106,7 +106,7 @@ const NumverTitle = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '1rem',
    },
-}));
+}))
 const CallingIcon = styled(Calling)(({ theme }) => ({
    width: '21px',
    height: '21px',
@@ -114,4 +114,4 @@ const CallingIcon = styled(Calling)(({ theme }) => ({
       width: '1.125rem',
       height: '1.125rem',
    },
-}));
+}))

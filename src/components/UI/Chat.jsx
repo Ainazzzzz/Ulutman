@@ -1,5 +1,5 @@
-import { backdropClasses, styled } from '@mui/material';
-import { chat } from '../../utils/constants/chat';
+import { styled } from '@mui/material'
+import { chat } from '../../utils/constants/chat'
 
 export const Chat = () => {
    return (
@@ -17,13 +17,13 @@ export const Chat = () => {
             </Wrapper>
          ))}
       </Box>
-   );
-};
+   )
+}
 const Box = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '20px',
-}));
+}))
 const Wrapper = styled('div')(({ theme }) => ({
    width: '611px',
    height: '74px',
@@ -42,7 +42,7 @@ const Wrapper = styled('div')(({ theme }) => ({
       width: '343px',
       height: '94px',
    },
-}));
+}))
 const Container = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
@@ -50,7 +50,7 @@ const Container = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       gap: '10px',
    },
-}));
+}))
 const Block = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
@@ -69,13 +69,13 @@ const Block = styled('div')(({ theme }) => ({
       color: '#909090',
       fontSize: '14px',
    },
-}));
+}))
 
 const ImageStyle = styled('img')(() => ({
    width: '74px',
    height: '74px',
    borderRadius: '10px',
-}));
+}))
 
 const Description = styled('p')(({ theme }) => ({
    fontWeight: '600',
@@ -85,4 +85,4 @@ const Description = styled('p')(({ theme }) => ({
       fontSize: '16px',
       width: '255px',
    },
-}));
+}))

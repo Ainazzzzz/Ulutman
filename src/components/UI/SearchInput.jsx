@@ -27,7 +27,7 @@ const SearchInput = forwardRef(
    },
 );
 
-export default SearchInput;
+export default SearchInput
 
 const StyledContainer = styled(Paper)(({ theme }) => ({
    width: '100%',
@@ -61,4 +61,4 @@ const StyledContainer = styled(Paper)(({ theme }) => ({
       fontSize: '16px',
       fontWeight: '400',
    },
-}));
+}))

@@ -1,7 +1,6 @@
-import { styled } from '@mui/material';
-import Breadcrumbs from '../../components/UI/Breadcrumbs';
-import { CreateAdForm } from '../../components/User/CreateAdForm';
-import { useTranslation } from 'react-i18next';
+import { styled } from '@mui/material'
+import Breadcrumbs from '../../components/UI/Breadcrumbs'
+import { CreateAdForm } from '../../components/User/CreateAdForm'
 
 export const CreateAdPage = () => {
    const { t } = useTranslation();
@@ -19,8 +18,8 @@ export const CreateAdPage = () => {
          <h1>Новое объявление</h1>
          <CreateAdForm />
       </Container>
-   );
-};
+   )
+}
 
 const Container = styled('div')(() => ({
    padding: '24px 52px 52px',
@@ -28,4 +27,4 @@ const Container = styled('div')(() => ({
    h1: {
       padding: '8px',
    },
-}));
+}))

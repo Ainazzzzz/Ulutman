@@ -12,14 +12,14 @@ const AnnouncementsSorter = ({ onSortChange, options = [] }) => {
 
    const [selectedValue, setSelectedValue] = useState(t('global.all-category'));
 
-   const handleClick = event => setAnchorEl(event.currentTarget);
+   const handleClick = event => setAnchorEl(event.currentTarget)
 
    const handleClose = option => {
-      setAnchorEl(null);
-      const newValue = option.label || selectedValue;
-      setSelectedValue(newValue);
-      onSortChange(option.value);
-   };
+      setAnchorEl(null)
+      const newValue = option.label || selectedValue
+      setSelectedValue(newValue)
+      onSortChange(option.value)
+   }
 
    return (
       <>
@@ -52,10 +52,10 @@ const AnnouncementsSorter = ({ onSortChange, options = [] }) => {
             ))}
          </StyledMenu>
       </>
-   );
-};
+   )
+}
 
-export default AnnouncementsSorter;
+export default AnnouncementsSorter
 
 const StyledMenu = styled(Menu)(() => ({
    '& .MuiList-padding ': {
@@ -65,9 +65,9 @@ const StyledMenu = styled(Menu)(() => ({
    '& .MuiPopover-paper': {
       borderRadius: '10px',
    },
-}));
+}))
 const ButtonStyle = styled(Button)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       width: '150px',
    },
-}));
+}))

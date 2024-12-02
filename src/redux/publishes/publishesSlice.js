@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 export const publishesSlice = createSlice({
    name: 'publishes',
@@ -6,4 +6,4 @@ export const publishesSlice = createSlice({
       publishesSlice: {},
    },
    extraReducers: () => {},
-});
+})

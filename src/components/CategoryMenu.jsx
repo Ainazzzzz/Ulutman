@@ -12,16 +12,16 @@ const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
    const [anchorEl, setAnchorEl] = useState(null);
    const { t } = useTranslation();
 
-   const handleClick = event => setAnchorEl(event.currentTarget);
+   const handleClick = event => setAnchorEl(event.currentTarget)
 
    const handleClose = value => {
-      setAnchorEl(null);
-      setSelectedCategory(value);
-   };
+      setAnchorEl(null)
+      setSelectedCategory(value)
+   }
 
-   const handleCloseFn = () => handleClose('По умолчанию');
+   const handleCloseFn = () => handleClose('По умолчанию')
 
-   const handleCategorySearch = e => setCategorySearchText(e.target.value);
+   const handleCategorySearch = e => setCategorySearchText(e.target.value)
 
    const transformedCategoryMenu = CATEGORY_MENU.map(item => {
       return {
@@ -75,10 +75,10 @@ const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
             ))}
          </StyledMenu>
       </>
-   );
-};
+   )
+}
 
-export default CategoryMenu;
+export default CategoryMenu
 
 const StyledMenu = styled(Menu)(() => ({
    '& .MuiList-padding ': {
@@ -88,7 +88,7 @@ const StyledMenu = styled(Menu)(() => ({
    '& .MuiPopover-paper': {
       borderRadius: '10px',
    },
-}));
+}))
 
 const StyledInput = styled(TextField)(() => ({
    '& .MuiOutlinedInput-root': {
@@ -97,4 +97,4 @@ const StyledInput = styled(TextField)(() => ({
       borderRadius: '10px',
       border: 'none ',
    },
-}));
+}))

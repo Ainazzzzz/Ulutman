@@ -1,55 +1,77 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance.js';
-import Cookies from 'js-cookie';
-import { showToast } from '../../hooks/useToast.js';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
+import { showToast } from '../../hooks/useToast'
 
 export const logOut = createAsyncThunk(
    'auth/logOut',
    async ({ navigate, toggleModal }) => {
-      navigate('/');
+      navigate('/')
 
-      toggleModal();
+      toggleModal()
 
-      return Cookies.remove('ULUTMAN');
+      return localStorage.removeItem('ULUTMAN')
    },
-);
+)
 
 export const signIn = createAsyncThunk(
    'auth/signIn',
-   async ({ userData, onClose }, { rejectedWithValue }) => {
+   async ({ userData, onClose }, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.post('auth/sign-in', userData);
+         const { data } = await axiosInstance.post('auth/sign-in', userData)
 
-         const updatedData = { ...data, role: data.roleName };
+         const updatedData = { ...data, role: data.roleName }
 
-         Cookies.set('ULUTMAN', JSON.stringify(updatedData));
+         localStorage.setItem('ULUTMAN', JSON.stringify(updatedData))
 
-         showToast('success', 'Успешно');
-         onClose();
+         showToast('success', 'Успешно')
+         onClose()
 
-         return updatedData;
+         return updatedData
       } catch (e) {
-         const errorMessage = e.response?.data || 'Неверные данные для входа';
-         showToast('error', errorMessage);
-         return rejectedWithValue(errorMessage);
+         const errorMessage = e.response?.data || 'Неверные данные для входа'
+         showToast('error', errorMessage)
+         return rejectWithValue(errorMessage)
       }
    },
-);
+)
 
 export const signUp = createAsyncThunk(
    'auth/signUp',
-   async ({ val, onClose }, { rejectedWithValue }) => {
+   async ({ val, onClose }, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.post('auth/sign-up', val);
+         const { data } = await axiosInstance.post('auth/sign-up', val)
 
-         Cookies.set('ULUTMAN', JSON.stringify(data));
+         localStorage.setItem('ULUTMAN', JSON.stringify(data))
 
-         showToast('success', 'Успешно');
-         onClose();
+         showToast('success', 'Успешно')
+         onClose()
 
-         return data;
+         return data
       } catch (e) {
-         return rejectedWithValue(e);
+         const errorMessage = e.response?.data || 'Неверные данные для входа'
+         showToast('error', errorMessage)
+         return rejectWithValue(errorMessage)
       }
    },
-);
+)
+
+export const addAdmin = createAsyncThunk(
+   'auth/createAdmin',
+   async ({ adminData, navigate }, { rejectWithValue }) => {
+      try {
+         const { data } = await axiosInstance.post('admin/sign-up', {
+            ...adminData,
+            status: 'АКТИВНЫЙ',
+         })
+
+         navigate(-1)
+         showToast('success', 'Успешно добавлено')
+
+         return data
+      } catch (e) {
+         const errorMessage = e.response?.data || 'Неверные данные для входа'
+         showToast('error', errorMessage)
+         return rejectWithValue(errorMessage)
+      }
+   },
+)

@@ -46,8 +46,8 @@ export const Categories = () => {
             <Outlet />
          </Container>
       </Wrapper>
-   );
-};
+   )
+}
 
 const FirstBlock = styled('div')(() => ({
    display: 'flex',
@@ -61,24 +61,24 @@ const FirstBlock = styled('div')(() => ({
       alignItems: 'center',
       gap: '4px',
    },
-}));
+}))
 const Container = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '40px',
-}));
+}))
 const Block = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
-}));
+}))
 const Wrapper = styled('div')(({ theme }) => ({
    padding: '40px 60px 60px 60px',
    [theme.breakpoints.down('md')]: {
       padding: '24px 16px 24px 16px',
    },
-}));
+}))
 
 const SearchInputStyle = styled(SearchInput)(() => ({
    height: '64px',
-}));
+}))

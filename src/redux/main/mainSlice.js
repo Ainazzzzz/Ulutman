@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 import {
    deleteFavoriteStatus,
    getAllMetros,
@@ -6,7 +6,7 @@ import {
    searchCategoryAndMetroRequest,
    sortPublishesRequest,
    updateFavoriteStatus,
-} from './mainThunk';
+} from './mainThunk'
 
 export const mainSlice = createSlice({
    name: 'main',
@@ -27,7 +27,7 @@ export const mainSlice = createSlice({
                searchCategoryAndMetroRequest.pending,
             ),
             state => {
-               state.isLoading = true;
+               state.isLoading = true
             },
          )
          .addMatcher(
@@ -38,8 +38,8 @@ export const mainSlice = createSlice({
                sortPublishesRequest.fulfilled,
             ),
             (state, { payload }) => {
-               if (payload) state.publishes = payload;
-               state.isLoading = false;
+               if (payload) state.publishes = payload
+               state.isLoading = false
             },
          )
          .addMatcher(
@@ -51,20 +51,20 @@ export const mainSlice = createSlice({
                searchCategoryAndMetroRequest.rejected,
             ),
             state => {
-               state.isLoading = false;
+               state.isLoading = false
             },
          )
          .addMatcher(
             isAnyOf(searchCategoryAndMetroRequest.fulfilled),
             (state, { payload }) => {
-               state.searchPublishes = payload;
-               state.isLoading = false;
+               state.searchPublishes = payload
+               state.isLoading = false
             },
          )
          .addMatcher(isAnyOf(getAllMetros.fulfilled), (state, { payload }) => {
-            state.metros = payload;
-         });
+            state.metros = payload
+         })
    },
-});
+})
 
-export default mainSlice.reducer;
+export default mainSlice.reducer

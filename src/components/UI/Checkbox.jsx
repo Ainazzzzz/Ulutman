@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from '@mui/material';
+import { Checkbox, FormControlLabel } from '@mui/material'
 
 export const CheckBox = ({ label, onChange, checked, ...props }) => {
    return (
@@ -47,5 +47,5 @@ export const CheckBox = ({ label, onChange, checked, ...props }) => {
          }
          label={label}
       />
-   );
-};
+   )
+}

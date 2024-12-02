@@ -11,6 +11,7 @@ export const PATHS = {
       MY_ADS: '/user/my-page/my-listings',
       RECOMMENDATIONS: '/user/recommendations',
       MAIN_PHP: '/user/main.php',
+      ADVERTISING_PAGE: '/user/advertising_page',
    },
    ADMIN: {
       ROOT: '/admin',
@@ -21,11 +22,10 @@ export const PATHS = {
       MODERATION: '/admin/moderation',
       COMPLAINTS: '/admin/moderation/complaints',
       COMMENTS: '/admin/moderation/comments',
-      IMAGES: '/admin/moderation/images',
-      MAILING: '/admin/users/mailing',
+      MAILING: '/admin/mailing',
       ADD_MAILING: '/admin/users/add-mailing',
       ADD_ADMIN: '/admin/add-administrator',
-      SETTINGS: '/admin/settings',
+      ADVERTISING: '/admin/advertising',
    },
    FALLBACK: '*',
-};
+}

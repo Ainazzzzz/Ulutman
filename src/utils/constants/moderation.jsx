@@ -1,6 +1,3 @@
-import { CheckBox } from '../../components/UI/Checkbox';
-import { translateCategory, translateRole } from '../general/translate';
-
 export const MODERATION_DATA = [
    {
       id: 1,
@@ -26,7 +23,7 @@ export const MODERATION_DATA = [
       date: '19.01.2023',
       status: 'Ожидает',
    },
-];
+]
 
 export const ADS_DATA = [
    {
@@ -53,7 +50,7 @@ export const ADS_DATA = [
       createDate: '19.01.2023',
       status: 'Ожидает',
    },
-];
+]
 
 export const CATEGORY_DATA = [
    {
@@ -80,7 +77,7 @@ export const CATEGORY_DATA = [
       amount: '1',
       status: 'НЕАКТИВНО',
    },
-];
+]
 
 export const USERS_DATA = [
    {
@@ -110,7 +107,7 @@ export const USERS_DATA = [
       status: 'Активный',
       role: 'Админ',
    },
-];
+]
 
 export const MODERATION_COMPLAINTS_DATA = [
    {
@@ -134,7 +131,7 @@ export const MODERATION_COMPLAINTS_DATA = [
       date: '19.01.2023',
       status: 'Отклонен',
    },
-];
+]
 
 export const MODERATION_MEDIA = [
    {
@@ -153,7 +150,7 @@ export const MODERATION_MEDIA = [
       Header: 'СТАТУС',
       accessor: 'status',
    },
-];
+]
 
 export const MODERATION_MEDIA_DATA = [
    {
@@ -177,4 +174,4 @@ export const MODERATION_MEDIA_DATA = [
       date: '19.01.2023',
       status: 'Ожидает',
    },
-];
+]

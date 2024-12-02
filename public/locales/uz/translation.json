@@ -9,12 +9,13 @@
          "analitic": "Analitika",
          "settings": "Sozlamalar",
          "logOut": "Chiqish",
+         "advertising": "Reklama",
+         "mailing": "Elektron pochta tarqatmalari",
 
          "subLinks": {
             "complaints": "Shikoyatlar va qonunbuzarliklarni boshqarish",
             "comments": "Sharhlar va xabarlarni moderatsiya qilish",
-            "images": "Rasmlar va media fayllarni tekshirish",
-            "mailing": "Elektron pochta tarqatmalari"
+            "images": "Rasmlar va media fayllarni tekshirish"
          },
 
          "changeLanguage": "Tilni oʻzgartirish"

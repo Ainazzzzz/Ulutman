@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
 
 // export const getModerationCommentsFilter = createAsyncThunk(
 //    'moderation/getCommentsFilter',
@@ -19,31 +19,31 @@ import { axiosInstance } from '../../config/axiosInstance';
 export const getModerationComments = createAsyncThunk(
    'moderation/getComments',
    async (params, { rejectWithValue }) => {
-      const queryString = new URLSearchParams();
+      const queryString = new URLSearchParams()
 
       if (params.createDate && Array.isArray(params.createDate)) {
          params.createDate.forEach(date => {
-            queryString.append('createDate', date);
-         });
+            queryString.append('createDate', date)
+         })
       }
       if (params.moderatorStatuses)
-         queryString.append('moderatorStatuses', params.moderatorStatuses);
+         queryString.append('moderatorStatuses', params.moderatorStatuses)
 
-      if (params.content) queryString.append('content', params.content);
+      if (params.content) queryString.append('content', params.content)
 
-      if (params.names) queryString.append('names', params.names);
+      if (params.names) queryString.append('names', params.names)
 
       try {
          const { data } = await axiosInstance.get(
             `/manage/moderator/filter?${queryString.toString()}`,
-         );
+         )
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error);
+         return rejectWithValue(error)
       }
    },
-);
+)
 
 export const deleteComments = createAsyncThunk(
    'moderation/deleteComments',
@@ -51,13 +51,13 @@ export const deleteComments = createAsyncThunk(
       try {
          await axiosInstance.delete('/manage/moderator/delete/batch', {
             data: ids,
-         });
+         })
 
-         toggleModal('deleteAllModal');
+         toggleModal('deleteAllModal')
 
-         dispatch(getModerationComments());
+         dispatch(getModerationComments())
       } catch (error) {
-         rejectWithValue(error.response.data);
+         rejectWithValue(error.response.data)
       }
    },
-);
+)

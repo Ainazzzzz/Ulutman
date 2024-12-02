@@ -16,21 +16,21 @@ export const MainPage = () => {
    const { publishes, isLoading } = useSelector(state => state.main);
    const { t } = useTranslation();
 
-   const [sortedAds, setSortedAds] = useState([]);
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
+   const [sortedAds, setSortedAds] = useState([])
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
 
    useEffect(() => {
-      dispatch(getMainAds());
-   }, [dispatch]);
+      dispatch(getMainAds())
+   }, [dispatch])
 
    useEffect(() => {
-      setSortedAds(publishes);
-   }, [publishes]);
+      setSortedAds(publishes)
+   }, [publishes])
 
    const seeMoreHandler = () => {
-      navigate('/user/recommendations');
-   };
+      navigate('/user/recommendations')
+   }
 
    const handleSortChange = sortValue => {
       dispatch(sortPublishesRequest(sortValue));
@@ -67,8 +67,8 @@ export const MainPage = () => {
             <AboutUs />
          </Container>
       </div>
-   );
-};
+   )
+}
 
 const Title = styled('p')(({ theme }) => ({
    fontSize: '34px',
@@ -76,7 +76,7 @@ const Title = styled('p')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '24px',
    },
-}));
+}))
 const Block = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
@@ -84,7 +84,7 @@ const Block = styled('div')(({ theme }) => ({
       flexDirection: 'column',
       gap: '10px',
    },
-}));
+}))
 export const Container = styled('div')(({ theme }) => ({
    padding: '60px',
    display: 'flex',
@@ -93,11 +93,11 @@ export const Container = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       padding: '20px 16px 0px 16px',
    },
-}));
+}))
 
 const SliderBox = styled('div')(({ theme }) => ({
    margin: '-20px 0 0 0',
    [theme.breakpoints.down('md')]: {
       display: 'none',
    },
-}));
+}))
