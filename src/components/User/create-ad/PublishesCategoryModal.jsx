@@ -10,6 +10,7 @@ export const PublishesCategoryModal = ({
    onClose,
    onCategoryClick,
    onSubCategoryClick,
+   setFieldValue,
 }) => {
    const [selectedCategory, setSelectedCategory] = useState(null)
 
@@ -17,6 +18,7 @@ export const PublishesCategoryModal = ({
       category => {
          onCategoryClick(category)
          setSelectedCategory(category.subCategory)
+         setFieldValue('category', category.category)
       },
       [onCategoryClick],
    )
@@ -25,6 +27,7 @@ export const PublishesCategoryModal = ({
       subCategory => {
          onSubCategoryClick(subCategory)
          onClose()
+         setFieldValue('subCategory', subCategory.value)
       },
       [onSubCategoryClick, onClose],
    )

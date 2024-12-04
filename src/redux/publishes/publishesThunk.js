@@ -3,10 +3,10 @@ import { axiosInstance } from '../../config/axiosInstance'
 
 export const fetchPublishesUser = createAsyncThunk(
    'publishes/fetchPublishesUser',
-   async ({ publishe, publishesData }, { rejectWithValue }) => {
-      const { images, ...filteredPublishe } = publishe
+   async ({ publishe }, { rejectWithValue }) => {
+      const { images, city, paymentReceiptFile, ...filteredPublishe } = publishe
       try {
-         const params = Object.fromEntries(
+         const { name, ...params } = Object.fromEntries(
             Object.entries(filteredPublishe).filter(
                ([, value]) =>
                   value !== undefined && value !== null && value !== '',
@@ -14,20 +14,34 @@ export const fetchPublishesUser = createAsyncThunk(
          )
 
          const formData = new FormData()
-         formData.append('paymentReceiptFile', publishesData.paymentReceiptFile)
+         formData.append('paymentReceiptFile', paymentReceiptFile[0])
 
-         publishesData.images.forEach(image => {
+         publishe.images.forEach(image => {
             formData.append(`images`, image)
          })
 
+         console.log(formData.getAll('images'))
+
          const { data } = await axiosInstance.post(
-            'publishes/createDetails',
+            'publishes/create',
             formData,
             {
                headers: {
                   'Content-Type': 'multipart/form-data',
                },
-               params,
+               // params: {
+               //    title: 'Aziat',
+               //    description: 'description',
+               //    metro: 'БиблиотекаИмениЛенина',
+               //    address: 'Улица Крылова дом 1',
+               //    phoneNumber: '+71234567891',
+               //    price: 1234,
+               //    category: 'REAL_ESTATE',
+               //    subcategory: 'House',
+               //    bank: 'Уралсиб',
+               //    userId: 4,
+               // },
+               params: { title: name, ...params },
             },
          )
 

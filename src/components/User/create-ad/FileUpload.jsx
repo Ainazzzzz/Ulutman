@@ -1,65 +1,22 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { useDropzone } from 'react-dropzone'
 import { Box, Typography, IconButton, styled } from '@mui/material'
-import CloseIcon from '../../assets/icons/close-icon.svg?react'
+import CloseIcon from '../../../assets/icons/close-icon.svg?react'
 import { CameraIcon } from '../../../pages/Admin/mailing/MailingFormStyles'
-import { sendImageS3 } from '../../../redux/s3/s3Thunk'
 
-const FileUpload = ({
-   setFieldValue,
-   setImageFiles,
-   imageFiles,
-   touched,
-   errors,
-}) => {
-   const dispatch = useDispatch()
-
-   const uploadImages = async files => {
-      const formData = new FormData()
-      files.forEach(file => formData.append('files', file))
-
-      const response = await dispatch(sendImageS3(formData)).unwrap()
-      if (response.success) {
-         const uploadedFiles = response.data.map(file => ({
-            ...file,
-            name: file.name,
-         }))
-
-         const updatedFiles = [...imageFiles, ...uploadedFiles]
-         setImageFiles(updatedFiles)
-
-         setFieldValue(
-            'images',
-            updatedFiles.map(file => file.name),
-         )
-      }
-   }
-
+const FileUpload = ({ setImageFiles, imageFiles, touched, errors }) => {
    const onDrop = acceptedFiles => {
       const validFiles = acceptedFiles.filter(file =>
          ['image/jpeg', 'image/png', 'image/gif'].includes(file.type),
       )
 
       const updatedFiles = [...imageFiles, ...validFiles]
-      setImageFiles(updatedFiles)
-
-      setFieldValue(
-         'images',
-         updatedFiles.map(file => file.name),
-      )
-
-      uploadImages(validFiles)
+      setImageFiles('images', updatedFiles)
    }
 
    const handleRemoveImage = index => {
       const updatedFiles = imageFiles.filter((_, i) => i !== index)
-      setImageFiles(updatedFiles)
-
-      setFieldValue(
-         'images',
-         updatedFiles.map(file => file.name),
-      )
+      setImageFiles('images', updatedFiles)
    }
 
    const { getRootProps, getInputProps } = useDropzone({
@@ -76,7 +33,7 @@ const FileUpload = ({
       <Box>
          <ImageContainer>
             {imageFiles.map(file => (
-               <ImageWrapper key={file}>
+               <ImageWrapper key={crypto.randomUUID()}>
                   <ImagePreview
                      src={URL.createObjectURL(file)}
                      alt="Upload file"

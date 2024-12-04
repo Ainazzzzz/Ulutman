@@ -1,230 +1,272 @@
-import { useEffect, useState } from 'react'
 import { styled } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
+import * as Yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
+import Input from '../../UI/Input'
+import CategoryField from './CategoryField'
+import ReusableSelect from '../../UI/Select'
+import FileUpload from './FileUpload'
 import { Button } from '../../UI/Button'
-import AdsFileUpload from './AdsFileUpload'
-import UploadReceipt from './UploadReceipt'
-
-import {
-   InputField,
-   CategoryField,
-   DescriptionField,
-   SelectField,
-} from './FormFields'
 import { PublishesCategoryModal } from './PublishesCategoryModal'
+import DetailInfoModal from './DetailInfoModal'
+import UploadReceipt from './UploadReceipt'
 import { fetchPublishesUser } from '../../../redux/publishes/publishesThunk'
 import { getAllMetros } from '../../../redux/main/mainThunk'
-import { validationAdForm } from '../../../utils/constants/validationMailing'
-import { WrapperInputSelect } from '../../../pages/Admin/mailing/MailingFormStyles'
+
+const citiesOfMoscow = [
+   { value: 'Арбат', label: 'Арбат' },
+   { value: 'Басманный', label: 'Басманный' },
+   { value: 'Замоскворечье', label: 'Замоскворечье' },
+   { value: 'Таганский', label: 'Таганский' },
+   { value: 'Пресненский', label: 'Пресненский' },
+   { value: 'Хамовники', label: 'Хамовники' },
+   { value: 'Тверской', label: 'Тверской' },
+   { value: 'Якиманка', label: 'Якиманка' },
+   { value: 'Красносельский', label: 'Красносельский' },
+   { value: 'Мещанский', label: 'Мещанский' },
+   { value: 'Сокольники', label: 'Сокольники' },
+   { value: 'Беговой', label: 'Беговой' },
+   { value: 'Аэропорт', label: 'Аэропорт' },
+   { value: 'Лефортово', label: 'Лефортово' },
+   { value: 'МарьинаРоща', label: 'Марьина Роща' },
+   { value: 'Щукино', label: 'Щукино' },
+]
+
+const banks = [
+   { value: 'Сбербанк', label: 'Сбербанк' },
+   { value: 'ТБанк', label: 'ТБанк' },
+   { value: 'ВТБ', label: 'ВТБ' },
+   { value: 'АльфаБанк', label: 'Альфа-Банк' },
+   { value: 'Газпромбанк', label: 'Газпромбанк' },
+   { value: 'Райффайзенбанк', label: 'Райффайзенбанк' },
+   { value: 'Росбанк', label: 'Росбанк' },
+   { value: 'ПочтаБанк', label: 'Почта Банк' },
+   { value: 'ХоумКредитБанк', label: 'Хоум Кредит Банк' },
+   { value: 'Открытие', label: 'Открытие' },
+   { value: 'Совкомбанк', label: 'Совкомбанк' },
+   { value: 'ЮниКредитБанк', label: 'ЮниКредит Банк' },
+   { value: 'Уралсиб', label: 'Уралсиб' },
+   { value: 'АкБарсБанк', label: 'Ак Барс Банк' },
+   { value: 'МТС Банк', label: 'МТС Банк' },
+]
+
+export const validationAdForm = Yup.object({
+   name: Yup.string().required('Имя обязательно'),
+   phoneNumber: Yup.string()
+      .required('Телефон обязателен')
+      .matches(/^\+7\d{10}$/, 'Некорректный формат телефона'),
+   category: Yup.string().required('Категория обязательна'),
+   images: Yup.mixed().required('Загрузите фото'),
+   description: Yup.string().required('Описание обязательно'),
+   city: Yup.string().required('Город обязателен'),
+   address: Yup.string().required('Адрес обязателен'),
+   metro: Yup.string().required('Метро обязательно'),
+   price: Yup.number()
+      .required('Цена обязательна')
+      .typeError('Цена должна быть числом'),
+   bank: Yup.string().required('Банк обязателен'),
+   paymentReceiptFile: Yup.mixed().required('Чек обязателен'),
+   propertyDetails: Yup.object().optional(),
+})
 
 export const CreateAdForm = () => {
    const dispatch = useDispatch()
-   const { userData } = useSelector(state => state.auth)
    const { metros } = useSelector(state => state.main)
-   const { images } = useSelector(state => state.s3)
+   const { userData } = useSelector(state => state.auth)
 
-   const [imageFiles, setImageFiles] = useState([])
-   const [isOpen, setIsOpen] = useState(false)
+   const [categoryModal, setCategoryModal] = useState(false)
+   const [detailInfoModal, setDetailInfoModal] = useState(false)
    const [selectCategory, setSelectCategory] = useState({})
-   const [fileName, setFileName] = useState('нет')
+   const [fileName, setFileName] = useState('')
 
-   const formik = useFormik({
+   const {
+      handleChange,
+      touched,
+      errors,
+      handleSubmit,
+      values,
+      setFieldValue,
+   } = useFormik({
       initialValues: {
-         title: '',
-         description: '',
+         name: '',
          phoneNumber: '',
+         category: '',
+         subcategory: '',
+         images: [],
+         description: '',
+         city: '',
          metro: '',
          address: '',
-         category: '',
-         images: [],
          price: '',
          bank: '',
-         rooms: '',
-         area: '',
-         floor: '',
-         yearBuilt: '',
-         documents: '',
-         district: '',
-         kitchenArea: '',
-         renovation: '',
-         heating: '',
-         constructionCompany: '',
+         paymentReceiptFile: [],
+
+         propertyDetails: {},
       },
+
       validationSchema: validationAdForm,
+
       onSubmit: values => {
-         if (userData) {
-            dispatch(
-               fetchPublishesUser({
-                  publishe: {
-                     ...values,
-                     userId: userData.userId,
-                  },
-                  publishesData: {
-                     paymentReceiptFile: fileName,
-                     images,
-                  },
-               }),
-            )
-            // setImageFiles([]);
-            // setSelectCategory({});
-            // setFileName('Нет');
-            // formik.resetForm();
-         }
+         dispatch(
+            fetchPublishesUser({
+               publishe: { userId: userData.userId, ...values },
+            }),
+         )
       },
    })
 
+   const onCategoryClick = category => setSelectCategory(category)
+   const onSubCategoryClick = subCategory =>
+      setFieldValue('subcategory', subCategory)
+
+   const toggleCategoryModal = () => setCategoryModal(prev => !prev)
+   const toggleDetailInfoModal = () => setDetailInfoModal(prev => !prev)
+
    useEffect(() => {
-      if (!metros.length) dispatch(getAllMetros())
-   }, [dispatch, metros])
-
-   const handleCategorySubmit = categories => {
-      setSelectCategory({ categoryTitle: categories.title })
-      formik.setFieldValue('category', categories.category)
-   }
-
-   const handleSubCategorySubmit = subCategory => {
-      setSelectCategory(prev => ({
-         ...prev,
-         subCategoryText: subCategory.text,
-      }))
-      formik.setFieldValue('subcategory', subCategory.value)
-   }
-
-   const handlePaymentReceipt = pdfFile => {
-      setFileName(pdfFile)
-   }
-
-   const renderField = (
-      name,
-      label,
-      placeholder,
-      type = 'text',
-      required = false,
-   ) => (
-      <InputField
-         name={name}
-         label={label}
-         placeholder={placeholder}
-         type={type}
-         value={formik.values[name]}
-         onChange={formik.handleChange}
-         onBlur={formik.handleBlur}
-         touched={formik.touched[name]}
-         error={formik.errors[name]}
-         required={required}
-      />
-   )
-
-   const realEstateFields = selectCategory.categoryTitle === 'Недвижимость' && (
-      <>
-         <StyledWrapperInputSelect>
-            {renderField('rooms', 'Количество комнат', '6 комнат')}
-            {renderField('area', 'Площадь (м²)', '10')}
-            {renderField('floor', 'Этаж', '3')}
-            {renderField('yearBuilt', 'Год постройки', '2020')}
-            {renderField('documents', 'Документы', 'Красная книга')}
-         </StyledWrapperInputSelect>
-         <StyledWrapperInputSelect>
-            {renderField('district', 'Район', 'Ленинский район')}
-            {renderField('kitchenArea', 'Площадь кухни (м²)', '4')}
-            {renderField('renovation', 'Ремонт', 'Евроремонт')}
-            {renderField('heating', 'Отопление', 'Газовое отопление')}
-            {renderField(
-               'constructionCompany',
-               'Строительная компания',
-               'AIT GROUP',
-            )}
-         </StyledWrapperInputSelect>
-      </>
-   )
+      dispatch(getAllMetros())
+   }, [])
 
    return (
-      <Form onSubmit={formik.handleSubmit}>
-         <StyledWrapperInputSelect>
-            {renderField(
-               'title',
-               'Название',
-               'Название публикации',
-               'text',
-               true,
-            )}
-            {renderField(
-               'phoneNumber',
-               'Телефон',
-               '+7 xxx xxxxxxx',
-               'tel',
-               true,
-            )}
-         </StyledWrapperInputSelect>
-
-         <CategoryField
-            selectCategory={selectCategory}
-            handleOpenCategoryModal={() => setIsOpen(true)}
-            touched={formik.touched.category}
-            error={formik.errors.category}
-         />
-
-         <ContainerFile>
-            <Label>Загрузите фото (до 6 фото)</Label>
-            <AdsFileUpload
-               setFieldValue={formik.setFieldValue}
-               touched={formik.touched.images}
-               errors={formik.errors.images}
-               setImageFiles={setImageFiles}
-               imageFiles={imageFiles}
+      <>
+         <Form onSubmit={handleSubmit}>
+            <Input
+               placeholder="Иван"
+               label="Имя"
+               name="name"
+               value={values.name}
+               onChange={handleChange}
+               error={!!errors.name}
+               helperText={errors.name}
+               required
             />
-         </ContainerFile>
+            <Input
+               placeholder="+7 xxx xxxxxxx"
+               label="Телефон"
+               name="phoneNumber"
+               value={values.phoneNumber}
+               onChange={handleChange}
+               error={!!errors.phoneNumber}
+               helperText={errors.phoneNumber}
+               required
+            />
 
-         <DescriptionField
-            description={formik.values.description}
-            onChange={formik.handleChange}
-            touched={formik.touched.description}
-            error={formik.errors.description}
-         />
+            <CategoryField
+               selectCategory={selectCategory}
+               subCategory={values.subcategory}
+               handleOpenCategoryModal={toggleCategoryModal}
+               touched={touched.category}
+               error={!!errors.category}
+            />
 
-         <StyledWrapperInputSelect>
-            {renderField('price', 'Цена', 'Договорная', 'number', true)}
-            <SelectField
-               name="metro"
-               label="Метро"
-               value={formik.values.metro}
-               options={metros}
+            <PublishesCategoryModal
+               onCategoryClick={onCategoryClick}
+               open={categoryModal}
+               onClose={toggleCategoryModal}
+               onSubCategoryClick={onSubCategoryClick}
+               setFieldValue={setFieldValue}
+            />
+
+            <FileUpload
+               imageFiles={values.images}
+               setImageFiles={setFieldValue}
+               touched={touched.images}
+               error={!!errors.images}
+            />
+
+            <DetailInfo type="button" onClick={toggleDetailInfoModal}>
+               Детальная информация
+            </DetailInfo>
+
+            <Input
+               placeholder="Продаю iPhone 12 с объемом памяти 128GB в черном цвете. Телефон в отличном состоянии, использовался бережно и всегда носился в чехле с защитным стеклом на экране."
+               label="Описание"
+               name="description"
+               value={values.description}
+               onChange={handleChange}
+               multiline
+               rows="4"
+               helperText={errors.description}
+               error={!!errors.description}
+               required
+            />
+
+            <ReusableSelect
+               placeholder="Выберите город"
+               label="Город"
+               name="city"
+               value={values.city}
+               onChange={handleChange}
+               options={citiesOfMoscow}
+               error={!!errors.city}
+               helperText={errors.city}
+            />
+            <ReusableSelect
                placeholder="Выберите метро"
-               setFieldValue={formik.setFieldValue}
-               onBlur={formik.handleBlur}
-               touched={formik.touched.metro}
-               error={formik.errors.metro}
+               label="Метро"
+               name="metro"
+               value={values.metro}
+               onChange={handleChange}
+               options={metros}
+               error={!!errors.metro}
+               helperText={errors.metro}
             />
-            {renderField(
-               'address',
-               'Адрес',
-               'Улица Крылова дом 1',
-               'text',
-               true,
-            )}
-         </StyledWrapperInputSelect>
 
-         <StyledWrapperInputSelect>
-            {renderField('bank', 'Банк', 'Укажите банк', 'text', true)}
+            <Input
+               placeholder="Улица Крылова дом 1"
+               label="Адрес"
+               name="address"
+               value={values.address}
+               onChange={handleChange}
+               error={!!errors.address}
+               helperText={errors.address}
+               required
+            />
+            <Input
+               placeholder="Договорная"
+               label="Цена"
+               name="price"
+               value={values.price}
+               onChange={handleChange}
+               error={!!errors.price}
+               helperText={errors.price}
+               required
+            />
+
+            <ReusableSelect
+               placeholder="нет"
+               label="Выберите банк"
+               name="bank"
+               value={values.bank}
+               onChange={handleChange}
+               options={banks}
+               error={!!errors.bank}
+               helperText={errors.bank}
+            />
+            {/* <Input
+               placeholder="нет"
+               label="Прикрепите чек"
+               name="paymentReceiptFile"
+               value={values.paymentReceiptFile}
+               onChange={handleChange}
+               error={!!errors.paymentReceiptFile}
+               helperText={errors.paymentReceiptFile}
+               required
+            /> */}
 
             <UploadReceipt
-               setFileName={handlePaymentReceipt}
+               setFileName={setFileName}
                fileName={fileName}
+               setReceiptFiles={setFieldValue}
             />
-         </StyledWrapperInputSelect>
 
-         {realEstateFields}
-
-         <StyledButton type="submit">Создать</StyledButton>
-
-         <PublishesCategoryModal
-            open={isOpen}
-            onClose={() => setIsOpen(false)}
-            onCategoryClick={handleCategorySubmit}
-            onSubCategoryClick={handleSubCategorySubmit}
+            <Button type="submit">Создать</Button>
+         </Form>
+         <DetailInfoModal
+            open={detailInfoModal}
+            onClose={toggleDetailInfoModal}
          />
-      </Form>
+      </>
    )
 }
 
@@ -232,22 +274,25 @@ const Form = styled('form')({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
+   maxWidth: '700px',
+   minWidth: '300px',
+   width: '100%',
 })
 
-const StyledWrapperInputSelect = styled(WrapperInputSelect)({
-   padding: '0',
-})
+const DetailInfo = styled('button')(() => ({
+   backgroundColor: '#A495FE',
+   border: '1px solid #7E52FF',
+   width: '200px',
+   fontWeight: 500,
+   fontSize: '14px',
+   color: '#fff',
+   borderRadius: '2px',
+   padding: '3px',
+   cursor: 'pointer',
+   transition: '250ms',
 
-const ContainerFile = styled('div')({
-   display: 'flex',
-   flexDirection: 'column',
-   gap: '8px',
-})
-
-const Label = styled('p')({
-   fontWeight: '600',
-})
-
-const StyledButton = styled(Button)({
-   width: '123px',
-})
+   '&:hover': {
+      backgroundColor: '#8D7BFF',
+      border: '1px solid #7E52FF',
+   },
+}))
