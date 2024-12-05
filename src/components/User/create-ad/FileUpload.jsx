@@ -4,7 +4,7 @@ import { Box, Typography, IconButton, styled } from '@mui/material'
 import CloseIcon from '../../../assets/icons/close-icon.svg?react'
 import { CameraIcon } from '../../../pages/Admin/mailing/MailingFormStyles'
 
-const FileUpload = ({ setImageFiles, imageFiles, touched, errors }) => {
+const FileUpload = ({ setImageFiles, imageFiles, errors }) => {
    const onDrop = acceptedFiles => {
       const validFiles = acceptedFiles.filter(file =>
          ['image/jpeg', 'image/png', 'image/gif'].includes(file.type),
@@ -16,6 +16,7 @@ const FileUpload = ({ setImageFiles, imageFiles, touched, errors }) => {
 
    const handleRemoveImage = index => {
       const updatedFiles = imageFiles.filter((_, i) => i !== index)
+
       setImageFiles('images', updatedFiles)
    }
 
@@ -32,7 +33,7 @@ const FileUpload = ({ setImageFiles, imageFiles, touched, errors }) => {
    return (
       <Box>
          <ImageContainer>
-            {imageFiles.map(file => (
+            {imageFiles.map((file, i) => (
                <ImageWrapper key={crypto.randomUUID()}>
                   <ImagePreview
                      src={URL.createObjectURL(file)}
@@ -46,7 +47,7 @@ const FileUpload = ({ setImageFiles, imageFiles, touched, errors }) => {
                         right: 8,
                         color: 'white',
                      }}
-                     onClick={() => handleRemoveImage(file)}
+                     onClick={() => handleRemoveImage(i)}
                   >
                      <CloseIcon fontSize="small" />
                   </IconButton>
@@ -70,7 +71,7 @@ const FileUpload = ({ setImageFiles, imageFiles, touched, errors }) => {
                   </Typography>
                </StyledBox>
             )}
-            {touched && errors && (
+            {errors && (
                <Typography color="error" variant="caption">
                   {errors}
                </Typography>

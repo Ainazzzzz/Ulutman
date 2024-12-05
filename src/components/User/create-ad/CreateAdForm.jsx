@@ -1,4 +1,4 @@
-import { styled } from '@mui/material'
+import { styled, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -57,7 +57,9 @@ export const validationAdForm = Yup.object({
       .required('Телефон обязателен')
       .matches(/^\+7\d{10}$/, 'Некорректный формат телефона'),
    category: Yup.string().required('Категория обязательна'),
-   images: Yup.mixed().required('Загрузите фото'),
+   images: Yup.array()
+      .min(1, 'Поле изображений должно содержать хотя бы 1 элемент.')
+      .required('Загрузите фото'),
    description: Yup.string().required('Описание обязательно'),
    city: Yup.string().required('Город обязателен'),
    address: Yup.string().required('Адрес обязателен'),
@@ -66,7 +68,9 @@ export const validationAdForm = Yup.object({
       .required('Цена обязательна')
       .typeError('Цена должна быть числом'),
    bank: Yup.string().required('Банк обязателен'),
-   paymentReceiptFile: Yup.mixed().required('Чек обязателен'),
+   paymentReceiptFile: Yup.array()
+      .min(1, 'Чек обязателен.')
+      .required('Чек обязателен'),
    propertyDetails: Yup.object().optional(),
 })
 
@@ -167,12 +171,18 @@ export const CreateAdForm = () => {
                setFieldValue={setFieldValue}
             />
 
-            <FileUpload
-               imageFiles={values.images}
-               setImageFiles={setFieldValue}
-               touched={touched.images}
-               error={!!errors.images}
-            />
+            <div>
+               <FileUpload
+                  imageFiles={values.images}
+                  setImageFiles={setFieldValue}
+                  error={errors.images}
+               />
+               {errors.images && (
+                  <ErrorText color="error" variant="caption">
+                     {errors.images}
+                  </ErrorText>
+               )}
+            </div>
 
             <DetailInfo type="button" onClick={toggleDetailInfoModal}>
                Детальная информация
@@ -254,11 +264,18 @@ export const CreateAdForm = () => {
                required
             /> */}
 
-            <UploadReceipt
-               setFileName={setFileName}
-               fileName={fileName}
-               setReceiptFiles={setFieldValue}
-            />
+            <div>
+               <UploadReceipt
+                  setFileName={setFileName}
+                  fileName={fileName}
+                  setReceiptFiles={setFieldValue}
+               />
+               {errors.paymentReceiptFile && (
+                  <ErrorText color="error" variant="caption">
+                     {errors.paymentReceiptFile}
+                  </ErrorText>
+               )}
+            </div>
 
             <Button type="submit">Создать</Button>
          </Form>
@@ -295,4 +312,10 @@ const DetailInfo = styled('button')(() => ({
       backgroundColor: '#8D7BFF',
       border: '1px solid #7E52FF',
    },
+}))
+
+const ErrorText = styled(Typography)(() => ({
+   color: '#f00',
+   margin: 0,
+   fontSize: '16px',
 }))
