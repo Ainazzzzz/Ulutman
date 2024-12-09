@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { styled, useMediaQuery } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import Modal from '../UI/Modal'
@@ -62,7 +62,6 @@ export const FilterModal = () => {
    }
 
    const handleCloseModal = () => setOpen(false)
-   const handleOpenClick = () => setOpen(true)
    return (
       <ModalStyle open={open} handleClose={handleCloseModal}>
          <Wrapper>
@@ -74,7 +73,7 @@ export const FilterModal = () => {
                <Block>
                   <Description>До метро</Description>
                   <MiniBox>
-                     {isMobile ? <></> : <Title>Не более</Title>}
+                     {isMobile ? null : <Title>Не более</Title>}
                      <InputStyle
                         type="number"
                         value={walking}

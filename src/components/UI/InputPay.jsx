@@ -8,19 +8,17 @@ const InputPay = ({
    multiple = false,
    maxSize = 1048576,
    onDropFiles,
-   label,
 }) => {
-   const { getRootProps, getInputProps, acceptedFiles, fileRejections } =
-      useDropzone({
-         accept,
-         multiple,
-         maxSize,
-         onDrop: acceptedFiles => {
-            if (onDropFiles) {
-               onDropFiles(acceptedFiles)
-            }
-         },
-      })
+   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+      accept,
+      multiple,
+      maxSize,
+      onDrop: acceptedFiles => {
+         if (onDropFiles) {
+            onDropFiles(acceptedFiles)
+         }
+      },
+   })
 
    return (
       <PdFcontainer {...getRootProps()}>

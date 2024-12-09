@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -224,7 +226,7 @@ const ContainerAddImage = styled('div')(({ theme }) => ({
       paddingBottom: '20px',
    },
 }))
-const ContainerAddImageSehond = styled('div')(({ theme }) => ({
+const ContainerAddImageSehond = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '8px',

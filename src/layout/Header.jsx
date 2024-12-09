@@ -1,21 +1,22 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Popover, styled, Typography, useMediaQuery } from '@mui/material'
+import { styled, Typography, useMediaQuery } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
 import { IconButton } from '../components/IconButton'
 import { Button } from '../components/UI/Button'
-import { SignIn } from '../pages/user/auth/SignIn.jsx'
+import { SignIn } from '../pages/user/auth/SignIn'
 import ReusableSelect from '../components/UI/Select'
-import Modal from '../components/UI/Modal.jsx'
-import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx'
+import Modal from '../components/UI/Modal'
+import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal'
 
 import { languages } from '../utils/constants/languages'
 import { renderFlag } from '../utils/general/renderFlag'
 
-import { logOut } from '../redux/auth/authThunk.js'
+import { logOut } from '../redux/auth/authThunk'
 
 import HeartLike from '../assets/icons/white-heart.svg?react'
 import UserLogo from '../assets/icons/user.svg?react'
@@ -23,11 +24,10 @@ import Plus from '../assets/icons/plus.svg?react'
 import MenuIcon from '../assets/icons/menu-icon.svg?react'
 import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react'
 import ComeIcon from '../assets/icons/come-icon.svg?react'
-import WhiteHeart from '../assets/icons/white-heart.svg?react'
 import Language from '../assets/icons/language-icon.svg?react'
 import LogOutIcon from '../assets/icons/logout-icon.svg?react'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
-import SignUp from '../pages/user/auth/signUp.jsx'
+import SignUp from '../pages/user/auth/signUp'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -59,9 +59,7 @@ export const Header = () => {
    const [openModal, setOpenModal] = useState(false)
    const [openSignUp, setOpenSignUp] = useState(false)
 
-   const closeUserMenu = () => {
-      setAnchorEl(null)
-   }
+   const closeUserMenu = () => {}
 
    const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false)
    const [openOptionsProfile, setOpenOptionsProfile] = useState(null)
@@ -169,7 +167,7 @@ export const Header = () => {
                      <MenuItemStyle
                         onClick={() => handleNavigationPage('favorite')}
                      >
-                        <WhiteHeart /> Избранное
+                        <HeartLike /> Избранное
                      </MenuItemStyle>
                      <MenuItemStyle onClick={handleClose}>
                         <Language /> Сменить язык
@@ -184,7 +182,7 @@ export const Header = () => {
                            <IconButton>
                               <HeartLike />
                            </IconButton>
-                           <a>Избранное</a>
+                           <a href="#">Избранное</a>
                         </Block>
                         <Block onClick={profileHandler}>
                            <IconButton>
@@ -336,27 +334,6 @@ const MenuStyle = styled(Menu)(() => ({
       padding: '16px 0px',
       width: '230px',
       background: '#7e52ff',
-   },
-}))
-
-const LogOutBtn = styled(Button)(() => ({
-   svg: {
-      rotate: '180deg',
-
-      path: {
-         stroke: '#f00',
-      },
-   },
-}))
-
-const StyledPopover = styled(Popover)(() => ({
-   '& .MuiPaper-root': {
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '10px 10px 0',
-      gap: '5px',
-      alignItems: 'center',
-      borderRadius: '15px',
    },
 }))
 

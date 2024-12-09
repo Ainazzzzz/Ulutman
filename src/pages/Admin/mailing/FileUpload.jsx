@@ -8,7 +8,7 @@ import {
    ErrorMessage,
    ImagePreview,
    StyledDropzone,
-} from './MailingFormStyles.jsx'
+} from './MailingFormStyles'
 
 const FileUpload = ({ setFieldValue, touched, errors, id }) => {
    const [imagePreview, setImagePreview] = useState(null)
