@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { axiosInstance } from '../../config/axiosInstance'
 import { toast } from 'react-toastify'
+import { axiosInstance } from '../../config/axiosInstance'
 
 export const addAdvertisingThunks = createAsyncThunk(
    'advertising/add',
