@@ -11,6 +11,7 @@ export const PATHS = {
       MY_ADS: '/user/my-page/my-listings',
       RECOMMENDATIONS: '/user/recommendations',
       MAIN_PHP: '/user/main.php',
+      ADVERTISING_PAGE: '/user/advertising_page',
    },
    ADMIN: {
       ROOT: '/admin',

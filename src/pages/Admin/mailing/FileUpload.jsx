@@ -8,14 +8,14 @@ import {
    ErrorMessage,
    ImagePreview,
    StyledDropzone,
-} from './MailingFormStyles'
+} from './MailingFormStyles.jsx'
 
 const FileUpload = ({ setFieldValue, touched, errors, id }) => {
    const [imagePreview, setImagePreview] = useState(null)
 
    const onDrop = acceptedFiles => {
       const file = acceptedFiles[0]
-      setFieldValue('image', file)
+      setFieldValue('imageFile', file)
       const reader = new FileReader()
       reader.onloadend = () => {
          setImagePreview(reader.result)

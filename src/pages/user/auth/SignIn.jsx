@@ -9,7 +9,7 @@ import { signIn } from '../../../redux/auth/authThunk'
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
 import Spinner from '../../../components/UI/Spinner'
 
-export const SignIn = ({ open, onClose, handleOpenSignUp }) => {
+export const SignIn = ({ open, onClose, onOpen }) => {
    const dispatch = useDispatch()
    const { isLoading } = useSelector(state => state.auth)
 
@@ -75,7 +75,7 @@ export const SignIn = ({ open, onClose, handleOpenSignUp }) => {
             )}
             <Typography align="center">
                У вас нету аккаунта?{' '}
-               <NavLink to="" onClick={handleOpenSignUp}>
+               <NavLink to="#" onClick={onOpen}>
                   Создайте её
                </NavLink>
             </Typography>
