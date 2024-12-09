@@ -182,7 +182,7 @@ export const Header = () => {
                            <IconButton>
                               <HeartLike />
                            </IconButton>
-                           <a href="#">Избранное</a>
+                           <span href="#">Избранное</span>
                         </Block>
                         <Block onClick={profileHandler}>
                            <IconButton>
