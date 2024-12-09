@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -5,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import FileUpload from '../Admin/mailing/FileUpload'
 import { Button } from '../../components/UI/Button'
-import ChevronLeft from '../../assets/icons/chevron-left-violet-icon.svg?react'
+import ChevronLeft from '../../assets/icons/chevron-left.svg?react'
 import Input from '../../components/UI/Input'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -224,7 +226,7 @@ const ContainerAddImage = styled('div')(({ theme }) => ({
       paddingBottom: '20px',
    },
 }))
-const ContainerAddImageSehond = styled('div')(({ theme }) => ({
+const ContainerAddImageSehond = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '8px',

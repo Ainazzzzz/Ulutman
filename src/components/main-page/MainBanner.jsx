@@ -8,7 +8,7 @@ import ReusableSelect from '../UI/Select'
 
 import banner from '../../assets/images/main.png'
 import MobileBanner from '../../assets/images/mobile-banner.png'
-import { categories } from '../../utils/constants/main'
+import { categoryTab } from '../../utils/constants/main'
 import { PATHS } from '../../utils/constants/paths'
 import { serializeToQueryParams } from '../../utils/general/serialize'
 import { getAllMetros } from '../../redux/main/mainThunk'
@@ -78,7 +78,7 @@ export const MainBanner = () => {
 
          <NavContainer>
             <NavList>
-               {categories.map(({ Icon, title, background, category }) => (
+               {categoryTab.map(({ Icon, title, background, category }) => (
                   <NavItem
                      key={title}
                      onClick={() => navigate(`category/${category}`)}

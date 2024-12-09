@@ -3,7 +3,7 @@ import { useState, useCallback, useMemo } from 'react'
 import Modal from '../UI/Modal'
 import CloseIcon from '../../assets/icons/close-icon.svg?react'
 import ArrowsIcon from '../../assets/icons/arrowpurpul.svg?react'
-import { categories } from '../../utils/constants/main'
+import { categoryTab } from '../../utils/constants/main'
 
 export const PublishesCategoryModal = ({
    open,
@@ -35,7 +35,7 @@ export const PublishesCategoryModal = ({
 
    const categoryList = useMemo(
       () =>
-         categories.map(
+         categoryTab.map(
             ({ Icon, title, background, category, subCategory }) => (
                <NavItem
                   key={title}

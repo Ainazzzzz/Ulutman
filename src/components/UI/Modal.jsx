@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { forwardRef } from 'react'
 import { Dialog, Slide, styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'

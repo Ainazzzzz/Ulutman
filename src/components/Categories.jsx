@@ -1,12 +1,36 @@
 import { styled, useMediaQuery } from '@mui/material'
-import { Outlet, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import Breadcrumbs from './UI/Breadcrumbs'
 import SearchInput from './UI/SearchInput'
-import ChevronLeft from '../assets/icons/chevron-left-violet-icon.svg?react'
+import ChevronLeft from '../assets/icons/chevron-left.svg?react'
+import {
+   categoriesThunks,
+   searchInputThunks,
+} from '../redux/categories/userCategoriesThunk'
+import { serializeToQueryParams } from '../utils/general/serialize'
 
 export const Categories = () => {
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const { subCategory } = useParams()
+   const [searchValue, setSearchValue] = useState('')
+
+   const handleSearch = () => {
+      const searchParams = serializeToQueryParams({
+         categories: subCategory,
+         titles: searchValue,
+      })
+
+      dispatch(searchInputThunks(searchParams))
+   }
+
+   const handleInputChange = e => {
+      setSearchValue(e.target.value)
+   }
 
    const path = {
       WORK: 'Работа',
@@ -23,6 +47,10 @@ export const Categories = () => {
       { url: `/${subCategory}`, title: path[subCategory] },
    ]
 
+   useEffect(() => {
+      dispatch(categoriesThunks({ subCategory: subCategory.toLowerCase() }))
+   }, [dispatch, subCategory])
+
    return (
       <Wrapper>
          <Container>
@@ -30,13 +58,19 @@ export const Categories = () => {
                <FirstBlock>
                   <Breadcrumbs path={breadcrumbs} />
                   {!isMobile && (
-                     <span>
+                     <BackStyle onClick={() => navigate('/')}>
                         <ChevronLeft /> Назад
-                     </span>
+                     </BackStyle>
                   )}
                </FirstBlock>
-               <SearchInputStyle placeholder="Поиск по названию" />
+               <SearchInputStyle
+                  placeholder="Поиск по названию"
+                  value={searchValue}
+                  onChange={handleInputChange}
+                  onSearch={handleSearch}
+               />
             </Block>
+
             <Outlet />
          </Container>
       </Wrapper>
@@ -75,4 +109,8 @@ const Wrapper = styled('div')(({ theme }) => ({
 
 const SearchInputStyle = styled(SearchInput)(() => ({
    height: '64px',
+}))
+
+const BackStyle = styled('span')(() => ({
+   cursor: 'pointer',
 }))

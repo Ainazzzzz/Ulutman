@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -23,7 +24,6 @@ import Plus from '../assets/icons/plus.svg?react'
 import MenuIcon from '../assets/icons/menu-icon.svg?react'
 import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react'
 import ComeIcon from '../assets/icons/come-icon.svg?react'
-import WhiteHeart from '../assets/icons/white-heart-icon.svg?react'
 import Language from '../assets/icons/language-icon.svg?react'
 import LogOutIcon from '../assets/icons/logout-icon.svg?react'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
@@ -167,7 +167,7 @@ export const Header = () => {
                      <MenuItemStyle
                         onClick={() => handleNavigationPage('favorite')}
                      >
-                        <WhiteHeart /> Избранное
+                        <HeartLike /> Избранное
                      </MenuItemStyle>
                      <MenuItemStyle onClick={handleClose}>
                         <Language /> Сменить язык
