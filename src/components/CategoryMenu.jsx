@@ -1,25 +1,25 @@
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
-import { Button } from './UI/Button';
-import MenuIcon from '../assets/icons/menu.svg?react';
-import { CATEGORY_MENU } from '../utils/constants';
-import { styled, TextField } from '@mui/material';
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import { useState } from 'react'
+import { styled, TextField } from '@mui/material'
+import { Button } from './UI/Button'
+import MenuIcon from '../assets/icons/menu.svg?react'
+import { CATEGORY_MENU } from '../utils/constants'
 
 const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
-   const [categorySearchText, setCategorySearchText] = useState('');
-   const [anchorEl, setAnchorEl] = useState(null);
+   const [categorySearchText, setCategorySearchText] = useState('')
+   const [anchorEl, setAnchorEl] = useState(null)
 
-   const handleClick = event => setAnchorEl(event.currentTarget);
+   const handleClick = event => setAnchorEl(event.currentTarget)
 
    const handleClose = value => {
-      setAnchorEl(null);
-      setSelectedCategory(value);
-   };
+      setAnchorEl(null)
+      setSelectedCategory(value)
+   }
 
-   const handleCloseFn = () => handleClose('По умолчанию');
+   const handleCloseFn = () => handleClose('По умолчанию')
 
-   const handleCategorySearch = e => setCategorySearchText(e.target.value);
+   const handleCategorySearch = e => setCategorySearchText(e.target.value)
 
    return (
       <>
@@ -66,12 +66,12 @@ const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
             ))}
          </StyledMenu>
       </>
-   );
-};
+   )
+}
 
-export default CategoryMenu;
+export default CategoryMenu
 
-const  StyledMenu = styled(Menu)(() => ({
+const StyledMenu = styled(Menu)(() => ({
    '& .MuiList-padding ': {
       padding: '3px',
    },
@@ -79,7 +79,7 @@ const  StyledMenu = styled(Menu)(() => ({
    '& .MuiPopover-paper': {
       borderRadius: '10px',
    },
-}));
+}))
 
 const StyledInput = styled(TextField)(() => ({
    '& .MuiOutlinedInput-root': {
@@ -88,4 +88,4 @@ const StyledInput = styled(TextField)(() => ({
       borderRadius: '10px',
       border: 'none ',
    },
-}));
+}))

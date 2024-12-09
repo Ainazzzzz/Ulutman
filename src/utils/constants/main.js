@@ -1,12 +1,12 @@
-import BagIcon from '../../assets/icons/bag-icon.svg?react';
-import OccupancyIcon from '../../assets/icons/occupancy-icon.svg?react';
-import HotelIcon from '../../assets/icons/hotel-icon.svg?react';
-import ServicesIcon from '../../assets/icons/services-icon.svg?react';
-import ImmovablesIcon from '../../assets/icons/immovables-icon.svg?react';
-import AutoIcon from '../../assets/icons/auto-icon.svg?react';
-import SellingIcon from '../../assets/icons/selling-icon.svg?react';
+import BagIcon from '../../assets/icons/bag-icon.svg?react'
+import OccupancyIcon from '../../assets/icons/occupancy-icon.svg?react'
+import HotelIcon from '../../assets/icons/hotel-icon.svg?react'
+import ServicesIcon from '../../assets/icons/services-icon.svg?react'
+import ImmovablesIcon from '../../assets/icons/immovables-icon.svg?react'
+import AutoIcon from '../../assets/icons/auto-icon.svg?react'
+import SellingIcon from '../../assets/icons/selling-icon.svg?react'
 
-export const categories = [
+export const categoryTab = [
    {
       category: 'WORK',
       title: 'Работа',
@@ -198,7 +198,7 @@ export const categories = [
          },
       ],
    },
-];
+]
 
 export const metroOptions = [
    { id: '0', value: 'select-metro', label: 'Выбрать метро' },
@@ -255,4 +255,4 @@ export const metroOptions = [
    { id: '47', value: 'Орехово', label: 'Орехово' },
    { id: '48', value: 'Домодедовская', label: 'Домодедовская' },
    { id: '49', value: 'Красногвардейская', label: 'Красногвардейская' },
-];
+]

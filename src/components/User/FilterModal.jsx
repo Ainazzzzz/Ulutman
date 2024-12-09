@@ -1,32 +1,32 @@
-import { useEffect, useState } from 'react';
-import Modal from '../UI/Modal';
-import CloseIcon from '../../assets/icons/close-icon.svg?react';
-import { styled, useMediaQuery } from '@mui/material';
-import Input from '../UI/Input';
-import ResetFilter from '../../assets/icons/reset-filter.svg?react';
-import { Button } from '../../components/UI/Button';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react'
+import { styled, useMediaQuery } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import Modal from '../UI/Modal'
+import CloseIcon from '../../assets/icons/close-icon.svg?react'
+import Input from '../UI/Input'
+import ResetFilter from '../../assets/icons/reset-filter.svg?react'
+import { Button } from '../UI/Button'
 import {
    filtermodalThunks,
    resertFilterThunks,
-} from '../../redux/categories/categoriesThunks';
+} from '../../redux/categories/userCategoriesThunk'
 
 export const FilterModal = () => {
-   const [minTotalArea, setMinTotalArea] = useState('');
-   const [maxTotalArea, setMaxTotalArea] = useState('');
-   const [minKitchenArea, setMinKitchenArea] = useState('');
-   const [maxKitchenArea, setMaxKitchenArea] = useState('');
-   const [minLivingArea, setMinLivingArea] = useState('');
-   const [maxLivingArea, setMaxLivingArea] = useState('');
-   const [minYear, setMinYear] = useState('');
-   const [maxYear, setMaxYear] = useState('');
-   const [walkingDistance, setWalkingDistance] = useState('');
-   const [transportDistance, setTransportDistance] = useState('');
-   const [walking, setWalking] = useState();
-   const [open, setOpen] = useState(true);
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const dispatch = useDispatch();
-   const [isWalking, setIsWalking] = useState(true);
+   const [minTotalArea, setMinTotalArea] = useState('')
+   const [maxTotalArea, setMaxTotalArea] = useState('')
+   const [minKitchenArea, setMinKitchenArea] = useState('')
+   const [maxKitchenArea, setMaxKitchenArea] = useState('')
+   const [minLivingArea, setMinLivingArea] = useState('')
+   const [maxLivingArea, setMaxLivingArea] = useState('')
+   const [minYear, setMinYear] = useState('')
+   const [maxYear, setMaxYear] = useState('')
+   const [walkingDistance, setWalkingDistance] = useState('')
+   const [transportDistance, setTransportDistance] = useState('')
+   const [walking, setWalking] = useState()
+   const [open, setOpen] = useState(true)
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const dispatch = useDispatch()
+   const [isWalking, setIsWalking] = useState(true)
    const handleApplyFilters = () => {
       const filterData = {
          minTotalArea,
@@ -41,28 +41,28 @@ export const FilterModal = () => {
          walkingDistance: walkingDistance ? Number(walkingDistance) : '',
          transportDistance: transportDistance ? Number(transportDistance) : '',
          transportType: 'TRANSPORT',
-      };
+      }
 
-      dispatch(filtermodalThunks(filterData));
-      setOpen(false);
-   };
+      dispatch(filtermodalThunks(filterData))
+      setOpen(false)
+   }
    const handleResetFilters = () => {
-      setMinTotalArea('');
-      setMaxTotalArea('');
-      setMinKitchenArea('');
-      setMaxKitchenArea('');
-      setMinLivingArea('');
-      setMaxLivingArea('');
-      setMinYear('');
-      setMaxYear('');
-      setWalkingDistance('');
-      setTransportDistance('');
-      setWalking(true);
-      dispatch(resertFilterThunks());
-   };
+      setMinTotalArea('')
+      setMaxTotalArea('')
+      setMinKitchenArea('')
+      setMaxKitchenArea('')
+      setMinLivingArea('')
+      setMaxLivingArea('')
+      setMinYear('')
+      setMaxYear('')
+      setWalkingDistance('')
+      setTransportDistance('')
+      setWalking(true)
+      dispatch(resertFilterThunks())
+   }
 
-   const handleCloseModal = () => setOpen(false);
-   const handleOpenClick = () => setOpen(true);
+   const handleCloseModal = () => setOpen(false)
+   const handleOpenClick = () => setOpen(true)
    return (
       <ModalStyle open={open} handleClose={handleCloseModal}>
          <Wrapper>
@@ -109,7 +109,7 @@ export const FilterModal = () => {
                      <Description>Площадь, м2</Description>
                   )}
                   <MiniBox>
-                     {isMobile ? <></> : <Title>Общяя</Title>}
+                     {isMobile ? null : <Title>Общяя</Title>}
 
                      <ThirdMiniBlock>
                         <ThirdInputStyle
@@ -126,9 +126,7 @@ export const FilterModal = () => {
                         />
                      </ThirdMiniBlock>
                   </MiniBox>
-                  {isMobile ? (
-                     <></>
-                  ) : (
+                  {isMobile ? null : (
                      <>
                         <MiniBox>
                            <Title>Кухня</Title>
@@ -219,8 +217,8 @@ export const FilterModal = () => {
             </Box>
          </Wrapper>
       </ModalStyle>
-   );
-};
+   )
+}
 
 const DescriptionBlock = styled('div')(() => ({
    display: 'flex',
@@ -231,7 +229,7 @@ const DescriptionBlock = styled('div')(() => ({
       color: '#000',
       width: '243px',
    },
-}));
+}))
 
 const Box = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -241,7 +239,7 @@ const Box = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       left: '0px',
    },
-}));
+}))
 const Description = styled('p')(({ theme }) => ({
    fontSize: '20px',
    fontWeight: '600',
@@ -250,20 +248,20 @@ const Description = styled('p')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '18px',
    },
-}));
+}))
 
 const MiniBox = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
    gap: '10px',
-}));
+}))
 const ThirdMiniBlock = styled('div')(({ theme }) => ({
    display: 'flex',
    alignItems: 'center',
    [theme.breakpoints.down('md')]: {
       gap: '10px',
    },
-}));
+}))
 const InputStyle = styled(Input)(({ theme }) => ({
    width: '80px',
 
@@ -273,7 +271,7 @@ const InputStyle = styled(Input)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       width: '42px',
    },
-}));
+}))
 const ThirdInputStyle = styled(Input)(({ theme }) => ({
    width: '80px',
    '& .MuiInputBase-root': {
@@ -288,7 +286,7 @@ const ThirdInputStyle = styled(Input)(({ theme }) => ({
          borderBottomRightRadius: '10px',
       },
    },
-}));
+}))
 const FourthInputStyle = styled(Input)(({ theme }) => ({
    width: '80px',
    '& .MuiInputBase-root': {
@@ -302,7 +300,7 @@ const FourthInputStyle = styled(Input)(({ theme }) => ({
          borderBottomLeftRadius: '10px',
       },
    },
-}));
+}))
 const FirstButtun = styled(Button)(({ isWalking }) => ({
    width: '150px',
    height: '40px',
@@ -316,7 +314,7 @@ const FirstButtun = styled(Button)(({ isWalking }) => ({
    fontSize: '18px',
    fontWeight: '400',
    lineHeight: '29.9px',
-}));
+}))
 const SecondButtun = styled(Button)(({ isWalking }) => ({
    width: '122px',
    height: '40px',
@@ -330,13 +328,13 @@ const SecondButtun = styled(Button)(({ isWalking }) => ({
    fontSize: '18px',
    fontWeight: '400',
    lineHeight: '29.9px',
-}));
+}))
 
 const Title = styled('p')(() => ({
    fontSize: '20px',
    fontWeight: '500',
    color: '#000',
-}));
+}))
 const Container = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
@@ -344,7 +342,7 @@ const Container = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
    },
-}));
+}))
 const Block = styled('div')(({ theme }) => ({
    display: 'flex',
    alignItems: 'center',
@@ -354,20 +352,20 @@ const Block = styled('div')(({ theme }) => ({
       alignItems: 'start',
       gap: '8px',
    },
-}));
+}))
 
 const Wrapper = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '40px',
-}));
+}))
 
 const InputBox = styled('div')(() => ({
    display: 'flex',
-}));
+}))
 
 const ModalStyle = styled(Modal)(() => ({
    '& .MuiDialog-paper': {
       padding: '16px',
    },
-}));
+}))

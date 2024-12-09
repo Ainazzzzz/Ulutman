@@ -1,9 +1,9 @@
-import { styled } from '@mui/material';
-import ReusableSelect from '../UI/Select';
-import Filter from '../../assets/icons/filter-category-icon.svg?react';
-import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react';
-import ReplayIcon from '../../assets/icons/replay-icon.svg?react';
-import { MultiDatePicker } from '../UI/MultiDatePicker';
+import { styled } from '@mui/material'
+import ReusableSelect from '../UI/Select'
+import Filter from '../../assets/icons/filter-icon.svg?react'
+import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react'
+import ReplayIcon from '../../assets/icons/replay-icon.svg?react'
+import { MultiDatePicker } from '../UI/MultiDatePicker'
 
 export const AdminHeaderFilter = ({
    selectedValues = {},
@@ -24,8 +24,8 @@ export const AdminHeaderFilter = ({
                   <Filter />
                </FilterWrapper>
 
-               {inputData?.map((header, index) => (
-                  <label key={index} htmlFor={`input-${header.id}`}>
+               {inputData?.map(header => (
+                  <label key={header.id} htmlFor={`input-${header.id}`}>
                      <StyledInput
                         id={`input-${header.id}`}
                         name={`input-${header.id}`}
@@ -73,8 +73,8 @@ export const AdminHeaderFilter = ({
             )}
          </InputsWrapper>
       </Container>
-   );
-};
+   )
+}
 const Container = styled('div')(({ theme }) => ({
    display: 'flex',
    alignItems: 'center',
@@ -97,7 +97,7 @@ const Container = styled('div')(({ theme }) => ({
       gap: '24px',
       alignItems: 'inherit',
    },
-}));
+}))
 
 const InputsWrapper = styled('div')(() => ({
    width: '100%',
@@ -113,7 +113,7 @@ const InputsWrapper = styled('div')(() => ({
    },
 
    scrollbarWidth: 'none',
-}));
+}))
 
 const TopSection = styled('div')(() => ({
    display: 'flex',
@@ -135,7 +135,7 @@ const TopSection = styled('div')(() => ({
          fontSize: '14px',
       },
    },
-}));
+}))
 
 const StyledInput = styled('input')(() => ({
    border: 'none',
@@ -154,7 +154,7 @@ const StyledInput = styled('input')(() => ({
    '::placeholder': {
       color: '#202224',
    },
-}));
+}))
 
 const FilterWrapper = styled('p')(() => ({
    width: '64px',
@@ -172,7 +172,7 @@ const FilterWrapper = styled('p')(() => ({
    svg: {
       cursor: 'pointer',
    },
-}));
+}))
 
 const StyledDatePickerWrapper = styled('div')(() => ({
    paddingBottom: '8px',
@@ -181,7 +181,7 @@ const StyledDatePickerWrapper = styled('div')(() => ({
    '& .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
-}));
+}))
 
 const StyledSelect = styled(ReusableSelect)(() => ({
    marginBottom: '18px',
@@ -213,7 +213,7 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    '.MuiSelect-select': {
       paddingTop: '23.5px',
    },
-}));
+}))
 
 const FilterResetSection = styled('div')(() => ({
    width: '193px',
@@ -234,4 +234,4 @@ const FilterResetSection = styled('div')(() => ({
          transition: '0.5s',
       },
    },
-}));
+}))

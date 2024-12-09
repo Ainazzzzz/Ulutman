@@ -1,16 +1,18 @@
-import { styled, useMediaQuery } from '@mui/material';
-import { MailingForm } from './mailing/MailingForm.jsx';
-import PrevIcon from '../../assets/icons/prev-icon.svg?react';
-import { useNavigate } from 'react-router-dom';
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { styled, useMediaQuery } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { MailingForm } from './mailing/MailingForm'
+import PrevIcon from '../../assets/icons/prev-icon.svg?react'
 
 const AddMailingPage = () => {
-   const navigate = useNavigate();
+   const navigate = useNavigate()
 
    const handlePrevious = () => {
-      navigate('/admin');
-   };
+      navigate('/admin')
+   }
 
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
 
    return (
       <Container>
@@ -47,10 +49,10 @@ const AddMailingPage = () => {
             ]}
          />
       </Container>
-   );
-};
+   )
+}
 
-export default AddMailingPage;
+export default AddMailingPage
 
 const Container = styled('div')(({ theme }) => ({
    padding: '40px 60px',
@@ -58,9 +60,9 @@ const Container = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       padding: '24px 16px',
    },
-}));
+}))
 
-const ContainerTitle = styled('div')(({ theme }) => ({
+const ContainerTitle = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
@@ -74,7 +76,7 @@ const ContainerTitle = styled('div')(({ theme }) => ({
       display: 'flex',
       alignItems: 'center',
    },
-}));
+}))
 
 const Title = styled('h1')(({ theme }) => ({
    fontSize: '34px',
@@ -83,4 +85,4 @@ const Title = styled('h1')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '22px',
    },
-}));
+}))

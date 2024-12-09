@@ -6,4 +6,4 @@ export const dashboard = [
    { id: '5', title: 'realEstate', value: 656, ofValue: 656 },
    { id: '6', title: 'car', value: 448, ofValue: 656 },
    { id: '7', title: 'forSale', value: 448, ofValue: 656 },
-];
+]

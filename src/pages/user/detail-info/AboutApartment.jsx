@@ -1,16 +1,17 @@
-import { Box, styled, Typography } from '@mui/material';
-import FacebookIcon from '../../../assets/icons/facebook-icon.svg?react';
-import TikTokIcon from '../../../assets/icons/tiktok-icon.svg?react';
-import TelegramIcon from '../../../assets/icons/telegram-icon.svg?react';
-import WhatsapIcon from '../../../assets/icons/whatsapp-icon.svg?react';
-import InstagramIcon from '../../../assets/icons/instagram-icon.svg?react';
+/* eslint-disable react/jsx-key */
+import { Box, styled, Typography } from '@mui/material'
+import FacebookIcon from '../../../assets/icons/facebook-icon.svg?react'
+import TikTokIcon from '../../../assets/icons/tiktok-icon.svg?react'
+import TelegramIcon from '../../../assets/icons/telegram-icon.svg?react'
+import WhatsapIcon from '../../../assets/icons/whatsapp-icon.svg?react'
+import InstagramIcon from '../../../assets/icons/instagram-icon.svg?react'
 
 const ApartmentInfo = ({ title, value }) => (
    <Box className="row">
       <Typography className="name-of-title">{title}</Typography>
       <Typography className="value">{value}</Typography>
    </Box>
-);
+)
 
 const AboutApartment = () => {
    const apartmentInfo = [
@@ -23,7 +24,7 @@ const AboutApartment = () => {
       { title: 'Балкон/лоджия', value: '1 лоджия, 1 балкон' },
       { title: 'Вид из окон', value: 'Во двор' },
       { title: 'Ремонт', value: 'Евроремонт' },
-   ];
+   ]
 
    const apartmentInfo2 = [
       { title: 'Год постройки', value: '2015' },
@@ -35,17 +36,17 @@ const AboutApartment = () => {
       { title: 'Подъезды', value: '1' },
       { title: 'Отопление', value: 'Центральное' },
       { title: 'Аварийность', value: 'Нет' },
-   ];
+   ]
    const apartmentInfoSocials = [
       <WhatsapIcon />,
       <TelegramIcon />,
       <InstagramIcon />,
       <TikTokIcon />,
       <FacebookIcon />,
-   ];
+   ]
 
    const MAP =
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d365.48247976201736!2d74.62719552257737!3d42.875802431657775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389eb78fc81678db%3A0x8f6025b536a29455!2sPeaksoft%20house!5e0!3m2!1sru!2skg!4v1710599618852!5m2!1sru!2skg';
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d365.48247976201736!2d74.62719552257737!3d42.875802431657775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389eb78fc81678db%3A0x8f6025b536a29455!2sPeaksoft%20house!5e0!3m2!1sru!2skg!4v1710599618852!5m2!1sru!2skg'
 
    return (
       <StyledContainer>
@@ -54,9 +55,9 @@ const AboutApartment = () => {
                <Typography className="aboutApartmen-title">
                   О квартире
                </Typography>
-               {apartmentInfo.map((info, index) => (
+               {apartmentInfo.map(info => (
                   <ApartmentInfo
-                     key={index}
+                     key={info.value}
                      title={info.title}
                      value={info.value}
                   />
@@ -64,9 +65,9 @@ const AboutApartment = () => {
             </Box>
             <Box className="column">
                <Typography className="aboutApartmen-title">О доме</Typography>
-               {apartmentInfo2.map((info, index) => (
+               {apartmentInfo2.map(info => (
                   <ApartmentInfo
-                     key={index}
+                     key={info.value}
                      title={info.title}
                      value={info.value}
                   />
@@ -83,8 +84,8 @@ const AboutApartment = () => {
             </Typography>
 
             <Box className="appartment-items">
-               {apartmentInfo2.map((info, index) => (
-                  <Typography key={index}>{info.title}</Typography>
+               {apartmentInfo2.map(info => (
+                  <Typography key={info.title}>{info.title}</Typography>
                ))}
             </Box>
          </Box>
@@ -112,16 +113,16 @@ const AboutApartment = () => {
             </Typography>
 
             <Box className="socials-box">
-               {apartmentInfoSocials.map((icon, index) => (
-                  <Box key={index}>{icon}</Box>
+               {apartmentInfoSocials.map(icon => (
+                  <Box key={icon}>{icon}</Box>
                ))}
             </Box>
          </Box>
       </StyledContainer>
-   );
-};
+   )
+}
 
-export default AboutApartment;
+export default AboutApartment
 
 const StyledContainer = styled(Box)(() => ({
    display: 'flex',
@@ -194,9 +195,9 @@ const StyledContainer = styled(Box)(() => ({
          },
       },
    },
-}));
+}))
 
 const StyledMap = styled('iframe')(() => ({
    border: 'none',
    marginBottom: '70px',
-}));
+}))

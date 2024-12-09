@@ -1,15 +1,7 @@
-import { FormControlLabel, Radio, RadioGroup, styled } from '@mui/material';
-import React from 'react';
+import { FormControlLabel, Radio, styled } from '@mui/material'
+import React from 'react'
 
-const RadioButton = ({
-   value,
-   onChange,
-   label,
-   checked,
-   options,
-   type,
-   ...props
-}) => {
+const RadioButton = ({ value, label, type }) => {
    return (
       <div>
          <FormControlLabel
@@ -21,12 +13,12 @@ const RadioButton = ({
             type={type}
          />
       </div>
-   );
-};
+   )
+}
 
-export default RadioButton;
+export default RadioButton
 const StyledRadio = styled(Radio)`
    &.Mui-checked {
       color: rgb(40, 40, 40);
    }
-`;
+`

@@ -1,12 +1,7 @@
-import {
-   InputAdornment,
-   styled,
-   TextField,
-   useMediaQuery,
-} from '@mui/material';
-import Search from '../../assets/icons/search.svg?react';
-import { Button } from './Button';
-import ReusableSelect from './Select';
+import { InputAdornment, styled, TextField, useMediaQuery } from '@mui/material'
+import Search from '../../assets/icons/search.svg?react'
+import { Button } from './Button'
+import ReusableSelect from './Select'
 
 export const SearchInputSelect = ({
    onClick,
@@ -16,7 +11,7 @@ export const SearchInputSelect = ({
    options,
    search,
 }) => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    return (
       <Wrapper>
          <StyledInput
@@ -31,19 +26,15 @@ export const SearchInputSelect = ({
                   </InputAdornment>
                ),
 
-               endAdornment: (
-                  <>
-                     {isMobile || (
-                        <InputAdornment position="end">
-                           <StyledSelect
-                              value={selectValue}
-                              options={options}
-                              onChange={onSelectChange}
-                              placeholder={'выберите метро'}
-                           />
-                        </InputAdornment>
-                     )}
-                  </>
+               endAdornment: isMobile || (
+                  <InputAdornment position="end">
+                     <StyledSelect
+                        value={selectValue}
+                        options={options}
+                        onChange={onSelectChange}
+                        placeholder="выберите метро"
+                     />
+                  </InputAdornment>
                ),
             }}
          />
@@ -51,8 +42,8 @@ export const SearchInputSelect = ({
             Поиск
          </Button>
       </Wrapper>
-   );
-};
+   )
+}
 
 const Wrapper = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -63,7 +54,7 @@ const Wrapper = styled('div')(({ theme }) => ({
          height: '45px',
       },
    },
-}));
+}))
 
 const StyledInput = styled(TextField)(({ theme }) => ({
    borderRadius: '10px 0px 0px 10px',
@@ -98,7 +89,7 @@ const StyledInput = styled(TextField)(({ theme }) => ({
       },
 
    '& fieldset': { border: 'none' },
-}));
+}))
 
 const StyledSelect = styled(ReusableSelect)(() => ({
    ' .MuiInputBase-input': {
@@ -118,4 +109,4 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
-}));
+}))

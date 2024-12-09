@@ -12,4 +12,4 @@ export const PRODUCTS_INFO = {
       userName: 'Катерина Ветрова',
       ratings: 2.5,
    },
-};
+}

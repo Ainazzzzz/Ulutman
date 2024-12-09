@@ -1,24 +1,22 @@
-import { useState } from 'react';
-import { styled } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ArrowsIcon from '../assets/icons/arrows.svg?react';
-import { Button } from './UI/Button';
+import { useState } from 'react'
+import { styled } from '@mui/material'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import ArrowsIcon from '../assets/icons/arrows.svg?react'
+import { Button } from './UI/Button'
 
 const AnnouncementsSorter = ({ onSortChange, options = [] }) => {
-   const [anchorEl, setAnchorEl] = useState(null);
-   const [selectedValue, setSelectedValue] = useState('По умолчанию');
+   const [anchorEl, setAnchorEl] = useState(null)
+   const [selectedValue, setSelectedValue] = useState('Все категории')
 
-   const handleClick = event => setAnchorEl(event.currentTarget);
+   const handleClick = event => setAnchorEl(event.currentTarget)
 
    const handleClose = option => {
-      setAnchorEl(null);
-      if (option) {
-         const newValue = option.label || selectedValue;
-         setSelectedValue(newValue);
-         onSortChange(option.value);
-      }
-   };
+      setAnchorEl(null)
+      const newValue = option.label || selectedValue
+      setSelectedValue(newValue)
+      onSortChange(option.value)
+   }
 
    return (
       <>
@@ -51,10 +49,10 @@ const AnnouncementsSorter = ({ onSortChange, options = [] }) => {
             ))}
          </StyledMenu>
       </>
-   );
-};
+   )
+}
 
-export default AnnouncementsSorter;
+export default AnnouncementsSorter
 
 const StyledMenu = styled(Menu)(() => ({
    '& .MuiList-padding ': {
@@ -64,9 +62,9 @@ const StyledMenu = styled(Menu)(() => ({
    '& .MuiPopover-paper': {
       borderRadius: '10px',
    },
-}));
+}))
 const ButtonStyle = styled(Button)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       width: '150px',
    },
-}));
+}))

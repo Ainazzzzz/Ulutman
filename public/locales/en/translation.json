@@ -9,12 +9,13 @@
          "analitic": "Analytics",
          "settings": "Settings",
          "logOut": "Log out",
+         "advertising": "Advertising",
+         "mailing": "Email Campaigns",
 
          "subLinks": {
             "complaints": "Complaint and Violation Management",
             "comments": "Comment and Message Moderation",
-            "images": "Image and Media File Review",
-            "mailing": "Email Campaigns"
+            "images": "Image and Media File Review"
          },
 
          "changeLanguage": "Change Language"

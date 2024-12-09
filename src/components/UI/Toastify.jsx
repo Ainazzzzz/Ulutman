@@ -1,8 +1,8 @@
-import { styled } from '@mui/material';
-import React from 'react';
-import { ToastContainer } from 'react-toastify';
+import { styled } from '@mui/material'
+import React from 'react'
+import { ToastContainer } from 'react-toastify'
 
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
 
 const Toastify = () => {
    const options = {
@@ -10,12 +10,12 @@ const Toastify = () => {
       closeOnClick: true,
       autoClose: 1500,
       draggable: true,
-   };
+   }
 
-   return <StyledToastContainer {...options} />;
-};
+   return <StyledToastContainer {...options} />
+}
 
-export default Toastify;
+export default Toastify
 
 const StyledToastContainer = styled(ToastContainer)(() => ({
    '.Toastify__toast': {
@@ -33,4 +33,4 @@ const StyledToastContainer = styled(ToastContainer)(() => ({
    svg: {
       fill: '#fff',
    },
-}));
+}))

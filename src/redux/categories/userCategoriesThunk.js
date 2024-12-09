@@ -1,20 +1,21 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance.js';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
+import { showToast } from '../../hooks/useToast'
 
 export const categoriesThunks = createAsyncThunk(
    'categories/get',
    async ({ subCategory }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.get(
-            `main-page/${subCategory == 'real_estate' ? 'realEstate' : subCategory}`,
-         );
+            `main-page/${subCategory === 'real_estate' ? 'realEstate' : subCategory}`,
+         )
 
-         return data;
+         return data
       } catch (e) {
-         return rejectWithValue();
+         return rejectWithValue()
       }
    },
-);
+)
 
 export const getSubCategory = createAsyncThunk(
    'subcategory/get',
@@ -22,45 +23,49 @@ export const getSubCategory = createAsyncThunk(
       try {
          const { data } = await axiosInstance.get(
             `/main-page/real-estate/subcategory/${subCategory}`,
-         );
+         )
 
-         return data;
+         return data
       } catch (e) {
-         return rejectWithValue();
+         return rejectWithValue()
       }
    },
-);
+)
 
 export const categoriesFavorite = createAsyncThunk(
    'categoriesfavorite/post',
    async ({ id, subCategory }, { rejectWithValue, dispatch }) => {
       try {
-         const { data } = await axiosInstance.post(`/addToFavorites/${id}`);
-         dispatch(categoriesThunks({ subCategory }));
+         const { data } = await axiosInstance.post(`/addToFavorites/${id}`)
 
-         return data;
+         showToast('success', 'Успешно добавлено в избранное')
+
+         dispatch(categoriesThunks({ subCategory }))
+         return data
       } catch (e) {
-         return rejectWithValue();
+         return rejectWithValue()
       }
    },
-);
+)
 
 export const removeFromFavorites = createAsyncThunk(
    'categoriesfavorite/delete',
-   async ({ id }, { rejectWithValue, dispatch }) => {
+   async ({ id, subCategory }, { rejectWithValue, dispatch }) => {
       try {
          const { data } = await axiosInstance.delete(
             `/deleteFromFavorites/${id}`,
-         );
+         )
 
-         dispatch(categoriesThunks({ id }));
-         return data;
+         showToast('success', 'Успешно удалено в избранное')
+
+         dispatch(categoriesThunks({ subCategory }))
+         return data
       } catch (e) {
-         console.error('Ошибка при удалении из избранного:', e.response?.data);
-         return rejectWithValue(e.response?.data || 'Ошибка удаления');
+         console.error('Ошибка при удалении из избранного:', e.response?.data)
+         return rejectWithValue(e.response?.data || 'Ошибка удаления')
       }
    },
-);
+)
 
 export const categoryFilter = createAsyncThunk(
    'categoryfilter/filter',
@@ -71,29 +76,29 @@ export const categoryFilter = createAsyncThunk(
                categories: filters.categories?.join(','),
                sortBy: filters.sortBy || 'price',
             },
-         });
+         })
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error.message);
+         return rejectWithValue(error.message)
       }
    },
-);
+)
 export const filtermodalThunks = createAsyncThunk(
    'filtermodal/get',
    async ({ filterData }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.get('/publishes/filter', {
             params: filterData,
-         });
+         })
 
-         return data;
+         return data
       } catch (e) {
-         console.error('Error:', e.response?.data || e.message);
-         return rejectWithValue(e.response?.data || e.message);
+         console.error('Error:', e.response?.data || e.message)
+         return rejectWithValue(e.response?.data || e.message)
       }
    },
-);
+)
 
 export const searchInputThunks = createAsyncThunk(
    'searchinput/get',
@@ -101,26 +106,26 @@ export const searchInputThunks = createAsyncThunk(
       try {
          const { data } = await axiosInstance.get(
             `/main-page/search${serializedParams}`,
-         );
+         )
 
-         return data;
+         return data
       } catch (e) {
-         console.error('Error:', e.response?.data || e.message);
-         return rejectWithValue(e.response?.data || e.message);
+         console.error('Error:', e.response?.data || e.message)
+         return rejectWithValue(e.response?.data || e.message)
       }
    },
-);
+)
 
 export const resertFilterThunks = createAsyncThunk(
    'resertfilter/get',
    async (_, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get('/publishes/resetFilter');
+         const { data } = await axiosInstance.get('/publishes/resetFilter')
 
-         return data;
+         return data
       } catch (e) {
-         console.error('Error:', e.response?.data || e.message);
-         return rejectWithValue(e.response?.data || e.message);
+         console.error('Error:', e.response?.data || e.message)
+         return rejectWithValue(e.response?.data || e.message)
       }
    },
-);
+)

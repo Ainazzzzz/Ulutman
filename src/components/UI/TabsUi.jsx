@@ -1,13 +1,13 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, colors, styled, Tab } from '@mui/material';
-import React, { useState } from 'react';
+import { TabContext, TabList, TabPanel } from '@mui/lab'
+import { Box, styled, Tab } from '@mui/material'
+import React, { useState } from 'react'
 
 const TabsUi = ({ tabs }) => {
-   const [value, setValue] = useState('1');
+   const [value, setValue] = useState('1')
 
    const handleChange = (event, newValue) => {
-      setValue(newValue);
-   };
+      setValue(newValue)
+   }
    return (
       <BoxStyle>
          <TabContext value={value}>
@@ -33,13 +33,13 @@ const TabsUi = ({ tabs }) => {
             ))}
          </TabContext>
       </BoxStyle>
-   );
-};
+   )
+}
 
-export default TabsUi;
-const BoxStyle = styled(Box)(({ theme }) => ({
+export default TabsUi
+const BoxStyle = styled(Box)(() => ({
    width: '100%',
-}));
+}))
 
 const ScrollableTabList = styled(TabList)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
@@ -52,7 +52,7 @@ const ScrollableTabList = styled(TabList)(({ theme }) => ({
    '& .MuiTabs-indicator': {
       display: 'none',
    },
-}));
+}))
 
 const TabsStyle = styled(Tab)(({ theme }) => ({
    color: '#282828',
@@ -81,4 +81,4 @@ const TabsStyle = styled(Tab)(({ theme }) => ({
    '&.Mui-selected': {
       color: 'black',
    },
-}));
+}))

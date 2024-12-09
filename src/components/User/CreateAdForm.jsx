@@ -1,31 +1,31 @@
-import { useState } from 'react';
-import { styled } from '@mui/material';
-import { useFormik } from 'formik';
-import FileUpload from '../../pages/Admin/mailing/FileUpload.jsx';
-import { Button } from '../UI/Button';
-import { validationAdForm } from '../../utils/constants/validationMailing';
+import { useState } from 'react'
+import { styled } from '@mui/material'
+import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import FileUpload from '../../pages/Admin/mailing/FileUpload'
+import { Button } from '../UI/Button'
+import { validationAdForm } from '../../utils/constants/validationMailing'
 import {
    InputField,
    CategoryField,
    DescriptionField,
    SelectField,
-} from './FormFields';
-import { WrapperInputSelect } from '../../pages/Admin/mailing/MailingFormStyles.jsx';
-import { PublishesCategoryModal } from './PublishesCategoryModal.jsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPublishesUser } from '../../redux/publishes/publishesThunk.js';
+} from './FormFields'
+import { WrapperInputSelect } from '../../pages/Admin/mailing/MailingFormStyles'
+import { PublishesCategoryModal } from './PublishesCategoryModal'
+import { fetchPublishesUser } from '../../redux/publishes/publishesThunk'
 
 const options = [
    { id: 2, value: 'БульварРокоссовкого', label: 'БульварРокоссовкого' },
    { id: 3, value: 'Кожуховская', label: 'Кожуховская' },
-];
+]
 
 export const CreateAdForm = () => {
-   const { userData } = useSelector(state => state.auth);
-   const [isOpen, setIsOpen] = useState(false);
-   const [selectCategory, setSelectCategory] = useState({});
-   const dispatch = useDispatch();
-   const handleOpenCategoryModal = () => setIsOpen(!isOpen);
+   const { userData } = useSelector(state => state.auth)
+   const [isOpen, setIsOpen] = useState(false)
+   const [selectCategory, setSelectCategory] = useState({})
+   const dispatch = useDispatch()
+   const handleOpenCategoryModal = () => setIsOpen(!isOpen)
 
    const formik = useFormik({
       initialValues: {
@@ -50,23 +50,23 @@ export const CreateAdForm = () => {
                userId: userData.userId,
                phoneNumber: Number(values.phoneNumber),
             }),
-         );
-         formik.resetForm();
+         )
+         formik.resetForm()
       },
-   });
+   })
 
    const handleCategorySubmit = categories => {
-      formik.setFieldValue('category', categories.category);
-      setSelectCategory({ categoryTitle: categories.title });
-   };
+      formik.setFieldValue('category', categories.category)
+      setSelectCategory({ categoryTitle: categories.title })
+   }
 
    const handleSubCategorySubmit = subCategory => {
-      formik.setFieldValue('subcategory', subCategory.value);
+      formik.setFieldValue('subcategory', subCategory.value)
       setSelectCategory({
          ...selectCategory,
          subCategoryText: subCategory.text,
-      });
-   };
+      })
+   }
 
    return (
       <Form onSubmit={formik.handleSubmit}>
@@ -169,14 +169,14 @@ export const CreateAdForm = () => {
             onSubCategoryClick={handleSubCategorySubmit}
          />
       </Form>
-   );
-};
+   )
+}
 const Form = styled('form')({
    display: 'flex',
    flexDirection: 'column',
    padding: '8px',
    gap: '24px',
-});
+})
 
 const Label = styled('p')({
    fontSize: '18px',
@@ -185,14 +185,14 @@ const Label = styled('p')({
       content: '" *"',
       color: '#ff0000',
    },
-});
+})
 
 const ContainerFile = styled('div')({
    display: 'flex',
    flexDirection: 'column',
    gap: '8px',
-});
+})
 
 const StyledButton = styled(Button)({
    width: '123px',
-});
+})
