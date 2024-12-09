@@ -1,24 +1,25 @@
-import { forwardRef } from 'react';
-import { Dialog, Slide, styled } from '@mui/material';
-import DeleteIcon from '../../assets/icons/trash.svg?react';
-import InfoIcon from '../../assets/icons/info-warning.svg?react';
-import PhoneIcon from '../../assets/icons/phone-green-icon.svg?react';
-import PlusIcon from '../../assets/icons/plusIcon.svg?react';
-import { Button } from './Button';
-import { useNavigate } from 'react-router-dom';
+/* eslint-disable no-nested-ternary */
+import { forwardRef } from 'react'
+import { Dialog, Slide, styled } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import DeleteIcon from '../../assets/icons/trash.svg?react'
+import InfoIcon from '../../assets/icons/info-warning.svg?react'
+import PhoneIcon from '../../assets/icons/phone-green-icon.svg?react'
+import PlusIcon from '../../assets/icons/plusIcon.svg?react'
+import { Button } from './Button'
 
 const Transition = forwardRef((props, ref) => (
    <Slide direction="up" ref={ref} {...props} />
 ))
 
 const Modal = ({ children, variant = 'custom', handleClose, open }) => {
-   const navigate = useNavigate();
+   const navigate = useNavigate()
 
    const handleNavigationPage = path => {
-      navigate(path);
-      navigate(path);
-      handleClose();
-   };
+      navigate(path)
+      navigate(path)
+      handleClose()
+   }
 
    return (
       <StyledContainer
@@ -68,8 +69,8 @@ const Modal = ({ children, variant = 'custom', handleClose, open }) => {
          )}
          <div className="dialog-content">{children}</div>
       </StyledContainer>
-   );
-};
+   )
+}
 
 export default Modal
 
@@ -137,19 +138,19 @@ const StyledCloseButton = styled('button')(() => ({
    border: 'none',
    backgroundColor: 'transparent',
    cursor: 'pointer',
-}));
+}))
 const TitlePublish = styled('div')(() => ({
    fontSize: '20px',
    fontWeight: '700',
    lineHeight: '21.78px',
    padding: '34px 0 34px 0',
-}));
+}))
 const ContainerPublish = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    justifyContent: 'center',
    alignItems: 'center',
-}));
+}))
 const ButtunStyle = styled(Button)(() => ({
    background: '#5EB00E',
    width: '125px',
@@ -158,12 +159,12 @@ const ButtunStyle = styled(Button)(() => ({
    '&:hover': {
       background: '#5EB00E',
    },
-}));
+}))
 const ButtunPublish = styled(Button)(() => ({
    width: '161px',
    height: '46px',
-}));
+}))
 const ButtonAdversitinPublish = styled('div')(() => ({
    display: 'flex',
    gap: '20px',
-}));
+}))

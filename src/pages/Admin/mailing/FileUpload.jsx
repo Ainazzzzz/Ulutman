@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import CloseIcon from '../../../assets/icons/close-icon.svg?react';
+import React, { useState } from 'react'
+import { useDropzone } from 'react-dropzone'
+import CloseIcon from '../../../assets/icons/close-icon.svg?react'
 import {
    Container,
    Label,
@@ -8,29 +8,29 @@ import {
    ErrorMessage,
    ImagePreview,
    StyledDropzone,
-} from './MailingFormStyles.jsx';
+} from './MailingFormStyles'
 
 const FileUpload = ({ setFieldValue, touched, errors, id }) => {
-   const [imagePreview, setImagePreview] = useState(null);
+   const [imagePreview, setImagePreview] = useState(null)
 
    const onDrop = acceptedFiles => {
-      const file = acceptedFiles[0];
-      setFieldValue('imageFile', file);
-      const reader = new FileReader();
+      const file = acceptedFiles[0]
+      setFieldValue('imageFile', file)
+      const reader = new FileReader()
       reader.onloadend = () => {
-         setImagePreview(reader.result);
-      };
-      if (file) {
-         reader.readAsDataURL(file);
-      } else {
-         setImagePreview(null);
+         setImagePreview(reader.result)
       }
-   };
+      if (file) {
+         reader.readAsDataURL(file)
+      } else {
+         setImagePreview(null)
+      }
+   }
 
    const handleRemoveImage = () => {
-      setImagePreview(null);
-      setFieldValue('image', null);
-   };
+      setImagePreview(null)
+      setFieldValue('image', null)
+   }
 
    const { getRootProps, getInputProps } = useDropzone({
       accept: {
@@ -39,7 +39,7 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
          'text/*': ['.txt'],
       },
       onDrop,
-   });
+   })
 
    return (
       <StyledDropzone {...getRootProps({ className: 'dropzone' })}>
@@ -76,7 +76,7 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
             </Container>
          </Label>
       </StyledDropzone>
-   );
-};
+   )
+}
 
-export default FileUpload;
+export default FileUpload
