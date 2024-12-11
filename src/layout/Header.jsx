@@ -1,28 +1,33 @@
-import { styled, Typography, useMediaQuery } from '@mui/material'
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { styled, Typography, useMediaQuery } from '@mui/material'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+
 import { IconButton } from '../components/IconButton'
 import { Button } from '../components/UI/Button'
+import { SignIn } from '../pages/user/auth/SignIn'
 import ReusableSelect from '../components/UI/Select'
+import Modal from '../components/UI/Modal'
+import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal'
+
 import { languages } from '../utils/constants/languages'
 import { renderFlag } from '../utils/general/renderFlag'
-import { SignIn } from '../pages/user/auth/SignIn'
+
+import { logOut } from '../redux/auth/authThunk'
+
 import HeartLike from '../assets/icons/white-heart.svg?react'
 import UserLogo from '../assets/icons/user.svg?react'
 import Plus from '../assets/icons/plus.svg?react'
 import MenuIcon from '../assets/icons/menu-icon.svg?react'
 import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react'
 import ComeIcon from '../assets/icons/come-icon.svg?react'
-import WhiteHeart from '../assets/icons/white-heart-icon.svg?react'
 import Language from '../assets/icons/language-icon.svg?react'
-import { logOut } from '../redux/auth/authThunk'
-import SignUp from '../pages/user/auth/signUp'
+import LogOutIcon from '../assets/icons/logout-icon.svg?react'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
-import LogoOutIcon from '../assets/icons/logout-icon.svg?react'
-import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal'
+import SignUp from '../pages/user/auth/signUp'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -50,14 +55,11 @@ export const Header = () => {
 
    const [language, setLanguage] = useState('ru')
    const [openMenu, setOpenMenu] = useState(null)
+   const [isModalOpen, setModalOpen] = useState(false)
    const [openModal, setOpenModal] = useState(false)
    const [openSignUp, setOpenSignUp] = useState(false)
 
-   const [, setAnchorEl] = useState(null)
-
-   const closeUserMenu = () => {
-      setAnchorEl(null)
-   }
+   const closeUserMenu = () => {}
 
    const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false)
    const [openOptionsProfile, setOpenOptionsProfile] = useState(null)
@@ -89,11 +91,15 @@ export const Header = () => {
       setOpenSignUp(true)
       handleCloseModal()
    }
+   const handleOpenPublishModal = () => {
+      setOpenMenu(null)
+      setModalOpen(true)
+   }
+   const handleClosePublishModal = () => setModalOpen(false)
 
    const handleCloseSignUp = () => setOpenSignUp(false)
 
    const logOutHandler = () => {
-      dispatch(logOut({ navigate, toggleModal: handleClose }))
       setOpenOptionsProfile(null)
       setOpenLogoutConfirm(true)
    }
@@ -139,7 +145,7 @@ export const Header = () => {
                         </MenuItemStyle>
                      ) : (
                         <MenuItemStyle onClick={logOutHandler}>
-                           <ComeIcon /> Выйти
+                           <LogOutIcon /> Выйти
                         </MenuItemStyle>
                      )}
                      <Line />
@@ -155,15 +161,13 @@ export const Header = () => {
                      <MenuItemStyle onClick={handleClose}>
                         <SearchIcon color="#fff" /> Поиск
                      </MenuItemStyle>
-                     <MenuItemStyle
-                        onClick={() => navigateToPageHandler('create-ad')}
-                     >
+                     <MenuItemStyle onClick={handleOpenPublishModal}>
                         <Plus /> Опубликовать
                      </MenuItemStyle>
                      <MenuItemStyle
                         onClick={() => handleNavigationPage('favorite')}
                      >
-                        <WhiteHeart /> Избранное
+                        <HeartLike /> Избранное
                      </MenuItemStyle>
                      <MenuItemStyle onClick={handleClose}>
                         <Language /> Сменить язык
@@ -178,7 +182,7 @@ export const Header = () => {
                            <IconButton>
                               <HeartLike />
                            </IconButton>
-                           <span>Избранное</span>
+                           <span href="#">Избранное</span>
                         </Block>
                         <Block onClick={profileHandler}>
                            <IconButton>
@@ -200,7 +204,7 @@ export const Header = () => {
                               Профиль
                            </MenuItem>
                            <MenuItemLogOut onClick={logOutHandler}>
-                              <LogoOutIcon /> Выйти
+                              <LogOutIcon /> Выйти
                            </MenuItemLogOut>
                         </MenuProfile>
                      </>
@@ -214,9 +218,7 @@ export const Header = () => {
                      />
                   </Block>
                   {isAuth ? (
-                     <ButtonStyle
-                        onClick={() => handleNavigationPage('create-ad')}
-                     >
+                     <ButtonStyle onClick={handleOpenPublishModal}>
                         <Plus /> Опубликовать
                      </ButtonStyle>
                   ) : (
@@ -225,21 +227,21 @@ export const Header = () => {
                </ContainerBlock>
             )}
          </Wrapper>
-         {openModal && (
-            <SignIn
-               open={openModal}
-               onClose={handleCloseModal}
-               handleOpenSignUp={handleOpenSignUp}
-            />
-         )}
-
-         {openSignUp && (
-            <SignUp
-               open={openSignUp}
-               onClose={handleCloseSignUp}
-               handleOpenModal={handleOpenModal}
-            />
-         )}
+         <SignIn
+            open={openModal}
+            onClose={handleCloseModal}
+            onOpen={handleOpenSignUp}
+         />
+         <SignUp
+            open={openSignUp}
+            onClose={handleCloseSignUp}
+            handleOpenModal={handleOpenModal}
+         />
+         <Modal
+            open={isModalOpen}
+            handleClose={handleClosePublishModal}
+            variant="publish"
+         />
       </>
    )
 }

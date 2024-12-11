@@ -10,8 +10,8 @@ import { mainSlice } from './main/mainSlice'
 import { mailingSlice } from './mailing/mailingSlice'
 import { categoriesSlice } from './categories/categoriesSlice'
 import { publishesSlice } from './publishes/publishesSlice'
-import { fileSlice } from './files/fileSlice'
-import { advertisingSlice } from './advertising/advertisingSlice'
+import { advertisingSlice } from './advertising/adverstitingPaySlices'
+import { userCategoriesSlice } from './categories/userCategoriesSlice'
 
 export const store = configureStore({
    reducer: {
@@ -26,7 +26,7 @@ export const store = configureStore({
       [addsAdminSlice.name]: addsAdminSlice.reducer,
       [mailingSlice.name]: mailingSlice.reducer,
       [categoriesSlice.name]: categoriesSlice.reducer,
-      [fileSlice.name]: fileSlice.reducer,
-      [advertisingSlice.name]: advertisingSlice.reducer,
+      [advertisingSlice.name]: addsAdminSlice.reducer,
+      [userCategoriesSlice.name]: userCategoriesSlice.reducer,
    },
 })

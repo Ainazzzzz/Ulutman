@@ -3,6 +3,7 @@ import { CategoryTab } from '../components/User/CategoryTab'
 import { FeaturedAds } from '../components/User/FeaturedAds'
 import { Profile } from '../components/User/Profile'
 import { MainPage } from '../pages/MainPage'
+import AdversitingPage from '../pages/user/AdversitingPage'
 import { CreateAdPage } from '../pages/user/CreateAdPage'
 import DetailInfo from '../pages/user/detail-info/DetailInfo'
 import { MyPage } from '../pages/user/MyPage'
@@ -129,6 +130,17 @@ export const UserRoutes = role => [
             roles={['USER']}
             fallBackPath={PATHS.USER.ROOT}
             RouteComponent={<FeaturedAds />}
+         />
+      ),
+   },
+   {
+      path: PATHS.USER.ADVERTISING_PAGE,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['USER']}
+            fallBackPath={PATHS.USER.ROOT}
+            RouteComponent={<AdversitingPage />}
          />
       ),
    },
