@@ -119,7 +119,7 @@ const DetailInfo = () => {
                               <SwiperSlide key={slide}>
                                  <img
                                     className="slide-image"
-                                    src={slide}
+                                    src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
                                     alt="House"
                                  />
                               </SwiperSlide>
@@ -130,7 +130,7 @@ const DetailInfo = () => {
                            {detailInfo?.detailInfo?.images?.map(item => (
                               <img
                                  key={item}
-                                 src={item}
+                                 src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
                                  alt="House"
                                  style={{
                                     width: '60px',

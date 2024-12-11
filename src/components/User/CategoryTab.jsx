@@ -22,7 +22,7 @@ import {
    getSubCategory,
    removeFromFavorites,
 } from '../../redux/categories/userCategoriesThunk'
-import { cardGetAdvertising } from '../../redux/adversitingThunks'
+import { getAdvertising } from '../../redux/advertising/advertisingThunk'
 
 const SORTY_CATEGORY_OPTIONS = [
    {
@@ -53,7 +53,7 @@ export const CategoryTab = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
 
    useEffect(() => {
-      dispatch(cardGetAdvertising())
+      dispatch(getAdvertising())
    }, [dispatch])
 
    const handleToggleFavorite = adsData => {

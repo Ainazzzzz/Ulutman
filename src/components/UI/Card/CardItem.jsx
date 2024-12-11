@@ -19,6 +19,7 @@ export const CardItem = ({
    phoneNumber,
    id,
    onNavigateDetail,
+   title,
 }) => {
    const [phoneModal, setPhoneModal] = useState(false)
 
@@ -38,7 +39,7 @@ export const CardItem = ({
             <FirstBlock>
                <div>
                   <Price>{price} ₽</Price>
-                  <Title>{description}</Title>
+                  <Title onClick={() => onNavigateDetail(id)}>{title}</Title>
                </div>
 
                <WrapperAddressInfo>
@@ -65,16 +66,7 @@ export const CardItem = ({
                />
                <PhoneIcon onClick={() => setPhoneModal(true)} />
             </SecondBlock>
-            {/* <Modal
-               open={id === phoneModal}
-               variant="phone"
-               handleClose={() => setPhoneModal('')}
-            >
-               <WrapperPhone>
-                  <TitlePhone>Номер телефона</TitlePhone>
-                  <PhoneNumberSingle>{phoneNumber}</PhoneNumberSingle>
-               </WrapperPhone>
-            </Modal> */}
+
             <PhoneModal
                open={phoneModal}
                handleClose={handleClose}
@@ -91,6 +83,7 @@ export const StyledCard = styled(Card)(({ theme }) => ({
    padding: theme.spacing(2.5),
    boxShadow: theme.shadows[2],
    backgroundColor: theme.palette.background.paper,
+   transition: '500ms',
 
    display: 'flex',
    flexDirection: 'column',
@@ -103,11 +96,17 @@ export const StyledCard = styled(Card)(({ theme }) => ({
       boxShadow: 'none',
       gap: '18px',
    },
+
+   ':hover': {
+      transform: 'scale(1.1)',
+      boxShadow: '0px 7px 45px -16px rgba(0,0,0,0.75)',
+   },
 }))
 
 const StyledCardMedia = styled(CardMedia)(({ theme }) => ({
    height: '222px',
    borderRadius: '8px',
+   cursor: 'pointer',
 
    [theme.breakpoints.down('md')]: {
       height: '144px',
@@ -145,10 +144,15 @@ const Title = styled('p')(({ theme }) => ({
    overflow: 'hidden',
    textOverflow: 'ellipsis',
    WebkitLineClamp: 1,
+   cursor: 'pointer',
 
    [theme.breakpoints.down('md')]: {
       fontSize: '14px',
       fontWeight: '500',
+   },
+
+   ':hover': {
+      textDecoration: 'underline',
    },
 }))
 
@@ -201,11 +205,10 @@ export const AddressInfo = styled('div')(({ theme }) => ({
 }))
 
 const AddressText = styled('p')(({ theme }) => ({
-   display: '-webkit-box',
-   WebkitBoxOrient: 'vertical',
    overflow: 'hidden',
    textOverflow: 'ellipsis',
-   WebkitLineClamp: 1,
+   textWrap: 'nowrap',
+   maxWidth: '180px',
 
    [theme.breakpoints.down('md')]: {
       fontSize: '10px',
