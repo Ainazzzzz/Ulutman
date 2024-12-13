@@ -38,8 +38,13 @@ const SignUp = ({ open, onClose, handleOpenModal }) => {
    const dispatch = useDispatch()
    const { isLoading } = useSelector(state => state.auth)
 
+   const handleOpenSignInModal = () => {
+      handleOpenModal()
+      onClose()
+   }
+
    const submitHandler = val => {
-      dispatch(signUp({ val, onClose }))
+      dispatch(signUp({ val, handleOpenSignInModal }))
    }
 
    const { values, handleChange, handleSubmit, errors, touched } = useFormik({
@@ -54,11 +59,6 @@ const SignUp = ({ open, onClose, handleOpenModal }) => {
          submitHandler(values)
       },
    })
-
-   const handleOpenSignInModal = () => {
-      handleOpenModal()
-      onClose()
-   }
 
    return (
       <Modal open={open} handleClose={onClose}>

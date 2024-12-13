@@ -6,7 +6,7 @@ export const fetchPublishesUser = createAsyncThunk(
    async ({ publishe }, { rejectWithValue }) => {
       const { images, city, paymentReceiptFile, ...filteredPublishe } = publishe
       try {
-         const { name, ...params } = Object.fromEntries(
+         const { title, ...params } = Object.fromEntries(
             Object.entries(filteredPublishe).filter(
                ([, value]) =>
                   value !== undefined && value !== null && value !== '',
@@ -19,8 +19,6 @@ export const fetchPublishesUser = createAsyncThunk(
          publishe.images.forEach(image => {
             formData.append(`images`, image)
          })
-
-         console.log(formData.getAll('images'))
 
          const { data } = await axiosInstance.post(
             'publishes/create',
@@ -41,7 +39,7 @@ export const fetchPublishesUser = createAsyncThunk(
                //    bank: 'Уралсиб',
                //    userId: 4,
                // },
-               params: { title: name, ...params },
+               params: { ...params, subcategory: params.subcategory.value },
             },
          )
 

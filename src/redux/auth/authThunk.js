@@ -37,14 +37,12 @@ export const signIn = createAsyncThunk(
 
 export const signUp = createAsyncThunk(
    'auth/signUp',
-   async ({ val, onClose }, { rejectWithValue }) => {
+   async ({ val, handleOpenSignInModal }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.post('auth/sign-up', val)
 
-         localStorage.setItem('ULUTMAN', JSON.stringify(data))
-
-         showToast('success', 'Успешно')
-         onClose()
+         showToast('success', 'Войдите чтобы продолжить')
+         handleOpenSignInModal()
 
          return data
       } catch (e) {

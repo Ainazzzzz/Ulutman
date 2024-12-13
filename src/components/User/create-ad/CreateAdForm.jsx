@@ -52,7 +52,7 @@ const banks = [
 ]
 
 export const validationAdForm = Yup.object({
-   name: Yup.string().required('Имя обязательно'),
+   title: Yup.string().required('Имя обязательно'),
    phoneNumber: Yup.string()
       .required('Телефон обязателен')
       .matches(/^\+7\d{10}$/, 'Некорректный формат телефона'),
@@ -93,7 +93,7 @@ export const CreateAdForm = () => {
       setFieldValue,
    } = useFormik({
       initialValues: {
-         name: '',
+         title: '',
          phoneNumber: '',
          category: '',
          subcategory: '',
@@ -135,13 +135,13 @@ export const CreateAdForm = () => {
       <>
          <Form onSubmit={handleSubmit}>
             <Input
-               placeholder="Иван"
-               label="Имя"
-               name="name"
-               value={values.name}
+               placeholder="2х комнатная квартира"
+               label="Название"
+               name="title"
+               value={values.title}
                onChange={handleChange}
-               error={!!errors.name}
-               helperText={errors.name}
+               error={!!errors.title}
+               helperText={errors.title}
                required
             />
             <Input

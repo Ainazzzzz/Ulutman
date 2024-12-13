@@ -34,7 +34,7 @@ export const CreateAdPage = () => {
 
             <Paragraph>Видимость рекламного баннера: от 50%.</Paragraph>
             <Paragraph>
-               Возможность поднять баннер на первую позицию: каждые три часа.
+               Возможность поднять баннер на первую позицию: каждые 24 часа.
             </Paragraph>
          </Container>
          <CreateAdForm />

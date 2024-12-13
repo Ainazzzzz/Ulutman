@@ -1,19 +1,19 @@
 import { styled } from '@mui/material'
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import Calling from '../../assets/icons/calling.svg?react'
+import { categoryTab } from '../../utils/constants/main'
 
 const Footer = () => {
    return (
       <WrapperDiv>
          <TitleUlutman>Ulutman</TitleUlutman>
          <ContainerCategory>
-            <div>Работа</div>
-            <div>Аренда</div>
-            <div>Гостиница</div>
-            <div>Недвижимость</div>
-            <div>Услуги</div>
-            <div>Авто</div>
-            <div>Продам</div>
+            {categoryTab.map(({ title, category }) => (
+               <NavItem key={title} to={`category/${category}`}>
+                  <span>{title}</span>
+               </NavItem>
+            ))}
          </ContainerCategory>
          <NumberContainer>
             <div>
@@ -110,5 +110,19 @@ const CallingIcon = styled(Calling)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       width: '1.125rem',
       height: '1.125rem',
+   },
+}))
+
+const NavItem = styled(NavLink)(() => ({
+   color: '#222',
+   textDecoration: 'none',
+   cursor: 'pointer',
+
+   ':hover': {
+      textDecoration: 'underline',
+   },
+
+   '&.active': {
+      textDecoration: 'underline',
    },
 }))
