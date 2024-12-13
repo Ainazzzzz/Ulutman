@@ -1,15 +1,16 @@
 import { styled } from '@mui/material'
 import { useState, useCallback, useMemo } from 'react'
-import Modal from '../UI/Modal'
-import CloseIcon from '../../assets/icons/close-icon.svg?react'
-import ArrowsIcon from '../../assets/icons/arrowpurpul.svg?react'
-import { categoryTab } from '../../utils/constants/main'
+import CloseIcon from '../../../assets/icons/close-icon.svg?react'
+import ArrowsIcon from '../../../assets/icons/arrowpurpul.svg?react'
+import { categoryTab } from '../../../utils/constants/main'
+import Modal from '../../UI/Modal'
 
 export const PublishesCategoryModal = ({
    open,
    onClose,
    onCategoryClick,
    onSubCategoryClick,
+   setFieldValue,
 }) => {
    const [selectedCategory, setSelectedCategory] = useState(null)
 
@@ -17,6 +18,7 @@ export const PublishesCategoryModal = ({
       category => {
          onCategoryClick(category)
          setSelectedCategory(category.subCategory)
+         setFieldValue('category', category.category)
       },
       [onCategoryClick],
    )
@@ -25,6 +27,7 @@ export const PublishesCategoryModal = ({
       subCategory => {
          onSubCategoryClick(subCategory)
          onClose()
+         setFieldValue('subCategory', subCategory.value)
       },
       [onSubCategoryClick, onClose],
    )

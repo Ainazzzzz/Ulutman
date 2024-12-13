@@ -21,13 +21,3 @@ export const validationSchema = Yup.object().shape({
          },
       ),
 })
-
-export const validationAdForm = Yup.object({
-   title: Yup.string().required('Название обязательно'),
-   phoneNumber: Yup.string().required('Телефон обязателен'),
-   description: Yup.string().required('Описание обязательно'),
-   address: Yup.string().required('Адрес обязателен'),
-   category: Yup.string().required('Категория обязателен'),
-   metro: Yup.string().required('Метро обязательно'),
-   image: Yup.mixed().required('Загрузите фото'),
-})

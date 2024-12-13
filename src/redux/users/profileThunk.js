@@ -6,15 +6,15 @@ export const updateUserProfile = createAsyncThunk(
    'profile/updateUserProfile',
    async ({ profileData, userId, setIsEdit }, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.put(
-            `user-accounts/${userId}`,
-            profileData,
-         )
+         const { data } = await axiosInstance.put(`user-accounts/${userId}`, {
+            ...profileData,
+            phoneNumber: String(profileData.phoneNumber),
+         })
 
          const parsedData = JSON.parse(localStorage.getItem('ULUTMAN') || '{}')
          localStorage.setItem(
             'ULUTMAN',
-            JSON.stringify({ ...parsedData, ...data, name: data.username }),
+            JSON.stringify({ ...parsedData, ...data }),
          )
 
          setIsEdit(false)

@@ -78,8 +78,7 @@ export const authSlice = createSlice({
          })
 
       builder
-         .addCase(signUp.fulfilled, (state, action) => {
-            state.userData = action.payload
+         .addCase(signUp.fulfilled, state => {
             state.isAuth = true
             state.isLoading = false
          })

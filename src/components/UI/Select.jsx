@@ -11,6 +11,7 @@ const ReusableSelect = forwardRef(
          onChange,
          selectedOption,
          placeholder,
+         helperText,
          ...restProps
       },
       ref,
@@ -56,6 +57,9 @@ const ReusableSelect = forwardRef(
                   ))
                )}
             </SelectStyle>
+            {helperText && (
+               <HelperText error={restProps.error}>{helperText}</HelperText>
+            )}
          </FormControlStyle>
       )
    },
@@ -87,11 +91,11 @@ const SelectStyle = styled(Select)(() => ({
 const LabelStyle = styled('label')(() => ({
    fontWeight: '600',
    fontSize: '18px',
+   margin: '0 0 8px 0',
 }))
 
 const FormControlStyle = styled(FormControl)(() => ({
    display: 'flex',
-   gap: '8px',
 }))
 
 const MenuItemStyle = styled(MenuItem)(() => ({
@@ -114,3 +118,9 @@ const MenuItemStyle = styled(MenuItem)(() => ({
 const Placeholder = styled('span')({
    color: '#959595',
 })
+
+const HelperText = styled('p')(({ error }) => ({
+   margin: '0',
+
+   color: error ? '#FF0000' : '',
+}))
