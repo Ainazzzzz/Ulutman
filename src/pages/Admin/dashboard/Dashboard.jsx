@@ -37,6 +37,8 @@ const Dashboard = () => {
 
    if (isLoading) return <Spinner />
 
+   const categoryPopularity = Object.entries(infoDashboard)
+
    return (
       <StyledContainer>
          <Title>{t('admin.dashboard.title')}</Title>
@@ -47,7 +49,7 @@ const Dashboard = () => {
             </Typography>
 
             <ContainerCategory>
-               {Object.entries(infoDashboard).map(([title, value]) => (
+               {categoryPopularity.map(([title, value]) => (
                   <ContainerListCategory key={value}>
                      <WrapperItemFirst>
                         <Typography className="title">
