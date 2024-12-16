@@ -165,7 +165,7 @@ export const MailingForm = ({ mailingType, recipients }) => {
             </Container>
             <Container>
                <DateLabelStyle htmlFor="start-date">
-                  Описание рассылки
+                  Дата начала рассылки
                </DateLabelStyle>
 
                <DatePicker
@@ -184,7 +184,7 @@ export const MailingForm = ({ mailingType, recipients }) => {
 
             <Container>
                <DateLabelStyle htmlFor="start-date">
-                  Описание рассылки
+                  Дата окончания рассылки
                </DateLabelStyle>
 
                <DatePicker

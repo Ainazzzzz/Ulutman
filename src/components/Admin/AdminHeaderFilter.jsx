@@ -1,6 +1,6 @@
 import { styled } from '@mui/material'
 import ReusableSelect from '../UI/Select'
-import Filter from '../../assets/icons/filter-icon.svg?react'
+import Filter from '../../assets/icons/filter-category-icon.svg?react'
 import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react'
 import ReplayIcon from '../../assets/icons/replay-icon.svg?react'
 import { MultiDatePicker } from '../UI/MultiDatePicker'
