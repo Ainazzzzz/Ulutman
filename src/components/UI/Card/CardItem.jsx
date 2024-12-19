@@ -98,8 +98,8 @@ export const StyledCard = styled(Card)(({ theme }) => ({
    },
 
    ':hover': {
-      transform: 'scale(1.1)',
-      boxShadow: '0px 7px 45px -16px rgba(0,0,0,0.75)',
+      transform: 'scale(1.01)',
+      boxShadow: '0px 7px 30px -16px rgba(0,0,0,0.75)',
    },
 }))
 

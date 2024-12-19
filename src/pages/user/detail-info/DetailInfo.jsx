@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import LocationIcon from '../../../assets/icons/address-icon.svg?react'
 import ClockIcon from '../../../assets/icons/clock-icon.svg?react'
@@ -27,6 +27,7 @@ import { SimilarAds } from './SimilarAds'
 const DetailInfo = () => {
    const dispatch = useDispatch()
    const { id } = useParams()
+   const navigate = useNavigate()
 
    const detailInfo = useSelector(state => state.detailInfo)
 
@@ -47,7 +48,7 @@ const DetailInfo = () => {
    }
 
    const path = [
-      { title: 'Главная', url: '#' },
+      { title: 'Главная', url: '/user' },
       { title: detailInfo?.detailInfo?.title, url: '#' },
    ]
 
@@ -76,10 +77,14 @@ const DetailInfo = () => {
                <Box className="breadcrumbs-box">
                   <Breadcrumbs path={path} />
 
-                  <Typography className="go-back">
+                  <button
+                     type="button"
+                     onClick={() => navigate(-1)}
+                     className="go-back"
+                  >
                      <ArrowIcon />
                      назад
-                  </Typography>
+                  </button>
                </Box>
 
                <Box className="locatio-time-box">
@@ -419,6 +424,8 @@ const StyledContainer = styled(Box)(({ theme }) => ({
          color: ' #7E52FF',
          fontSize: '14px',
          cursor: 'pointer',
+         border: 'none',
+         backgroundColor: 'inherit',
       },
    },
 
