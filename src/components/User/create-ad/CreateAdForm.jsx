@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Input from '../../UI/Input'
 import CategoryField from './CategoryField'
 import ReusableSelect from '../../UI/Select'
@@ -52,7 +53,7 @@ const banks = [
 ]
 
 export const validationAdForm = Yup.object({
-   title: Yup.string().required('Имя обязательно'),
+   title: Yup.string().required('Название товара обязательна'),
    phoneNumber: Yup.string()
       .required('Телефон обязателен')
       .matches(/^\+7\d{10}$/, 'Некорректный формат телефона'),
@@ -78,6 +79,7 @@ export const CreateAdForm = () => {
    const dispatch = useDispatch()
    const { metros } = useSelector(state => state.main)
    const { userData } = useSelector(state => state.auth)
+   const navigate = useNavigate()
 
    const [categoryModal, setCategoryModal] = useState(false)
    const [detailInfoModal, setDetailInfoModal] = useState(false)
@@ -105,8 +107,6 @@ export const CreateAdForm = () => {
          price: '',
          bank: '',
          paymentReceiptFile: [],
-
-         propertyDetails: {},
       },
 
       validationSchema: validationAdForm,
@@ -115,6 +115,7 @@ export const CreateAdForm = () => {
          dispatch(
             fetchPublishesUser({
                publishe: { userId: userData.userId, ...values },
+               navigate,
             }),
          )
       },

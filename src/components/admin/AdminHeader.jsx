@@ -236,7 +236,6 @@ const SearchIcon = styled(Search)(() => ({
    height: '19px',
 }))
 const SelectStyle = styled(ReusableSelect)(() => ({
-   alignItems: 'center',
    '.MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
@@ -249,6 +248,7 @@ const SelectStyle = styled(ReusableSelect)(() => ({
 
    '.MuiSelect-select': {
       paddingLeft: '0px',
+      paddingBottom: '9px',
    },
 }))
 const FlagLanguageStyle = styled('div')(() => ({

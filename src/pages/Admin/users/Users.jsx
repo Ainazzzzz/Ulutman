@@ -117,7 +117,7 @@ const Users = () => {
       } else {
          dispatch(getAllUsers())
       }
-   }, [debouncedName, state.selectedValues, dispatch])
+   }, [debouncedName, state.inputValues, state.selectedValues, dispatch])
 
    useEffect(() => {
       fetchUsers()

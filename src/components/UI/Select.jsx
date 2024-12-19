@@ -18,7 +18,7 @@ const ReusableSelect = forwardRef(
    ) => {
       return (
          <FormControlStyle fullWidth>
-            <LabelStyle>{label}</LabelStyle>
+            {label && <LabelStyle>{label}</LabelStyle>}
             <SelectStyle
                displayEmpty
                value={value}

@@ -61,6 +61,8 @@ const CategoryAdmin = () => {
    const dispatch = useDispatch()
    const { categories, isLoading } = useSelector(state => state.categories)
 
+   console.log(categories, 'categories')
+
    const [state, dispatchFunc] = useReducer(reducer, initialState)
    const debouncedName = useDebounce(state.inputValues.name, 1000)
 
