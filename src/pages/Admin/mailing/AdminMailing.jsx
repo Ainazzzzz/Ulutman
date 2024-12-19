@@ -299,10 +299,7 @@ const ButtunStyle = styled(Button)(({ theme }) => ({
    fontFamily: 'Inter',
    fontWeight: '500',
 
-   [theme.breakpoints.down('md')]: {
-      width: '343px',
-      height: '36px',
-   },
+   [theme.breakpoints.down('md')]: {},
 }))
 const Block = styled('div')(() => ({
    display: 'flex',

@@ -1,12 +1,11 @@
 import { styled } from '@mui/material'
-import Input from '../UI/Input'
-import ReusableSelect from '../UI/Select'
-import { Button } from '../UI/Button'
+import Input from '../../UI/Input'
+import ReusableSelect from '../../UI/Select'
 import {
    Container,
    ErrorMessage,
    StyledWriting,
-} from '../../pages/Admin/mailing/MailingFormStyles'
+} from '../../../pages/Admin/mailing/MailingFormStyles'
 
 export const InputField = ({
    name,
@@ -33,32 +32,6 @@ export const InputField = ({
    </Container>
 )
 
-export const CategoryField = ({
-   selectCategory,
-   touched,
-   error,
-   handleOpenCategoryModal,
-}) => (
-   <StyledContainer>
-      <Label>Категория</Label>
-      <SelectInfo>
-         {selectCategory.categoryTitle}{' '}
-         {selectCategory.subCategoryText ? '/' : null}{' '}
-         {selectCategory.subCategoryText}
-      </SelectInfo>
-      <Container>
-         <CategoryButton
-            variant="outlined"
-            type="button"
-            onClick={handleOpenCategoryModal}
-         >
-            Выбрать
-         </CategoryButton>
-         {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      </Container>
-   </StyledContainer>
-)
-
 export const DescriptionField = ({
    description,
    onChange,
@@ -74,7 +47,9 @@ export const DescriptionField = ({
             value={description}
             onChange={onChange}
             onBlur={onBlur}
-            placeholder="Горячие акции: Скидка 20% на премиум-размещение: Разместите ваше объявление в топе и привлеките больше внимания! Предложение действует до [Дата]."
+            placeholder="Продаю iPhone 12 с объемом памяти 128GB в черном цвете. Телефон в отличном состоянии, использовался бережно и всегда носился в чехле с защитным стеклом на экране."
+            multiline
+            rows={4}
          />
          {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
       </Container>
@@ -86,6 +61,7 @@ export const SelectField = ({
    label,
    value,
    options,
+   placeholder,
    setFieldValue,
    onBlur,
    required,
@@ -97,6 +73,7 @@ export const SelectField = ({
          name={name}
          label={label}
          value={value}
+         placeholder={placeholder}
          options={options}
          onChange={e => setFieldValue(name, e.target.value)}
          onBlur={onBlur}
@@ -119,17 +96,4 @@ const Label = styled('p')({
       content: '" *"',
       color: '#ff0000',
    },
-})
-
-const CategoryButton = styled(Button)({
-   width: '159px',
-   height: '39px',
-   fontSize: '16px',
-   fontWeight: '600',
-})
-
-const SelectInfo = styled('p')({
-   fontSize: '12px',
-   fontWeight: '400',
-   fontStyle: 'italic',
 })

@@ -15,9 +15,10 @@ export const Profile = () => {
 
    const formik = useFormik({
       initialValues: {
-         username: userData.name || '',
+         name: userData.name || '',
+         lastName: userData.lastName || '',
          phoneNumber: '',
-         emailAddress: userData.email || '',
+         email: userData.email || '',
       },
       validationSchema: profileValidation,
       onSubmit: profileData => {
@@ -40,20 +41,20 @@ export const Profile = () => {
                <StyledInput
                   label="Имя"
                   placeholder="Иван"
-                  name="username"
-                  value={formik.values.username}
+                  name="name"
+                  value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   autoComplete="given-name"
                   disabled={!isEdit}
                />
 
-               {formik.touched.username && formik.errors.username ? (
-                  <ErrorMessage>{formik.errors.username}</ErrorMessage>
+               {formik.touched.name && formik.errors.name ? (
+                  <ErrorMessage>{formik.errors.name}</ErrorMessage>
                ) : null}
             </Container>
 
-            {/* <Container>
+            <Container>
                <StyledInput
                   label="Фамилия"
                   placeholder="Иванов"
@@ -65,10 +66,11 @@ export const Profile = () => {
                   disabled={!isEdit}
                />
 
-               {formik.touched.lastName && formik.errors.lastName ? (
+               {formik.errors.lastName && formik.touched.lastName ? (
                   <ErrorMessage>{formik.errors.lastName}</ErrorMessage>
                ) : null}
-            </Container> */}
+            </Container>
+
             <Container>
                <StyledInput
                   label="Телефон"
@@ -86,25 +88,25 @@ export const Profile = () => {
                   <ErrorMessage>{formik.errors.phoneNumber}</ErrorMessage>
                ) : null}
             </Container>
+
+            <Container>
+               <StyledInput
+                  label="Электронная почта"
+                  type="email"
+                  placeholder="example@mail.com"
+                  name="email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  autoComplete="email"
+                  disabled={!isEdit}
+               />
+
+               {formik.touched.email && formik.errors.email ? (
+                  <ErrorMessage>{formik.errors.email}</ErrorMessage>
+               ) : null}
+            </Container>
          </WrapperFullName>
-
-         <Container>
-            <EmailInput
-               label="Электронная почта"
-               type="email"
-               placeholder="example@mail.com"
-               name="emailAddress"
-               value={formik.values.emailAddress}
-               onChange={formik.handleChange}
-               onBlur={formik.handleBlur}
-               autoComplete="email"
-               disabled={!isEdit}
-            />
-
-            {formik.touched.emailAddress && formik.errors.emailAddress ? (
-               <ErrorMessage>{formik.errors.emailAddress}</ErrorMessage>
-            ) : null}
-         </Container>
 
          {isEdit ? (
             <BtnContainer>
@@ -132,6 +134,7 @@ const WrapperFullName = styled('div')(({ theme }) => ({
    width: '100%',
    display: 'flex',
    gap: '24px',
+   flexWrap: 'wrap',
    [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
    },
@@ -139,13 +142,6 @@ const WrapperFullName = styled('div')(({ theme }) => ({
 
 const StyledInput = styled(Input)(({ theme }) => ({
    width: '327px',
-   [theme.breakpoints.down('md')]: {
-      width: '100%',
-      maxWidth: '463px',
-   },
-}))
-
-const EmailInput = styled(Input)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       width: '100%',
       maxWidth: '463px',

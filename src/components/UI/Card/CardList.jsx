@@ -64,7 +64,7 @@ export const CardList = ({ cards, advertising, loading }) => {
          {isMobile && advertising && (
             <WrapperAdvertising>
                {advertising?.map(image => (
-                  <Advertising image={image} key={image} />
+                  <Advertising image={image} key={crypto.randomUUID()} />
                ))}
             </WrapperAdvertising>
          )}

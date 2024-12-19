@@ -26,7 +26,7 @@ export const SearchInputSelect = ({
                   </InputAdornment>
                ),
 
-               endAdornment: isMobile || (
+               endAdornment: !isMobile ? (
                   <InputAdornment position="end">
                      <StyledSelect
                         value={selectValue}
@@ -35,7 +35,7 @@ export const SearchInputSelect = ({
                         placeholder="выберите метро"
                      />
                   </InputAdornment>
-               ),
+               ) : null,
             }}
          />
          <Button variant="search" onClick={onClick}>

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { dashBoard } from '../../../redux/dashboard/dashboardThunks'
 import Spinner from '../../../components/UI/Spinner'
+import { dashboard } from '../../../utils/constants/dashboard'
 
 const colorMappings = {
    WORK: 'rgba(255, 58, 41, 0.1)',
@@ -37,6 +38,10 @@ const Dashboard = () => {
 
    if (isLoading) return <Spinner />
 
+   const categoryPopularity = Object.entries(infoDashboard)
+
+   console.log(categoryPopularity.length)
+
    return (
       <StyledContainer>
          <Title>{t('admin.dashboard.title')}</Title>
@@ -47,23 +52,41 @@ const Dashboard = () => {
             </Typography>
 
             <ContainerCategory>
-               {Object.entries(infoDashboard).map(([title, value]) => (
-                  <ContainerListCategory key={value}>
-                     <WrapperItemFirst>
-                        <Typography className="title">
-                           {t(`admin.dashboard.${title}`)}
-                        </Typography>
-                        <Typography>{value} of 100 </Typography>
-                     </WrapperItemFirst>
+               {categoryPopularity.length > 0
+                  ? categoryPopularity.map(([title, value]) => (
+                       <ContainerListCategory key={crypto.randomUUID()}>
+                          <WrapperItemFirst>
+                             <Typography className="title">
+                                {t(`admin.dashboard.${title}`)}
+                             </Typography>
+                             <Typography>{value} of 100 </Typography>
+                          </WrapperItemFirst>
 
-                     <ContainerBackground
-                        title={title}
-                        rating={{ value, ofValue: 100 }}
-                     >
-                        <div />
-                     </ContainerBackground>
-                  </ContainerListCategory>
-               ))}
+                          <ContainerBackground
+                             title={title}
+                             rating={{ value, ofValue: 100 }}
+                          >
+                             <div />
+                          </ContainerBackground>
+                       </ContainerListCategory>
+                    ))
+                  : dashboard.map(({ title, value }) => (
+                       <ContainerListCategory key={crypto.randomUUID()}>
+                          <WrapperItemFirst>
+                             <Typography className="title">
+                                {t(`admin.dashboard.${title}`)}
+                             </Typography>
+                             <Typography>{value} of 100 </Typography>
+                          </WrapperItemFirst>
+
+                          <ContainerBackground
+                             title={title}
+                             rating={{ value, ofValue: 100 }}
+                          >
+                             <div />
+                          </ContainerBackground>
+                       </ContainerListCategory>
+                    ))}
             </ContainerCategory>
          </StyledBox>
       </StyledContainer>

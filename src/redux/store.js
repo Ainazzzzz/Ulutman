@@ -13,6 +13,7 @@ import { publishesSlice } from './publishes/publishesSlice'
 import { detailInfoSlice } from './datailInfo/detailInfoSlice'
 import { advertisingSlice } from './advertising/adverstitingPaySlices'
 import { userCategoriesSlice } from './categories/userCategoriesSlice'
+import { fileSlice } from './files/fileSlice'
 
 export const store = configureStore({
    reducer: {
@@ -30,5 +31,6 @@ export const store = configureStore({
       [categoriesSlice.name]: categoriesSlice.reducer,
       [advertisingSlice.name]: addsAdminSlice.reducer,
       [userCategoriesSlice.name]: userCategoriesSlice.reducer,
+      [fileSlice.name]: fileSlice.reducer,
    },
 })
