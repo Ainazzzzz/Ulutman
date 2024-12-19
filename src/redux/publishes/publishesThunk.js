@@ -6,7 +6,7 @@ export const fetchPublishesUser = createAsyncThunk(
    async ({ publishe }, { rejectWithValue }) => {
       const { images, city, paymentReceiptFile, ...filteredPublishe } = publishe
       try {
-         const { title, ...params } = Object.fromEntries(
+         const params = Object.fromEntries(
             Object.entries(filteredPublishe).filter(
                ([, value]) =>
                   value !== undefined && value !== null && value !== '',

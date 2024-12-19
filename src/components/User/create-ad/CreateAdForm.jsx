@@ -52,7 +52,7 @@ const banks = [
 ]
 
 export const validationAdForm = Yup.object({
-   title: Yup.string().required('Имя обязательно'),
+   title: Yup.string().required('Название товара обязательна'),
    phoneNumber: Yup.string()
       .required('Телефон обязателен')
       .matches(/^\+7\d{10}$/, 'Некорректный формат телефона'),
@@ -105,8 +105,6 @@ export const CreateAdForm = () => {
          price: '',
          bank: '',
          paymentReceiptFile: [],
-
-         propertyDetails: {},
       },
 
       validationSchema: validationAdForm,
