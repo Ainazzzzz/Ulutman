@@ -1,9 +1,9 @@
-import { styled } from '@mui/material';
-import ReusableSelect from '../UI/Select';
-import Filter from '../../assets/icons/filter-icon.svg?react';
-import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react';
-import ReplayIcon from '../../assets/icons/replay-icon.svg?react';
-import { DatePicker } from '../UI/DatePicker';
+import { styled } from '@mui/material'
+import ReusableSelect from '../UI/Select'
+import Filter from '../../assets/icons/filter-category-icon.svg?react'
+import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react'
+import ReplayIcon from '../../assets/icons/replay-icon.svg?react'
+import { MultiDatePicker } from '../UI/MultiDatePicker'
 
 export const AdminHeaderFilter = ({
    selectedValues = {},
@@ -24,8 +24,8 @@ export const AdminHeaderFilter = ({
                   <Filter />
                </FilterWrapper>
 
-               {inputData?.map((header, index) => (
-                  <label key={index} htmlFor={`input-${header.id}`}>
+               {inputData?.map(header => (
+                  <label key={header.id} htmlFor={`input-${header.id}`}>
                      <StyledInput
                         id={`input-${header.id}`}
                         name={`input-${header.id}`}
@@ -46,7 +46,7 @@ export const AdminHeaderFilter = ({
                   >
                      {select.label === 'date' ? (
                         <StyledDatePickerWrapper>
-                           <DatePicker setDate={handleDateChange} />
+                           <MultiDatePicker setDate={handleDateChange} />
                         </StyledDatePickerWrapper>
                      ) : (
                         <StyledSelect
@@ -66,14 +66,15 @@ export const AdminHeaderFilter = ({
                   <p>Сбросить фильтр</p>
                </FilterResetSection>
             </TopSection>
-
-            <div>
-               <RedDeleteIcon onClick={onDeleteModal} />
-            </div>
+            {onDeleteModal && (
+               <div>
+                  <RedDeleteIcon onClick={onDeleteModal} />
+               </div>
+            )}
          </InputsWrapper>
       </Container>
-   );
-};
+   )
+}
 const Container = styled('div')(({ theme }) => ({
    display: 'flex',
    alignItems: 'center',
@@ -96,7 +97,7 @@ const Container = styled('div')(({ theme }) => ({
       gap: '24px',
       alignItems: 'inherit',
    },
-}));
+}))
 
 const InputsWrapper = styled('div')(() => ({
    width: '100%',
@@ -112,7 +113,7 @@ const InputsWrapper = styled('div')(() => ({
    },
 
    scrollbarWidth: 'none',
-}));
+}))
 
 const TopSection = styled('div')(() => ({
    display: 'flex',
@@ -120,9 +121,6 @@ const TopSection = styled('div')(() => ({
    flexWrap: 'nowrap',
 
    div: {
-      maxWidth: '200px',
-      minWidth: '100px',
-      maxHeight: '70px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -134,7 +132,7 @@ const TopSection = styled('div')(() => ({
          fontSize: '14px',
       },
    },
-}));
+}))
 
 const StyledInput = styled('input')(() => ({
    border: 'none',
@@ -153,7 +151,7 @@ const StyledInput = styled('input')(() => ({
    '::placeholder': {
       color: '#202224',
    },
-}));
+}))
 
 const FilterWrapper = styled('p')(() => ({
    width: '64px',
@@ -171,22 +169,22 @@ const FilterWrapper = styled('p')(() => ({
    svg: {
       cursor: 'pointer',
    },
-}));
+}))
 
 const StyledDatePickerWrapper = styled('div')(() => ({
-   paddingBottom: '8px',
+   paddingBottom: '4px',
    border: '1px solid #d5d5d5',
 
    '& .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
-}));
+}))
 
 const StyledSelect = styled(ReusableSelect)(() => ({
-   marginBottom: '18px',
    color: '#202224',
    fontWeight: '700',
    fontSize: '14px',
+   margin: '-10px 0 0 0',
 
    '.MuiSelect-icon': {
       top: '30px',
@@ -212,7 +210,7 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    '.MuiSelect-select': {
       paddingTop: '23.5px',
    },
-}));
+}))
 
 const FilterResetSection = styled('div')(() => ({
    width: '193px',
@@ -233,4 +231,4 @@ const FilterResetSection = styled('div')(() => ({
          transition: '0.5s',
       },
    },
-}));
+}))

@@ -1,41 +1,78 @@
-import { forwardRef } from 'react';
-import { Dialog, Slide, styled } from '@mui/material';
-import DeleteIcon from '../../assets/icons/trash.svg?react';
-import InfoIcon from '../../assets/icons/info-warning.svg?react';
-import PhoneIcon from '../../assets/icons/phone-green-icon.svg?react';
+/* eslint-disable no-nested-ternary */
+import { forwardRef } from 'react'
+import { Dialog, Slide, styled } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import DeleteIcon from '../../assets/icons/trash.svg?react'
+import InfoIcon from '../../assets/icons/info-warning.svg?react'
+import PhoneIcon from '../../assets/icons/phone-green-icon.svg?react'
+import PlusIcon from '../../assets/icons/plusIcon.svg?react'
+import { Button } from './Button'
 
 const Transition = forwardRef((props, ref) => (
    <Slide direction="up" ref={ref} {...props} />
-));
+))
 
-const Modal = ({ children, variant = 'custom', handleClose, open }) => (
-   <StyledContainer
-      open={open}
-      TransitionComponent={Transition}
-      keepMounted
-      onClose={handleClose}
-      variant={variant}
-      aria-describedby="alert-dialog-slide-description"
-   >
-      {variant === 'custom' ? null : (
-         <div className="close-button-container">
-            <StyledCloseButton onClick={handleClose}>
-               {variant === 'delete' ? (
-                  <DeleteIcon />
-               ) : variant === 'phone' ? (
-                  <PhoneIcon />
-               ) : (
-                  variant === 'info' && <InfoIcon />
-               )}
-            </StyledCloseButton>
-         </div>
-      )}
+const Modal = ({ children, variant = 'custom', handleClose, open }) => {
+   const navigate = useNavigate()
 
-      <div className="dialog-content">{children}</div>
-   </StyledContainer>
-);
+   const handleNavigationPage = path => {
+      navigate(path)
+      navigate(path)
+      handleClose()
+   }
 
-export default Modal;
+   return (
+      <StyledContainer
+         open={open}
+         TransitionComponent={Transition}
+         keepMounted
+         onClose={handleClose}
+         variant={variant}
+         aria-describedby="alert-dialog-slide-description"
+      >
+         {variant === 'custom' ? null : (
+            <div className="close-button-container">
+               <StyledCloseButton onClick={handleClose}>
+                  {variant === 'delete' ? (
+                     <DeleteIcon />
+                  ) : variant === 'phone' ? (
+                     <PhoneIcon />
+                  ) : variant === 'info' ? (
+                     <InfoIcon />
+                  ) : (
+                     variant === 'publish' && (
+                        <div className="circle-icon">
+                           <PlusIcon />
+                        </div>
+                     )
+                  )}
+               </StyledCloseButton>
+            </div>
+         )}
+         {variant === 'publish' && (
+            <ContainerPublish>
+               <TitlePublish>Добавить</TitlePublish>
+
+               <ButtonAdversitinPublish>
+                  <ButtunPublish
+                     onClick={() => handleNavigationPage('create-ad')}
+                  >
+                     Объявление
+                  </ButtunPublish>
+                  <ButtunStyle
+                     onClick={() => handleNavigationPage('advertising_page')}
+                  >
+                     Реклама
+                  </ButtunStyle>
+               </ButtonAdversitinPublish>
+            </ContainerPublish>
+         )}
+         <div className="dialog-content">{children}</div>
+      </StyledContainer>
+   )
+}
+
+export default Modal
 
 const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
    '& ::-webkit-scrollbar-thumb': {
@@ -71,22 +108,26 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
             ? '1px solid #FF0000'
             : variant === 'phone'
               ? '3px solid #5EB00E'
-              : '1px solid #e6a600',
+              : variant === 'publish'
+                ? '3px solid #5EB00E'
+                : '1px solid #e6a600',
+
       zIndex: 1000,
       display: 'flex',
       top: '-50px',
+      left: '50%',
       width: '6.25rem',
       height: '6.25rem',
-      left: '8.438rem',
       alignItems: 'center',
       justifyContent: 'center',
+      translate: '-50% 0',
    },
 
    '& .dialog-content': {
       padding: ' 0rem',
       marginRight: '0.88rem',
    },
-}));
+}))
 
 const StyledCloseButton = styled('button')(() => ({
    width: '2.25rem',
@@ -97,4 +138,33 @@ const StyledCloseButton = styled('button')(() => ({
    border: 'none',
    backgroundColor: 'transparent',
    cursor: 'pointer',
-}));
+}))
+const TitlePublish = styled('div')(() => ({
+   fontSize: '20px',
+   fontWeight: '700',
+   lineHeight: '21.78px',
+   padding: '34px 0 34px 0',
+}))
+const ContainerPublish = styled('div')(() => ({
+   display: 'flex',
+   flexDirection: 'column',
+   justifyContent: 'center',
+   alignItems: 'center',
+}))
+const ButtunStyle = styled(Button)(() => ({
+   background: '#5EB00E',
+   width: '125px',
+   height: '46px',
+
+   '&:hover': {
+      background: '#5EB00E',
+   },
+}))
+const ButtunPublish = styled(Button)(() => ({
+   width: '161px',
+   height: '46px',
+}))
+const ButtonAdversitinPublish = styled('div')(() => ({
+   display: 'flex',
+   gap: '20px',
+}))

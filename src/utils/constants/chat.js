@@ -20,4 +20,4 @@ export const chat = [
       message: 'Привет,  мак 2024 года',
       date: '18.01.2024',
    },
-];
+]

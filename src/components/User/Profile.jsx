@@ -1,28 +1,38 @@
-import { styled } from '@mui/material';
-import { Button } from '../UI/Button';
-import Input from '../UI/Input';
-import { useFormik } from 'formik';
-import { profileValidation } from '../../utils/general/validation/profileValidation';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateUserProfile } from '../../redux/users/profileThunk';
+import { styled } from '@mui/material'
+import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { Button } from '../UI/Button'
+import Input from '../UI/Input'
+import { profileValidation } from '../../utils/general/validation/profileValidation'
+import { updateUserProfile } from '../../redux/users/profileThunk'
 
 export const Profile = () => {
-   const { userData } = useSelector(state => state.auth);
+   const dispatch = useDispatch()
+   const { userData } = useSelector(state => state.auth)
 
-   const dispatch = useDispatch();
+   const [isEdit, setIsEdit] = useState(false)
 
    const formik = useFormik({
       initialValues: {
-         username: '',
-         lastName: '',
+         name: userData.name || '',
+         lastName: userData.lastName || '',
          phoneNumber: '',
-         emailAddress: '',
+         email: userData.email || '',
       },
       validationSchema: profileValidation,
       onSubmit: profileData => {
-         dispatch(updateUserProfile({ profileData, userId: userData.userId }));
+         dispatch(
+            updateUserProfile({
+               profileData,
+               userId: userData.userId,
+               setIsEdit,
+            }),
+         )
       },
-   });
+   })
+
+   const toggleIsEdit = () => setIsEdit(prev => !prev)
 
    return (
       <Form onSubmit={formik.handleSubmit}>
@@ -31,15 +41,16 @@ export const Profile = () => {
                <StyledInput
                   label="Имя"
                   placeholder="Иван"
-                  name="username"
-                  value={formik.values.username}
+                  name="name"
+                  value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   autoComplete="given-name"
+                  disabled={!isEdit}
                />
 
-               {formik.touched.username && formik.errors.username ? (
-                  <ErrorMessage>{formik.errors.username}</ErrorMessage>
+               {formik.touched.name && formik.errors.name ? (
+                  <ErrorMessage>{formik.errors.name}</ErrorMessage>
                ) : null}
             </Container>
 
@@ -52,68 +63,82 @@ export const Profile = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   autoComplete="family-name"
+                  disabled={!isEdit}
                />
 
-               {formik.touched.lastName && formik.errors.lastName ? (
+               {formik.errors.lastName && formik.touched.lastName ? (
                   <ErrorMessage>{formik.errors.lastName}</ErrorMessage>
+               ) : null}
+            </Container>
+
+            <Container>
+               <StyledInput
+                  label="Телефон"
+                  type="number"
+                  placeholder="+7 xxx xxxxxxx"
+                  name="phoneNumber"
+                  value={formik.values.phoneNumber}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  // autoComplete="tel"
+                  disabled={!isEdit}
+               />
+
+               {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+                  <ErrorMessage>{formik.errors.phoneNumber}</ErrorMessage>
+               ) : null}
+            </Container>
+
+            <Container>
+               <StyledInput
+                  label="Электронная почта"
+                  type="email"
+                  placeholder="example@mail.com"
+                  name="email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  autoComplete="email"
+                  disabled={!isEdit}
+               />
+
+               {formik.touched.email && formik.errors.email ? (
+                  <ErrorMessage>{formik.errors.email}</ErrorMessage>
                ) : null}
             </Container>
          </WrapperFullName>
 
-         <Container>
-            <StyledInput
-               label="Телефон"
-               type="number"
-               placeholder="+7 xxx xxxxxxx"
-               name="phoneNumber"
-               value={formik.values.phoneNumber}
-               onChange={formik.handleChange}
-               onBlur={formik.handleBlur}
-               // autoComplete="tel"
-            />
-
-            {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-               <ErrorMessage>{formik.errors.phoneNumber}</ErrorMessage>
-            ) : null}
-         </Container>
-
-         <Container>
-            <EmailInput
-               label="Электронная почта"
-               type="email"
-               placeholder="example@mail.com"
-               name="emailAddress"
-               value={formik.values.emailAddress}
-               onChange={formik.handleChange}
-               onBlur={formik.handleBlur}
-               autoComplete="email"
-            />
-
-            {formik.touched.emailAddress && formik.errors.emailAddress ? (
-               <ErrorMessage>{formik.errors.emailAddress}</ErrorMessage>
-            ) : null}
-         </Container>
-
-         <StyledButton type="submit">Сохранить</StyledButton>
+         {isEdit ? (
+            <BtnContainer>
+               <StyledButton onClick={toggleIsEdit} variant="outlined">
+                  Отменить
+               </StyledButton>
+               <StyledButton type="submit">Сохранить</StyledButton>
+            </BtnContainer>
+         ) : (
+            <StyledButton onClick={toggleIsEdit}>Редактировать</StyledButton>
+         )}
       </Form>
-   );
-};
+   )
+}
 
 const Form = styled('form')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
    height: '57vh',
-}));
+   maxWidth: '678px',
+}))
 
 const WrapperFullName = styled('div')(({ theme }) => ({
    width: '100%',
    display: 'flex',
    gap: '24px',
+   flexWrap: 'wrap',
    [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
    },
-}));
+}))
 
 const StyledInput = styled(Input)(({ theme }) => ({
    width: '327px',
@@ -121,15 +146,7 @@ const StyledInput = styled(Input)(({ theme }) => ({
       width: '100%',
       maxWidth: '463px',
    },
-}));
-
-const EmailInput = styled(Input)(({ theme }) => ({
-   maxWidth: '678px',
-   [theme.breakpoints.down('md')]: {
-      width: '100%',
-      maxWidth: '463px',
-   },
-}));
+}))
 
 const StyledButton = styled(Button)(({ theme }) => ({
    width: '144px',
@@ -139,7 +156,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
       width: '100%',
       maxWidth: '463px',
    },
-}));
+}))
 
 const ErrorMessage = styled('div')(() => ({
    color: 'red',
@@ -147,10 +164,16 @@ const ErrorMessage = styled('div')(() => ({
    position: 'absolute',
    bottom: '-15px',
    left: '5px',
-}));
+}))
 
 const Container = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    position: 'relative',
-}));
+}))
+
+const BtnContainer = styled('div')(() => ({
+   display: 'flex',
+   gap: '20px',
+   justifyContent: 'flex-end',
+}))

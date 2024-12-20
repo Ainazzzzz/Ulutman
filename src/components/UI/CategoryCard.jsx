@@ -1,156 +1,144 @@
-import { CardMedia, styled, useMediaQuery } from '@mui/material';
-import SumIcon from '../../assets/icons/sum-icon.svg?react';
-import Geolocation from '../../assets/icons/geolocation-icon.svg?react';
-import Home from '../../assets/icons/home-icon.svg?react';
-import GrayHeart from '../../assets/icons/gray-heart-icon.svg?react';
-import Call from '../../assets/icons/phone-icon.svg?react';
-import emptyImageCard from '../../assets/images/no-image.jpg';
+import { CardMedia, styled, useMediaQuery } from '@mui/material'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import SumIcon from '../../assets/icons/sum-icon.svg?react'
+import Geolocation from '../../assets/icons/geolocation-icon.svg?react'
+import Home from '../../assets/icons/home-icon.svg?react'
+import GrayHeart from '../../assets/icons/gray-heart-icon.svg?react'
+import Call from '../../assets/icons/phone-icon.svg?react'
+import emptyImageCard from '../../assets/images/no-image.jpg'
+import NoData from '../../assets/icons/empty-data.svg?react'
 
-import { IconButton } from '../IconButton';
-import { useState } from 'react';
-import Modal from './Modal';
-import { PhoneNumberSingle, TitlePhone, WrapperPhone } from './Card/CardItem';
-import { PATHS } from '../../utils/constants/paths';
-import { useNavigate } from 'react-router-dom';
+import { IconButton } from '../IconButton'
+import Modal from './Modal'
+import { PhoneNumberSingle, TitlePhone, WrapperPhone } from './Card/CardItem'
+import { PATHS } from '../../utils/constants/paths'
 
 export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const [phoneModal, setPhoneModal] = useState('');
-   const navigate = useNavigate();
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const [phoneModal, setPhoneModal] = useState('')
+   const navigate = useNavigate()
 
    const handleNavigateDetail = id => {
-      navigate(PATHS.USER.DETAILS.replace(':detailsInfo', id));
-   };
+      navigate(PATHS.USER.DETAILS.replace(':detailsInfo', id))
+   }
 
-   const handleOpen = id => setPhoneModal(id);
+   const handleOpen = id => setPhoneModal(id)
 
-   const handleClose = () => setPhoneModal('');
+   const handleClose = () => setPhoneModal('')
 
-   return (
-      <>
-         {categories.map(item => (
-            <Container key={item.id}>
-               {isMobile ? (
-                  <>
-                     <Block>
-                        <ImageStyle
-                           image={item.image || emptyImageCard}
-                           title={item.title}
-                           onClick={() => handleNavigateDetail(item.id)}
-                        />
+   return categories.length === 0 ? (
+      <NoDataContainer>
+         <NoData />
+      </NoDataContainer>
+   ) : (
+      categories.map(item => (
+         <Container key={item.id}>
+            {isMobile ? (
+               <Block>
+                  <ImageStyle
+                     image={item.image || emptyImageCard}
+                     title={item.title}
+                     onClick={() => handleNavigateDetail(item.id)}
+                  />
+                  <div>
+                     <FirstBlock>
+                        <Price>
+                           {item.price} <SumIcon />
+                        </Price>
+                        <IconButton onClick={() => handleToggleFavorite(item)}>
+                           <GrayHeart
+                              className={item.detailFavorite ? 'like-red' : ''}
+                           />
+                        </IconButton>
+                     </FirstBlock>
+                     <RoomStyle>
+                        {item.title}
+                        <IconButton onClick={() => handleOpen(item.id)}>
+                           <Call />
+                        </IconButton>
+                     </RoomStyle>
+                     <SecondBlock>
+                        <Geolocation />
+                        <p>
+                           {item.metro}, {item.address}
+                        </p>
+                     </SecondBlock>
+                     <SecondBlock>
+                        <Home />
+                        <p>
+                           {item.quantity} -комн. кв.{' '}
+                           {item.propertyDetails?.totalArea}м<sup>2</sup>{' '}
+                           {item.floor}
+                        </p>
+                     </SecondBlock>
+                     <Description>{item.description}</Description>
+                  </div>
+               </Block>
+            ) : (
+               <Wrapper>
+                  <Block>
+                     <ImageStyle
+                        image={item.image || emptyImageCard}
+                        title={item.title}
+                        onClick={() => handleNavigateDetail(item.id)}
+                     />
+                  </Block>
+                  <div>
+                     <FirstBlock>
+                        <Price>
+                           {item.price} <SumIcon />
+                        </Price>
                         <div>
-                           <FirstBlock>
-                              <Price>
-                                 {item.price} <SumIcon />
-                              </Price>
-                              <IconButton
-                                 onClick={() =>
-                                    handleToggleFavorite(
-                                       item.id,
-                                       item.detailFavorite,
-                                    )
-                                 }
-                              >
-                                 <GrayHeart
-                                    className={
-                                       item.detailFavorite ? 'like-red' : ''
-                                    }
-                                 />
-                              </IconButton>
-                           </FirstBlock>
-                           <RoomStyle>
-                              {item.title}
-                              <IconButton onClick={() => handleOpen(item.id)}>
-                                 <Call />
-                              </IconButton>
-                           </RoomStyle>
-                           <SecondBlock>
-                              <Geolocation />
-                              <p>
-                                 {item.metro}, {item.address}
-                              </p>
-                           </SecondBlock>
-                           <SecondBlock>
-                              <Home />
-                              <p>
-                                 {item.quantity} -комн. кв. {item.volume}м
-                                 <sup>2</sup> {item.floor}
-                              </p>
-                           </SecondBlock>
-                           <Description>{item.description}</Description>
-                        </div>
-                     </Block>
-                  </>
-               ) : (
-                  <Wrapper>
-                     <Block>
-                        <ImageStyle
-                           image={item.image || emptyImageCard}
-                           title={item.title}
-                           onClick={() => handleNavigateDetail(item.id)}
-                        />
-                     </Block>
-                     <div>
-                        <FirstBlock>
-                           <Price>
-                              {item.price} <SumIcon />{' '}
-                           </Price>
-                           <div>
-                              <IconButton
-                                 onClick={() =>
-                                    handleToggleFavorite(
-                                       item.id,
-                                       item.detailFavorite,
-                                    )
-                                 }
-                              >
-                                 <GrayHeart
-                                    className={
-                                       item.detailFavorite ? 'like-red' : ''
-                                    }
-                                 />
-                              </IconButton>
-
-                              <IconButton onClick={() => handleOpen(item.id)}>
-                                 <Call />
-                              </IconButton>
-                           </div>
-                           <Modal
-                              open={item.id === phoneModal}
-                              variant="phone"
-                              handleClose={handleClose}
+                           <IconButton
+                              onClick={() => handleToggleFavorite(item)}
                            >
-                              <WrapperPhone>
-                                 <TitlePhone>Номер телефона</TitlePhone>
-                                 <PhoneNumberSingle>
-                                    {item.phoneNumber}
-                                 </PhoneNumberSingle>
-                              </WrapperPhone>
-                           </Modal>
-                        </FirstBlock>
-                        <RoomStyle>{item.title} </RoomStyle>
-                        <SecondBlock>
-                           <Geolocation />
-                           <p>
-                              {item.metro}, {item.address}
-                           </p>
-                        </SecondBlock>
-                        <SecondBlock>
-                           <Home />
-                           <p>
-                              {item.quantity} {item.volume}
-                              {item.floor}
-                           </p>
-                        </SecondBlock>
-                        <Description>{item.description}</Description>
-                     </div>
-                  </Wrapper>
-               )}
-            </Container>
-         ))}
-      </>
-   );
-};
+                              <GrayHeart
+                                 className={
+                                    item.detailFavorite ? 'like-red' : ''
+                                 }
+                              />
+                           </IconButton>
+                           <IconButton onClick={() => handleOpen(item.id)}>
+                              <Call />
+                           </IconButton>
+                        </div>
+                        <Modal
+                           open={item.id === phoneModal}
+                           variant="phone"
+                           handleClose={handleClose}
+                        >
+                           <WrapperPhone>
+                              <TitlePhone>Номер телефона</TitlePhone>
+                              <PhoneNumberSingle>
+                                 {item.phoneNumber}
+                              </PhoneNumberSingle>
+                           </WrapperPhone>
+                        </Modal>
+                     </FirstBlock>
+                     <RoomStyle>{item.title} </RoomStyle>
+                     <SecondBlock>
+                        <Geolocation />
+                        <p>
+                           {item.metro}, {item.address}
+                        </p>
+                     </SecondBlock>
+                     <SecondBlock>
+                        <Home />
+                        <p>
+                           {item.quantity} -комн. кв.{' '}
+                           {item.propertyDetails?.totalArea}м<sup>2</sup>{' '}
+                           {item.floor}
+                        </p>
+                     </SecondBlock>
+                     <Description>{item.description}</Description>
+                  </div>
+               </Wrapper>
+            )}
+         </Container>
+      ))
+   )
+}
 
 const ImageStyle = styled(CardMedia)(({ theme }) => ({
    width: '275px',
@@ -165,7 +153,7 @@ const ImageStyle = styled(CardMedia)(({ theme }) => ({
       top: '0px',
       left: '0px',
    },
-}));
+}))
 const Block = styled('div')(({ theme }) => ({
    width: '315px',
    height: '262px',
@@ -179,13 +167,14 @@ const Block = styled('div')(({ theme }) => ({
       flexDirection: 'column',
       gap: '10px',
    },
-}));
+}))
 const Container = styled('div')(({ theme }) => ({
    height: '262px',
+   cursor: 'pointer',
    [theme.breakpoints.down('md')]: {
       height: '331px',
    },
-}));
+}))
 const Price = styled('p')(({ theme }) => ({
    fontSize: '24px',
    fontWeight: '600',
@@ -194,7 +183,7 @@ const Price = styled('p')(({ theme }) => ({
       fontSize: '22px',
       paddingBottom: '0px',
    },
-}));
+}))
 const RoomStyle = styled('p')(({ theme }) => ({
    fontSize: '18px',
    fontWeight: '500',
@@ -206,7 +195,7 @@ const RoomStyle = styled('p')(({ theme }) => ({
       alignItems: 'center',
       paddingBottom: '0px',
    },
-}));
+}))
 const SecondBlock = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
@@ -216,7 +205,7 @@ const SecondBlock = styled('div')(() => ({
       fontSize: '14px',
       fontWeight: '400',
    },
-}));
+}))
 const Description = styled('p')(({ theme }) => ({
    width: '650px',
    fontSize: '18px',
@@ -225,17 +214,30 @@ const Description = styled('p')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       display: 'none',
    },
-}));
+}))
 const Wrapper = styled('div')(() => ({
    display: 'flex',
    gap: '20px',
-}));
+}))
 const FirstBlock = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'space-between',
+   '.like-red path, .message-red path': {
+      fill: 'red',
+   },
    div: {
       display: 'flex',
       alignItems: 'center',
    },
-}));
+}))
+
+const NoDataContainer = styled('div')(() => ({
+   width: '100%',
+   display: 'flex',
+   justifyContent: 'center',
+
+   svg: {
+      width: '40%',
+   },
+}))

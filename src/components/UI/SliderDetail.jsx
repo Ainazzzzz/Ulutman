@@ -1,32 +1,32 @@
-import React, { useRef, useState } from 'react';
-import { Pagination, Thumbs, FreeMode, Navigation } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/thumbs';
+import React, { useRef, useState } from 'react'
+import { Pagination, Thumbs, FreeMode, Navigation } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/thumbs'
 
-import { styled } from '@mui/material';
+import { styled } from '@mui/material'
 
 const SliderDetail = ({ slider }) => {
-   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-   const thumbsSwiperRef = useRef(null);
+   const [, setThumbsSwiper] = useState(null)
+   const thumbsSwiperRef = useRef(null)
 
    const updateThumbsSwiper = swiper => {
       if (swiper && swiper !== thumbsSwiperRef.current) {
-         setThumbsSwiper(swiper);
-         thumbsSwiperRef.current = swiper;
+         setThumbsSwiper(swiper)
+         thumbsSwiperRef.current = swiper
       }
-   };
+   }
 
    return (
       <WrapperContainer className="main-slider">
          <LargeSliderContainer
             spaceBetween={10}
-            navigation={true}
+            navigation
             thumbs={{ swiper: thumbsSwiperRef.current }}
             modules={[Navigation, FreeMode, Thumbs, Pagination]}
-            loop={true}
+            loop
             className="main-slider"
             pagination={{
                clickable: true,
@@ -35,7 +35,7 @@ const SliderDetail = ({ slider }) => {
          >
             {slider.map(slide => (
                <SwiperSlide key={slide.id}>
-                  <img src={slide.sliderImages} />
+                  <img src={slide.sliderImages} alt="house detail" />
                </SwiperSlide>
             ))}
          </LargeSliderContainer>
@@ -43,7 +43,7 @@ const SliderDetail = ({ slider }) => {
             <Swiper
                onSwiper={updateThumbsSwiper}
                spaceBetween={10}
-               freeMode={true}
+               freeMode
                slidesPerView={11}
                watchSlidesVisibility
                watchSlidesProgress
@@ -57,10 +57,10 @@ const SliderDetail = ({ slider }) => {
             </Swiper>
          </div>
       </WrapperContainer>
-   );
-};
+   )
+}
 
-export default SliderDetail;
+export default SliderDetail
 const WrapperContainer = styled('div')(({ theme }) => ({
    '.main-slider': {
       width: '760px',
@@ -112,7 +112,7 @@ const WrapperContainer = styled('div')(({ theme }) => ({
       border: '1px solid #ddd',
       borderRadius: '3px',
    },
-}));
+}))
 
 const LargeSliderContainer = styled(Swiper)(({ theme }) => ({
    borderRadius: '10px',
@@ -145,4 +145,4 @@ const LargeSliderContainer = styled(Swiper)(({ theme }) => ({
          display: 'none',
       },
    },
-}));
+}))

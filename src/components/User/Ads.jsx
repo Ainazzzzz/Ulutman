@@ -1,68 +1,68 @@
-import { styled, useMediaQuery } from '@mui/material';
-import DeleteAll from '../../assets/icons/delete-all-icon.svg?react';
-import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react';
-import { MyAds } from './MyAds';
-import TabsUi from '../UI/TabsUi';
-import { useEffect, useState } from 'react';
-import { DeleteMyAdsModal } from './DeleteMyAdsModal';
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-nested-ternary */
+import { styled, useMediaQuery } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import DeleteAll from '../../assets/icons/delete-all-icon.svg?react'
+import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react'
+import { MyAds } from './MyAds'
+import TabsUi from '../UI/TabsUi'
+import { DeleteMyAdsModal } from './DeleteMyAdsModal'
 import {
    getDeactivatePublishes,
    getMyAds,
    getRejectedPublishes,
-} from '../../redux/users/myAdsThunk';
-import { useDispatch, useSelector } from 'react-redux';
+} from '../../redux/users/myAdsThunk'
 
 export const Ads = () => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const [activeTab, setActiveTab] = useState('1');
-   const dispatch = useDispatch();
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const [activeTab, setActiveTab] = useState('1')
+   const dispatch = useDispatch()
 
-   const [selectedIds, setSelectedIds] = useState([]);
-   const [isModalOpen, setIsModalOpen] = useState(false);
+   const [selectedIds, setSelectedIds] = useState([])
+   const [isModalOpen, setIsModalOpen] = useState(false)
 
-   const userId = useSelector(state => state.auth.userData.userId);
+   const userId = useSelector(state => state.auth.userData.userId)
 
-   const activeAdsCount = useSelector(state => state.myAds.activeAds.length);
+   const activeAdsCount = useSelector(state => state.myAds.activeAds.length)
 
-   const rejectedAdsCount = useSelector(
-      state => state.myAds.rejectedAds.length,
-   );
-   const myAdsCount = useSelector(state => state.myAds.rejectedAds.length);
+   const rejectedAdsCount = useSelector(state => state.myAds.rejectedAds.length)
+   const myAdsCount = useSelector(state => state.myAds.rejectedAds.length)
 
    const myAds = useSelector(state =>
       activeTab === '1' ? state.myAds.activeAds : state.myAds.rejectedAds,
-   );
+   )
 
    const secondTab = [
       { value: '1', label: `Активно (${activeAdsCount})` },
       { value: '2', label: `Отклонено (${rejectedAdsCount})` },
       { value: '3', label: `Мои рекламы(${myAdsCount})` },
-   ];
+   ]
 
    const handleDelete = () => {
       if (selectedIds.length > 0) {
-         setIsModalOpen(true);
+         setIsModalOpen(true)
       }
-   };
+   }
 
    const handleTabChange = tabValue => {
-      setActiveTab(tabValue);
+      setActiveTab(tabValue)
 
       tabValue === '1'
          ? dispatch(getMyAds())
          : tabValue === '2'
            ? dispatch(getDeactivatePublishes())
-           : dispatch(getRejectedPublishes());
-   };
+           : dispatch(getRejectedPublishes())
+   }
 
    useEffect(() => {
-      dispatch(getMyAds());
-   }, [dispatch]);
+      dispatch(getMyAds())
+   }, [dispatch])
 
    return (
       <Wrapper>
          <Container>
-            <Line></Line>
+            <Line />
             <Block>
                <TabsUi
                   tabs={secondTab}
@@ -102,13 +102,13 @@ export const Ads = () => {
             <DeleteMyAdsModal userId={userId} selectedIds={selectedIds} />
          )}
       </Wrapper>
-   );
-};
+   )
+}
 
 const Line = styled('div')(() => ({
    width: '100%',
    border: '1px solid #d9d9d9',
-}));
+}))
 
 const Wrapper = styled('div')(({ theme }) => ({
    padding: '40px 60px',
@@ -118,7 +118,7 @@ const Wrapper = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       padding: '24px 16px',
    },
-}));
+}))
 const Block = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
@@ -126,10 +126,10 @@ const Block = styled('div')(({ theme }) => ({
       flexDirection: 'column',
       gap: '30px',
    },
-}));
+}))
 
 const Container = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
-}));
+}))

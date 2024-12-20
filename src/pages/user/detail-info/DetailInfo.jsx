@@ -1,190 +1,344 @@
-import { Box, Rating, Typography, styled } from '@mui/material';
-import Breadcrumbs from '../../../components/UI/Breadcrumbs';
-import LocationIcon from '../../../assets/icons/address-icon.svg?react';
-import ClockIcon from '../../../assets/icons/clock-icon.svg?react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
-import { useState } from 'react';
-import firstImage from '../../../assets/images/slider-images/first.png';
-import secondthImage from '../../../assets/images/slider-images/second.png';
-import thirdImage from '../../../assets/images/slider-images/third.png';
-import fourthImage from '../../../assets/images/slider-images/fourth.png';
-import fifthImage from '../../../assets/images/slider-images/fifth.png';
-import sixthImage from '../../../assets/images/slider-images/sixth.png';
-import seventhImage from '../../../assets/images/slider-images/seventh.png';
-import eightImage from '../../../assets/images/slider-images/eight.png';
-import ninthImage from '../../../assets/images/slider-images/ninth.png';
-import tenthImage from '../../../assets/images/slider-images/tenth.png';
-import Like from '../../../assets/icons/like-product-icon.svg?react';
-import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react';
-import { Button } from '../../../components/UI/Button';
-import UserIcon from '../../../assets/icons/user.svg?react';
-import AboutApartment from './AboutApartment';
+import { Box, Rating, Typography, styled } from '@mui/material'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules'
+import { useNavigate, useParams } from 'react-router-dom'
+import Breadcrumbs from '../../../components/UI/Breadcrumbs'
+import LocationIcon from '../../../assets/icons/address-icon.svg?react'
+import ClockIcon from '../../../assets/icons/clock-icon.svg?react'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
+import Like from '../../../assets/icons/like-product-icon.svg?react'
+import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react'
+import { Button } from '../../../components/UI/Button'
+import UserIcon from '../../../assets/icons/user.svg?react'
+import AboutApartment from './AboutApartment'
+import {
+   deleteFavorite,
+   getDetailInfo,
+   postFavorite,
+} from '../../../redux/datailInfo/detailInfoThunk'
+import { PhoneModal } from '../../../components/UI/PhoneModal'
+import { SimilarAds } from './SimilarAds'
 
 const DetailInfo = () => {
-   const path = [
-      { title: 'Главная', url: '#' },
-      { title: '2х комнатная квартира', url: '#' },
-   ];
+   const dispatch = useDispatch()
+   const { id } = useParams()
+   const navigate = useNavigate()
 
-   const slides = [
-      { id: 1, image: firstImage },
-      { id: 2, image: secondthImage },
-      { id: 3, image: thirdImage },
-      { id: 4, image: fourthImage },
-      { id: 5, image: fifthImage },
-      { id: 6, image: sixthImage },
-      { id: 7, image: seventhImage },
-      { id: 8, image: eightImage },
-      { id: 9, image: ninthImage },
-      { id: 10, image: tenthImage },
-   ];
+   const detailInfo = useSelector(state => state.detailInfo)
+
+   const [isExpanded, setIsExpanded] = useState(false)
+   const [openModal, setOpenModal] = useState(false)
+
+   const handleShowPhoneNumber = () => {
+      setOpenModal(!openModal)
+   }
+
+   const description =
+      detailInfo?.detailInfo?.description || 'Описание не доступно'
+   const words = description.split(' ')
+   const shortDescription = words.slice(0, 12).join(' ')
+
+   const handleReadMore = () => {
+      setIsExpanded(!isExpanded)
+   }
+
+   const path = [
+      { title: 'Главная', url: '/user' },
+      { title: detailInfo?.detailInfo?.title, url: '#' },
+   ]
+
+   const handleFavorite = () => {
+      const isFavorite = detailInfo?.detailInfo?.detailFavorite
+
+      if (isFavorite) {
+         dispatch(deleteFavorite(detailInfo.detailInfo.id))
+      } else {
+         dispatch(postFavorite(detailInfo.detailInfo.id))
+      }
+   }
+
+   useEffect(() => {
+      if (id) {
+         dispatch(getDetailInfo({ id }))
+      }
+   }, [dispatch, id])
 
    return (
-      <StyledContainer>
-         <Box className="breadcrumbs-box">
-            <Breadcrumbs path={path} />
+      <div>
+         {!detailInfo || Object.keys(detailInfo).length === 0 ? (
+            <p>Нет данных </p>
+         ) : (
+            <StyledContainer>
+               <Box className="breadcrumbs-box">
+                  <Breadcrumbs path={path} />
 
-            <Typography className="go-back">
-               <ArrowIcon />
-               назад
-            </Typography>
-         </Box>
-
-         <Box className="locatio-time-box">
-            <Typography>
-               <LocationIcon className="location-icon" />
-               Москва, р-н Центральный
-            </Typography>
-
-            <Typography>
-               <ClockIcon />5 августа 2024 г.
-            </Typography>
-         </Box>
-
-         <Box>
-            <Typography className="title" variant="h3">
-               3х комнатная квартира
-            </Typography>
-
-            <Box className="fist-part_container">
-               <Box className="slider">
-                  <Swiper
-                     cssMode={true}
-                     navigation={true}
-                     pagination={true}
-                     mousewheel={true}
-                     keyboard={true}
-                     modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-                     className="mySwiper"
+                  <button
+                     type="button"
+                     onClick={() => navigate(-1)}
+                     className="go-back"
                   >
-                     {slides.map(slide => (
-                        <SwiperSlide key={slide.id}>
-                           <img
-                              className="slide-image"
-                              src={slide.image}
-                              alt={`Slide ${slide.id}`}
+                     <ArrowIcon />
+                     назад
+                  </button>
+               </Box>
+
+               <Box className="locatio-time-box">
+                  <Typography>
+                     <LocationIcon className="location-icon" />
+                     {detailInfo?.detailInfo?.address || 'Не указано'}
+                  </Typography>
+
+                  <Typography>
+                     <ClockIcon />
+                     {detailInfo?.detailInfo?.createDate || 'Не указано'}
+                  </Typography>
+               </Box>
+
+               <Box>
+                  <Typography className="title" variant="h3">
+                     {detailInfo?.detailInfo?.title || 'Не указано'}
+                  </Typography>
+
+                  <Box className="fist-part_container">
+                     <Box className="slider">
+                        <Swiper
+                           cssMode
+                           navigation
+                           pagination
+                           mousewheel
+                           keyboard
+                           modules={[
+                              Navigation,
+                              Pagination,
+                              Mousewheel,
+                              Keyboard,
+                           ]}
+                           className="mySwiper"
+                        >
+                           {detailInfo?.detailInfo?.images?.map(slide => (
+                              <SwiperSlide key={slide}>
+                                 <img
+                                    className="slide-image"
+                                    src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
+                                    alt="House"
+                                 />
+                              </SwiperSlide>
+                           ))}
+                        </Swiper>
+
+                        <Box className="images">
+                           {detailInfo?.detailInfo?.images?.map(item => (
+                              <img
+                                 key={item}
+                                 src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
+                                 alt="House"
+                                 style={{
+                                    width: '60px',
+                                    height: '64px',
+                                    borderRadius: '6px',
+                                 }}
+                              />
+                           ))}
+                        </Box>
+                     </Box>
+
+                     <Box className="second-block">
+                        <Box className="second_box">
+                           <Box className="main-info">
+                              <Typography className="price">
+                                 {detailInfo?.detailInfo?.category ===
+                                    'REAL_ESTATE' &&
+                                    (detailInfo?.detailInfo?.price ||
+                                       'Не указано')}{' '}
+                                 {/* {detailInfo?.detailInfo?.category !==
+                                    'REAL_ESTATE' &&
+                                    (detailInfo?.detailInfo?.price ||
+                                       'Не указано')} */}
+                                 ₽/мес.
+                              </Typography>
+
+                              <Like
+                                 onClick={handleFavorite}
+                                 style={{
+                                    cursor: 'pointer',
+                                    fill: detailInfo?.detailInfo?.detailFavorite
+                                       ? '#f00'
+                                       : '',
+                                    path: {
+                                       stroke: detailInfo?.detailInfo
+                                          ?.detailFavorite
+                                          ? '#f00'
+                                          : '#282828',
+                                    },
+                                 }}
+                              />
+                           </Box>
+
+                           {detailInfo?.detailInfo?.category !==
+                              'REAL_ESTATE' && (
+                              <Box className="description-container">
+                                 <Typography
+                                    variant="h3"
+                                    className="description_detail-info"
+                                 >
+                                    Описание объявления
+                                 </Typography>
+
+                                 <Typography className="description-text">
+                                    {isExpanded
+                                       ? description
+                                       : shortDescription}
+                                    {words.length > 15 && !isExpanded && '...'}
+                                 </Typography>
+
+                                 {words.length > 15 && (
+                                    <Typography
+                                       className="read-more-text"
+                                       onClick={handleReadMore}
+                                    >
+                                       {isExpanded ? 'Скрыть' : 'Читать дальше'}
+                                       <ArrowIcon
+                                          className={
+                                             isExpanded
+                                                ? 'arrow-up'
+                                                : 'arrow-down'
+                                          }
+                                       />
+                                    </Typography>
+                                 )}
+                              </Box>
+                           )}
+
+                           {detailInfo?.detailInfo?.category ===
+                              'REAL_ESTATE' && (
+                              <Box className="info-box-container">
+                                 <Typography className="info-part">
+                                    Оплата ЖКХ <span className="line" />
+                                    {detailInfo?.detailInfo?.conditions
+                                       ?.utilitiesIncluded || 'Не указано'}
+                                 </Typography>
+
+                                 <Typography className="info-part">
+                                    Залог <span className="line" />{' '}
+                                    {
+                                       detailInfo?.detailInfo?.conditions
+                                          ?.deposit
+                                    }{' '}
+                                    ₽
+                                 </Typography>
+
+                                 <Typography className="info-part">
+                                    Комиссия <span className="line" />
+                                    {detailInfo?.detailInfo?.conditions
+                                       ?.commission || 'Не указано'}
+                                 </Typography>
+
+                                 <Typography className="info-part">
+                                    Предоплата
+                                    <span className="line" />
+                                    {detailInfo?.detailInfo?.conditions
+                                       ?.prepayment || 'Не указано'}
+                                 </Typography>
+
+                                 <Typography className="info-part">
+                                    Срок аренды
+                                    <span className="line" />
+                                    {detailInfo?.detailInfo?.conditions
+                                       ?.leaseTerm || 'Не указано'}
+                                 </Typography>
+                              </Box>
+                           )}
+
+                           <Box className="btns-container">
+                              <Button onClick={handleShowPhoneNumber}>
+                                 Показать телефон
+                              </Button>
+                              {openModal && (
+                                 <PhoneModal
+                                    handleClose={handleShowPhoneNumber}
+                                    open={openModal}
+                                    phoneNumber={
+                                       detailInfo?.detailInfo?.phoneNumber
+                                    }
+                                 />
+                              )}
+                           </Box>
+                        </Box>
+
+                        {detailInfo?.detailInfo?.category === 'REAL_ESTATE' && (
+                           <Box className="rieltor-info">
+                              <Box className="user-icon-container">
+                                 <UserIcon />
+                              </Box>
+                              <Box>
+                                 <Typography className="rieltor-title">
+                                    Риелтор
+                                 </Typography>
+
+                                 <Typography>
+                                    {detailInfo?.detailInfo?.conditions
+                                       ?.realtor || 'Не указано'}
+                                 </Typography>
+                                 <Rating
+                                    value={
+                                       detailInfo?.detailInfo?.conditions
+                                          ?.realtorRating || 0
+                                    }
+                                    readOnly
+                                 />
+                              </Box>
+                           </Box>
+                        )}
+                     </Box>
+                  </Box>
+               </Box>
+
+               {detailInfo?.detailInfo?.category === 'REAL_ESTATE' && (
+                  <Box className="description-container">
+                     <Typography
+                        variant="h3"
+                        className="description_detail-info"
+                     >
+                        Описания объявления
+                     </Typography>
+                     <Typography className="descriptioon-text">
+                        {isExpanded ? description : shortDescription}
+                        {words.length > 20 && !isExpanded && '...'}{' '}
+                     </Typography>
+                     {words.length > 20 && (
+                        <Typography
+                           className="read-more-text"
+                           onClick={handleReadMore}
+                        >
+                           {isExpanded ? 'Скрыть' : 'Читать дальше'}
+                           <ArrowIcon
+                              className={isExpanded ? 'arrow-up' : 'arrow-down'}
                            />
-                        </SwiperSlide>
-                     ))}
-                  </Swiper>
-
-                  <Box className="images">
-                     {slides.map(item => (
-                        <img
-                           key={item.id}
-                           src={item.image}
-                           alt={`Slide ${item.id}`}
-                        />
-                     ))}
+                        </Typography>
+                     )}
                   </Box>
-               </Box>
+               )}
 
-               <Box className="second-block">
-                  <Box className="second_box">
-                     <Box className="main-info">
-                        <Typography className="price">50 000 ₽/мес.</Typography>
+               <AboutApartment detailInfo={detailInfo} />
+               <SimilarAds currentCategory={detailInfo?.detailInfo?.category} />
+            </StyledContainer>
+         )}
+      </div>
+   )
+}
 
-                        <Like />
-                     </Box>
+export default DetailInfo
 
-                     <Box className="info-box-container">
-                        <Typography className="info-part">
-                           Оплата ЖКХ <hr className="line" /> включена (без
-                           счётчиков)
-                        </Typography>
-
-                        <Typography className="info-part">
-                           Залог <hr className="line" /> 70 000 ₽
-                        </Typography>
-
-                        <Typography className="info-part">
-                           Комиссия <hr className="line" /> 55%
-                        </Typography>
-
-                        <Typography className="info-part">
-                           Предоплата
-                           <hr className="line" />1 месяц
-                        </Typography>
-
-                        <Typography className="info-part">
-                           Срок аренды
-                           <hr className="line" />
-                           от года
-                        </Typography>
-                     </Box>
-
-                     <Box className="btns-container">
-                        <Button>Показать телефон</Button>
-
-                        <Button variant="text">Написать</Button>
-                     </Box>
-                  </Box>
-
-                  <Box className="rieltor-info">
-                     <Box className="user-icon-container">
-                        <UserIcon />
-                     </Box>
-                     <Box>
-                        <Typography>Риелтор</Typography>
-                        <Typography>Екатерина Орлова</Typography>
-                        <Rating value={5} readOnly />
-                     </Box>
-                  </Box>
-               </Box>
-            </Box>
-         </Box>
-
-         <Box className="description-container">
-            <Typography variant="h3" className="description_detail-info">
-               Описания объявления
-            </Typography>
-            <Typography className="descriptioon-text">
-               ЖК "Водный", предлогается 2-х комнатная квартира с новым
-               ремонтом.Кухня -гостиная, спальня, балкон. Имеется вся мебель и
-               бытовая техника включая кондиционер. Есть возможность аренды
-               машино-место.
-            </Typography>
-
-            <Typography className="read-more-text">
-               Читать дальше
-               <ArrowIcon className="arrow-down" />
-            </Typography>
-         </Box>
-
-         <AboutApartment />
-      </StyledContainer>
-   );
-};
-
-export default DetailInfo;
-
-const StyledContainer = styled(Box)(() => ({
+const StyledContainer = styled(Box)(({ theme }) => ({
    padding: '0 3rem',
+   [theme.breakpoints.down('md')]: {
+      padding: '24px 16px',
+   },
 
    '& .locatio-time-box': {
       display: 'flex',
@@ -192,6 +346,9 @@ const StyledContainer = styled(Box)(() => ({
       alignItems: 'center',
       gap: '2rem',
       marginBottom: '1.3rem',
+      [theme.breakpoints.down('md')]: {
+         justifyContent: 'space-between',
+      },
 
       p: {
          fontSize: '12px',
@@ -206,9 +363,6 @@ const StyledContainer = styled(Box)(() => ({
       display: 'flex',
       flexDirection: 'column',
       gap: '0.5rem',
-      width: '750px',
-      marginBottom: '120px',
-      marginTop: '30px',
 
       '& > .descriptioon-text': {
          marginTop: '0.6rem',
@@ -236,6 +390,15 @@ const StyledContainer = styled(Box)(() => ({
       borderRadius: '10px',
       padding: '20px',
       gap: '1rem',
+      [theme.breakpoints.down('md')]: {
+         boxShadow: 'none',
+         backgroundColor: 'initial',
+      },
+      '& .rieltor-title': {
+         fontSize: '10px',
+         color: '#737A8E',
+         fontWeight: '700',
+      },
 
       '& > .user-icon-container': {
          width: '76px',
@@ -261,6 +424,8 @@ const StyledContainer = styled(Box)(() => ({
          color: ' #7E52FF',
          fontSize: '14px',
          cursor: 'pointer',
+         border: 'none',
+         backgroundColor: 'inherit',
       },
    },
 
@@ -273,14 +438,18 @@ const StyledContainer = styled(Box)(() => ({
    '& .second_box': {
       display: 'flex',
       flexDirection: 'column',
-      gap: '0.5rem',
+      gap: '1rem',
       borderRadius: '10px',
       width: '460px',
       padding: '15px',
       paddingTop: '20px',
-      height: '350px',
       boxShadow: ' 0px 7px 12px 1px rgba(34, 60, 80, 0.14)',
       backgroundColor: 'white',
+      [theme.breakpoints.down('md')]: {
+         width: '310px',
+         backgroundColor: 'initial',
+         boxShadow: 'none',
+      },
 
       '& .main-info': {
          display: 'flex',
@@ -311,8 +480,13 @@ const StyledContainer = styled(Box)(() => ({
             color: '#282828',
 
             '& .line': {
-               border: '1px dotted #909090',
+               border: 'none',
+               borderTop: '1px dotted #909090',
                width: '30%',
+               borderStyle: 'dashed',
+               borderWidth: '1px',
+               borderColor: '#909090',
+               borderSpacing: '1px',
             },
          },
       },
@@ -327,6 +501,10 @@ const StyledContainer = styled(Box)(() => ({
    '& .slide-image': {
       width: '760px !important',
       height: '446px !important',
+      [theme.breakpoints.down('md')]: {
+         width: '343px !important',
+         height: '202px !important',
+      },
    },
 
    '& .location-icon': {
@@ -342,6 +520,10 @@ const StyledContainer = styled(Box)(() => ({
    '& .fist-part_container': {
       display: 'flex',
       justifyContent: 'space-between',
+      [theme.breakpoints.down('md')]: {
+         flexDirection: 'column',
+         gap: '24px',
+      },
    },
 
    '& .slider': {
@@ -350,6 +532,10 @@ const StyledContainer = styled(Box)(() => ({
       alignItems: 'flex-start',
       width: '760px !important',
       gap: '1rem',
+      [theme.breakpoints.down('md')]: {
+         width: '343px !important',
+         height: '202px !important',
+      },
 
       '& .images': {
          display: 'flex',
@@ -361,6 +547,9 @@ const StyledContainer = styled(Box)(() => ({
          display: 'flex',
          borderRadius: '10px',
          justifyContent: 'start',
+         [theme.breakpoints.down('md')]: {
+            width: '343px !important',
+         },
       },
 
       '& .swiper-initialized': {
@@ -372,15 +561,43 @@ const StyledContainer = styled(Box)(() => ({
          justifyContent: 'start',
          width: '760px !important',
          height: '446px !important',
+         [theme.breakpoints.down('md')]: {
+            width: '343px !important',
+            height: '202px !important',
+         },
       },
 
       '& .swiper-button-prev': {
-         color: '#222222',
+         color: '#000',
          opacity: '1',
          backgroundColor: 'white',
-
          padding: '20px',
          borderRadius: '50%',
+         width: '52px',
+         height: '52px',
+         fontWeight: '700',
+         ':: after': {
+            fontSize: ' 20px',
+         },
+         [theme.breakpoints.down('md')]: {
+            display: 'none',
+         },
+      },
+      '& .swiper-button-next': {
+         color: '#000',
+         opacity: '1',
+         backgroundColor: 'white',
+         padding: '20px',
+         borderRadius: '50%',
+         width: '52px',
+         height: '52px',
+         fontWeight: '700',
+         ':: after': {
+            fontSize: ' 20px',
+         },
+         [theme.breakpoints.down('md')]: {
+            display: 'none',
+         },
       },
 
       '& .swiper-slide img': {
@@ -388,19 +605,32 @@ const StyledContainer = styled(Box)(() => ({
          width: '100%',
          height: '100%',
          objectFit: 'cover',
+         [theme.breakpoints.down('md')]: {
+            width: '343px !important',
+            height: '202px !important',
+         },
       },
    },
 
    '& .title': {
       fontSize: '34px',
       fontWeight: '500',
-      lineHeight: '41.15px',
+      lineHeight: '29.05px',
       marginBottom: '1rem',
+      [theme.breakpoints.down('md')]: {
+         fontSize: '24px',
+      },
    },
 
    '& .description_detail-info': {
       fontSize: '30px',
       lineHeight: '36px',
       letterSpacing: '-0.5px',
+      fontWeight: '600',
+      color: '#282828',
+
+      [theme.breakpoints.down('md')]: {
+         fontSize: '24px',
+      },
    },
-}));
+}))

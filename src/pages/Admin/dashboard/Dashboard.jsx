@@ -1,8 +1,10 @@
-import { Box, styled, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { dashBoard } from '../../../redux/dashboard/dashboardThunks.js';
+import { Box, styled, Typography } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { dashBoard } from '../../../redux/dashboard/dashboardThunks'
+import Spinner from '../../../components/UI/Spinner'
+import { dashboard } from '../../../utils/constants/dashboard'
 
 const colorMappings = {
    WORK: 'rgba(255, 58, 41, 0.1)',
@@ -12,10 +14,10 @@ const colorMappings = {
    REAL_ESTATE: 'rgba(255, 178, 0, 0.1)',
    AUTO: 'rgba(245, 25, 105, 0.1)',
    SELL: 'rgba(7, 249, 234, 0.1)',
-};
+}
 
 const customBackgroundColor = (title, value) => {
-   const backgroundColor = colorMappings[title] || 'rgba(0, 0, 0, 0.1)';
+   const backgroundColor = colorMappings[title] || 'rgba(0, 0, 0, 0.1)'
 
    return {
       background: backgroundColor,
@@ -23,18 +25,22 @@ const customBackgroundColor = (title, value) => {
          background: backgroundColor.replace('0.1', '1'),
          width: `${(value.value / value.ofValue) * 100}%`,
       },
-   };
-};
+   }
+}
 const Dashboard = () => {
-   const { t } = useTranslation();
-   const dispatch = useDispatch();
-   const { infoDashboard, isLoading } = useSelector(state => state.dashboard);
+   const { t } = useTranslation()
+   const dispatch = useDispatch()
+   const { infoDashboard, isLoading } = useSelector(state => state.dashboard)
 
    useEffect(() => {
-      dispatch(dashBoard());
-   }, [dispatch]);
+      dispatch(dashBoard())
+   }, [dispatch])
 
-   if (isLoading) return;
+   if (isLoading) return <Spinner />
+
+   const categoryPopularity = Object.entries(infoDashboard)
+
+   console.log(categoryPopularity.length)
 
    return (
       <StyledContainer>
@@ -46,30 +52,48 @@ const Dashboard = () => {
             </Typography>
 
             <ContainerCategory>
-               {Object.entries(infoDashboard).map(([title, value], index) => (
-                  <ContainerListCategory key={index}>
-                     <WrapperItemFirst>
-                        <Typography className="title">
-                           {t(`admin.dashboard.${title}`)}
-                        </Typography>
-                        <Typography>{value} of 100 </Typography>
-                     </WrapperItemFirst>
+               {categoryPopularity.length > 0
+                  ? categoryPopularity.map(([title, value]) => (
+                       <ContainerListCategory key={crypto.randomUUID()}>
+                          <WrapperItemFirst>
+                             <Typography className="title">
+                                {t(`admin.dashboard.${title}`)}
+                             </Typography>
+                             <Typography>{value} of 100 </Typography>
+                          </WrapperItemFirst>
 
-                     <ContainerBackground
-                        title={title}
-                        rating={{ value, ofValue: 100 }}
-                     >
-                        <div></div>
-                     </ContainerBackground>
-                  </ContainerListCategory>
-               ))}
+                          <ContainerBackground
+                             title={title}
+                             rating={{ value, ofValue: 100 }}
+                          >
+                             <div />
+                          </ContainerBackground>
+                       </ContainerListCategory>
+                    ))
+                  : dashboard.map(({ title, value }) => (
+                       <ContainerListCategory key={crypto.randomUUID()}>
+                          <WrapperItemFirst>
+                             <Typography className="title">
+                                {t(`admin.dashboard.${title}`)}
+                             </Typography>
+                             <Typography>{value} of 100 </Typography>
+                          </WrapperItemFirst>
+
+                          <ContainerBackground
+                             title={title}
+                             rating={{ value, ofValue: 100 }}
+                          >
+                             <div />
+                          </ContainerBackground>
+                       </ContainerListCategory>
+                    ))}
             </ContainerCategory>
          </StyledBox>
       </StyledContainer>
-   );
-};
+   )
+}
 
-export default Dashboard;
+export default Dashboard
 
 const StyledContainer = styled('div')(({ theme }) => ({
    width: '100%',
@@ -100,7 +124,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
          fontSize: '22px',
       },
    },
-}));
+}))
 
 const Title = styled('h1')(({ theme }) => ({
    fontSize: '34px',
@@ -108,7 +132,7 @@ const Title = styled('h1')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '20px',
    },
-}));
+}))
 
 const StyledBox = styled(Box)(({ theme }) => ({
    background: '#fff',
@@ -139,7 +163,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
          fontSize: '20px',
       },
    },
-}));
+}))
 
 const ContainerCategory = styled('section')(({ theme }) => ({
    display: 'flex',
@@ -157,7 +181,7 @@ const ContainerCategory = styled('section')(({ theme }) => ({
       padding: '15px',
       gap: '20px',
    },
-}));
+}))
 
 const ContainerListCategory = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -171,7 +195,7 @@ const ContainerListCategory = styled('div')(({ theme }) => ({
    [theme.breakpoints.between('922px', '1024px')]: {
       gap: '10px',
    },
-}));
+}))
 
 const WrapperItemFirst = styled('div')(({ theme }) => ({
    display: 'flex',
@@ -204,10 +228,10 @@ const WrapperItemFirst = styled('div')(({ theme }) => ({
          fontSize: '16px',
       },
    },
-}));
+}))
 
 const ContainerBackground = styled('div')(({ title, rating }) => {
-   const styles = customBackgroundColor(title, rating);
+   const styles = customBackgroundColor(title, rating)
 
    return {
       width: '100%',
@@ -221,5 +245,5 @@ const ContainerBackground = styled('div')(({ title, rating }) => {
          height: '100%',
          borderRadius: '4px',
       },
-   };
-});
+   }
+})

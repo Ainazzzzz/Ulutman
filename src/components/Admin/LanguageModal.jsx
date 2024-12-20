@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import Modal from '../UI/Modal.jsx';
-import { languages } from '../../utils/constants/languages.js';
-import { renderFlag } from '../../utils/general/renderFlag.jsx';
-import { Box, styled } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import React, { useState } from 'react'
+import { Box, styled } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import Modal from '../UI/Modal'
+import { languages } from '../../utils/constants/languages'
+import { renderFlag } from '../../utils/general/renderFlag'
 
 const LanguageModal = ({ open, onClose }) => {
-   const { i18n } = useTranslation();
-   const [currentLanguage, setCurrentLanguage] = useState('ru');
+   const { i18n } = useTranslation()
+   const [currentLanguage, setCurrentLanguage] = useState('ru')
 
    const changeLanguage = value => {
-      i18n.changeLanguage(value);
-      setCurrentLanguage(value);
-      onClose();
-   };
+      i18n.changeLanguage(value)
+      setCurrentLanguage(value)
+      onClose()
+   }
 
    return (
       <Modal open={open} onClose={onClose}>
@@ -30,12 +30,12 @@ const LanguageModal = ({ open, onClose }) => {
             ))}
          </LanguageContainer>
       </Modal>
-   );
-};
+   )
+}
 
-export default LanguageModal;
+export default LanguageModal
 
-const LanguageContainer = styled(Box)(({ theme }) => ({}));
+const LanguageContainer = styled(Box)(() => ({}))
 
 const Languages = styled(Box)(({ active }) => ({
    display: 'flex',
@@ -56,4 +56,4 @@ const Languages = styled(Box)(({ active }) => ({
       backgroundColor: '#7e52ff',
       color: '#fff',
    },
-}));
+}))

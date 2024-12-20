@@ -55,7 +55,7 @@ const FAKE_DATA = [
       phone: '5555555',
       totalDiscount: 'jfas',
    },
-];
+]
 
 const COLUMNS = [
    {
@@ -86,6 +86,6 @@ const COLUMNS = [
       Header: 'Действия',
       accessor: 'totalDiscount',
    },
-];
+]
 
-export { COLUMNS, FAKE_DATA };
+export { COLUMNS, FAKE_DATA }

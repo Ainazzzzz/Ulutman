@@ -1,9 +1,12 @@
-import { styled } from '@mui/material';
-import CameraAltIcon from '../../../assets/icons/camera-icon.svg?react';
-import { Button } from '../../../components/UI/Button.jsx';
+import { styled } from '@mui/material'
+import CameraAltIcon from '../../../assets/icons/camera-icon.svg?react'
+import { Button } from '../../../components/UI/Button'
+import Input from '../../../components/UI/Input'
 
 export const WrapperInputSelect = styled('div')(({ theme }) => ({
-   width: '327px',
+   minWidth: '300px',
+   maxWidth: '700px',
+   width: '100%',
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
@@ -20,23 +23,22 @@ export const WrapperInputSelect = styled('div')(({ theme }) => ({
       fontWeight: '600',
       marginBottom: '8px',
    },
-}));
+}))
 
 export const StyledDropzone = styled('div')(() => ({
    width: '255px',
-}));
+}))
 export const InputFile = styled('input')({
    display: 'none',
-});
+})
 
 export const CameraIcon = styled(CameraAltIcon)({
    fontSize: 48,
    color: '#777',
-});
+})
 
 export const Container = styled('div')(({ theme }) => ({
    width: '100%',
-   position: 'relative',
 
    [theme.breakpoints.down('md')]: {
       '.MuiInputBase-root': {
@@ -47,6 +49,9 @@ export const Container = styled('div')(({ theme }) => ({
       display: 'flex',
       justifyContent: 'center',
    },
+   '.MuiFormControl-root': {
+      width: '100%',
+   },
    '.block': {
       display: 'flex',
       justifyContent: 'center',
@@ -54,7 +59,7 @@ export const Container = styled('div')(({ theme }) => ({
       alignItems: 'center',
       gap: '10px',
    },
-}));
+}))
 
 export const Label = styled('label')(() => ({
    display: 'flex',
@@ -87,7 +92,7 @@ export const Label = styled('label')(() => ({
       fontSize: '14px',
       fontWeight: '400',
    },
-}));
+}))
 
 export const StyledButton = styled(Button)(({ theme }) => ({
    width: '144px',
@@ -96,42 +101,31 @@ export const StyledButton = styled(Button)(({ theme }) => ({
       width: '100%',
       maxWidth: '343px',
    },
-}));
+}))
 
-export const StyledWriting = styled('textarea')(({ theme }) => ({
-   width: '617px',
-   height: '122px',
+export const StyledWriting = styled(Input)(({ theme }) => ({
    fontSize: '18px',
    fontWeight: '400',
    color: '#909090',
-   padding: '10px',
-   border: '1px solid #CFCFCF',
-   borderRadius: '10px',
    background: 'transparent',
-   resize: 'none',
-   marginTop: '8px',
+   margin: '0 0 3px',
+   maxWidth: '700px',
+   minWidth: '300px',
    [theme.breakpoints.down('md')]: {
       width: '326px',
-      height: '154px',
       '::placeholder': {
          fontSize: '18px',
          fontWeight: '400',
       },
    },
-   '&:hover': {
-      border: '1px solid #282828',
-   },
-   '&:focus': {
-      border: '1px solid #7e52ff',
-   },
-}));
+}))
 
 export const ErrorMessage = styled('div')(() => ({
    color: 'red',
    fontSize: '14px',
    fontWeight: '300',
    position: 'absolute',
-}));
+}))
 
 export const DownloadTitle = styled('p')(({ theme }) => ({
    fontSize: '18px !important',
@@ -140,13 +134,19 @@ export const DownloadTitle = styled('p')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '14px',
    },
-}));
+}))
 
 export const ImagePreview = styled('img')(() => ({
    maxWidth: '100%',
    height: '200px',
    objectFit: 'contain',
-   // marginTop: '10px',
-   // paddingTop: '20px',
    padding: '5px',
-}));
+}))
+
+export const DateLabelStyle = styled('p')(() => ({
+   fontWeight: 600,
+   lineHeight: '21px',
+   margin: '0 0 8px 0',
+   gap: '14px',
+   fontSize: '18px',
+}))

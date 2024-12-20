@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { complaintsThunks, getComplaintsFilter } from './complaintsThunks';
+import { createSlice } from '@reduxjs/toolkit'
+import { complaintsThunks, getComplaintsFilter } from './complaintsThunks'
 
 export const complaintsSlice = createSlice({
    name: 'complaints',
@@ -11,38 +11,38 @@ export const complaintsSlice = createSlice({
       checkAllComplaints: (state, { payload }) => {
          state.data = payload.data.map(item => {
             if (payload.checked) {
-               return { ...item, checked: true };
+               return { ...item, checked: true }
             }
-            return { ...item, checked: false };
-         });
+            return { ...item, checked: false }
+         })
       },
       checkCopmlaint: (state, { payload }) => {
          state.data = state.data.map(item => {
             if (item.id === payload.data.id) {
-               return { ...item, checked: payload.checked };
+               return { ...item, checked: payload.checked }
             }
-            return item;
-         });
+            return item
+         })
       },
    },
 
    extraReducers: builder => {
       builder
          .addCase(complaintsThunks.fulfilled, (state, action) => {
-            state.data = action.payload;
-            state.isLoading = false;
+            state.data = action.payload
+            state.isLoading = false
          })
          .addCase(complaintsThunks.pending, state => {
-            state.isLoading = true;
+            state.isLoading = true
          })
          .addCase(complaintsThunks.rejected, state => {
-            state.isLoading = true;
-         });
+            state.isLoading = true
+         })
 
       builder.addCase(getComplaintsFilter.fulfilled, (state, { payload }) => {
-         state.data = payload;
-      });
+         state.data = payload
+      })
    },
-});
+})
 
-export const { checkAllComplaints, checkCopmlaint } = complaintsSlice.actions;
+export const { checkAllComplaints, checkCopmlaint } = complaintsSlice.actions

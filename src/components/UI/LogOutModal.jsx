@@ -1,18 +1,18 @@
-import React from 'react';
-import Modal from './Modal';
-import { Button } from './Button';
-import { styled } from '@mui/material';
-import { logOut } from '../../redux/auth/authThunk';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import { styled } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import Modal from './Modal'
+import { Button } from './Button'
+import { logOut } from '../../redux/auth/authThunk'
 
 const LogOutModal = ({ open, onClose }) => {
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
 
    const handleLogout = () => {
-      dispatch(logOut({ navigate, toggleModal: onClose }));
-   };
+      dispatch(logOut({ navigate, toggleModal: onClose }))
+   }
 
    return (
       <Modal open={open} handleClose={onClose}>
@@ -27,10 +27,10 @@ const LogOutModal = ({ open, onClose }) => {
             </div>
          </Container>
       </Modal>
-   );
-};
+   )
+}
 
-export default LogOutModal;
+export default LogOutModal
 
 const Container = styled('div')(() => ({
    textAlign: 'center',
@@ -44,4 +44,4 @@ const Container = styled('div')(() => ({
       gap: '20px',
       justifyContent: 'center',
    },
-}));
+}))

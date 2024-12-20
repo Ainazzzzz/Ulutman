@@ -1,61 +1,50 @@
-import { useState } from 'react';
-import { Grid, styled, useMediaQuery } from '@mui/material';
-import { CardItem } from './CardItem';
-import { SceletonCard } from './SceletonCard';
-import { Advertising } from './Advertising';
-import { useDispatch, useSelector } from 'react-redux';
+/* eslint-disable import/no-cycle */
+import { useState } from 'react'
+import { Grid, styled, useMediaQuery } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { CardItem } from './CardItem'
+import { SceletonCard } from './SceletonCard'
+import { Advertising } from './Advertising'
 import {
    deleteFavoriteStatus,
    updateFavoriteStatus,
-} from '../../../redux/main/mainThunk';
-import { SignIn } from '../../../pages/user/auth/SignIn';
-import { useNavigate } from 'react-router-dom';
-import { PATHS } from '../../../utils/constants/paths';
+} from '../../../redux/main/mainThunk'
+import { SignIn } from '../../../pages/user/auth/SignIn'
+import { PATHS } from '../../../utils/constants/paths'
 
-export const CardList = ({ cards, advertising, loading, onDeleteById }) => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const { isAuth } = useSelector(state => state.auth);
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
-   const [openLogin, setOpenLogin] = useState(false);
+export const CardList = ({ cards, advertising, loading }) => {
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const { isAuth } = useSelector(state => state.auth)
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+   const [openLogin, setOpenLogin] = useState(false)
 
    const updateFavoriteHandler = id => {
       if (isAuth) {
-         dispatch(updateFavoriteStatus(id));
+         dispatch(updateFavoriteStatus(id))
       } else {
-         setOpenLogin(true);
+         setOpenLogin(true)
       }
-   };
+   }
 
    const deleteFavoriteHandler = id => {
       if (isAuth) {
-         dispatch(deleteFavoriteStatus(id));
+         dispatch(deleteFavoriteStatus(id))
       } else {
-         setOpenLogin(true);
+         setOpenLogin(true)
       }
-   };
+   }
 
    const handleCloseLogin = () => {
-      setOpenLogin(false);
-   };
+      setOpenLogin(false)
+   }
 
    const handleNavigateDetail = id => {
-      navigate(PATHS.USER.DETAILS.replace(':detailsInfo', id));
-   };
+      navigate(PATHS.USER.DETAILS.replace(':id', id))
+   }
    return (
       <StyledContainer>
-         {loading && <SceletonCard />}
-         <CardListBox container spacing={2.5}>
-            {cards?.map(card => (
-               <Grid item xs={12} sm={6} md={4} lg={3} key={card.id}>
-                  <CardItem
-                     {...card}
-                     onDeleteById={onDeleteById}
-                     detailFavorite={card.detailFavorite}
-                  />
-               </Grid>
-            ))}
-         </CardListBox>
          {loading ? (
             <SceletonCard />
          ) : (
@@ -74,22 +63,21 @@ export const CardList = ({ cards, advertising, loading, onDeleteById }) => {
          )}
          {isMobile && advertising && (
             <WrapperAdvertising>
-               {advertising?.map((image, i) => (
-                  <Advertising image={image} key={i} />
+               {advertising?.map(image => (
+                  <Advertising image={image} key={crypto.randomUUID()} />
                ))}
             </WrapperAdvertising>
          )}
          <SignIn open={openLogin} onClose={handleCloseLogin} />{' '}
       </StyledContainer>
-   );
-};
+   )
+}
 
 const StyledContainer = styled('div')(({ theme }) => ({
    padding: theme.breakpoints.down('md') ? '0' : '0 60px',
-   display: 'flex',
    gap: '10px',
    width: '100%',
-}));
+}))
 
 export const CardListBox = styled(Grid)({
    marginTop: '20px',
@@ -102,11 +90,11 @@ export const CardListBox = styled(Grid)({
          height: '250px',
       },
    },
-});
+})
 
 const WrapperAdvertising = styled('div')({
    display: 'flex',
    flexDirection: 'column',
    gap: '20px',
    marginTop: '40px',
-});
+})

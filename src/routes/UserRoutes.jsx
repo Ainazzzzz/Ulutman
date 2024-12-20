@@ -1,15 +1,17 @@
-import { Categories } from '../components/Categories.jsx';
-import { CategoryTab } from '../components/User/CategoryTab.jsx';
-import { FeaturedAds } from '../components/User/FeaturedAds.jsx';
-import { Profile } from '../components/User/Profile';
-import { MainPage } from '../pages/MainPage';
-import { CreateAdPage } from '../pages/user/CreateAdPage';
-import DetailInfo from '../pages/user/detail-info/DetailInfo.jsx';
-import { MyPage } from '../pages/user/MyPage.jsx';
-import { RecommendationPage } from '../pages/user/RecommendationPage.jsx';
-import { SearchMainPage } from '../pages/user/SearchMainPage.jsx';
-import { PATHS } from '../utils/constants/paths.js';
-import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole';
+import { Categories } from '../components/Categories'
+import { Ads } from '../components/User/Ads'
+import { CategoryTab } from '../components/User/CategoryTab'
+import { FeaturedAds } from '../components/User/FeaturedAds'
+import { Profile } from '../components/User/Profile'
+import { MainPage } from '../pages/MainPage'
+import AdversitingPage from '../pages/user/AdversitingPage'
+import { CreateAdPage } from '../pages/user/CreateAdPage'
+import DetailInfo from '../pages/user/detail-info/DetailInfo'
+import { MyPage } from '../pages/user/MyPage'
+import { RecommendationPage } from '../pages/user/RecommendationPage'
+import { SearchMainPage } from '../pages/user/SearchMainPage'
+import { PATHS } from '../utils/constants/paths'
+import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole'
 
 export const UserRoutes = role => [
    {
@@ -29,7 +31,7 @@ export const UserRoutes = role => [
       element: (
          <PrivateAuthRouteByRole
             role={role}
-            roles={['USER']}
+            roles={['GUEST', 'USER']}
             fallBackPath={PATHS.USER}
             RouteComponent={<Categories />}
          />
@@ -69,7 +71,7 @@ export const UserRoutes = role => [
       element: (
          <PrivateAuthRouteByRole
             role={role}
-            roles={['USER']}
+            roles={['GUEST', 'USER']}
             fallBackPath={PATHS.USER.ROOT}
             RouteComponent={<DetailInfo />}
          />
@@ -104,7 +106,7 @@ export const UserRoutes = role => [
                   role={role}
                   roles={['USER']}
                   fallBackPath={PATHS.USER.ROOT}
-                  RouteComponent={<div>my ads</div>}
+                  RouteComponent={<Ads />}
                />
             ),
          },
@@ -132,4 +134,15 @@ export const UserRoutes = role => [
          />
       ),
    },
-];
+   {
+      path: PATHS.USER.ADVERTISING_PAGE,
+      element: (
+         <PrivateAuthRouteByRole
+            role={role}
+            roles={['USER']}
+            fallBackPath={PATHS.USER.ROOT}
+            RouteComponent={<AdversitingPage />}
+         />
+      ),
+   },
+]

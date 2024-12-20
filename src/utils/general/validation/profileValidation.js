@@ -1,10 +1,10 @@
-import * as Yup from 'yup';
+import * as Yup from 'yup'
 
 export const profileValidation = Yup.object({
-   username: Yup.string().required('Имя обязательно'),
+   name: Yup.string().required('Имя обязательно'),
    lastName: Yup.string().required('Фамилия обязательна'),
    phoneNumber: Yup.string().required('Телефон обязателен'),
-   emailAddress: Yup.string()
+   email: Yup.string()
       .email('Неправильный формат email')
       .required('Email обязателен'),
-});
+})

@@ -1,13 +1,13 @@
-import SliderFirst from '../../assets/images/sliderfirst.jpg';
-import SliderSehond from '../../assets/images/slidersehond.jpg';
-import SliderThree from '../../assets/images/sliderthree.jpg';
-import SliderFour from '../../assets/images/sliderfour.jpg';
-import SliderFive from '../../assets/images/sliderfive.jpg';
-import SliderSeven from '../../assets/images/sliderseven.jpg';
+import SliderFirst from '../../assets/images/sliderfirst.jpg'
+import SliderSehond from '../../assets/images/slidersehond.jpg'
+import SliderThree from '../../assets/images/sliderthree.jpg'
+import SliderFour from '../../assets/images/sliderfour.jpg'
+import SliderFive from '../../assets/images/sliderfive.jpg'
+import SliderSeven from '../../assets/images/sliderseven.jpg'
 
-import SliderTen from '../../assets/images/sliderten.jpg';
-import SliderEleven from '../../assets/images/slidereleven.jpg';
-import SliderTwelve from '../../assets/images/slidertwelve.jpg';
+import SliderTen from '../../assets/images/sliderten.jpg'
+import SliderEleven from '../../assets/images/slidereleven.jpg'
+import SliderTwelve from '../../assets/images/slidertwelve.jpg'
 
 export const slider = [
    {
@@ -55,4 +55,4 @@ export const slider = [
       id: 11,
       sliderImages: SliderTwelve,
    },
-];
+]

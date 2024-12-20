@@ -1,14 +1,14 @@
-import { styled, useMediaQuery } from '@mui/material';
-import { RingLoader } from 'react-spinners';
+import { styled, useMediaQuery } from '@mui/material'
+import { RingLoader } from 'react-spinners'
 
 export const Loading = () => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    return (
       <StyledLoader>
          <RingLoader size={isMobile ? 140 : 260} color="#064b84" />
       </StyledLoader>
-   );
-};
+   )
+}
 
 const StyledLoader = styled('div')({
    width: '100%',
@@ -21,4 +21,4 @@ const StyledLoader = styled('div')({
    justifyContent: 'center',
    alignItems: 'center',
    zIndex: 999,
-});
+})

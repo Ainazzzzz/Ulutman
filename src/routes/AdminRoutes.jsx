@@ -1,35 +1,28 @@
-import { Navigate } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
-import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole.jsx';
-import { Loading } from '../components/UI/Loading.jsx';
-import { PATHS } from '../utils/constants/paths.js';
+import { Navigate } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole'
+import { Loading } from '../components/UI/Loading'
+import { PATHS } from '../utils/constants/paths'
 
-const Dashboard = lazy(() => import('../pages/Admin/dashboard/Dashboard.jsx'));
-const AddMailingPage = lazy(() => import('../pages/Admin/AddMailingPage'));
-const ModerationPage = lazy(
-   () => import('../pages/Admin/moderation/ModerationPage'),
-);
-const Ads = lazy(() => import('../pages/Admin/ads/Ads.jsx'));
+const Advertising = lazy(() => import('../pages/Admin/advertising/Advertising'))
+
+const Dashboard = lazy(() => import('../pages/Admin/dashboard/Dashboard'))
+const AddMailingPage = lazy(() => import('../pages/Admin/AddMailingPage'))
+
+const Ads = lazy(() => import('../pages/Admin/ads/Ads'))
 const CategoryAdmin = lazy(
    () => import('../pages/Admin/category/CategoryAdmin'),
-);
-const ComplaintsModerationPage = lazy(
-   () => import('../pages/Admin/moderation/ComplaintsModerationPage'),
-);
-const MediaFilesModerationPage = lazy(
-   () => import('../pages/Admin/moderation/MediaFilesModerationPage'),
-);
-const Users = lazy(() => import('../pages/Admin/users/Users'));
-const AddAdmin = lazy(() => import('../pages/Admin/users/AddAdmin'));
-const AdminMailing = lazy(
-   () => import('../pages/Admin/mailing/AdminMailing.jsx'),
-);
+)
+
+const Users = lazy(() => import('../pages/Admin/users/Users'))
+const AddAdmin = lazy(() => import('../pages/Admin/users/AddAdmin'))
+const AdminMailing = lazy(() => import('../pages/Admin/mailing/AdminMailing'))
 
 export const AdminRoutes = role => {
    const adminRoutes = [
       {
          path: '',
-         element: <Navigate to={'dashboard'} />,
+         element: <Navigate to="dashboard" />,
       },
       {
          path: PATHS.ADMIN.DASHBOARD,
@@ -92,12 +85,7 @@ export const AdminRoutes = role => {
          ),
       },
       {
-         path: PATHS.ADMIN.MODERATION,
-         element: <Navigate to={'complaints'} />,
-      },
-
-      {
-         path: PATHS.ADMIN.COMPLAINTS,
+         path: PATHS.ADMIN.ADVERTISING,
          element: (
             <PrivateAuthRouteByRole
                role={role}
@@ -105,27 +93,47 @@ export const AdminRoutes = role => {
                fallBackPath={PATHS.HOME}
                RouteComponent={
                   <Suspense fallback={<Loading />}>
-                     <ComplaintsModerationPage />
+                     <Advertising />
                   </Suspense>
                }
             />
          ),
       },
-      {
-         path: PATHS.ADMIN.COMMENTS,
-         element: (
-            <PrivateAuthRouteByRole
-               role={role}
-               roles={['ADMIN']}
-               fallBackPath={PATHS.HOME}
-               RouteComponent={
-                  <Suspense fallback={<Loading />}>
-                     <ModerationPage />
-                  </Suspense>
-               }
-            />
-         ),
-      },
+      // {
+      //    path: PATHS.ADMIN.MODERATION,
+      //    element: <Navigate to={'complaints'} />,
+      // },
+      //
+      // {
+      //    path: PATHS.ADMIN.COMPLAINTS,
+      //    element: (
+      //       <PrivateAuthRouteByRole
+      //          role={role}
+      //          roles={['ADMIN']}
+      //          fallBackPath={PATHS.HOME}
+      //          RouteComponent={
+      //             <Suspense fallback={<Loading />}>
+      //                <ComplaintsModerationPage />
+      //             </Suspense>
+      //          }
+      //       />
+      //    ),
+      // },
+      // {
+      //    path: PATHS.ADMIN.COMMENTS,
+      //    element: (
+      //       <PrivateAuthRouteByRole
+      //          role={role}
+      //          roles={['ADMIN']}
+      //          fallBackPath={PATHS.HOME}
+      //          RouteComponent={
+      //             <Suspense fallback={<Loading />}>
+      //                <ModerationPage />
+      //             </Suspense>
+      //          }
+      //       />
+      //    ),
+      // },
       // {
       //    path: 'moderation/images',
       //    element: (
@@ -187,21 +195,6 @@ export const AdminRoutes = role => {
             />
          ),
       },
-      // {
-      //    path: 'settings',
-      //    element: (
-      //       <PrivateAuthRouteByRole
-      //          role={role}
-      //          roles={['ADMIN']}
-      //          fallBackPath={PATHS.HOME}
-      //          RouteComponent={
-      //             <Suspense fallback={<Loading />}>
-      //                <h1>Settings Page</h1>
-      //             </Suspense>
-      //          }
-      //       />
-      //    ),
-      // },
-   ];
-   return adminRoutes;
-};
+   ]
+   return adminRoutes
+}

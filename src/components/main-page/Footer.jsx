@@ -1,19 +1,19 @@
-import { styled } from '@mui/material';
-import React from 'react';
-import Calling from '../../assets/icons/calling.svg?react';
+import { styled } from '@mui/material'
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import Calling from '../../assets/icons/calling.svg?react'
+import { categoryTab } from '../../utils/constants/main'
 
 const Footer = () => {
    return (
       <WrapperDiv>
          <TitleUlutman>Ulutman</TitleUlutman>
          <ContainerCategory>
-            <div>Работа</div>
-            <div>Аренда</div>
-            <div>Гостиница</div>
-            <div>Недвижимость</div>
-            <div>Услуги</div>
-            <div>Авто</div>
-            <div>Продам</div>
+            {categoryTab.map(({ title, category }) => (
+               <NavItem key={title} to={`category/${category}`}>
+                  <span>{title}</span>
+               </NavItem>
+            ))}
          </ContainerCategory>
          <NumberContainer>
             <div>
@@ -22,10 +22,10 @@ const Footer = () => {
             <NumverTitle>+7(903) 263 18 65</NumverTitle>
          </NumberContainer>
       </WrapperDiv>
-   );
-};
+   )
+}
 
-export default Footer;
+export default Footer
 const WrapperDiv = styled('footer')(({ theme }) => ({
    display: 'flex',
    background: '#fff',
@@ -42,7 +42,7 @@ const WrapperDiv = styled('footer')(({ theme }) => ({
       justifyContent: 'flex-start',
       paddingLeft: '10px',
    },
-}));
+}))
 const ContainerCategory = styled('div')(({ theme }) => ({
    display: 'flex',
 
@@ -61,7 +61,7 @@ const ContainerCategory = styled('div')(({ theme }) => ({
       gridTemplateColumns: ' 1fr 1fr ',
       columnGap: '160px',
    },
-}));
+}))
 
 const TitleUlutman = styled('p')(({ theme }) => ({
    display: 'flex',
@@ -80,7 +80,7 @@ const TitleUlutman = styled('p')(({ theme }) => ({
       justifyContent: 'center',
       padding: '24px',
    },
-}));
+}))
 const NumberContainer = styled('div')(({ theme }) => ({
    display: 'flex',
    fontFamily: 'Inter',
@@ -95,7 +95,7 @@ const NumberContainer = styled('div')(({ theme }) => ({
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
    },
-}));
+}))
 const NumverTitle = styled('div')(({ theme }) => ({
    fontFamily: 'Inter',
    fontSize: '1.125rem',
@@ -103,7 +103,7 @@ const NumverTitle = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       fontSize: '1rem',
    },
-}));
+}))
 const CallingIcon = styled(Calling)(({ theme }) => ({
    width: '21px',
    height: '21px',
@@ -111,4 +111,18 @@ const CallingIcon = styled(Calling)(({ theme }) => ({
       width: '1.125rem',
       height: '1.125rem',
    },
-}));
+}))
+
+const NavItem = styled(NavLink)(() => ({
+   color: '#222',
+   textDecoration: 'none',
+   cursor: 'pointer',
+
+   ':hover': {
+      textDecoration: 'underline',
+   },
+
+   '&.active': {
+      textDecoration: 'underline',
+   },
+}))
