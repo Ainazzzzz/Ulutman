@@ -33,6 +33,8 @@ export const store = configureStore({
       [categoriesSlice.name]: categoriesSlice.reducer,
       [advertisingSlice.name]: advertisingSlice.reducer,
       [userCategoriesSlice.name]: userCategoriesSlice.reducer,
+      [mailingSlice.name]: mailingSlice.reducer,
+      [categoriesSlice.name]: categoriesSlice.reducer,
       [fileSlice.name]: fileSlice.reducer,
    },
 })

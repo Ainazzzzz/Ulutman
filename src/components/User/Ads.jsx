@@ -8,11 +8,7 @@ import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react'
 import { MyAds } from './MyAds'
 import TabsUi from '../UI/TabsUi'
 import { DeleteMyAdsModal } from './DeleteMyAdsModal'
-import {
-   getDeactivatePublishes,
-   getMyAds,
-   getRejectedPublishes,
-} from '../../redux/users/myAdsThunk'
+import { getMyAds, getRejectedPublishes } from '../../redux/users/myAdsThunk'
 
 export const Ads = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
@@ -51,8 +47,8 @@ export const Ads = () => {
       tabValue === '1'
          ? dispatch(getMyAds())
          : tabValue === '2'
-           ? dispatch(getDeactivatePublishes())
-           : dispatch(getRejectedPublishes())
+           ? dispatch(getRejectedPublishes())
+           : dispatch(MyAds())
    }
 
    useEffect(() => {

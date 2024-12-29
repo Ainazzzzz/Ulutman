@@ -15,6 +15,7 @@ export const myAdsSlice = createSlice({
       myAds: [],
       favoriteCounts: 0,
       raisingPublication: [],
+      errorMessage: 'Произошла ошибка при удалении',
    },
    reducers: {},
 
@@ -41,6 +42,11 @@ export const myAdsSlice = createSlice({
             state.rejectedAds = state.rejectedAds.filter(
                ad => !idsToDelete.includes(ad.id),
             )
+            state.errorMessage = ''
+         })
+         .addCase(deleteSelectedAds.rejected, (state, action) => {
+            state.errorMessage =
+               action.payload || 'Произошла ошибка при удалении'
          })
          .addCase(getFavoriteCount.fulfilled, (state, action) => {
             state.favoriteCounts = action.payload
