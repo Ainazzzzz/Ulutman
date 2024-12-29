@@ -47,7 +47,6 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
             <p>Нет данных для выбранной вкладки</p>
          ) : (
             myAds.map(item => {
-               const favoriteCount = favoriteCounts[item.id] || 0
                return (
                   <Wrapper key={item.id}>
                      <BigBox>
@@ -68,7 +67,7 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
                               <SecondBlock>
                                  <SecondMiniBlock>
                                     <Favorite />
-                                    <span>{favoriteCount}</span>
+                                    <span>{favoriteCounts}</span>
                                  </SecondMiniBlock>
                                  <SecondMiniBlock>
                                     <Call />

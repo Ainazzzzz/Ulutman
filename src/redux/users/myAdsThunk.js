@@ -1,55 +1,55 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../../config/axiosInstance';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { axiosInstance } from '../../config/axiosInstance'
 
 export const getMyAds = createAsyncThunk(
    'myAds',
    async (__, { getState, rejectWithValue }) => {
       try {
-         const userId = getState().auth.userData.userId;
+         const { userId } = getState().auth.userData
 
          const { data } = await axiosInstance.get(
             `users/my-publishes/${userId}`,
-         );
+         )
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error.response?.data || error.message);
+         return rejectWithValue(error.response?.data || error.message)
       }
    },
-);
+)
 
 export const MyAds = createAsyncThunk(
    'myAds/getMyAds',
    async (__, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get('users/my-publishes/my-ads');
+         const { data } = await axiosInstance.get('users/my-publishes/my-ads')
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error.response?.data || error.message);
+         return rejectWithValue(error.response?.data || error.message)
       }
    },
-);
+)
 
 export const RaisingPublication = createAsyncThunk(
    'myAds/raising',
    async (__, { getState, rejectWithValue }) => {
       try {
-         const userId = getState().auth.userData.userId;
+         const { userId } = getState().auth.userData
 
          const { data } = await axiosInstance.get(
             `users/my-publishes/raising-the- publication`,
             {
                params: { userId },
             },
-         );
+         )
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error.response?.data || error.message);
+         return rejectWithValue(error.response?.data || error.message)
       }
    },
-);
+)
 
 export const deleteSelectedAds = createAsyncThunk(
    'myAds/deleteSelectedAds',
@@ -60,63 +60,62 @@ export const deleteSelectedAds = createAsyncThunk(
             {
                data: selectedIds,
             },
-         );
-         dispatch(getMyAds());
+         )
+         dispatch(getMyAds())
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error.response?.data || error.message);
+         return rejectWithValue(error.response?.data || error.message)
       }
    },
-);
+)
 
 export const getRejectedPublishes = createAsyncThunk(
    'myAds/getRejectedPublishes',
    async (_, { getState, rejectWithValue }) => {
       try {
-         const userId = getState().auth.userData.userId;
+         const { userId } = getState().auth.userData
          const { data } = await axiosInstance.get(
             `users/my-publishes/rejected-publishes/${userId}`,
-         );
-         return data;
+         )
+         return data
       } catch (error) {
-         return rejectWithValue(error.response?.data || error.message);
+         return rejectWithValue(error.response?.data || error.message)
       }
    },
-);
+)
 
 export const getDeactivatePublishes = createAsyncThunk(
    'myAds/getDeactivatePublishes',
    async (_, { getState, rejectWithValue }) => {
       try {
-         const userId = getState().auth.userData.userId;
+         const { userId } = getState().auth.userData
          const { data } = await axiosInstance.get(
             `users/my-publishes/inactive-publishes/${userId}`,
-         );
-         return data;
+         )
+         return data
       } catch (error) {
-         return rejectWithValue(error.response?.data || error.message);
+         return rejectWithValue(error.response?.data || error.message)
       }
    },
-);
+)
 
 export const getFavoriteCount = createAsyncThunk(
    'myAds/favoriteCount',
    async ({ publishId }, { getState, rejectWithValue }) => {
       try {
-         const userId = getState().auth.userData.userId;
+         const { userId } = getState().auth.userData
 
          const { data } = await axiosInstance.get(`users/my-publishes/count`, {
             params: {
-               userId: userId,
-               publishId: publishId,
+               userId,
+               publishId,
             },
-         });
-         console.log(data);
+         })
 
-         return data;
+         return data
       } catch (error) {
-         return rejectWithValue(error.response?.data || error.message);
+         return rejectWithValue(error.response?.data || error.message)
       }
    },
-);
+)

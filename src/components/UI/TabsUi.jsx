@@ -6,6 +6,7 @@ const TabsUi = ({ tabs, onTabChange, activeTab }) => {
    const handleChange = (event, newValue) => {
       onTabChange(newValue)
    }
+
    return (
       <BoxStyle>
          <TabContext value={activeTab}>
@@ -76,6 +77,6 @@ const TabsStyle = styled(Tab)(({ theme }) => ({
       fontSize: '18px',
    },
    '&.Mui-selected': {
-      color: 'black',
+      color: '#7E52FF',
    },
 }))
