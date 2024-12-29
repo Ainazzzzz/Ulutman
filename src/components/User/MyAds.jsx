@@ -1,73 +1,118 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { styled } from '@mui/material'
-import { MY_ADS } from '../../utils/constants/myads'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { CheckBox } from '../UI/Checkbox'
 import Clock from '../../assets/icons/clock-icon.svg?react'
-import Eye from '../../assets/icons/eye-icon.svg?react'
-import Message from '../../assets/icons/gray-message.svg?react'
 import Favorite from '../../assets/icons/gray-heart.svg?react'
 import Call from '../../assets/icons/call-icon.svg?react'
-import Edit from '../../assets/icons/pensil-icon.svg?react'
-import Deactivate from '../../assets/icons/deactivate-icon.svg?react'
+import {
+   getFavoriteCount,
+   RaisingPublication,
+} from '../../redux/users/myAdsThunk'
+import { PhoneModal } from '../UI/PhoneModal'
 
-export const MyAds = ({ selectedIds, setSelectedIds }) => {
+export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
+   const dispatch = useDispatch()
+   const [openPhoneModal, setOpenPhoneModal] = useState(false)
+   const [liftTimestamps, setLiftTimestamps] = useState({})
+
+   const { favoriteCounts } = useSelector(state => state.myAds)
+
    const handleCheckboxChange = id => {
       setSelectedIds(prev =>
          prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
       )
    }
 
+   const handleRaising = adId => {
+      dispatch(RaisingPublication())
+      const now = Date.now()
+      setLiftTimestamps(prev => ({
+         ...prev,
+         [adId]: now,
+      }))
+   }
+
+   const handleOpenPhoneModal = () => {
+      setOpenPhoneModal(!openPhoneModal)
+   }
+
+   const canLiftAd = adId => {
+      const lastLift = liftTimestamps[adId]
+      if (!lastLift) return true // Если объявление никогда не поднималось
+      const timeSinceLastLift = Date.now() - lastLift
+      return timeSinceLastLift >= 24 * 60 * 60 * 1000 // 24 часа
+   }
+
+   useEffect(() => {
+      myAds.forEach(item => {
+         dispatch(getFavoriteCount({ publishId: item.id }))
+      })
+   }, [dispatch, myAds])
+
    return (
       <CONTAINER>
-         {MY_ADS.map(item => (
-            <Wrapper key={item.id}>
-               <BigBox>
-                  <CheckBox
-                     checked={selectedIds.includes(item.id)}
-                     onChange={() => handleCheckboxChange(item.id)}
-                  />
-                  <Box>
-                     <ImageStyle src={item.image} alt="room-image" />
-                     <Container>
-                        <Title>{item.amount}х комнатная квартира</Title>
-                        <FirstBlock>
-                           <MiniBlock>
-                              <Clock />
-                              <span>{item.date}</span>
-                           </MiniBlock>
-                           <MiniBlock>
-                              <Eye />
-                              <span>{item.visibility}</span>
-                           </MiniBlock>
-                        </FirstBlock>
-                        <SecondBlock>
-                           <SecondMiniBlock>
-                              <Message />
-                              <span>{item.message}</span>
-                           </SecondMiniBlock>
-                           <SecondMiniBlock>
-                              <Favorite />
-                              <span>{item.favorites}</span>
-                           </SecondMiniBlock>
-                           <SecondMiniBlock>
-                              <Call />
-                              <span>{item.calls}</span>
-                           </SecondMiniBlock>
-                        </SecondBlock>
-                     </Container>
-                  </Box>
-               </BigBox>
-               <AnotherContainer>
-                  <AnotherBlock>
-                     <Edit />
-                     <p>Редактировать</p>
-                  </AnotherBlock>
-                  <AnotherBlock>
-                     <Deactivate />
-                     <p>Деактивировать</p>
-                  </AnotherBlock>
-               </AnotherContainer>
-            </Wrapper>
-         ))}
+         {myAds.length === 0 ? (
+            <p>Нет данных для выбранной вкладки</p>
+         ) : (
+            myAds.map(item => {
+               return (
+                  <Wrapper key={item.id}>
+                     <BigBox>
+                        <CheckBox
+                           checked={selectedIds.includes(item.id)}
+                           onChange={() => handleCheckboxChange(item.id)}
+                        />
+                        <Box>
+                           <ImageStyle src={item.images} alt="room-image" />
+                           <Container>
+                              <Title>{item.title}</Title>
+                              <FirstBlock>
+                                 <MiniBlock>
+                                    <Clock />
+                                    <span>{item.createDate}</span>
+                                 </MiniBlock>
+                              </FirstBlock>
+                              <SecondBlock>
+                                 <SecondMiniBlock>
+                                    <Favorite />
+                                    <span>{favoriteCounts}</span>
+                                 </SecondMiniBlock>
+                                 <SecondMiniBlock>
+                                    <Call onClick={handleOpenPhoneModal} />
+                                    {openPhoneModal && <PhoneModal />}
+                                 </SecondMiniBlock>
+                              </SecondBlock>
+                           </Container>
+                        </Box>
+                     </BigBox>
+                     <AnotherContainer>
+                        <AnotherBlock>
+                           <p
+                              onClick={() => {
+                                 if (canLiftAd(item.id)) {
+                                    handleRaising(item.id)
+                                 }
+                              }}
+                              style={{
+                                 cursor: canLiftAd(item.id)
+                                    ? 'pointer'
+                                    : 'not-allowed',
+                                 color: canLiftAd(item.id) ? 'black' : 'gray',
+                              }}
+                           >
+                              {canLiftAd(item.id)
+                                 ? 'Поднять'
+                                 : ' Повторно можно поднять через 24 часа'}
+                           </p>
+                        </AnotherBlock>
+                     </AnotherContainer>
+                  </Wrapper>
+               )
+            })
+         )}
       </CONTAINER>
    )
 }

@@ -1,4 +1,5 @@
 import { Categories } from '../components/Categories'
+import { Ads } from '../components/User/Ads'
 import { CategoryTab } from '../components/User/CategoryTab'
 import { FeaturedAds } from '../components/User/FeaturedAds'
 import { Profile } from '../components/User/Profile'
@@ -105,7 +106,7 @@ export const UserRoutes = role => [
                   role={role}
                   roles={['USER']}
                   fallBackPath={PATHS.USER.ROOT}
-                  RouteComponent={<div>my ads</div>}
+                  RouteComponent={<Ads />}
                />
             ),
          },

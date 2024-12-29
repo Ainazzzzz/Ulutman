@@ -1,16 +1,17 @@
 import { styled } from '@mui/material'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Modal from '../UI/Modal'
+import { deleteSelectedAds } from '../../redux/users/myAdsThunk'
 
 export const DeleteMyAdsModal = ({ userId, selectedIds }) => {
-   const [isOpen, setIsOpen] = useState(true)
-
+   const dispatch = useDispatch()
    const errorMessage = useSelector(state => state.myAds.errorMessage)
+   const [isOpen, setIsOpen] = useState(true)
 
    const handleDeleteSelectedAds = () => {
       if (selectedIds.length > 0) {
-         // dispatch(deleteSelectedAds({ userId, selectedIds }))
+         dispatch(deleteSelectedAds({ userId, selectedIds }))
       }
       setIsOpen(false)
    }
@@ -18,7 +19,6 @@ export const DeleteMyAdsModal = ({ userId, selectedIds }) => {
    const handleCloseModal = () => {
       setIsOpen(!isOpen)
    }
-
    return (
       <Modal open={isOpen} handleClose={handleCloseModal} variant="delete">
          <Container>

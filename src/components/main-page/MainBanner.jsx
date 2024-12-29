@@ -191,6 +191,10 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
+
+   '& .MuiSelect-select': {
+      padding: '18px 0 15px 10px',
+   },
 }))
 
 const NavContainer = styled('nav')(({ theme }) => ({
