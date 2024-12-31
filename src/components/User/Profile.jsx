@@ -1,11 +1,11 @@
 import { styled } from '@mui/material'
 import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
 import { Button } from '../UI/Button'
 import Input from '../UI/Input'
 import { profileValidation } from '../../utils/general/validation/profileValidation'
 import { updateUserProfile } from '../../redux/users/profileThunk'
-import { useState } from 'react'
 
 export const Profile = () => {
    const dispatch = useDispatch()
@@ -16,7 +16,6 @@ export const Profile = () => {
    const formik = useFormik({
       initialValues: {
          username: userData.name || '',
-         phoneNumber: '',
          emailAddress: userData.email || '',
       },
       validationSchema: profileValidation,
@@ -35,58 +34,22 @@ export const Profile = () => {
 
    return (
       <Form onSubmit={formik.handleSubmit}>
-         <WrapperFullName>
-            <Container>
-               <StyledInput
-                  label="Имя"
-                  placeholder="Иван"
-                  name="username"
-                  value={formik.values.username}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  autoComplete="given-name"
-                  disabled={!isEdit}
-               />
+         <Container>
+            <StyledInput
+               label="Имя"
+               placeholder="Иван"
+               name="username"
+               value={formik.values.username}
+               onChange={formik.handleChange}
+               onBlur={formik.handleBlur}
+               autoComplete="given-name"
+               disabled={!isEdit}
+            />
 
-               {formik.touched.username && formik.errors.username ? (
-                  <ErrorMessage>{formik.errors.username}</ErrorMessage>
-               ) : null}
-            </Container>
-
-            {/* <Container>
-               <StyledInput
-                  label="Фамилия"
-                  placeholder="Иванов"
-                  name="lastName"
-                  value={formik.values.lastName}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  autoComplete="family-name"
-                  disabled={!isEdit}
-               />
-
-               {formik.touched.lastName && formik.errors.lastName ? (
-                  <ErrorMessage>{formik.errors.lastName}</ErrorMessage>
-               ) : null}
-            </Container> */}
-            <Container>
-               <StyledInput
-                  label="Телефон"
-                  type="number"
-                  placeholder="+7 xxx xxxxxxx"
-                  name="phoneNumber"
-                  value={formik.values.phoneNumber}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  // autoComplete="tel"
-                  disabled={!isEdit}
-               />
-
-               {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                  <ErrorMessage>{formik.errors.phoneNumber}</ErrorMessage>
-               ) : null}
-            </Container>
-         </WrapperFullName>
+            {formik.touched.username && formik.errors.username ? (
+               <ErrorMessage>{formik.errors.username}</ErrorMessage>
+            ) : null}
+         </Container>
 
          <Container>
             <EmailInput
@@ -128,17 +91,8 @@ const Form = styled('form')(() => ({
    maxWidth: '678px',
 }))
 
-const WrapperFullName = styled('div')(({ theme }) => ({
-   width: '100%',
-   display: 'flex',
-   gap: '24px',
-   [theme.breakpoints.down('md')]: {
-      flexDirection: 'column',
-   },
-}))
-
 const StyledInput = styled(Input)(({ theme }) => ({
-   width: '327px',
+   width: '100%',
    [theme.breakpoints.down('md')]: {
       width: '100%',
       maxWidth: '463px',
