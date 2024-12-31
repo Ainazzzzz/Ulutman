@@ -1,16 +1,15 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, styled, Tab } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 
-const TabsUi = ({ tabs }) => {
-   const [value, setValue] = useState('1')
-
+const TabsUi = ({ tabs, onTabChange, activeTab }) => {
    const handleChange = (event, newValue) => {
-      setValue(newValue)
+      onTabChange(newValue)
    }
+
    return (
       <BoxStyle>
-         <TabContext value={value}>
+         <TabContext value={activeTab}>
             <ScrollableTabList
                onChange={handleChange}
                aria-label="scrollable auto tabs example"
@@ -72,13 +71,12 @@ const TabsStyle = styled(Tab)(({ theme }) => ({
       left: '50%',
       transform: 'translateX(-50%)',
       width: '80%',
-      borderBottom: '2px solid #7E52FF',
    },
 
    [theme.breakpoints.down('md')]: {
       fontSize: '18px',
    },
    '&.Mui-selected': {
-      color: 'black',
+      color: '#7E52FF',
    },
 }))

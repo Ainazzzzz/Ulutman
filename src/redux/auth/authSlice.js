@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { addAdmin, logOut, signIn, signUp } from './authThunk'
+import { addAdmin, forgotPassword, logOut, signIn, signUp } from './authThunk'
 import { updateUserProfile } from '../users/profileThunk'
 
 const getInitialState = () => {
@@ -78,8 +78,7 @@ export const authSlice = createSlice({
          })
 
       builder
-         .addCase(signUp.fulfilled, (state, action) => {
-            state.userData = action.payload
+         .addCase(signUp.fulfilled, state => {
             state.isAuth = true
             state.isLoading = false
          })
@@ -118,6 +117,18 @@ export const authSlice = createSlice({
             state.isLoading = true
          })
          .addCase(addAdmin.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.payload
+         })
+
+      builder
+         .addCase(forgotPassword.fulfilled, state => {
+            state.isLoading = false
+         })
+         .addCase(forgotPassword.pending, state => {
+            state.isLoading = true
+         })
+         .addCase(forgotPassword.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.payload
          })

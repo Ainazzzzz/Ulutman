@@ -26,7 +26,7 @@ export const SearchInputSelect = ({
                   </InputAdornment>
                ),
 
-               endAdornment: isMobile || (
+               endAdornment: !isMobile ? (
                   <InputAdornment position="end">
                      <StyledSelect
                         value={selectValue}
@@ -35,7 +35,7 @@ export const SearchInputSelect = ({
                         placeholder="выберите метро"
                      />
                   </InputAdornment>
-               ),
+               ) : null,
             }}
          />
          <Button variant="search" onClick={onClick}>
@@ -95,7 +95,7 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    ' .MuiInputBase-input': {
       borderLeft: '1px solid gray',
       fontSize: '18px',
-      padding: '18px 0 25px 10px',
+      padding: '18px 0 15px 10px',
    },
 
    '& .MuiOutlinedInput-notchedOutline': {

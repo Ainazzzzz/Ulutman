@@ -1,6 +1,6 @@
 import { styled } from '@mui/material'
 import ReusableSelect from '../UI/Select'
-import Filter from '../../assets/icons/filter-icon.svg?react'
+import Filter from '../../assets/icons/filter-category-icon.svg?react'
 import RedDeleteIcon from '../../assets/icons/red-delete-icon.svg?react'
 import ReplayIcon from '../../assets/icons/replay-icon.svg?react'
 import { MultiDatePicker } from '../UI/MultiDatePicker'
@@ -121,9 +121,6 @@ const TopSection = styled('div')(() => ({
    flexWrap: 'nowrap',
 
    div: {
-      maxWidth: '200px',
-      minWidth: '100px',
-      maxHeight: '70px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -175,7 +172,7 @@ const FilterWrapper = styled('p')(() => ({
 }))
 
 const StyledDatePickerWrapper = styled('div')(() => ({
-   paddingBottom: '8px',
+   paddingBottom: '4px',
    border: '1px solid #d5d5d5',
 
    '& .MuiOutlinedInput-notchedOutline': {
@@ -184,10 +181,10 @@ const StyledDatePickerWrapper = styled('div')(() => ({
 }))
 
 const StyledSelect = styled(ReusableSelect)(() => ({
-   marginBottom: '18px',
    color: '#202224',
    fontWeight: '700',
    fontSize: '14px',
+   margin: '-10px 0 0 0',
 
    '.MuiSelect-icon': {
       top: '30px',

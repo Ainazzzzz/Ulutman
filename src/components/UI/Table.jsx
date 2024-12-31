@@ -15,7 +15,7 @@ import Pagination from './Pagination'
 import FileIcon from '../../assets/icons/file-icon.svg?react'
 import NoDataIcon from '../../assets/icons/no-data.svg?react'
 
-const Table = ({ column: headers, data }) => {
+const Table = ({ column: headers, data = [] }) => {
    const [page, setPage] = useState(1)
    const [rowsPerPage] = useState(9)
 

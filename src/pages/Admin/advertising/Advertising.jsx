@@ -33,6 +33,9 @@ const Advertising = () => {
       },
    ]
 
+   useEffect(() => {
+      dispatch(getAdvertising())
+   }, [])
    const toggleModal = () => {}
 
    const headers = useMemo(
@@ -45,10 +48,6 @@ const Advertising = () => {
          ),
       [toggleModal],
    )
-
-   useEffect(() => {
-      dispatch(getAdvertising())
-   }, [])
 
    return (
       <Wrapper>
