@@ -7,6 +7,7 @@ export const PATHS = {
       DETAIL_INFO: '/user/detail-info',
       CATEGORY: '/user/category/:subCategory',
       DETAILS: '/user/details/:id',
+      FAVORITE: '/user/favorite',
       MY_PAGE: '/user/my-page',
       MY_ADS: '/user/my-page/my-listings',
       RECOMMENDATIONS: '/user/recommendations',
