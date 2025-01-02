@@ -7,8 +7,8 @@ export const updateUserProfile = createAsyncThunk(
    async ({ profileData, userId, setIsEdit }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.put(`user-accounts/${userId}`, {
-            ...profileData,
-            phoneNumber: String(profileData.phoneNumber),
+            name: profileData.username,
+            email: profileData.emailAddress,
          })
 
          const parsedData = JSON.parse(localStorage.getItem('ULUTMAN') || '{}')
