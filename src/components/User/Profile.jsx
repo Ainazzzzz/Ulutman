@@ -51,6 +51,24 @@ export const Profile = () => {
             ) : null}
          </Container>
 
+         <Container>
+            <EmailInput
+               label="Электронная почта"
+               type="email"
+               placeholder="example@mail.com"
+               name="emailAddress"
+               value={formik.values.emailAddress}
+               onChange={formik.handleChange}
+               onBlur={formik.handleBlur}
+               autoComplete="email"
+               disabled={!isEdit}
+            />
+
+            {formik.touched.emailAddress && formik.errors.emailAddress ? (
+               <ErrorMessage>{formik.errors.emailAddress}</ErrorMessage>
+            ) : null}
+         </Container>
+
          {isEdit ? (
             <BtnContainer>
                <StyledButton onClick={toggleIsEdit} variant="outlined">
@@ -75,6 +93,13 @@ const Form = styled('form')(() => ({
 
 const StyledInput = styled(Input)(({ theme }) => ({
    width: '100%',
+   [theme.breakpoints.down('md')]: {
+      width: '100%',
+      maxWidth: '463px',
+   },
+}))
+
+const EmailInput = styled(Input)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       width: '100%',
       maxWidth: '463px',
