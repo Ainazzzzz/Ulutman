@@ -1,34 +1,103 @@
 import { useState } from 'react'
 import { styled, useMediaQuery } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import Modal from '../UI/Modal'
 import CloseIcon from '../../assets/icons/close-icon.svg?react'
 import Input from '../UI/Input'
 import ResetFilter from '../../assets/icons/reset-filter.svg?react'
 import { Button } from '../UI/Button'
+import {
+   filtermodalThunks,
+   resertFilterThunks,
+} from '../../redux/categories/userCategoriesThunk'
 
 export const FilterModal = () => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
-
+   const [minTotalArea, setMinTotalArea] = useState('')
+   const [maxTotalArea, setMaxTotalArea] = useState('')
+   const [minKitchenArea, setMinKitchenArea] = useState('')
+   const [maxKitchenArea, setMaxKitchenArea] = useState('')
+   const [minLivingArea, setMinLivingArea] = useState('')
+   const [maxLivingArea, setMaxLivingArea] = useState('')
+   const [minYear, setMinYear] = useState('')
+   const [maxYear, setMaxYear] = useState('')
+   const [walkingDistance, setWalkingDistance] = useState('')
+   const [transportDistance, setTransportDistance] = useState('')
+   const [walking, setWalking] = useState()
    const [open, setOpen] = useState(true)
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const dispatch = useDispatch()
+   const [isWalking, setIsWalking] = useState(true)
+   const handleApplyFilters = () => {
+      const filterData = {
+         minTotalArea,
+         maxTotalArea,
+         minKitchenArea,
+         maxKitchenArea,
+         minLivingArea,
+         maxLivingArea,
+         minYear,
+         maxYear,
+         walking,
+         walkingDistance: walkingDistance ? Number(walkingDistance) : '',
+         transportDistance: transportDistance ? Number(transportDistance) : '',
+         transportType: 'TRANSPORT',
+      }
 
-   const handleCloseModal = () => setOpen(!open)
+      dispatch(filtermodalThunks(filterData))
+      setOpen(false)
+   }
+   const handleResetFilters = () => {
+      setMinTotalArea('')
+      setMaxTotalArea('')
+      setMinKitchenArea('')
+      setMaxKitchenArea('')
+      setMinLivingArea('')
+      setMaxLivingArea('')
+      setMinYear('')
+      setMaxYear('')
+      setWalkingDistance('')
+      setTransportDistance('')
+      setWalking(true)
+      dispatch(resertFilterThunks())
+   }
+
+   const handleCloseModal = () => setOpen(false)
    return (
       <ModalStyle open={open} handleClose={handleCloseModal}>
          <Wrapper>
             <DescriptionBlock>
                <h4>Ещё фильтры</h4>
-               <CloseIcon />
+               <CloseIcon onClick={handleCloseModal} />
             </DescriptionBlock>
             <Container>
                <Block>
                   <Description>До метро</Description>
                   <MiniBox>
                      {isMobile ? null : <Title>Не более</Title>}
-                     <InputStyle />
+                     <InputStyle
+                        type="number"
+                        value={walking}
+                        onChange={e => setWalking(e.target.value)}
+                     />
                      <Title>минут</Title>
                      <InputBox>
-                        <SecondInput placeholder="Пешком" />
-                        <FirstInput placeholder="Транспортом" />
+                        <SecondButtun
+                           value={walkingDistance}
+                           onChange={e => setWalkingDistance(e.target.value)}
+                           isWalking={isWalking}
+                           onClick={() => setIsWalking(true)}
+                        >
+                           Пешком
+                        </SecondButtun>
+
+                        <FirstButtun
+                           value={transportDistance}
+                           onChange={e => setTransportDistance(e.target.value)}
+                           isWalking={isWalking}
+                           onClick={() => setIsWalking(false)}
+                        >
+                           Транспортом
+                        </FirstButtun>
                      </InputBox>
                   </MiniBox>
                </Block>
@@ -42,8 +111,18 @@ export const FilterModal = () => {
                      {isMobile ? null : <Title>Общяя</Title>}
 
                      <ThirdMiniBlock>
-                        <ThirdInputStyle placeholder="от" />
-                        <FourthInputStyle placeholder="до" />
+                        <ThirdInputStyle
+                           value={minTotalArea}
+                           onChange={e => setMinTotalArea(e.target.value)}
+                           placeholder="от"
+                           type="number"
+                        />
+                        <FourthInputStyle
+                           value={maxTotalArea}
+                           onChange={e => setMaxTotalArea(e.target.value)}
+                           placeholder="до"
+                           type="number"
+                        />
                      </ThirdMiniBlock>
                   </MiniBox>
                   {isMobile ? null : (
@@ -51,15 +130,43 @@ export const FilterModal = () => {
                         <MiniBox>
                            <Title>Кухня</Title>
                            <ThirdMiniBlock>
-                              <ThirdInputStyle placeholder="от" />
-                              <FourthInputStyle placeholder="до" />
+                              <ThirdInputStyle
+                                 value={minKitchenArea}
+                                 onChange={e =>
+                                    setMinKitchenArea(e.target.value)
+                                 }
+                                 placeholder="от"
+                                 type="number"
+                              />
+                              <FourthInputStyle
+                                 value={maxKitchenArea}
+                                 onChange={e =>
+                                    setMaxKitchenArea(e.target.value)
+                                 }
+                                 placeholder="до"
+                                 type="number"
+                              />
                            </ThirdMiniBlock>
                         </MiniBox>
                         <MiniBox>
                            <Title>Жилая</Title>
                            <ThirdMiniBlock>
-                              <ThirdInputStyle placeholder="от" />
-                              <FourthInputStyle placeholder="до" />
+                              <ThirdInputStyle
+                                 value={minLivingArea}
+                                 onChange={e =>
+                                    setMinLivingArea(e.target.value)
+                                 }
+                                 placeholder="от"
+                                 type="number"
+                              />
+                              <FourthInputStyle
+                                 value={maxLivingArea}
+                                 onChange={e =>
+                                    setMaxLivingArea(e.target.value)
+                                 }
+                                 placeholder="до"
+                                 type="number"
+                              />
                            </ThirdMiniBlock>
                         </MiniBox>
                      </>
@@ -70,22 +177,42 @@ export const FilterModal = () => {
                      <Description>Площадь</Description>
                      <p>Жилая</p>
                      <ThirdMiniBlock>
-                        <ThirdInputStyle placeholder="от" />
-                        <FourthInputStyle placeholder="до" />
+                        <ThirdInputStyle
+                           value={minLivingArea}
+                           onChange={e => setMinLivingArea(e.target.value)}
+                           placeholder="от"
+                           type="number"
+                        />
+                        <FourthInputStyle
+                           value={maxLivingArea}
+                           onChange={e => setMaxLivingArea(e.target.value)}
+                           placeholder="до"
+                           type="number"
+                        />
                      </ThirdMiniBlock>
                   </Block>
                )}
                <Block>
                   <Description>Год постройки</Description>
                   <ThirdMiniBlock>
-                     <ThirdInputStyle placeholder="от" />
-                     <FourthInputStyle placeholder="до" />
+                     <ThirdInputStyle
+                        value={minYear}
+                        onChange={e => setMinYear(e.target.value)}
+                        placeholder="от"
+                        type="number"
+                     />
+                     <FourthInputStyle
+                        value={maxYear}
+                        onChange={e => setMaxYear(e.target.value)}
+                        placeholder="до"
+                        type="number"
+                     />
                   </ThirdMiniBlock>
                </Block>
             </Container>
             <Box>
-               <ResetFilter />
-               <Button>Применить</Button>
+               <ResetFilter onClick={handleResetFilters} />
+               <Button onClick={handleApplyFilters}>Применить</Button>
             </Box>
          </Wrapper>
       </ModalStyle>
@@ -136,6 +263,10 @@ const ThirdMiniBlock = styled('div')(({ theme }) => ({
 }))
 const InputStyle = styled(Input)(({ theme }) => ({
    width: '80px',
+
+   '.css-heatjl-MuiFormControl-root-MuiTextField-root': {
+      display: 'none',
+   },
    [theme.breakpoints.down('md')]: {
       width: '42px',
    },
@@ -146,6 +277,7 @@ const ThirdInputStyle = styled(Input)(({ theme }) => ({
       borderTopRightRadius: '0px',
       borderBottomRightRadius: '0px',
    },
+
    [theme.breakpoints.down('md')]: {
       width: '160px',
       '& .MuiInputBase-root': {
@@ -168,19 +300,33 @@ const FourthInputStyle = styled(Input)(({ theme }) => ({
       },
    },
 }))
-const FirstInput = styled(Input)(() => ({
-   width: '125px',
-   '& .MuiInputBase-root': {
-      borderTopLeftRadius: '0px',
-      borderBottomLeftRadius: '0px',
-   },
+const FirstButtun = styled(Button)(({ isWalking }) => ({
+   width: '150px',
+   height: '40px',
+   padding: '6px 20px 6px 20px',
+   gap: '10px',
+   borderRadius: '0px 10px 10px 0px',
+   border: '1px solid #CFCFCF',
+   background: !isWalking ? '7E52FF' : 'white',
+   color: !isWalking ? 'white' : '#000000',
+   cursor: 'pointer',
+   fontSize: '18px',
+   fontWeight: '400',
+   lineHeight: '29.9px',
 }))
-const SecondInput = styled(Input)(() => ({
-   width: '100px',
-   '& .MuiInputBase-root': {
-      borderTopRightRadius: '0px',
-      borderBottomRightRadius: '0px',
-   },
+const SecondButtun = styled(Button)(({ isWalking }) => ({
+   width: '122px',
+   height: '40px',
+   padding: '6px 20px 6px 20px',
+   gap: '10px',
+   borderRadius: '10px 0px 0px 10px',
+   border: '1px solid #CFCFCF',
+   background: isWalking ? '7E52FF' : 'white',
+   color: isWalking ? 'white' : '#000000',
+   cursor: 'pointer',
+   fontSize: '18px',
+   fontWeight: '400',
+   lineHeight: '29.9px',
 }))
 
 const Title = styled('p')(() => ({

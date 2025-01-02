@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { styled } from '@mui/material'
 import Modal from './Modal'
 
-export const PhoneModal = ({ handleClose }) => {
-   const [isOpen] = useState(true)
-
+export const PhoneModal = ({ handleClose, open, phoneNumber }) => {
    return (
-      <Modal open={isOpen} handleClose={handleClose} variant="phone">
+      <Modal open={open} handleClose={handleClose} variant="phone">
          <Block>
             <p>Номер телефона</p>
-            <span>+7 965 137-95-07</span>
+            <span>{phoneNumber}</span>
          </Block>
       </Modal>
    )

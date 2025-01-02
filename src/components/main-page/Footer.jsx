@@ -115,3 +115,17 @@ const CallingIcon = styled(Calling)(({ theme }) => ({
       height: '1.125rem',
    },
 }))
+
+const NavItem = styled(NavLink)(() => ({
+   color: '#222',
+   textDecoration: 'none',
+   cursor: 'pointer',
+
+   ':hover': {
+      textDecoration: 'underline',
+   },
+
+   '&.active': {
+      textDecoration: 'underline',
+   },
+}))

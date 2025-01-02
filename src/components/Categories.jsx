@@ -34,15 +34,16 @@ export const Categories = () => {
                <FirstBlock>
                   <Breadcrumbs path={breadcrumbs} />
                   {!isMobile && (
-                     <span>
+                     <BackStyle onClick={() => navigate('/')}>
                         <ChevronLeft /> Назад
-                     </span>
+                     </BackStyle>
                   )}
                </FirstBlock>
                <SearchInputStyle
                   placeholder={t('user.categories.search.inputLabel')}
                />
             </Block>
+
             <Outlet />
          </Container>
       </Wrapper>
@@ -81,4 +82,8 @@ const Wrapper = styled('div')(({ theme }) => ({
 
 const SearchInputStyle = styled(SearchInput)(() => ({
    height: '64px',
+}))
+
+const BackStyle = styled('span')(() => ({
+   cursor: 'pointer',
 }))

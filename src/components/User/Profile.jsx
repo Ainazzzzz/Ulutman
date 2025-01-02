@@ -1,79 +1,53 @@
 import { styled } from '@mui/material'
 import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
 import { Button } from '../UI/Button'
 import Input from '../UI/Input'
 import { profileValidation } from '../../utils/general/validation/profileValidation'
 import { updateUserProfile } from '../../redux/users/profileThunk'
 
 export const Profile = () => {
+   const dispatch = useDispatch()
    const { userData } = useSelector(state => state.auth)
 
-   const dispatch = useDispatch()
+   const [isEdit, setIsEdit] = useState(false)
 
    const formik = useFormik({
       initialValues: {
-         username: '',
-         lastName: '',
-         phoneNumber: '',
-         emailAddress: '',
+         username: userData.name || '',
+         emailAddress: userData.email || '',
       },
       validationSchema: profileValidation,
       onSubmit: profileData => {
-         dispatch(updateUserProfile({ profileData, userId: userData.userId }))
+         dispatch(
+            updateUserProfile({
+               profileData,
+               userId: userData.userId,
+               setIsEdit,
+            }),
+         )
       },
    })
 
+   const toggleIsEdit = () => setIsEdit(prev => !prev)
+
    return (
       <Form onSubmit={formik.handleSubmit}>
-         <WrapperFullName>
-            <Container>
-               <StyledInput
-                  label="Имя"
-                  placeholder="Иван"
-                  name="username"
-                  value={formik.values.username}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  autoComplete="given-name"
-               />
-
-               {formik.touched.username && formik.errors.username ? (
-                  <ErrorMessage>{formik.errors.username}</ErrorMessage>
-               ) : null}
-            </Container>
-
-            <Container>
-               <StyledInput
-                  label="Фамилия"
-                  placeholder="Иванов"
-                  name="lastName"
-                  value={formik.values.lastName}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  autoComplete="family-name"
-               />
-
-               {formik.touched.lastName && formik.errors.lastName ? (
-                  <ErrorMessage>{formik.errors.lastName}</ErrorMessage>
-               ) : null}
-            </Container>
-         </WrapperFullName>
-
          <Container>
             <StyledInput
-               label="Телефон"
-               type="number"
-               placeholder="+7 xxx xxxxxxx"
-               name="phoneNumber"
-               value={formik.values.phoneNumber}
+               label="Имя"
+               placeholder="Иван"
+               name="username"
+               value={formik.values.username}
                onChange={formik.handleChange}
                onBlur={formik.handleBlur}
-               // autoComplete="tel"
+               autoComplete="given-name"
+               disabled={!isEdit}
             />
 
-            {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-               <ErrorMessage>{formik.errors.phoneNumber}</ErrorMessage>
+            {formik.touched.username && formik.errors.username ? (
+               <ErrorMessage>{formik.errors.username}</ErrorMessage>
             ) : null}
          </Container>
 
@@ -87,6 +61,7 @@ export const Profile = () => {
                onChange={formik.handleChange}
                onBlur={formik.handleBlur}
                autoComplete="email"
+               disabled={!isEdit}
             />
 
             {formik.touched.emailAddress && formik.errors.emailAddress ? (
@@ -94,7 +69,16 @@ export const Profile = () => {
             ) : null}
          </Container>
 
-         <StyledButton type="submit">Сохранить</StyledButton>
+         {isEdit ? (
+            <BtnContainer>
+               <StyledButton onClick={toggleIsEdit} variant="outlined">
+                  Отменить
+               </StyledButton>
+               <StyledButton type="submit">Сохранить</StyledButton>
+            </BtnContainer>
+         ) : (
+            <StyledButton onClick={toggleIsEdit}>Редактировать</StyledButton>
+         )}
       </Form>
    )
 }
@@ -104,19 +88,11 @@ const Form = styled('form')(() => ({
    flexDirection: 'column',
    gap: '24px',
    height: '57vh',
-}))
-
-const WrapperFullName = styled('div')(({ theme }) => ({
-   width: '100%',
-   display: 'flex',
-   gap: '24px',
-   [theme.breakpoints.down('md')]: {
-      flexDirection: 'column',
-   },
+   maxWidth: '678px',
 }))
 
 const StyledInput = styled(Input)(({ theme }) => ({
-   width: '327px',
+   width: '100%',
    [theme.breakpoints.down('md')]: {
       width: '100%',
       maxWidth: '463px',
@@ -124,7 +100,6 @@ const StyledInput = styled(Input)(({ theme }) => ({
 }))
 
 const EmailInput = styled(Input)(({ theme }) => ({
-   maxWidth: '678px',
    [theme.breakpoints.down('md')]: {
       width: '100%',
       maxWidth: '463px',
@@ -153,4 +128,10 @@ const Container = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    position: 'relative',
+}))
+
+const BtnContainer = styled('div')(() => ({
+   display: 'flex',
+   gap: '20px',
+   justifyContent: 'flex-end',
 }))

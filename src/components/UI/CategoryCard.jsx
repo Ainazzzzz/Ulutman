@@ -7,6 +7,7 @@ import Home from '../../assets/icons/home-icon.svg?react'
 import GrayHeart from '../../assets/icons/gray-heart-icon.svg?react'
 import Call from '../../assets/icons/phone-icon.svg?react'
 import emptyImageCard from '../../assets/images/no-image.jpg'
+import NoData from '../../assets/icons/empty-data.svg?react'
 
 import { IconButton } from '../IconButton'
 import Modal from './Modal'
@@ -26,29 +27,71 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
 
    const handleClose = () => setPhoneModal('')
 
-   return (
-      <>
-         {categories.map(item => (
-            <Container key={item.id}>
-               {isMobile ? (
+   return categories.length === 0 ? (
+      <NoDataContainer>
+         <NoData />
+      </NoDataContainer>
+   ) : (
+      categories.map(item => (
+         <Container key={item.id}>
+            {isMobile ? (
+               <Block>
+                  <ImageStyle
+                     image={item.image || emptyImageCard}
+                     title={item.title}
+                     onClick={() => handleNavigateDetail(item.id)}
+                  />
+                  <div>
+                     <FirstBlock>
+                        <Price>
+                           {item.price} <SumIcon />
+                        </Price>
+                        <IconButton onClick={() => handleToggleFavorite(item)}>
+                           <GrayHeart
+                              className={item.detailFavorite ? 'like-red' : ''}
+                           />
+                        </IconButton>
+                     </FirstBlock>
+                     <RoomStyle>
+                        {item.title}
+                        <IconButton onClick={() => handleOpen(item.id)}>
+                           <Call />
+                        </IconButton>
+                     </RoomStyle>
+                     <SecondBlock>
+                        <Geolocation />
+                        <p>
+                           {item.metro}, {item.address}
+                        </p>
+                     </SecondBlock>
+                     <SecondBlock>
+                        <Home />
+                        <p>
+                           {item.quantity} -комн. кв.{' '}
+                           {item.propertyDetails?.totalArea}м<sup>2</sup>{' '}
+                           {item.floor}
+                        </p>
+                     </SecondBlock>
+                     <Description>{item.description}</Description>
+                  </div>
+               </Block>
+            ) : (
+               <Wrapper>
                   <Block>
                      <ImageStyle
                         image={item.image || emptyImageCard}
                         title={item.title}
                         onClick={() => handleNavigateDetail(item.id)}
                      />
-                     <div>
-                        <FirstBlock>
-                           <Price>
-                              {item.price} <SumIcon />
-                           </Price>
+                  </Block>
+                  <div>
+                     <FirstBlock>
+                        <Price>
+                           {item.price} <SumIcon />
+                        </Price>
+                        <div>
                            <IconButton
-                              onClick={() =>
-                                 handleToggleFavorite(
-                                    item.id,
-                                    item.detailFavorite,
-                                 )
-                              }
+                              onClick={() => handleToggleFavorite(item)}
                            >
                               <GrayHeart
                                  className={
@@ -56,97 +99,44 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                                  }
                               />
                            </IconButton>
-                        </FirstBlock>
-                        <RoomStyle>
-                           {item.title}
                            <IconButton onClick={() => handleOpen(item.id)}>
                               <Call />
                            </IconButton>
-                        </RoomStyle>
-                        <SecondBlock>
-                           <Geolocation />
-                           <p>
-                              {item.metro}, {item.address}
-                           </p>
-                        </SecondBlock>
-                        <SecondBlock>
-                           <Home />
-                           <p>
-                              {item.quantity} -комн. кв. {item.volume}м
-                              <sup>2</sup> {item.floor}
-                           </p>
-                        </SecondBlock>
-                        <Description>{item.description}</Description>
-                     </div>
-                  </Block>
-               ) : (
-                  <Wrapper>
-                     <Block>
-                        <ImageStyle
-                           image={item.image || emptyImageCard}
-                           title={item.title}
-                           onClick={() => handleNavigateDetail(item.id)}
-                        />
-                     </Block>
-                     <div>
-                        <FirstBlock>
-                           <Price>
-                              {item.price} <SumIcon />{' '}
-                           </Price>
-                           <div>
-                              <IconButton
-                                 onClick={() =>
-                                    handleToggleFavorite(
-                                       item.id,
-                                       item.detailFavorite,
-                                    )
-                                 }
-                              >
-                                 <GrayHeart
-                                    className={
-                                       item.detailFavorite ? 'like-red' : ''
-                                    }
-                                 />
-                              </IconButton>
-
-                              <IconButton onClick={() => handleOpen(item.id)}>
-                                 <Call />
-                              </IconButton>
-                           </div>
-                           <Modal
-                              open={item.id === phoneModal}
-                              variant="phone"
-                              handleClose={handleClose}
-                           >
-                              <WrapperPhone>
-                                 <TitlePhone>Номер телефона</TitlePhone>
-                                 <PhoneNumberSingle>
-                                    {item.phoneNumber}
-                                 </PhoneNumberSingle>
-                              </WrapperPhone>
-                           </Modal>
-                        </FirstBlock>
-                        <RoomStyle>{item.title} </RoomStyle>
-                        <SecondBlock>
-                           <Geolocation />
-                           <p>
-                              {item.metro}, {item.address}
-                           </p>
-                        </SecondBlock>
-                        <SecondBlock>
-                           <Home />
-                           <p>
-                              {item.quantity} {item.volume}
-                              {item.floor}
-                           </p>
-                        </SecondBlock>
-                        <Description>{item.description}</Description>
-                     </div>
-                  </Wrapper>
-               )}
-            </Container>
-         ))}
-      </>
+                        </div>
+                        <Modal
+                           open={item.id === phoneModal}
+                           variant="phone"
+                           handleClose={handleClose}
+                        >
+                           <WrapperPhone>
+                              <TitlePhone>Номер телефона</TitlePhone>
+                              <PhoneNumberSingle>
+                                 {item.phoneNumber}
+                              </PhoneNumberSingle>
+                           </WrapperPhone>
+                        </Modal>
+                     </FirstBlock>
+                     <RoomStyle>{item.title} </RoomStyle>
+                     <SecondBlock>
+                        <Geolocation />
+                        <p>
+                           {item.metro}, {item.address}
+                        </p>
+                     </SecondBlock>
+                     <SecondBlock>
+                        <Home />
+                        <p>
+                           {item.quantity} -комн. кв.{' '}
+                           {item.propertyDetails?.totalArea}м<sup>2</sup>{' '}
+                           {item.floor}
+                        </p>
+                     </SecondBlock>
+                     <Description>{item.description}</Description>
+                  </div>
+               </Wrapper>
+            )}
+         </Container>
+      ))
    )
 }
 
@@ -180,6 +170,7 @@ const Block = styled('div')(({ theme }) => ({
 }))
 const Container = styled('div')(({ theme }) => ({
    height: '262px',
+   cursor: 'pointer',
    [theme.breakpoints.down('md')]: {
       height: '331px',
    },
@@ -232,8 +223,21 @@ const FirstBlock = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'space-between',
+   '.like-red path, .message-red path': {
+      fill: 'red',
+   },
    div: {
       display: 'flex',
       alignItems: 'center',
+   },
+}))
+
+const NoDataContainer = styled('div')(() => ({
+   width: '100%',
+   display: 'flex',
+   justifyContent: 'center',
+
+   svg: {
+      width: '40%',
    },
 }))

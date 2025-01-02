@@ -1,26 +1,24 @@
-import React from 'react';
-import { useDropzone } from 'react-dropzone';
-import PDF from '../../assets/icons/pdf.svg?react';
-import { styled } from '@mui/material';
+import React from 'react'
+import { useDropzone } from 'react-dropzone'
+import { styled } from '@mui/material'
+import PDF from '../../assets/icons/pdf.svg?react'
 
 const InputPay = ({
    accept = 'image/*',
    multiple = false,
    maxSize = 1048576,
    onDropFiles,
-   label,
 }) => {
-   const { getRootProps, getInputProps, acceptedFiles, fileRejections } =
-      useDropzone({
-         accept,
-         multiple,
-         maxSize,
-         onDrop: acceptedFiles => {
-            if (onDropFiles) {
-               onDropFiles(acceptedFiles);
-            }
-         },
-      });
+   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+      accept,
+      multiple,
+      maxSize,
+      onDrop: acceptedFiles => {
+         if (onDropFiles) {
+            onDropFiles(acceptedFiles)
+         }
+      },
+   })
 
    return (
       <PdFcontainer {...getRootProps()}>
@@ -40,10 +38,10 @@ const InputPay = ({
             </ul>
          )}
       </PdFcontainer>
-   );
-};
+   )
+}
 
-export default InputPay;
+export default InputPay
 const PdFcontainer = styled('div')(() => ({
    width: '365px',
    height: '44px',
@@ -56,11 +54,11 @@ const PdFcontainer = styled('div')(() => ({
    '&:hover': {
       border: '1px solid #282828',
    },
-}));
+}))
 
 const ContainerPdf = styled('div')(() => ({
    display: 'flex',
    gap: '100px',
    padding: '0 20px 0 20px',
    color: 'gray',
-}));
+}))

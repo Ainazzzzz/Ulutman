@@ -14,7 +14,6 @@ import Plus from '../assets/icons/plus.svg?react'
 import MenuIcon from '../assets/icons/menu-icon.svg?react'
 import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react'
 import ComeIcon from '../assets/icons/come-icon.svg?react'
-import WhiteHeart from '../assets/icons/white-heart-icon.svg?react'
 import Language from '../assets/icons/language-icon.svg?react'
 import LogOutIcon from '../assets/icons/come-icon.svg?react'
 import { logOut } from '../redux/auth/authThunk.js'
@@ -53,15 +52,11 @@ export const Header = () => {
    const [language, setLanguage] = useState('ru')
    const [openMenu, setOpenMenu] = useState(null)
    const [isModalOpen, setModalOpen] = useState(false)
-   const [openModal, setOpenModal] = useState(false)
-   const [openSignUp, setOpenSignUp] = useState(false)
-
-   const closeUserMenu = () => {
-      setAnchorEl(null)
-   }
-
    const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false)
    const [openOptionsProfile, setOpenOptionsProfile] = useState(null)
+   const [openSignInModal, setOpenSignInModal] = useState(false)
+
+   const toggleSignInModal = () => setOpenSignInModal(prev => !prev)
 
    const handleClose = () => {
       setOpenMenu(null)
@@ -86,23 +81,15 @@ export const Header = () => {
    }
 
    const handleOpenModal = () => {
-      setOpenModal(true)
       handleClose()
+      toggleSignInModal()
    }
 
-   const handleCloseModal = () => setOpenModal(false)
-
-   const handleOpenSignUp = () => {
-      setOpenSignUp(true)
-      handleCloseModal()
-   }
    const handleOpenPublishModal = () => {
       setOpenMenu(null)
       setModalOpen(true)
    }
    const handleClosePublishModal = () => setModalOpen(false)
-
-   const handleCloseSignUp = () => setOpenSignUp(false)
 
    const logOutHandler = () => {
       setOpenOptionsProfile(null)
@@ -110,7 +97,6 @@ export const Header = () => {
    }
    const handleNavigationPage = path => {
       navigate(path)
-      closeUserMenu()
    }
 
    const navigateToPageHandler = path => {
@@ -245,20 +231,16 @@ export const Header = () => {
                </ContainerBlock>
             )}
          </Wrapper>
-         <SignIn
-            open={openModal}
-            onClose={handleCloseModal}
-            onOpen={handleOpenSignUp}
-         />
-         <SignUp
-            open={openSignUp}
-            onClose={handleCloseSignUp}
-            handleOpenModal={handleOpenModal}
-         />
+
          <Modal
             open={isModalOpen}
             handleClose={handleClosePublishModal}
             variant="publish"
+         />
+
+         <Auth
+            openModal={openSignInModal}
+            toggleSignInModal={toggleSignInModal}
          />
       </>
    )

@@ -8,7 +8,7 @@ import ReusableSelect from '../UI/Select'
 
 import banner from '../../assets/images/main.png'
 import MobileBanner from '../../assets/images/mobile-banner.png'
-import { categories } from '../../utils/constants/main'
+import { categoryTab } from '../../utils/constants/main'
 import { PATHS } from '../../utils/constants/paths'
 import { serializeToQueryParams } from '../../utils/general/serialize'
 import { getAllMetros } from '../../redux/main/mainThunk'
@@ -113,7 +113,7 @@ export const MainBanner = () => {
 const MainContainer = styled('div')(({ banner, theme }) => ({
    backgroundImage: `url(${banner})`,
    width: '100%',
-   height: '80vh',
+   height: '100vh',
    backgroundPosition: 'center',
    backgroundSize: 'cover',
    backgroundRepeat: 'no-repeat',
@@ -203,6 +203,10 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    },
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: 'none',
+   },
+
+   '& .MuiSelect-select': {
+      padding: '18px 0 15px 10px',
    },
 }))
 

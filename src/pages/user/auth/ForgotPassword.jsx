@@ -1,0 +1,85 @@
+import React, { useState } from 'react'
+import { styled } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import Modal from '../../../components/UI/Modal'
+import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
+import Input from '../../../components/UI/Input'
+import Spinner from '../../../components/UI/Spinner'
+import { Button } from '../../../components/UI/Button'
+import { forgotPassword } from '../../../redux/auth/authThunk'
+
+const ForgotPassword = ({ open, onClose, toggleResetPasswordModal }) => {
+   const dispatch = useDispatch()
+   const { isLoading } = useSelector(state => state.auth)
+
+   const [email, setEmail] = useState('')
+
+   const handleEmailChange = e => {
+      setEmail(e.target.value)
+   }
+
+   const handleSubmit = e => {
+      e.preventDefault()
+      dispatch(
+         forgotPassword({
+            email,
+            toggleResetPasswordModal,
+            onClose,
+         }),
+      )
+   }
+
+   return (
+      <Modal open={open} handleClose={onClose}>
+         <IconStyle>
+            <CloseIcon onClick={onClose} />
+         </IconStyle>
+         <Form onSubmit={handleSubmit}>
+            <h2>Сброс пароля</h2>
+
+            <Input
+               placeholder="Введите email"
+               label="Почта"
+               value={email}
+               onChange={handleEmailChange}
+               id="email"
+               type="email"
+               required
+            />
+
+            {isLoading ? (
+               <Button disabled={isLoading}>
+                  <Spinner />
+               </Button>
+            ) : (
+               <Button type="submit">Получить код</Button>
+            )}
+         </Form>{' '}
+      </Modal>
+   )
+}
+
+export default ForgotPassword
+
+const Form = styled('form')(({ theme }) => ({
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '30px',
+   h2: {
+      textAlign: 'center',
+      fontWeight: '600',
+      fontSize: '26px',
+      paddingTop: '50px',
+      [theme.breakpoints.down('md')]: {
+         fontSize: '24px',
+      },
+   },
+}))
+const IconStyle = styled('div')(() => ({
+   svg: {
+      position: 'absolute',
+      top: '26px',
+      right: '26px',
+      cursor: 'pointer',
+   },
+}))
