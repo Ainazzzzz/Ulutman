@@ -10,6 +10,7 @@ import { Button } from '../../../components/UI/Button'
 import { signUpSchema } from '../../../utils/general/validation/authValidation'
 import { signUp } from '../../../redux/auth/authThunk'
 import Spinner from '../../../components/UI/Spinner'
+import GoogleAuth from './GoogleAuth'
 
 const signUpInputs = [
    {
@@ -97,6 +98,7 @@ const SignUp = ({ open, onClose, handleOpenModal }) => {
             ) : (
                <Button type="submit">Регистрация</Button>
             )}
+            <GoogleAuth />
 
             <Typography align="center">
                У вас есть аккаунт?{' '}

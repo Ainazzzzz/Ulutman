@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { axiosInstance } from '../../config/axiosInstance'
 import { showToast } from '../../hooks/useToast'
+import { signInWithPopup } from 'firebase/auth'
+import { auth, provider } from '../../config/firebaseConfig'
 
 export const logOut = createAsyncThunk(
    'auth/logOut',
@@ -18,6 +20,38 @@ export const signIn = createAsyncThunk(
    async ({ userData, onClose }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.post('auth/sign-in', userData)
+
+         const updatedData = { ...data, role: data.roleName }
+
+         localStorage.setItem('ULUTMAN', JSON.stringify(updatedData))
+
+         showToast('success', 'Успешно')
+         onClose()
+         console.log(data)
+
+         return updatedData
+      } catch (e) {
+         const errorMessage = e.response?.data || 'Неверные данные для входа'
+         showToast('error', errorMessage)
+         return rejectWithValue(errorMessage)
+      }
+   },
+)
+
+export const googleAuth = createAsyncThunk(
+   'auth/googleAuth',
+   async (_, { rejectWithValue }) => {
+      try {
+         const result = await signInWithPopup(auth, provider)
+         const user = result.user
+
+         const token = await user.getIdToken()
+         console.log(token)
+
+         const { data } = await axiosInstance.post(
+            'auth/google-login?token=' + token,
+         )
+         console.log(data, 'data')
 
          const updatedData = { ...data, role: data.roleName }
 
@@ -43,6 +77,7 @@ export const signUp = createAsyncThunk(
 
          showToast('success', 'Войдите чтобы продолжить')
          handleOpenSignInModal()
+         console.log(data)
 
          return data
       } catch (e) {

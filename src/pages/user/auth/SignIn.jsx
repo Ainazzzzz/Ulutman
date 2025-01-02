@@ -8,6 +8,7 @@ import { Button } from '../../../components/UI/Button'
 import { signIn } from '../../../redux/auth/authThunk'
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
 import Spinner from '../../../components/UI/Spinner'
+import GoogleAuth from './GoogleAuth'
 
 export const SignIn = ({ open, onClose, onOpen }) => {
    const dispatch = useDispatch()
@@ -73,6 +74,7 @@ export const SignIn = ({ open, onClose, onOpen }) => {
             ) : (
                <Button type="submit">Войти</Button>
             )}
+            <GoogleAuth />
             <Typography align="center">
                У вас нету аккаунта?{' '}
                <NavLink to="#" onClick={onOpen}>
