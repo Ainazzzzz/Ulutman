@@ -27,7 +27,6 @@ import Language from '../assets/icons/language-icon.svg?react'
 import LogOutIcon from '../assets/icons/logout-icon.svg?react'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
 import Auth from '../pages/user/auth/Auth'
-import { padding } from '@mui/system'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -250,6 +249,11 @@ const Wrapper = styled('header')(({ theme }) => ({
    padding: '14px 60px',
    svg: { cursor: 'pointer' },
    [theme.breakpoints.down('md')]: { padding: '16px', height: '59px' },
+   position: 'fixed',
+   top: '0',
+   left: 0,
+   width: '100%',
+   zIndex: '99',
 }))
 
 const Block = styled('div')(() => ({
