@@ -43,19 +43,24 @@ export const MainPage = () => {
          <Container>
             <Block>
                <Title>Страница объявлений</Title>
-               <AnnouncementsSorter
-                  options={SORT_BY_CATEGROY_OPTIONS}
-                  onSortChange={handleSortChange}
-               />
+               {publishes?.length !== 0 && (
+                  <AnnouncementsSorter
+                     options={SORT_BY_CATEGROY_OPTIONS}
+                     onSortChange={handleSortChange}
+                  />
+               )}
             </Block>
+
             <CardList
                cards={sortedAds.slice(0, 8)}
                advertising={CARDS}
                loading={isLoading}
             />
-            <Button variant="category-sort" onClick={seeMoreHandler}>
-               Посмотреть еще
-            </Button>
+            {publishes.length !== 0 && (
+               <Button variant="category-sort" onClick={seeMoreHandler}>
+                  Посмотреть еще
+               </Button>
+            )}
             <AboutUs />
          </Container>
       </div>

@@ -7,7 +7,7 @@ import { Button } from '../../../components/UI/Button'
 import { googleAuth } from '../../../redux/auth/authThunk'
 import { autoLogin } from '../../../redux/auth/authSlice'
 
-const GoogleAuth = ({ onclose }) => {
+const GoogleAuth = ({ onClose }) => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const { isLoading } = useSelector(state => state.auth)
@@ -16,8 +16,11 @@ const GoogleAuth = ({ onclose }) => {
       try {
          await dispatch(googleAuth())
             .unwrap()
-            .then(() => navigate('/'))
-         onclose()
+            .then(() => {
+               onClose()
+               navigate('/')
+            })
+
          console.log('Авторизация через Google успешна')
       } catch (error) {
          console.error('Ошибка при авторизации через Google:', error)
