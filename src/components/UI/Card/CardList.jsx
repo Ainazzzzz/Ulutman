@@ -41,7 +41,7 @@ export const CardList = ({ cards, advertising, loading }) => {
    }
 
    const handleNavigateDetail = id => {
-      navigate(PATHS.USER.DETAILS.replace(':detailsInfo', id))
+      navigate(PATHS.USER.DETAILS.replace(':id', id))
    }
    return (
       <StyledContainer>

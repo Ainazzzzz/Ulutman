@@ -31,7 +31,7 @@ export const signIn = createAsyncThunk(
 
          return updatedData
       } catch (e) {
-         const errorMessage = e.response?.data || 'Неверные данные для входа'
+         const errorMessage = e.response?.data || 'Что-то пошло не так'
          showToast('error', errorMessage)
          return rejectWithValue(errorMessage)
       }
@@ -90,7 +90,7 @@ export const signUp = createAsyncThunk(
 
          return data
       } catch (e) {
-         const errorMessage = e.response?.data || 'Неверные данные для входа'
+         const errorMessage = e.response?.data || 'Что-то пошло не так'
          showToast('error', errorMessage)
          return rejectWithValue(errorMessage)
       }
@@ -111,7 +111,56 @@ export const addAdmin = createAsyncThunk(
 
          return data
       } catch (e) {
-         const errorMessage = e.response?.data || 'Неверные данные для входа'
+         const errorMessage = e.response?.data || 'Что-то пошло не так'
+         showToast('error', errorMessage)
+         return rejectWithValue(errorMessage)
+      }
+   },
+)
+
+export const forgotPassword = createAsyncThunk(
+   'auth/forgotPassword',
+   async (
+      { email, toggleResetPasswordModal, onClose },
+      { rejectWithValue },
+   ) => {
+      try {
+         const { data } = await axiosInstance.get(
+            `/mailing/sendPasswordResetCode?email=${email}`,
+         )
+
+         showToast('success', `На почту ${email} отправлен код`)
+         toggleResetPasswordModal()
+         onClose()
+
+         return data
+      } catch (e) {
+         const errorMessage = e.response?.data || 'Что-то пошло не так'
+         showToast('error', errorMessage)
+         return rejectWithValue(errorMessage)
+      }
+   },
+)
+
+export const resetPassword = createAsyncThunk(
+   'auth/resetPassword',
+   async ({ formData, toggleSignInModal, onClose }, { rejectWithValue }) => {
+      try {
+         const { data } = await axiosInstance.post(
+            '/mailing/resetPassword',
+            undefined,
+            {
+               params: formData,
+            },
+         )
+         showToast('success', `Пароль успешно изменён`)
+
+         toggleSignInModal()
+         onClose()
+
+         return data
+      } catch (e) {
+         const errorMessage = e.response?.data || 'Что-то пошло не так'
          showToast('error', errorMessage)
          return rejectWithValue(errorMessage)
       }

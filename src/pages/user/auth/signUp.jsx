@@ -35,12 +35,12 @@ const signUpInputs = [
    },
 ]
 
-const SignUp = ({ open, onClose, handleOpenModal }) => {
+const SignUp = ({ open, onClose, openSignIn }) => {
    const dispatch = useDispatch()
    const { isLoading } = useSelector(state => state.auth)
 
    const handleOpenSignInModal = () => {
-      handleOpenModal()
+      openSignIn()
       onClose()
    }
 

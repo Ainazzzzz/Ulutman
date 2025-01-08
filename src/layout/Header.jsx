@@ -8,7 +8,6 @@ import MenuItem from '@mui/material/MenuItem'
 
 import { IconButton } from '../components/IconButton'
 import { Button } from '../components/UI/Button'
-import { SignIn } from '../pages/user/auth/SignIn'
 import ReusableSelect from '../components/UI/Select'
 import Modal from '../components/UI/Modal'
 import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal'
@@ -27,7 +26,7 @@ import ComeIcon from '../assets/icons/come-icon.svg?react'
 import Language from '../assets/icons/language-icon.svg?react'
 import LogOutIcon from '../assets/icons/logout-icon.svg?react'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
-import SignUp from '../pages/user/auth/signUp'
+import Auth from '../pages/user/auth/Auth'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -56,13 +55,11 @@ export const Header = () => {
    const [language, setLanguage] = useState('ru')
    const [openMenu, setOpenMenu] = useState(null)
    const [isModalOpen, setModalOpen] = useState(false)
-   const [openModal, setOpenModal] = useState(false)
-   const [openSignUp, setOpenSignUp] = useState(false)
-
-   const closeUserMenu = () => {}
-
    const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false)
    const [openOptionsProfile, setOpenOptionsProfile] = useState(null)
+   const [openSignInModal, setOpenSignInModal] = useState(false)
+
+   const toggleSignInModal = () => setOpenSignInModal(prev => !prev)
 
    const handleClose = () => {
       setOpenMenu(null)
@@ -81,23 +78,15 @@ export const Header = () => {
    }
 
    const handleOpenModal = () => {
-      setOpenModal(true)
       handleClose()
+      toggleSignInModal()
    }
 
-   const handleCloseModal = () => setOpenModal(false)
-
-   const handleOpenSignUp = () => {
-      setOpenSignUp(true)
-      handleCloseModal()
-   }
    const handleOpenPublishModal = () => {
       setOpenMenu(null)
       setModalOpen(true)
    }
    const handleClosePublishModal = () => setModalOpen(false)
-
-   const handleCloseSignUp = () => setOpenSignUp(false)
 
    const logOutHandler = () => {
       setOpenOptionsProfile(null)
@@ -105,7 +94,6 @@ export const Header = () => {
    }
    const handleNavigationPage = path => {
       navigate(path)
-      closeUserMenu()
    }
 
    const navigateToPageHandler = path => {
@@ -182,7 +170,7 @@ export const Header = () => {
                            <IconButton>
                               <HeartLike />
                            </IconButton>
-                           <span href="#">Избранное</span>
+                           <span>Избранное</span>
                         </Block>
                         <Block onClick={profileHandler}>
                            <IconButton>
@@ -227,20 +215,16 @@ export const Header = () => {
                </ContainerBlock>
             )}
          </Wrapper>
-         <SignIn
-            open={openModal}
-            onClose={handleCloseModal}
-            onOpen={handleOpenSignUp}
-         />
-         <SignUp
-            open={openSignUp}
-            onClose={handleCloseSignUp}
-            handleOpenModal={handleOpenModal}
-         />
+
          <Modal
             open={isModalOpen}
             handleClose={handleClosePublishModal}
             variant="publish"
+         />
+
+         <Auth
+            openModal={openSignInModal}
+            toggleSignInModal={toggleSignInModal}
          />
       </>
    )

@@ -10,7 +10,7 @@ import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
 import Spinner from '../../../components/UI/Spinner'
 import GoogleAuth from './GoogleAuth'
 
-export const SignIn = ({ open, onClose, onOpen }) => {
+export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
    const dispatch = useDispatch()
    const { isLoading } = useSelector(state => state.auth)
 
@@ -59,13 +59,23 @@ export const SignIn = ({ open, onClose, onOpen }) => {
                id="email"
                type="email"
             />
-            <Input
-               placeholder="Введите пароль"
-               value={password}
-               onChange={handlePasswordChange}
-               id="pasword"
-               type="password"
-            />
+            <div>
+               <Input
+                  placeholder="Введите пароль"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  id="pasword"
+                  type="password"
+               />
+               <NavLink
+                  onClick={() => {
+                     openForgotPassword()
+                     onClose()
+                  }}
+               >
+                  Забыли пароль?
+               </NavLink>
+            </div>
 
             {isLoading ? (
                <Button disabled={isLoading}>
@@ -77,7 +87,12 @@ export const SignIn = ({ open, onClose, onOpen }) => {
             <GoogleAuth onClose={onClose} />
             <Typography align="center">
                У вас нету аккаунта?{' '}
-               <NavLink to="#" onClick={onOpen}>
+               <NavLink
+                  onClick={() => {
+                     openSignUp()
+                     onClose()
+                  }}
+               >
                   Создайте её
                </NavLink>
             </Typography>

@@ -15,10 +15,8 @@ export const Profile = () => {
 
    const formik = useFormik({
       initialValues: {
-         name: userData.name || '',
-         lastName: userData.lastName || '',
-         phoneNumber: '',
-         email: userData.email || '',
+         username: userData.name || '',
+         emailAddress: userData.email || '',
       },
       validationSchema: profileValidation,
       onSubmit: profileData => {
@@ -36,77 +34,40 @@ export const Profile = () => {
 
    return (
       <Form onSubmit={formik.handleSubmit}>
-         <WrapperFullName>
-            <Container>
-               <StyledInput
-                  label="Имя"
-                  placeholder="Иван"
-                  name="name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  autoComplete="given-name"
-                  disabled={!isEdit}
-               />
+         <Container>
+            <StyledInput
+               label="Имя"
+               placeholder="Иван"
+               name="username"
+               value={formik.values.username}
+               onChange={formik.handleChange}
+               onBlur={formik.handleBlur}
+               autoComplete="given-name"
+               disabled={!isEdit}
+            />
 
-               {formik.touched.name && formik.errors.name ? (
-                  <ErrorMessage>{formik.errors.name}</ErrorMessage>
-               ) : null}
-            </Container>
+            {formik.touched.username && formik.errors.username ? (
+               <ErrorMessage>{formik.errors.username}</ErrorMessage>
+            ) : null}
+         </Container>
 
-            <Container>
-               <StyledInput
-                  label="Фамилия"
-                  placeholder="Иванов"
-                  name="lastName"
-                  value={formik.values.lastName}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  autoComplete="family-name"
-                  disabled={!isEdit}
-               />
+         <Container>
+            <EmailInput
+               label="Электронная почта"
+               type="email"
+               placeholder="example@mail.com"
+               name="emailAddress"
+               value={formik.values.emailAddress}
+               onChange={formik.handleChange}
+               onBlur={formik.handleBlur}
+               autoComplete="email"
+               disabled={!isEdit}
+            />
 
-               {formik.errors.lastName && formik.touched.lastName ? (
-                  <ErrorMessage>{formik.errors.lastName}</ErrorMessage>
-               ) : null}
-            </Container>
-
-            <Container>
-               <StyledInput
-                  label="Телефон"
-                  type="number"
-                  placeholder="+7 xxx xxxxxxx"
-                  name="phoneNumber"
-                  value={formik.values.phoneNumber}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  // autoComplete="tel"
-                  disabled={!isEdit}
-               />
-
-               {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                  <ErrorMessage>{formik.errors.phoneNumber}</ErrorMessage>
-               ) : null}
-            </Container>
-
-            <Container>
-               <StyledInput
-                  label="Электронная почта"
-                  type="email"
-                  placeholder="example@mail.com"
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  autoComplete="email"
-                  disabled={!isEdit}
-               />
-
-               {formik.touched.email && formik.errors.email ? (
-                  <ErrorMessage>{formik.errors.email}</ErrorMessage>
-               ) : null}
-            </Container>
-         </WrapperFullName>
+            {formik.touched.emailAddress && formik.errors.emailAddress ? (
+               <ErrorMessage>{formik.errors.emailAddress}</ErrorMessage>
+            ) : null}
+         </Container>
 
          {isEdit ? (
             <BtnContainer>
@@ -130,18 +91,15 @@ const Form = styled('form')(() => ({
    maxWidth: '678px',
 }))
 
-const WrapperFullName = styled('div')(({ theme }) => ({
+const StyledInput = styled(Input)(({ theme }) => ({
    width: '100%',
-   display: 'flex',
-   gap: '24px',
-   flexWrap: 'wrap',
    [theme.breakpoints.down('md')]: {
-      flexDirection: 'column',
+      width: '100%',
+      maxWidth: '463px',
    },
 }))
 
-const StyledInput = styled(Input)(({ theme }) => ({
-   width: '327px',
+const EmailInput = styled(Input)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       width: '100%',
       maxWidth: '463px',

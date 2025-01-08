@@ -100,7 +100,7 @@ export const MainBanner = () => {
 const MainContainer = styled('div')(({ banner, theme }) => ({
    backgroundImage: `url(${banner})`,
    width: '100%',
-   height: '80vh',
+   height: '100vh',
    backgroundPosition: 'center',
    backgroundSize: 'cover',
    backgroundRepeat: 'no-repeat',
@@ -190,6 +190,10 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    },
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: 'none',
+   },
+
+   '& .MuiSelect-select': {
+      padding: '18px 0 15px 10px',
    },
 }))
 

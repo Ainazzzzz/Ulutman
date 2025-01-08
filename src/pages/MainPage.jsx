@@ -93,7 +93,7 @@ export const Container = styled('div')(({ theme }) => ({
 }))
 
 const SliderBox = styled('div')(({ theme }) => ({
-   margin: '-20px 0 0 0',
+   margin: '-125px 0 0 0',
    [theme.breakpoints.down('md')]: {
       display: 'none',
    },

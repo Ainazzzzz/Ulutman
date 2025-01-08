@@ -5,9 +5,7 @@ export const getAdminAdds = createAsyncThunk(
    'adminAdds/getAdminAdds',
    async (_, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get(
-            '/payment/adversting/deactivated',
-         )
+         const { data } = await axiosInstance.get('/manage/publishes/getAll')
          return data
       } catch (error) {
          return rejectWithValue(error.response.data)

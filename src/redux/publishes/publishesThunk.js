@@ -3,10 +3,10 @@ import { axiosInstance } from '../../config/axiosInstance'
 
 export const fetchPublishesUser = createAsyncThunk(
    'publishes/fetchPublishesUser',
-   async ({ publishe }, { rejectWithValue }) => {
+   async ({ publishe, navigate }, { rejectWithValue }) => {
       const { images, city, paymentReceiptFile, ...filteredPublishe } = publishe
       try {
-         const { title, ...params } = Object.fromEntries(
+         const params = Object.fromEntries(
             Object.entries(filteredPublishe).filter(
                ([, value]) =>
                   value !== undefined && value !== null && value !== '',
@@ -42,6 +42,8 @@ export const fetchPublishesUser = createAsyncThunk(
                params: { ...params, subcategory: params.subcategory.value },
             },
          )
+
+         navigate('/user')
 
          return data
       } catch (error) {

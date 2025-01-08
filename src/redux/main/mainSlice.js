@@ -31,12 +31,7 @@ export const mainSlice = createSlice({
             },
          )
          .addMatcher(
-            isAnyOf(
-               getMainAds.fulfilled,
-               updateFavoriteStatus.fulfilled,
-               deleteFavoriteStatus.fulfilled,
-               sortPublishesRequest.fulfilled,
-            ),
+            isAnyOf(getMainAds.fulfilled, sortPublishesRequest.fulfilled),
             (state, { payload }) => {
                if (payload) state.publishes = payload
                state.isLoading = false
