@@ -17,4 +17,5 @@ export const MainLayout = () => {
 
 const OutletContent = styled('div')(() => ({
    minHeight: '100vh',
+   marginTop: '84px',
 }))

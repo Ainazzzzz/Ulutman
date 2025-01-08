@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { signInWithPopup } from 'firebase/auth'
 import { axiosInstance } from '../../config/axiosInstance'
 import { showToast } from '../../hooks/useToast'
+import { auth, provider } from '../../config/firebaseConfig'
 
 export const logOut = createAsyncThunk(
    'auth/logOut',
@@ -25,10 +27,51 @@ export const signIn = createAsyncThunk(
 
          showToast('success', 'Успешно')
          onClose()
+         console.log(data)
 
          return updatedData
       } catch (e) {
          const errorMessage = e.response?.data || 'Что-то пошло не так'
+         showToast('error', errorMessage)
+         return rejectWithValue(errorMessage)
+      }
+   },
+)
+
+export const googleAuth = createAsyncThunk(
+   'auth/googleAuth',
+   async (_, { rejectWithValue }) => {
+      try {
+         const { user } = await signInWithPopup(auth, provider)
+
+         const token = await user.getIdToken()
+         console.log('Получен токен Google:', token)
+
+         const params = new URLSearchParams({ token })
+         const { data } = await axiosInstance.post(
+            `auth/google-login?${params}`,
+         )
+         console.log('Ответ от сервера:', data)
+
+         const updatedData = {
+            token: data.token,
+            email: data.email,
+            role: data.role || 'GUEST',
+            name: data.name || user.displayName,
+            status: data.status || '',
+            userId: data.userId || data.localId,
+            photoUrl: data.photoUrl || user.photoUrl || '',
+         }
+
+         localStorage.setItem('ULUTMAN', JSON.stringify(updatedData))
+         console.log('Данные сохранены в localStorage:', updatedData)
+
+         showToast('success', 'Успешно')
+
+         return updatedData
+      } catch (e) {
+         const errorMessage = e.response?.data
+         console.error('Ошибка авторизации:', e)
          showToast('error', errorMessage)
          return rejectWithValue(errorMessage)
       }
@@ -43,6 +86,7 @@ export const signUp = createAsyncThunk(
 
          showToast('success', 'Войдите чтобы продолжить')
          handleOpenSignInModal()
+         console.log(data)
 
          return data
       } catch (e) {

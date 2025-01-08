@@ -249,6 +249,11 @@ const Wrapper = styled('header')(({ theme }) => ({
    padding: '14px 60px',
    svg: { cursor: 'pointer' },
    [theme.breakpoints.down('md')]: { padding: '16px', height: '59px' },
+   position: 'fixed',
+   top: '0',
+   left: 0,
+   width: '100%',
+   zIndex: '99',
 }))
 
 const Block = styled('div')(() => ({
@@ -309,8 +314,8 @@ const SelectStyle = styled(ReusableSelect)(() => ({
    '.MuiOutlinedInput-notchedOutline': { border: 'none' },
    '&:hover .MuiOutlinedInput-notchedOutline': { border: 'none' },
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 'none' },
-   '.MuiSelect-icon': { right: '5px', top: '15px' },
-   '.MuiSelect-select': { paddingLeft: '0px' },
+   '.MuiSelect-icon': { right: '5px', top: '6px' },
+   '.MuiSelect-select': { padding: 0 },
 }))
 
 const MenuStyle = styled(Menu)(() => ({
