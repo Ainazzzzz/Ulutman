@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { signInWithPopup } from 'firebase/auth'
 import { axiosInstance } from '../../config/axiosInstance'
 import { showToast } from '../../hooks/useToast'
-import { signInWithPopup } from 'firebase/auth'
 import { auth, provider } from '../../config/firebaseConfig'
 
 export const logOut = createAsyncThunk(
@@ -42,27 +42,36 @@ export const googleAuth = createAsyncThunk(
    'auth/googleAuth',
    async (_, { rejectWithValue }) => {
       try {
-         const result = await signInWithPopup(auth, provider)
-         const user = result.user
+         const { user } = await signInWithPopup(auth, provider)
 
          const token = await user.getIdToken()
-         console.log(token)
+         console.log('Получен токен Google:', token)
 
+         const params = new URLSearchParams({ token })
          const { data } = await axiosInstance.post(
-            'auth/google-login?token=' + token,
+            `auth/google-login?${params}`,
          )
-         console.log(data, 'data')
+         console.log('Ответ от сервера:', data)
 
-         const updatedData = { ...data, role: data.roleName }
+         const updatedData = {
+            token: data.token,
+            email: data.email,
+            role: data.role || 'GUEST',
+            name: data.name || user.displayName,
+            status: data.status || '',
+            userId: data.userId || data.localId,
+            photoUrl: data.photoUrl || user.photoUrl || '',
+         }
 
          localStorage.setItem('ULUTMAN', JSON.stringify(updatedData))
+         console.log('Данные сохранены в localStorage:', updatedData)
 
          showToast('success', 'Успешно')
-         onClose()
 
          return updatedData
       } catch (e) {
-         const errorMessage = e.response?.data || 'Неверные данные для входа'
+         const errorMessage = e.response?.data
+         console.error('Ошибка авторизации:', e)
          showToast('error', errorMessage)
          return rejectWithValue(errorMessage)
       }

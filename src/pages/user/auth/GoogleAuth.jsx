@@ -1,25 +1,43 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import { styled } from '@mui/material'
-
+import { useNavigate } from 'react-router-dom'
 import GoogleIcon from '../../../assets/icons/google-icon.svg?react'
 import { Button } from '../../../components/UI/Button'
 import { googleAuth } from '../../../redux/auth/authThunk'
+import { autoLogin } from '../../../redux/auth/authSlice'
 
-const GoogleAuth = () => {
+const GoogleAuth = ({ onclose }) => {
    const dispatch = useDispatch()
+   const navigate = useNavigate()
    const { isLoading } = useSelector(state => state.auth)
 
-   const handleGoogleLogin = () => {
-      dispatch(googleAuth())
+   const handleGoogleLogin = async () => {
+      try {
+         await dispatch(googleAuth())
+            .unwrap()
+            .then(() => navigate('/'))
+         onclose()
+         console.log('Авторизация через Google успешна')
+      } catch (error) {
+         console.error('Ошибка при авторизации через Google:', error)
+      }
    }
+
+   useEffect(() => {
+      const storedData = JSON.parse(localStorage.getItem('ULUTMAN'))
+      if (storedData?.token) {
+         dispatch(autoLogin(storedData))
+      }
+   }, [dispatch])
 
    return (
       <StyledButton
-         type={'button'}
+         type="button"
          onClick={handleGoogleLogin}
          disabled={isLoading}
       >
-         <GoogleIcon />{' '}
+         <GoogleIcon />
          {isLoading ? 'Авторизация...' : 'Войти с помощью Google'}
       </StyledButton>
    )

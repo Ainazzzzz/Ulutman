@@ -74,7 +74,7 @@ export const SignIn = ({ open, onClose, onOpen }) => {
             ) : (
                <Button type="submit">Войти</Button>
             )}
-            <GoogleAuth />
+            <GoogleAuth onClose={onClose} />
             <Typography align="center">
                У вас нету аккаунта?{' '}
                <NavLink to="#" onClick={onOpen}>
