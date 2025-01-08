@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { addAdmin, googleAuth, logOut, signIn, signUp } from './authThunk'
+import {
+   addAdmin,
+   forgotPassword,
+   googleAuth,
+   logOut,
+   signIn,
+   signUp,
+} from './authThunk'
 import { updateUserProfile } from '../users/profileThunk'
 
 const parseStoredData = json => {
