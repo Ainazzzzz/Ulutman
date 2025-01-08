@@ -27,6 +27,7 @@ import Language from '../assets/icons/language-icon.svg?react'
 import LogOutIcon from '../assets/icons/logout-icon.svg?react'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
 import Auth from '../pages/user/auth/Auth'
+import { padding } from '@mui/system'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -309,8 +310,8 @@ const SelectStyle = styled(ReusableSelect)(() => ({
    '.MuiOutlinedInput-notchedOutline': { border: 'none' },
    '&:hover .MuiOutlinedInput-notchedOutline': { border: 'none' },
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 'none' },
-   '.MuiSelect-icon': { right: '5px', top: '15px' },
-   '.MuiSelect-select': { paddingLeft: '0px' },
+   '.MuiSelect-icon': { right: '5px', top: '6px' },
+   '.MuiSelect-select': { padding: 0 },
 }))
 
 const MenuStyle = styled(Menu)(() => ({
