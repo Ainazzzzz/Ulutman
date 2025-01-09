@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { styled } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ArrowsIcon from '../assets/icons/arrows.svg?react';
-import { Button } from './UI/Button';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react'
+import { styled } from '@mui/material'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import ArrowsIcon from '../assets/icons/arrows.svg?react'
+import { Button } from './UI/Button'
+import { useTranslation } from 'react-i18next'
 
 const AnnouncementsSorter = ({ onSortChange, options = [] }) => {
-   const { t } = useTranslation();
-   const [anchorEl, setAnchorEl] = useState(null);
+   const { t } = useTranslation()
+   const [anchorEl, setAnchorEl] = useState(null)
 
-   const [selectedValue, setSelectedValue] = useState(t('global.all-category'));
+   const [selectedValue, setSelectedValue] = useState(t('global.all-category'))
 
    const handleClick = event => setAnchorEl(event.currentTarget)
 

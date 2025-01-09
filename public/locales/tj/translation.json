@@ -128,6 +128,87 @@
                "main": "Саҳифаи асосӣ",
                "currentPage": "Эълони нав"
             },
+            "information": {
+               "infoTitle1": "Нашрияҳое, ки дар сайт ҷойгир кардан манъ аст ULUTMAN.ru:",
+               "infoTitle2": "Арзиши ҷойгиркунии баннер барои як моҳ:",
+               "infoList1": "Мазмуни хилофи қонун.",
+               "infoList2": "Маълумоти бардурӯғ дар бораи мол е хидмат.",
+               "infoList3": "Вайронкунии ҳуқуқи муаллиф.",
+               "infoList4": "Вайрон кардани қоидаҳо метавонад боиси нест кардани эълон ва бастани ҳисоб гардад.",
+               "infoList5": " Барои категория &ldquo;Иҷора&ldquo;: 1000 рубл.",
+               "infoList6": " Барои категория &ldquo;Меҳмонхона&ldquo;: 2000 рубл.",
+               "infoList7": " Намоиши баннери таблиғотӣ: аз 50%.",
+               "infoList8": " Қобилияти баланд бардоштани баннер ба мавқеи аввал: ҳар 24 соат."
+            },
+            "newCreateAdForm": {
+               "title": "Ном",
+               "titlePlaceholder": "2х хонаи истиқоматӣ",
+               "phone": "Телефон",
+               "phonePlaceholder": "+7 xxx xxxxxxx",
+               "category": "Гурӯҳ",
+               "categoryButton": "Интихоб кунед",
+               "uploadPhoto": {
+                  "uploadImage": "Акси асосӣ",
+                  "uploadTitle": "Акс илова кунед",
+                  "uploadDescription": "Барои илова кардани расм онро клик кунед е кашед"
+               },
+               "detailInfoButton": "Маълумоти муфассал",
+               "detailInfo": {
+                  "title": "Маълумоти муфассал",
+                  "room": "Шумораи ҳуҷраҳо",
+                  "area": "Майдони ошхона",
+                  "totalArea": "Майдони умумӣ(кв. м)",
+                  "year": "Соли сохтмон",
+                  "repair": "Таъмир",
+                  "heating": "Гармидиҳӣ",
+                  "document": "Ҳуқуқҳое, ки ҳуҷҷатҳоро муқаррар мекунанд",
+                  "company": "Арӕзтадон компани"
+               },
+               "description": "Тавсифи",
+               "descriptionPlaceholder": "Ман iPhone 12-ро бо хотираи 128gb сиеҳ мефурӯшам. Телефон дар ҳолати хуб қарор дошт, бодиққат истифода мешуд ва ҳамеша дар қуттии шишаи муҳофизатӣ дар экран пӯшида мешуд.",
+               "city": "Шаҳр",
+               "cityPlaceholder": "Шаҳрро интихоб кунед",
+               "listOfCities": {
+                  "city1": "Москва",
+                  "city2": "Балошиҳа",
+                  "city3": "Подолск",
+                  "city4": "Химкиҳо",
+                  "city5": "Маликаҳо",
+                  "city6": "Митишиҳо",
+                  "city7": "Люберцҳо",
+                  "city8": "Красногорск",
+                  "city9": "Электростал"
+               },
+               "metro": "Метро",
+               "metroPlaceholder": "Метро интихоб кунед",
+               "adress": "Суроға",
+               "adressPlaceholder": "Кӯчаи Крылов хонаи 1",
+               "price": "Нарх",
+               "pricePlaceholder": "Шартномавӣ",
+               "bank": "Бонкро интихоб кунед",
+               "bankPlaceholder": "Нест",
+               "cheque": "Чекро замима кунед",
+               "chequePlaceholder": "Нест",
+               "adButton": "Эҷод кунед"
+            },
+            "validationForm": {
+               "title": "Номи мол ҳатмист",
+               "phoneNumberRequired": "Телефон ҳатмист",
+               "phoneNumberMatches": "Формати нодурусти телефон",
+               "category": "Категория ҳатмист",
+               "imagesMin": "Майдони тасвир бояд ҳадди аққал 1 унсур дошта бошад",
+               "imagesRequired": "Аксро бор кунед",
+               "description": "Тавсифи ҳатмист",
+               "city": "Шаҳр ҳатмист",
+               "adress": "Суроға ҳатмист",
+               "metro": "Метро ҳатмист",
+               "priceRequired": "Нарх ҳатмист",
+               "priceTypeError": "Нарх бояд рақам бошад",
+               "bank": "Бонк ҳатмист",
+               "paymentReceiptFileMin": "Чек ҳатмист",
+               "paymentReceiptFileRequired": "Чек ҳатмист"
+            },
+
             "adsForm": {
                "name": "Ном",
                "phone": "Телефон",
@@ -153,7 +234,9 @@
       "layout": {
          "header": {
             "favorite": "Маъқулҳо",
-            "create-ad": "Эълон додан"
+            "create-ad": "Эълон додан",
+            "profile": "Профил",
+            "logOut": "Баромадан"
          },
          "footer": {
             "work": "Кор",
@@ -208,10 +291,121 @@
             "title3": "Имконияти баланд бардоштани баннер: ҳар 3 соат",
             "title4": "Намуди ҷои аввал: 99%."
          },
+         "bankLabel": "Бонк ",
+         "bankLabelPlaceholder": "Ба бонке, ки ба он пул интиқол дода шудааст, ишора кунед",
+         "advertisingValidation": {
+            "bankError": "Лутфан бонки иҷозатдодашударо интихоб кунед.",
+            "imageError": "Лутфан тасвирро бор кунед.",
+            "imageSizeError": "Тасвир бояд андозаи 285x407 е 564x246 бошад.",
+            "receiptFileError": "Лутфан чекро зеркашӣ кунед."
+         },
+
          "uploadPhotoLabel": "Сурат бор кунед",
          "uploadPhotoTitle": "Сурат илова кунед",
          "uploadPhotoDesc": "Барои илова кардани сурат ангушт занед ё онро кашед",
          "advertisiingBtn": "Илова кунед"
+      },
+      "createModal": {
+         "title": "Кошу",
+         "addBtn": "Эълон",
+         "advertisingBtn": "Реклама"
+      },
+      "profile": {
+         "name": "Ном",
+         "namePlaceholder": "Иван",
+         "email": "Почтаи электронӣ",
+         "emailPlaceholder": "пример@gmail.com",
+         "editBtn": "Таҳрир",
+         "cancelBtn": "Бекор кардан",
+         "saveBtn": "Захира кунед",
+         "profileValidation": {
+            "username": "Ном ҳатмист",
+            "emailAddress": "Формати нодурусти почтаи электронӣ",
+            "emailAddressRequired": "Email ҳатмист"
+         }
+      },
+      "myAds": {
+         "label1": "Фаъол",
+         "label2": "Рад карда шуд",
+         "label3": "Рекламаи ман",
+         "myAdsMessage": "Барои ҷадвалбанди интихобшуда маълумот нест"
+      },
+      "modal": {
+         "title": "Шумо мутмаин ҳастед, ки мехоҳед нест кунед?",
+         "cancelBtn": "Бекор кардан",
+         "deleteBtn": "Нест кардан"
+      },
+      "favorite": {
+         "title": "Эълонҳои интихобшуда",
+         "back": "Бозгашт",
+         "favoriteMessage": "Рекламаи интихобшуда нест",
+         "breadcrumbs": {
+            "main": "Асосӣ",
+            "currentPage": "Эълонҳои интихобшуда"
+         }
+      },
+      "logOut": {
+         "title": "Ое шумо воқеан мехоҳед берун равед?",
+         "cancel": "Бекор кардан",
+         "logOut": "Баромадан"
+      },
+      "categoryModal": {
+         "back": "Бозгашт",
+         "subcategory": "Зеркатегорияро интихоб кунед",
+         "category": "Категорияро интихоб кунед",
+         "work": "Кор",
+         "rent": "Иҷора",
+         "hotel": "Меҳмонхона",
+         "services": "Хизматрасонӣ",
+         "real_estate": "Амволи ғайриманқул",
+         "auto": "Худкор",
+         "sell": "Фурӯш",
+         "subCategory": {
+            "partTime": "Вақти нопурра",
+            "fullTime": "Вақти пурра",
+            "IrentRoom": "Ман ҳуҷраро месупорам",
+            "IrentBed": "Ман катро мекашам",
+            "IrentApartment": "Ман квартира иҷора мегирам",
+            "rentRoom": "Ҳуҷраро иҷора гиред",
+            "rentOffice": "Дафтари иҷора",
+            "dailyRent": "Иҷораи ҳаррӯза",
+            "longTermRent": "Иҷораи дарозмуддат",
+            "medical": "Хадамоти тиббӣ",
+            "legal": "Хадамоти ҳуқуқӣ",
+            "beauty": "Зебоӣ",
+            "airticket": "Парвоз",
+            "taxiAndTrack": "Таксиҳо ва Боркашонӣ",
+            "repair": "Таъмир",
+            "different": "Дигар",
+            "apartment": "Квартира",
+            "house": "Хона",
+            "partOfLand": "Қисми замин",
+            "space": "Ҳуҷра",
+            "saleOfCar": "Фурӯши мошин",
+            "rentOfCar": "Мошинҳои иҷора",
+            "clothes": "Либос",
+            "houseAppliances": "Техникаи маишӣ",
+            "electronics": "Электроникаи"
+         }
+      },
+      "myPage": {
+         "profile": "Профили",
+         "myAds": "Рекламаи ман",
+         "back": "Бозгашт"
+      },
+      "detailInfo": {
+         "breadcrumbs": {
+            "main": "Асосӣ",
+            "back": "Бозгашт"
+         },
+         "price": "₽/моҳ.",
+         "phone": "Намоиши телефон",
+         "description": "Тавсифи эълон",
+         "similar": "Рекламаи монанд",
+         "btn": "Бештар тамошо кунед",
+         "message": "Маълумот нест",
+         "hide": "Пинҳон кардан",
+         "readMore": "Муфассалтар"
       }
    },
    "global": {

@@ -69,7 +69,9 @@
       "layout": {
          "header": {
             "favorite": "Тандалгандар",
-            "create-ad": "Жарыялоо"
+            "create-ad": "Жарыялоо",
+            "profile": "Профиль",
+            "logOut": "Чыгуу"
          },
          "footer": {
             "work": "Иш",
@@ -144,6 +146,86 @@
             "main": "Башкы бет",
             "currentPage": "Жаңы жарыя"
          },
+         "information": {
+            "infoTitle1": "Сайтка кирүүгө тыюу салынган билдирүүлөр ULUTMAN.ru:",
+            "infoTitle2": "Айына баннер жайгаштыруу наркы:",
+            "infoList1": "Мыйзамга каршы келген мазмун.",
+            "infoList2": "Товарлар же кызматтар жөнүндө жалган маалымат.",
+            "infoList3": "Автордук укуктун бузулушу.",
+            "infoList4": " Эрежелерди бузуу жарнаманы алып салууга жана аккаунтту бөгөттөөгө алып келиши мүмкүн.",
+            "infoList5": "  &ldquo;Ижара&ldquo; категориясы чыгыш үчүн : 1000 рубль.",
+            "infoList6": " &ldquo;Мейманкана&ldquo; категориясы чыгыш үчүн: 2000 рублей",
+            "infoList7": " Баннер жарнамасынын көрүнүшү: 50% дан баштап.",
+            "infoList8": " Баннерди биринчи позицияга көтөрүү мүмкүнчүлүгү: 24 саат сайын."
+         },
+         "newCreateAdForm": {
+            "title": "Аталышы",
+            "titlePlaceholder": "2 бөлмөлүү батир",
+            "phone": "Байланыш",
+            "phonePlaceholder": "+7 xxx xxxxxxx",
+            "category": "Категория",
+            "categoryButton": "Тандoo",
+            "uploadPhoto": {
+               "uploadImage": "Башкы сүрөт",
+               "uploadTitle": "Сүрөт кошуу",
+               "uploadDescription": "Сүрөт кошуу үчүн аны чыкылдатыңыз же сүйрөңүз"
+            },
+            "detailInfoButton": "Толук маалымат",
+            "detailInfo": {
+               "title": "Толук маалымат",
+               "room": "Бөлмөлөрдүн саны",
+               "area": "Ашкана аянты",
+               "totalArea": "Жалпы аянты (кв. м)",
+               "year": "Курулган жылы",
+               "repair": "Оңдоо",
+               "heating": "Жылытуу",
+               "document": "Укук белгилөөчү документтер",
+               "company": "Курулуш компаниясы"
+            },
+            "description": "Баяндоо",
+            "descriptionPlaceholder": "Кара түстөгү 128GB эс тутуму менен  iPhone 12 сатам.Телефон мыкты абалда, жумшак колдонулган жана дайыма экранда коргоочу айнек корпуста кийилген.",
+            "city": "Шаар",
+            "cityPlaceholder": "Шаарды тандаңыз",
+            "listOfCities": {
+               "city1": "Москва",
+               "city2": "Балашиха",
+               "city3": "Подольск",
+               "city4": "Химки",
+               "city5": "Королёв",
+               "city6": "Мытищи",
+               "city7": "Люберцы",
+               "city8": "Красногорск",
+               "city9": "Электросталь"
+            },
+            "metro": "Метро",
+            "metroPlaceholder": "Метрону тандаңыз",
+            "adress": "Дареги",
+            "adressPlaceholder": "Крылов көчөсү 1-үй",
+            "price": "Баасы",
+            "pricePlaceholder": "Келишимдик",
+            "bank": "Банкты тандаңыз",
+            "bankPlaceholder": "Жок",
+            "cheque": "Чекти тиркеңиз",
+            "chequePlaceholder": "Жок",
+            "adButton": "Түзүү"
+         },
+         "validationForm": {
+            "title": "Чек милдеттүү",
+            "phoneNumberRequired": "Телефон милдеттүү",
+            "phoneNumberMatches": "Туура эмес телефон форматы",
+            "category": "Категория милдеттүү",
+            "imagesMin": "Сүрөттөр талаасы кеминде 1 элементти камтышы керек",
+            "imagesRequired": "Сүрөт жүктөө керек",
+            "description": "Сүрөттөө милдеттүү",
+            "city": "Шаар милдеттүү",
+            "adress": "Дарек милдеттүү",
+            "metro": "Метро милдеттүү",
+            "priceRequired": "Метро милдеттүү",
+            "priceTypeError": "Баасы сан болушу керек",
+            "bank": "Банк милдеттүү",
+            "paymentReceiptFileMin": "Чек милдеттүү",
+            "paymentReceiptFileRequired": "Чек милдеттүү"
+         },
          "adsForm": {
             "name": "Аты",
             "phone": "Телефон",
@@ -175,10 +257,120 @@
             "title3": "Баннерди жогорулатуу мүмкүнчүлүгү: ар 3 саат сайын",
             "title4": "Биринчи орундагы көрүнүмдүүлүк: 99%."
          },
+         "bankLabel": "Банк",
+         "bankLabelPlaceholder": "Акча которулган банкты көрсөтүңүз",
+         "advertisingValidation": {
+            "bankError": "Пожалуйста, выберите допустимый банк.",
+            "imageError": "Сураныч, жарактуу банкты тандаңыз",
+            "imageSizeError": "Сүрөттүн көлөмү 285х407 же 564х246 болушу керек",
+            "receiptFileError": "Сураныч, чекти жүктөп бериңиз"
+         },
          "uploadPhotoLabel": "Сүрөт жүктөңүз",
          "uploadPhotoTitle": "Сүрөт кошуңуз",
          "uploadPhotoDesc": "Сүрөт кошуу үчүн чыкылдатыңыз же сүйрөңүз",
          "advertisiingBtn": "Кошуу"
+      },
+      "createModal": {
+         "title": "Кошуу",
+         "addBtn": "Жарыя",
+         "advertisingBtn": "Жарнама"
+      },
+      "profile": {
+         "name": "Ысым",
+         "namePlaceholder": "Иван",
+         "email": "Электрондук почта",
+         "emailPlaceholder": "мисалы@gmail.com",
+         "editBtn": "Өзгөртүү",
+         "cancelBtn": "Жокко чыгаруу",
+         "saveBtn": "Сактоо",
+         "profileValidation": {
+            "username": "Аты сөзсүз",
+            "emailAddress": "Туура эмес формат",
+            "emailAddressRequired": "Милдеттүү"
+         }
+      },
+      "myAds": {
+         "label1": "Активдүү",
+         "label2": "Четке кагылды",
+         "label3": "Менин жарнамаларым",
+         "myAdsMessage": "Тандалган өтмөк үчүн дайындар жок"
+      },
+      "modal": {
+         "title": "Сиз өчүргүңүз келеби?",
+         "cancelBtn": "Жокко чыгаруу",
+         "deleteBtn": "Өчүрүү"
+      },
+      "favorite": {
+         "title": "Тандалган жарнамалар",
+         "back": "Артка",
+         "favoriteMessage": "Өзгөчөлөнгөн жарнамалар жок",
+         "breadcrumbs": {
+            "main": "Башкы",
+            "currentPage": "Тандалган жарнамалар"
+         }
+      },
+      "logOut": {
+         "title": "Чын эле сыртка чыккыңыз келеби?",
+         "cancel": "Жок",
+         "logOut": "Чыгуу"
+      },
+      "categoryModal": {
+         "back": "Артка",
+         "subcategory": "Субкатегорияны тандоо",
+         "category": "Категория тандоо",
+         "work": "Жумуш",
+         "rent": "Ижара",
+         "hotel": "Мейманкана",
+         "services": "Кызматтар",
+         "real_estate": "Кыймылсыз мүлк",
+         "auto": "Авто",
+         "sell": "Сатуу",
+         "subCategory": {
+            "partTime": "Толук эмес жумуш күнү",
+            "fullTime": "Толук жумуш күнү",
+            "IrentRoom": "Мен бөлмөнү ижарага берем",
+            "IrentBed": "Мен орунду ижарага алам",
+            "IrentApartment": "Мен квартираны ижарага алам.",
+            "rentRoom": "Мен бөлмөнү ижарага алам",
+            "rentOffice": "Офисти ижарага алуу",
+            "dailyRent": "Күнүмдүк ижара",
+            "longTermRent": "Узак мөөнөттүү ижара",
+            "medical": "Медициналык кызмат көрсөтүүлөр",
+            "legal": "Юридикалык кызматтар",
+            "beauty": "Сулуулук",
+            "airticket": "Учуу билети",
+            "taxiAndTrack": "Такси жана жүк ташуу",
+            "repair": "Оңдоо",
+            "different": "Башка",
+            "apartment": "Квартира",
+            "house": "Үй",
+            "partOfLand": "Участок",
+            "space": "Бөлмө",
+            "saleOfCar": "Машина сатуу",
+            "rentOfCar": "Машиналарды ижарага алуу",
+            "clothes": "Кийим",
+            "houseAppliances": "Турмуш-тиричилик техникасы",
+            "electronics": "Электроника"
+         }
+      },
+      "myPage": {
+         "profile": "Профиль",
+         "myAds": "Менин жарыяларым",
+         "back": "Артка"
+      },
+      "detailInfo": {
+         "breadcrumbs": {
+            "main": "Башкы бет",
+            "back": "Артка"
+         },
+         "price": "₽/айына.",
+         "phone": "Телефонду көрсөтүү",
+         "description": "Жарнаманын сүрөттөлүшү",
+         "similar": "Окшош жарнамалар",
+         "btn": "Дагы көрүү",
+         "message": "Маалымат жок",
+         "hide": "Жашыруу",
+         "readMore": "Окууну улантуу"
       }
    },
    "global": {

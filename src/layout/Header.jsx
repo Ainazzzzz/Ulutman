@@ -23,6 +23,7 @@ import DownIcon from '../assets/icons/select-down-icon.svg?react'
 import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx'
 import { useTranslation } from 'react-i18next'
 import Modal from '../components/UI/Modal.jsx'
+import Auth from '../pages/user/auth/Auth.jsx'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -203,10 +204,10 @@ export const Header = () => {
                                  navigateToPageHandler('my-page/profile')
                               }
                            >
-                              Профиль
+                              {t('user.layout.header.profile')}
                            </MenuItem>
                            <MenuItemLogOut onClick={logOutHandler}>
-                              <LogOutIcon /> Выйти
+                              <LogOutIcon /> {t('user.layout.header.logOut')}
                            </MenuItemLogOut>
                         </MenuProfile>
                      </>

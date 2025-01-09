@@ -4,6 +4,7 @@ import CloseIcon from '../../../assets/icons/close-icon.svg?react'
 import ArrowsIcon from '../../../assets/icons/arrowpurpul.svg?react'
 import { categoryTab } from '../../../utils/constants/main'
 import Modal from '../../UI/Modal'
+import { useTranslation } from 'react-i18next'
 
 export const PublishesCategoryModal = ({
    open,
@@ -13,7 +14,7 @@ export const PublishesCategoryModal = ({
    setFieldValue,
 }) => {
    const [selectedCategory, setSelectedCategory] = useState(null)
-
+   const { t } = useTranslation()
    const categoryHandler = useCallback(
       category => {
          onCategoryClick(category)
@@ -43,14 +44,18 @@ export const PublishesCategoryModal = ({
                <NavItem
                   key={title}
                   onClick={() =>
-                     categoryHandler({ category, title, subCategory })
+                     categoryHandler({
+                        category,
+                        title: t(title),
+                        subCategory,
+                     })
                   }
                >
                   <span href="#">
                      <IconWrapper background={background}>
                         <Icon />
                      </IconWrapper>
-                     <p>{title}</p>
+                     <p>{t(title)}</p>
                   </span>
                </NavItem>
             ),
@@ -65,7 +70,7 @@ export const PublishesCategoryModal = ({
                key={sub.id}
                onClick={() => subCategoryHandler(sub)}
             >
-               {sub.text}
+               {t(sub.text)}
             </SubCategoryItem>
          )),
       [selectedCategory, subCategoryHandler],
@@ -78,13 +83,13 @@ export const PublishesCategoryModal = ({
                {selectedCategory && (
                   <BackIcon onClick={handleBackClick}>
                      <ArrowsIcon />
-                     назад
+                     {t('user.categoryModal.back')}
                   </BackIcon>
                )}
                <Title>
                   {selectedCategory
-                     ? 'Выбрать подкатегорию'
-                     : 'Выбрать категорию'}
+                     ? t('user.categoryModal.subcategory')
+                     : t('user.categoryModal.category')}
                </Title>
                <StyledCloseIcon onClick={onClose} />
             </Header>

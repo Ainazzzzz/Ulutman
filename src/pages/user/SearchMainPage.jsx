@@ -8,6 +8,7 @@ import { useMainCategoryParams } from '../../hooks/useSearchParams'
 import { searchCategoryAndMetroRequest } from '../../redux/main/mainThunk'
 import { serializeToQueryParams } from '../../utils/general/serialize'
 import SearchInput from '../../components/UI/SearchInput'
+import { useTranslation } from 'react-i18next'
 
 const CATEGORY_MAIN = {
    Работа: 'WORK',
@@ -25,9 +26,10 @@ export const SearchMainPage = () => {
    const [searchParams, setSearchParams] = useSearchParams()
    const { category, search, metro } = useMainCategoryParams()
    const dispatch = useDispatch()
+   const { t } = useTranslation()
 
    const breadcrumbs = [
-      { url: '/', title: 'Главная' },
+      { url: '/', title: t('user.searchMain.breadcrumbs.main') },
       { url: `/user/main.php`, title: category },
    ]
 
@@ -63,7 +65,7 @@ export const SearchMainPage = () => {
                </FirstBlock>
             </Block>
             <SearchInput
-               placeholder="Поиск по названию"
+               placeholder={t('user.searchMain.inputPlaceholder')}
                onChange={searchChangeHandler}
                value={searchValue}
                onClick={handleSearchSubmit}

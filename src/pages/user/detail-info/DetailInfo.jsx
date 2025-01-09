@@ -1,4 +1,4 @@
-import { Box, Rating, Typography, styled } from '@mui/material'
+import { Box, Typography, styled } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -14,7 +14,6 @@ import 'swiper/css/pagination'
 import Like from '../../../assets/icons/like-product-icon.svg?react'
 import ArrowIcon from '../../../assets/icons/arrowpurpul.svg?react'
 import { Button } from '../../../components/UI/Button'
-import UserIcon from '../../../assets/icons/user.svg?react'
 import AboutApartment from './AboutApartment'
 import {
    deleteFavorite,
@@ -23,11 +22,13 @@ import {
 } from '../../../redux/datailInfo/detailInfoThunk'
 import { PhoneModal } from '../../../components/UI/PhoneModal'
 import { SimilarAds } from './SimilarAds'
+import { useTranslation } from 'react-i18next'
 
 const DetailInfo = () => {
    const dispatch = useDispatch()
    const { id } = useParams()
    const navigate = useNavigate()
+   const { t } = useTranslation()
 
    const detailInfo = useSelector(state => state.detailInfo)
 
@@ -48,7 +49,7 @@ const DetailInfo = () => {
    }
 
    const path = [
-      { title: 'Главная', url: '/user' },
+      { title: t('user.detailInfo.breadcrumbs.main'), url: '/user' },
       { title: detailInfo?.detailInfo?.title, url: '#' },
    ]
 
@@ -71,7 +72,7 @@ const DetailInfo = () => {
    return (
       <div>
          {!detailInfo || Object.keys(detailInfo).length === 0 ? (
-            <p>Нет данных </p>
+            <p>{t('user.detailInfo.message')} </p>
          ) : (
             <StyledContainer>
                <Box className="breadcrumbs-box">
@@ -83,25 +84,25 @@ const DetailInfo = () => {
                      className="go-back"
                   >
                      <ArrowIcon />
-                     назад
+                     {t('user.detailInfo.breadcrumbs.back')}
                   </button>
                </Box>
 
                <Box className="locatio-time-box">
                   <Typography>
                      <LocationIcon className="location-icon" />
-                     {detailInfo?.detailInfo?.address || 'Не указано'}
+                     {detailInfo?.detailInfo?.address}
                   </Typography>
 
                   <Typography>
                      <ClockIcon />
-                     {detailInfo?.detailInfo?.createDate || 'Не указано'}
+                     {detailInfo?.detailInfo?.createDate}
                   </Typography>
                </Box>
 
                <Box>
                   <Typography className="title" variant="h3">
-                     {detailInfo?.detailInfo?.title || 'Не указано'}
+                     {detailInfo?.detailInfo?.title}
                   </Typography>
 
                   <Box className="fist-part_container">
@@ -151,15 +152,8 @@ const DetailInfo = () => {
                         <Box className="second_box">
                            <Box className="main-info">
                               <Typography className="price">
-                                 {detailInfo?.detailInfo?.category ===
-                                    'REAL_ESTATE' &&
-                                    (detailInfo?.detailInfo?.price ||
-                                       'Не указано')}{' '}
-                                 {/* {detailInfo?.detailInfo?.category !==
-                                    'REAL_ESTATE' &&
-                                    (detailInfo?.detailInfo?.price ||
-                                       'Не указано')} */}
-                                 ₽/мес.
+                                 {detailInfo?.detailInfo?.price}
+                                 {t('user.detailInfo.price')}
                               </Typography>
 
                               <Like
@@ -179,42 +173,7 @@ const DetailInfo = () => {
                               />
                            </Box>
 
-                           {detailInfo?.detailInfo?.category !==
-                              'REAL_ESTATE' && (
-                              <Box className="description-container">
-                                 <Typography
-                                    variant="h3"
-                                    className="description_detail-info"
-                                 >
-                                    Описание объявления
-                                 </Typography>
-
-                                 <Typography className="description-text">
-                                    {isExpanded
-                                       ? description
-                                       : shortDescription}
-                                    {words.length > 15 && !isExpanded && '...'}
-                                 </Typography>
-
-                                 {words.length > 15 && (
-                                    <Typography
-                                       className="read-more-text"
-                                       onClick={handleReadMore}
-                                    >
-                                       {isExpanded ? 'Скрыть' : 'Читать дальше'}
-                                       <ArrowIcon
-                                          className={
-                                             isExpanded
-                                                ? 'arrow-up'
-                                                : 'arrow-down'
-                                          }
-                                       />
-                                    </Typography>
-                                 )}
-                              </Box>
-                           )}
-
-                           {detailInfo?.detailInfo?.category ===
+                           {/* {detailInfo?.detailInfo?.category ===
                               'REAL_ESTATE' && (
                               <Box className="info-box-container">
                                  <Typography className="info-part">
@@ -252,11 +211,11 @@ const DetailInfo = () => {
                                        ?.leaseTerm || 'Не указано'}
                                  </Typography>
                               </Box>
-                           )}
+                           )} */}
 
                            <Box className="btns-container">
                               <Button onClick={handleShowPhoneNumber}>
-                                 Показать телефон
+                                 {t('user.detailInfo.phone')}
                               </Button>
                               {openModal && (
                                  <PhoneModal
@@ -269,60 +228,32 @@ const DetailInfo = () => {
                               )}
                            </Box>
                         </Box>
-
-                        {detailInfo?.detailInfo?.category === 'REAL_ESTATE' && (
-                           <Box className="rieltor-info">
-                              <Box className="user-icon-container">
-                                 <UserIcon />
-                              </Box>
-                              <Box>
-                                 <Typography className="rieltor-title">
-                                    Риелтор
-                                 </Typography>
-
-                                 <Typography>
-                                    {detailInfo?.detailInfo?.conditions
-                                       ?.realtor || 'Не указано'}
-                                 </Typography>
-                                 <Rating
-                                    value={
-                                       detailInfo?.detailInfo?.conditions
-                                          ?.realtorRating || 0
-                                    }
-                                    readOnly
-                                 />
-                              </Box>
-                           </Box>
-                        )}
                      </Box>
                   </Box>
                </Box>
 
-               {detailInfo?.detailInfo?.category === 'REAL_ESTATE' && (
-                  <Box className="description-container">
+               <Box className="description-container">
+                  <Typography variant="h3" className="description_detail-info">
+                     {t('user.detailInfo.description')}
+                  </Typography>
+                  <Typography className="descriptioon-text">
+                     {isExpanded ? description : shortDescription}
+                     {words.length > 20 && !isExpanded && '...'}
+                  </Typography>
+                  {words.length > 20 && (
                      <Typography
-                        variant="h3"
-                        className="description_detail-info"
+                        className="read-more-text"
+                        onClick={handleReadMore}
                      >
-                        Описания объявления
+                        {isExpanded
+                           ? t('user.detailInfo.hide')
+                           : t('user.detailInfo.readMore')}
+                        <ArrowIcon
+                           className={isExpanded ? 'arrow-up' : 'arrow-down'}
+                        />
                      </Typography>
-                     <Typography className="descriptioon-text">
-                        {isExpanded ? description : shortDescription}
-                        {words.length > 20 && !isExpanded && '...'}{' '}
-                     </Typography>
-                     {words.length > 20 && (
-                        <Typography
-                           className="read-more-text"
-                           onClick={handleReadMore}
-                        >
-                           {isExpanded ? 'Скрыть' : 'Читать дальше'}
-                           <ArrowIcon
-                              className={isExpanded ? 'arrow-up' : 'arrow-down'}
-                           />
-                        </Typography>
-                     )}
-                  </Box>
-               )}
+                  )}
+               </Box>
 
                <AboutApartment detailInfo={detailInfo} />
                <SimilarAds currentCategory={detailInfo?.detailInfo?.category} />

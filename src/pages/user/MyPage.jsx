@@ -2,8 +2,10 @@ import { NavLink, Outlet } from 'react-router-dom'
 import { styled } from '@mui/material'
 import { PATHS } from '../../utils/constants/paths'
 import ArrowIcon from '../../assets/icons/arrowpurpul.svg?react'
+import { useTranslation } from 'react-i18next'
 
 export const MyPage = () => {
+   const { t } = useTranslation()
    return (
       <Container>
          <StyledNav>
@@ -11,19 +13,19 @@ export const MyPage = () => {
                to={PATHS.USER.PROFILE}
                className={({ isActive }) => (isActive ? 'active' : '')}
             >
-               Профиль
+               {t('user.myPage.profile')}
             </StyledNavLink>
             <StyledNavLink
                to={PATHS.USER.MY_ADS}
                className={({ isActive }) => (isActive ? 'active' : '')}
             >
-               Мои объявления
+               {t('user.myPage.myAds')}
             </StyledNavLink>
             <StyledNavLinkLast
                to="/user"
                style={{ marginLeft: 'auto', color: '#7b5bd1' }}
             >
-               <ArrowIcon /> Назад
+               <ArrowIcon /> {t('user.myPage.back')}
             </StyledNavLinkLast>
          </StyledNav>
          <Outlet />

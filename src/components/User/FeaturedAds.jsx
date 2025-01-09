@@ -12,9 +12,11 @@ import {
    getAllFavorites,
 } from '../../redux/users/favoriteThunk'
 import { DeleteFavoriteModal } from './DeleteFavoriteModal'
+import { useTranslation } from 'react-i18next'
 
 export const FeaturedAds = () => {
    const [isOpenModal, setIsOpenModal] = useState(false)
+   const { t } = useTranslation()
    const dispatch = useDispatch()
    const favorite = useSelector(
       state => state.favoriteProducts?.favoriteProducts || [],
@@ -22,8 +24,8 @@ export const FeaturedAds = () => {
    const publishResponseList = favorite?.publishResponseList || []
 
    const breadCrumbs = [
-      { url: '/', title: 'Главная' },
-      { url: 'featuredAds', title: 'Избранные объявления' },
+      { url: '/', title: t('user.favorite.breadcrumbs.main') },
+      { url: 'featuredAds', title: t('user.favorite.breadcrumbs.currentPage') },
    ]
 
    const handleDeleteFavorite = () => {
@@ -49,11 +51,11 @@ export const FeaturedAds = () => {
             <FirstBlock>
                <Breadcrumbs path={breadCrumbs} />
                <span>
-                  <ChevronLeft /> Назад
+                  <ChevronLeft /> {t('user.favorite.back')}
                </span>
             </FirstBlock>
             <SecondBlock>
-               <h3>Избранные объявления</h3>
+               <h3>{t('user.favorite.title')}</h3>
                {isMobile ? (
                   <DeleteMobile onClick={handleDeleteFavorite} />
                ) : (
@@ -64,7 +66,9 @@ export const FeaturedAds = () => {
          </Container>
 
          {publishResponseList.length === 0 ? (
-            <NoFavoritesMessage>Нет избранных объявлений</NoFavoritesMessage>
+            <NoFavoritesMessage>
+               {t('user.favorite.favoriteMessage')}
+            </NoFavoritesMessage>
          ) : (
             <CardList
                cards={publishResponseList}

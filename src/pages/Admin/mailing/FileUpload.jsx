@@ -9,9 +9,11 @@ import {
    ImagePreview,
    StyledDropzone,
 } from './MailingFormStyles'
+import { useTranslation } from 'react-i18next'
 
 const FileUpload = ({ setFieldValue, touched, errors, id }) => {
    const [imagePreview, setImagePreview] = useState(null)
+   const { t } = useTranslation()
 
    const onDrop = acceptedFiles => {
       const file = acceptedFiles[0]
@@ -64,8 +66,8 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
                ) : (
                   <div className="block">
                      <CameraIcon />
-                     <b>Добавьте фото</b>
-                     <p>Для добавления картинки щелкните или перетащите его</p>
+                     <b>{t('user.advertising.uploadPhotoTitle')}</b>
+                     <p>{t('user.advertising.uploadPhotoDesc')}</p>
                   </div>
                )}
                <div className="container-error">

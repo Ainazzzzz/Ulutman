@@ -1,8 +1,11 @@
 import { useDropzone } from 'react-dropzone'
 import { Box, Typography, IconButton, TextField, styled } from '@mui/material'
 import PDFIcon from '../../../assets/icons/arrows.svg?react'
+import { useTranslation } from 'react-i18next'
 
 const UploadReceipt = ({ setFileName, fileName, setReceiptFiles }) => {
+   const { t } = useTranslation()
+
    const onDrop = acceptedFiles => {
       setReceiptFiles('paymentReceiptFile', acceptedFiles)
       if (acceptedFiles && acceptedFiles.length > 0) {
@@ -22,7 +25,7 @@ const UploadReceipt = ({ setFileName, fileName, setReceiptFiles }) => {
    return (
       <Box display="flex" flexDirection="column" gap={1}>
          <Label variant="subtitle1">
-            Прикрепите чек{' '}
+            {t('user.createAds.newCreateAdForm.cheque')}
             <Typography component="span" color="error">
                *
             </Typography>
@@ -42,7 +45,9 @@ const UploadReceipt = ({ setFileName, fileName, setReceiptFiles }) => {
             <TextField
                variant="standard"
                value={fileName}
-               placeholder="Нет"
+               placeholder={t(
+                  'user.createAds.newCreateAdForm.chequePlaceholder',
+               )}
                InputProps={{
                   readOnly: true,
                   disableUnderline: true,

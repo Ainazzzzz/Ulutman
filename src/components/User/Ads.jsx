@@ -9,11 +9,13 @@ import { MyAds } from './MyAds'
 import TabsUi from '../UI/TabsUi'
 import { DeleteMyAdsModal } from './DeleteMyAdsModal'
 import { getMyAds, getRejectedPublishes } from '../../redux/users/myAdsThunk'
+import { useTranslation } from 'react-i18next'
 
 export const Ads = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const [activeTab, setActiveTab] = useState('1')
    const dispatch = useDispatch()
+   const { t } = useTranslation()
 
    const [selectedIds, setSelectedIds] = useState([])
    const [isModalOpen, setIsModalOpen] = useState(false)
@@ -30,9 +32,9 @@ export const Ads = () => {
    )
 
    const secondTab = [
-      { value: '1', label: `Активно (${activeAdsCount})` },
-      { value: '2', label: `Отклонено (${rejectedAdsCount})` },
-      { value: '3', label: `Мои рекламы(${myAdsCount})` },
+      { value: '1', label: `${t('user.myAds.label1')} (${activeAdsCount})` },
+      { value: '2', label: `${t('user.myAds.label2')} (${rejectedAdsCount})` },
+      { value: '3', label: `${t('user.myAds.label3')} (${myAdsCount})` },
    ]
 
    const handleDelete = () => {

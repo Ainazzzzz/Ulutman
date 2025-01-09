@@ -8,10 +8,12 @@ import { CardList } from '../../../components/UI/Card/CardList'
 import { Button } from '../../../components/UI/Button'
 import { getSimilarAds } from '../../../redux/datailInfo/detailInfoThunk'
 import { sortPublishesRequest } from '../../../redux/main/mainThunk'
+import { useTranslation } from 'react-i18next'
 
 export const SimilarAds = ({ currentCategory }) => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
+   const { t } = useTranslation()
 
    const [sortedAds, setSortedAds] = useState([])
 
@@ -48,7 +50,7 @@ export const SimilarAds = ({ currentCategory }) => {
       <Container>
          <div>
             <Block>
-               <Title>Похожие объявления</Title>
+               <Title>{t('user.detailInfo.similar')}</Title>
                <AnnouncementsSorter
                   options={SORT_BY_CATEGROY_OPTIONS}
                   onSortChange={handleSortChange}
@@ -57,7 +59,7 @@ export const SimilarAds = ({ currentCategory }) => {
             <CardList cards={sortedAds.slice(0, 8)} />
          </div>
          <Button variant="category-sort" onClick={seeMoreHandler}>
-            Посмотреть еще
+            {t('user.detailInfo.btn')}
          </Button>
       </Container>
    )

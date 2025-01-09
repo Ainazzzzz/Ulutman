@@ -1,10 +1,10 @@
-import { styled } from '@mui/material';
-import React from 'react';
-import Calling from '../../assets/icons/calling.svg?react';
-import { useTranslation } from 'react-i18next';
+import { styled } from '@mui/material'
+import React from 'react'
+import Calling from '../../assets/icons/calling.svg?react'
+import { useTranslation } from 'react-i18next'
 
 const Footer = () => {
-   const { t } = useTranslation();
+   const { t } = useTranslation()
 
    return (
       <WrapperDiv>
@@ -116,16 +116,16 @@ const CallingIcon = styled(Calling)(({ theme }) => ({
    },
 }))
 
-const NavItem = styled(NavLink)(() => ({
-   color: '#222',
-   textDecoration: 'none',
-   cursor: 'pointer',
+// const NavItem = styled(NavLink)(() => ({
+//    color: '#222',
+//    textDecoration: 'none',
+//    cursor: 'pointer',
 
-   ':hover': {
-      textDecoration: 'underline',
-   },
+//    ':hover': {
+//       textDecoration: 'underline',
+//    },
 
-   '&.active': {
-      textDecoration: 'underline',
-   },
-}))
+//    '&.active': {
+//       textDecoration: 'underline',
+//    },
+// }))

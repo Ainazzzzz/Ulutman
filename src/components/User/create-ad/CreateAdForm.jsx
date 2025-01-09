@@ -9,30 +9,12 @@ import CategoryField from './CategoryField'
 import ReusableSelect from '../../UI/Select'
 import FileUpload from './FileUpload'
 import { Button } from '../../UI/Button'
-import { PublishesCategoryModal } from './PublishesCategoryModal'
+import { PublishesCategoryModal } from '../../User/create-ad/PublishesCategoryModal'
 import DetailInfoModal from './DetailInfoModal'
-import UploadReceipt from './UploadReceipt'
 import { fetchPublishesUser } from '../../../redux/publishes/publishesThunk'
 import { getAllMetros } from '../../../redux/main/mainThunk'
-
-const citiesOfMoscow = [
-   { value: 'Арбат', label: 'Арбат' },
-   { value: 'Басманный', label: 'Басманный' },
-   { value: 'Замоскворечье', label: 'Замоскворечье' },
-   { value: 'Таганский', label: 'Таганский' },
-   { value: 'Пресненский', label: 'Пресненский' },
-   { value: 'Хамовники', label: 'Хамовники' },
-   { value: 'Тверской', label: 'Тверской' },
-   { value: 'Якиманка', label: 'Якиманка' },
-   { value: 'Красносельский', label: 'Красносельский' },
-   { value: 'Мещанский', label: 'Мещанский' },
-   { value: 'Сокольники', label: 'Сокольники' },
-   { value: 'Беговой', label: 'Беговой' },
-   { value: 'Аэропорт', label: 'Аэропорт' },
-   { value: 'Лефортово', label: 'Лефортово' },
-   { value: 'МарьинаРоща', label: 'Марьина Роща' },
-   { value: 'Щукино', label: 'Щукино' },
-]
+import UploadReceipt from '../../User/create-ad/UploadReceipt'
+import { useTranslation } from 'react-i18next'
 
 const banks = [
    { value: 'Сбербанк', label: 'Сбербанк' },
@@ -52,30 +34,102 @@ const banks = [
    { value: 'МТС Банк', label: 'МТС Банк' },
 ]
 
-export const validationAdForm = Yup.object({
-   title: Yup.string().required('Название товара обязательна'),
-   phoneNumber: Yup.string()
-      .required('Телефон обязателен')
-      .matches(/^\+7\d{10}$/, 'Некорректный формат телефона'),
-   category: Yup.string().required('Категория обязательна'),
-   images: Yup.array()
-      .min(1, 'Поле изображений должно содержать хотя бы 1 элемент.')
-      .required('Загрузите фото'),
-   description: Yup.string().required('Описание обязательно'),
-   city: Yup.string().required('Город обязателен'),
-   address: Yup.string().required('Адрес обязателен'),
-   metro: Yup.string().required('Метро обязательно'),
-   price: Yup.number()
-      .required('Цена обязательна')
-      .typeError('Цена должна быть числом'),
-   bank: Yup.string().required('Банк обязателен'),
-   paymentReceiptFile: Yup.array()
-      .min(1, 'Чек обязателен.')
-      .required('Чек обязателен'),
-   propertyDetails: Yup.object().optional(),
-})
+// export const validationAdForm = Yup.object({
+//    title: Yup.string().required(t('user.createAds.validationForm.title')),
+//    phoneNumber: Yup.string()
+//       .required('Телефон обязателен')
+//       .matches(/^\+7\d{10}$/, 'Некорректный формат телефона'),
+//    category: Yup.string().required('Категория обязательна'),
+//    images: Yup.array()
+//       .min(1, 'Поле изображений должно содержать хотя бы 1 элемент.')
+//       .required('Загрузите фото'),
+//    description: Yup.string().required('Описание обязательно'),
+//    city: Yup.string().required('Город обязателен'),
+//    address: Yup.string().required('Адрес обязателен'),
+//    metro: Yup.string().required('Метро обязательно'),
+//    price: Yup.number()
+//       .required('Цена обязательна')
+//       .typeError('Цена должна быть числом'),
+//    bank: Yup.string().required('Банк обязателен'),
+//    paymentReceiptFile: Yup.array()
+//       .min(1, 'Чек обязателен.')
+//       .required('Чек обязателен'),
+//    propertyDetails: Yup.object().optional(),
+// })
 
 export const CreateAdForm = () => {
+   const { t } = useTranslation()
+   const citiesOfMoscow = [
+      {
+         value: t('user.createAds.newCreateAdForm.listOfCities.city1'),
+         label: 'Москва',
+      },
+      {
+         value: t('user.createAds.newCreateAdForm.listOfCities.city2'),
+         label: 'Балашиха',
+      },
+      {
+         value: t('user.createAds.newCreateAdForm.listOfCities.city3'),
+         label: 'Подольск',
+      },
+      {
+         value: t('user.createAds.newCreateAdForm.listOfCities.city4'),
+         label: 'Химки',
+      },
+      {
+         value: t('user.createAds.newCreateAdForm.listOfCities.city5'),
+         label: 'Королёв',
+      },
+      {
+         value: t('user.createAds.newCreateAdForm.listOfCities.city6'),
+         label: 'Мытищи',
+      },
+      {
+         value: t('user.createAds.newCreateAdForm.listOfCities.city7'),
+         label: 'Люберцы',
+      },
+      {
+         value: t('user.createAds.newCreateAdForm.listOfCities.city8'),
+         label: 'Красногорск',
+      },
+      {
+         value: t('user.createAds.newCreateAdForm.listOfCities.city9'),
+         label: 'Электросталь',
+      },
+   ]
+
+   const validationAdForm = Yup.object({
+      title: Yup.string().required(t('user.createAds.validationForm.title')),
+      phoneNumber: Yup.string()
+         .required(t('user.createAds.validationForm.phoneNumberRequired'))
+         .matches(
+            /^\+7\d{10}$/,
+            t('user.createAds.validationForm.phoneNumberMatches'),
+         ),
+      category: Yup.string().required(
+         t('user.createAds.validationForm.category'),
+      ),
+      images: Yup.array()
+         .min(1, t('user.createAds.validationForm.imagesMin'))
+         .required(t('user.createAds.validationForm.imagesRequired')),
+      description: Yup.string().required(
+         t('user.createAds.validationForm.description'),
+      ),
+      city: Yup.string().required(t('user.createAds.validationForm.city')),
+      address: Yup.string().required(t('user.createAds.validationForm.adress')),
+      metro: Yup.string().required('user.createAds.validationForm.metro'),
+      price: Yup.number()
+         .required(t('user.createAds.validationForm.priceRequired'))
+         .typeError(t('user.createAds.validationForm.priceTypeError')),
+      bank: Yup.string().required('Банк обязателен'),
+      paymentReceiptFile: Yup.array()
+         .min(1, t('user.createAds.validationForm.paymentReceiptFileMin'))
+         .required(
+            t('user.createAds.validationForm.paymentReceiptFileRequired'),
+         ),
+      propertyDetails: Yup.object().optional(),
+   })
+
    const dispatch = useDispatch()
    const { metros } = useSelector(state => state.main)
    const { userData } = useSelector(state => state.auth)
@@ -136,8 +190,10 @@ export const CreateAdForm = () => {
       <>
          <Form onSubmit={handleSubmit}>
             <Input
-               placeholder="2х комнатная квартира"
-               label="Название"
+               placeholder={t(
+                  'user.createAds.newCreateAdForm.titlePlaceholder',
+               )}
+               label={t('user.createAds.newCreateAdForm.title')}
                name="title"
                value={values.title}
                onChange={handleChange}
@@ -146,8 +202,10 @@ export const CreateAdForm = () => {
                required
             />
             <Input
-               placeholder="+7 xxx xxxxxxx"
-               label="Телефон"
+               placeholder={t(
+                  'user.createAds.newCreateAdForm.phonePlaceholder',
+               )}
+               label={t('user.createAds.newCreateAdForm.phone')}
                name="phoneNumber"
                value={values.phoneNumber}
                onChange={handleChange}
@@ -186,12 +244,14 @@ export const CreateAdForm = () => {
             </div>
 
             <DetailInfo type="button" onClick={toggleDetailInfoModal}>
-               Детальная информация
+               {t('user.createAds.newCreateAdForm.detailInfoButton')}
             </DetailInfo>
 
             <Input
-               placeholder="Продаю iPhone 12 с объемом памяти 128GB в черном цвете. Телефон в отличном состоянии, использовался бережно и всегда носился в чехле с защитным стеклом на экране."
-               label="Описание"
+               placeholder={t(
+                  'user.createAds.newCreateAdForm.descriptionPlaceholder',
+               )}
+               label={t('user.createAds.newCreateAdForm.description')}
                name="description"
                value={values.description}
                onChange={handleChange}
@@ -203,8 +263,8 @@ export const CreateAdForm = () => {
             />
 
             <ReusableSelect
-               placeholder="Выберите город"
-               label="Город"
+               placeholder={t('user.createAds.newCreateAdForm.cityPlaceholder')}
+               label={t('user.createAds.newCreateAdForm.city')}
                name="city"
                value={values.city}
                onChange={handleChange}
@@ -213,8 +273,10 @@ export const CreateAdForm = () => {
                helperText={errors.city}
             />
             <ReusableSelect
-               placeholder="Выберите метро"
-               label="Метро"
+               placeholder={t(
+                  'user.createAds.newCreateAdForm.metroPlaceholder',
+               )}
+               label={t('user.createAds.newCreateAdForm.metro')}
                name="metro"
                value={values.metro}
                onChange={handleChange}
@@ -224,8 +286,10 @@ export const CreateAdForm = () => {
             />
 
             <Input
-               placeholder="Улица Крылова дом 1"
-               label="Адрес"
+               placeholder={t(
+                  'user.createAds.newCreateAdForm.adressPlaceholder',
+               )}
+               label={t('user.createAds.newCreateAdForm.adress')}
                name="address"
                value={values.address}
                onChange={handleChange}
@@ -234,8 +298,10 @@ export const CreateAdForm = () => {
                required
             />
             <Input
-               placeholder="Договорная"
-               label="Цена"
+               placeholder={t(
+                  'user.createAds.newCreateAdForm.pricePlaceholder',
+               )}
+               label={t('user.createAds.newCreateAdForm.price')}
                name="price"
                value={values.price}
                onChange={handleChange}
@@ -245,8 +311,8 @@ export const CreateAdForm = () => {
             />
 
             <ReusableSelect
-               placeholder="нет"
-               label="Выберите банк"
+               placeholder={t('user.createAds.newCreateAdForm.bankPlaceholder')}
+               label={t('user.createAds.newCreateAdForm.bank')}
                name="bank"
                value={values.bank}
                onChange={handleChange}
@@ -278,7 +344,9 @@ export const CreateAdForm = () => {
                )}
             </div>
 
-            <Button type="submit">Создать</Button>
+            <Button type="submit">
+               {t('user.createAds.newCreateAdForm.adButton')}
+            </Button>
          </Form>
          <DetailInfoModal
             open={detailInfoModal}

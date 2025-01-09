@@ -59,12 +59,12 @@ const AdversitingPage = () => {
       let isValid = true
 
       if (!validBanks.includes(bankName)) {
-         setBankError('Пожалуйста, выберите допустимый банк.')
+         setBankError(t('user.advertising.advertisingValidation.bankError'))
          isValid = false
       }
 
       if (!imageFile) {
-         setImageError('Пожалуйста, загрузите изображение.')
+         setImageError(t('user.advertising.advertisingValidation.imageError'))
          isValid = false
       } else {
          const validSizes = [
@@ -83,7 +83,7 @@ const AdversitingPage = () => {
 
             if (!isValidSize) {
                setImageError(
-                  'Изображение должно быть размером 285x407 или 564x246.',
+                  t('user.advertising.advertisingValidation.imageSizeError'),
                )
                isValid = false
             } else {
@@ -99,7 +99,9 @@ const AdversitingPage = () => {
       }
 
       if (!paymentReceiptFile) {
-         setReceiptError('Пожалуйста, загрузите чек.')
+         setReceiptError(
+            t('user.advertising.advertisingValidation.receiptFileError'),
+         )
          isValid = false
       }
 
@@ -152,8 +154,8 @@ const AdversitingPage = () => {
             <ContainerAddImageSehond>
                <Input
                   name="bank"
-                  label="Банк *"
-                  placeholder="Укажите банк, на который перевели деньги"
+                  label={t('user.advertising.bankLabel')}
+                  placeholder={t('user.advertising.bankLabelPlaceholder')}
                   value={bankName}
                   onChange={e => setBankName(e.target.value)}
                />
