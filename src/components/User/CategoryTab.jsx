@@ -8,11 +8,11 @@ import { styled, useMediaQuery } from '@mui/system'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { CategoryCard } from '../UI/CategoryCard'
-import Filter from '../../assets/icons/filter-category-icon.svg?react'
+// import Filter from '../../assets/icons/filter-category-icon.svg?react'
 import { AdvertisingCategory } from './AdvertisingCategory'
 import AnnouncementsSorter from '../AnnouncementsSorter'
 import { CardList } from '../UI/Card/CardList'
-import { FilterModal } from './FilterModal'
+// import { FilterModal } from './FilterModal'
 import { categoryTab } from '../../utils/constants/main'
 
 import {
@@ -116,14 +116,14 @@ export const CategoryTab = () => {
                         />
                      ))}
 
-                     <TabStyle
+                     {/* <TabStyle
                         label={
                            <span>
                               <Filter /> Ещё фильтры
                            </span>
                         }
                         value="5"
-                     />
+                     /> */}
                   </TabListStyle>
                   <div>
                      {!isMobile && (
@@ -137,7 +137,16 @@ export const CategoryTab = () => {
 
                <TabPanelStyle value={value}>
                   {isMobile ? (
-                     <CardList cards={categories} advertising={advertising} />
+                     <>
+                        <CardList cards={categories} />
+                        <WrapperAdvertising>
+                           {advertising?.map(image => (
+                              <div key={image.id}>
+                                 <AdvertisingCategory image={image.imagePath} />
+                              </div>
+                           ))}
+                        </WrapperAdvertising>
+                     </>
                   ) : (
                      <>
                         <MiniBlock>
@@ -149,10 +158,6 @@ export const CategoryTab = () => {
                         <WrapperAdvertising>
                            {advertising?.map(image => (
                               <div key={image.id}>
-                                 <img
-                                    src={image.imagePath}
-                                    alt={`Advertisement ${image.id}`}
-                                 />
                                  <AdvertisingCategory image={image.imagePath} />
                               </div>
                            ))}
@@ -164,9 +169,9 @@ export const CategoryTab = () => {
                <TabPanel value="2">нет данных</TabPanel>
                <TabPanel value="3">нет данных</TabPanel>
                <TabPanel value="4">нет данных</TabPanel>
-               <TabPanel value="5">
+               {/* <TabPanel value="5">
                   <FilterModal />
-               </TabPanel>
+               </TabPanel> */}
             </TabContext>
          </Box>
       </div>
@@ -231,10 +236,20 @@ const BoxStyle = styled('div')(() => ({
    alignItems: 'center',
 }))
 
-const WrapperAdvertising = styled('div')(() => ({
+const WrapperAdvertising = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
+   [theme.breakpoints.down('md')]: {
+      width: '100%',
+      maxHeight: 'calc(100vh - 200px)',
+      overflowY: 'auto',
+   },
+   img: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+   },
 }))
 const MiniBlock = styled('div')(() => ({
    display: 'flex',

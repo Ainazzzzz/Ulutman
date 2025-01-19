@@ -1,14 +1,24 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Navigation } from 'swiper/modules'
-import { styled } from '@mui/material'
-import { useCallback, useRef } from 'react'
-import { slider } from '../../utils/constants/slider'
+import { styled, useMediaQuery } from '@mui/material'
+import { useCallback, useEffect, useRef } from 'react'
+
 import SliderArrow from '../../assets/icons/slider-arrow.svg?react'
 
 import 'swiper/css'
+import { getAdvertising } from '../../redux/advertising/advertisingThunk'
 
 const Slider = () => {
    const sliderRef = useRef(null)
+   const dispatch = useDispatch()
+   const advertising = useSelector(state => state.advertising.advertising)
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   console.log(advertising)
+
+   useEffect(() => {
+      dispatch(getAdvertising())
+   }, [dispatch])
 
    const handlePrev = useCallback(() => {
       if (!sliderRef.current) return
@@ -21,26 +31,51 @@ const Slider = () => {
    }, [])
 
    return (
-      <StyledSwiper
-         ref={sliderRef}
-         modules={[Navigation]}
-         slidesPerView="auto"
-         spaceBetween={30}
-         loop
-         navigation={false}
-      >
-         {slider.map(item => (
-            <StyledSwiperSlide key={item.id}>
-               <img src={item.sliderImages} alt="house" />
-            </StyledSwiperSlide>
-         ))}
-         <PrevArrow className="prev-arrow" onClick={handlePrev}>
-            <SliderArrow />
-         </PrevArrow>
-         <NextArrow className="next-arrow" onClick={handleNext}>
-            <SliderArrow />
-         </NextArrow>
-      </StyledSwiper>
+      <div>
+         {isMobile ? (
+            <StyledSwiper
+               ref={sliderRef}
+               modules={[Navigation]}
+               slidesPerView="auto"
+               spaceBetween={30}
+               loop
+               navigation={false}
+            >
+               {advertising.map(item => (
+                  <StyledSwiperSlide key={item.id}>
+                     <img src={item.imagePath} alt="реклама" />
+                  </StyledSwiperSlide>
+               ))}
+               <PrevArrow onClick={handlePrev}>
+                  <SliderArrow />
+               </PrevArrow>
+               <NextArrow onClick={handleNext}>
+                  <SliderArrow />
+               </NextArrow>
+            </StyledSwiper>
+         ) : (
+            <StyledSwiper
+               ref={sliderRef}
+               modules={[Navigation]}
+               slidesPerView="auto"
+               spaceBetween={30}
+               loop
+               navigation={false}
+            >
+               {advertising.map(item => (
+                  <StyledSwiperSlide key={item.id}>
+                     <img src={item.imagePath} alt="реклама" />
+                  </StyledSwiperSlide>
+               ))}
+               <PrevArrow onClick={handlePrev}>
+                  <SliderArrow />
+               </PrevArrow>
+               <NextArrow onClick={handleNext}>
+                  <SliderArrow />
+               </NextArrow>
+            </StyledSwiper>
+         )}
+      </div>
    )
 }
 
@@ -48,6 +83,7 @@ export default Slider
 
 const StyledSwiper = styled(Swiper)(() => ({
    width: '100%',
+   height: 'auto',
    position: 'relative',
 }))
 
@@ -56,8 +92,8 @@ const StyledSwiperSlide = styled(SwiperSlide)(({ theme }) => ({
    height: '250px',
 
    [theme.breakpoints.down('md')]: {
-      width: '260px',
-      height: '150px',
+      width: '100%',
+      height: 'auto',
    },
 
    img: {
@@ -67,7 +103,7 @@ const StyledSwiperSlide = styled(SwiperSlide)(({ theme }) => ({
    },
 }))
 
-const PrevArrow = styled('div')(() => ({
+const PrevArrow = styled('div')(({ theme }) => ({
    width: 'fit-content',
    padding: '12px 16px',
    borderRadius: '50%',
@@ -79,10 +115,13 @@ const PrevArrow = styled('div')(() => ({
    zIndex: 100,
    top: '40%',
    cursor: 'pointer',
-   left: '15%',
+   left: '10%',
+   [theme.breakpoints.down('md')]: {
+      left: '5%',
+   },
 }))
 
-const NextArrow = styled('div')(() => ({
+const NextArrow = styled('div')(({ theme }) => ({
    width: 'fit-content',
    transform: 'rotate(180deg)',
    padding: '12px 16px',
@@ -95,5 +134,8 @@ const NextArrow = styled('div')(() => ({
    zIndex: 100,
    top: '40%',
    cursor: 'pointer',
-   right: '15%',
+   right: '10%',
+   [theme.breakpoints.down('md')]: {
+      right: '5%',
+   },
 }))

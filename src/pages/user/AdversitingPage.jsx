@@ -5,16 +5,14 @@ import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
-import FileUpload from '../Admin/mailing/FileUpload'
 import { Button } from '../../components/UI/Button'
 import ChevronLeft from '../../assets/icons/chevron-left.svg?react'
 import Input from '../../components/UI/Input'
 import 'react-toastify/dist/ReactToastify.css'
-
 import InputPay from '../../components/UI/InputPay'
-
 import { addAdvertisingThunks } from '../../redux/advertising/adversstitingpayThunks'
 import { Loading } from '../../components/UI/Loading'
+import FileUpload from '../Admin/mailing/FileUpload'
 
 const AdversitingPage = () => {
    const [bankName, setBankName] = useState('')
@@ -37,20 +35,20 @@ const AdversitingPage = () => {
       navigate('/')
    }
 
-   const validBanks = ['Сбербанк', 'Тбанк', 'Альфа-банк', 'ВТБ', 'Почта банк']
+   const validBanks = ['Сбербанк', 'Т-Банк', 'Альфа-Банк', 'ВТБ', 'Почта Банк']
 
    const handleImage = (file, type) => {
-      if (type === 'image') {
+      if (type === 'imageFile') {
          setImageFile(file)
-      } else if (type === 'receipt') {
+      } else if (type === 'paymentReceiptFile') {
          setPaymentReceiptFile(file)
       }
    }
 
    const handleSubmit = async () => {
       setBankError('')
-      setImageError('')
       setReceiptError('')
+      setImageError('')
 
       let isValid = true
 
@@ -59,43 +57,13 @@ const AdversitingPage = () => {
          isValid = false
       }
 
-      if (!imageFile) {
-         setImageError('Пожалуйста, загрузите изображение.')
-         isValid = false
-      } else {
-         const validSizes = [
-            { width: 285, height: 407 },
-            { width: 564, height: 246 },
-         ]
-
-         const image = new Image()
-         const imageFileUrl = URL.createObjectURL(imageFile)
-
-         image.onload = () => {
-            const isValidSize = validSizes.some(
-               size =>
-                  image.width === size.width && image.height === size.height,
-            )
-
-            if (!isValidSize) {
-               setImageError(
-                  'Изображение должно быть размером 285x407 или 564x246.',
-               )
-               isValid = false
-            } else {
-               setImageError('')
-            }
-
-            URL.revokeObjectURL(imageFileUrl)
-         }
-
-         image.src = imageFileUrl
-
-         if (!isValid) return
-      }
-
       if (!paymentReceiptFile) {
          setReceiptError('Пожалуйста, загрузите чек.')
+         isValid = false
+      }
+
+      if (!imageFile) {
+         setImageError('Пожалуйста, загрузите фото.')
          isValid = false
       }
 
@@ -104,6 +72,7 @@ const AdversitingPage = () => {
       }
 
       setIsLoading(true)
+
       dispatch(
          addAdvertisingThunks({
             bank: bankName,
@@ -115,7 +84,7 @@ const AdversitingPage = () => {
 
       setBankName('')
       setImageFile('')
-      setPaymentReceiptFile('')
+      setPaymentReceiptFile(null)
    }
 
    return (
@@ -144,7 +113,7 @@ const AdversitingPage = () => {
             <ContainerAddImageSehond>
                <Input
                   name="bank"
-                  label="Банк *"
+                  label="Банк"
                   placeholder="Укажите банк, на который перевели деньги"
                   value={bankName}
                   onChange={e => setBankName(e.target.value)}
@@ -154,19 +123,22 @@ const AdversitingPage = () => {
                <ContainerBank>
                   <TitleBank>Сбербанк</TitleBank>
                   <NumberBunkStyle>2202 2081 2356 1699</NumberBunkStyle>
-                  <TitleBank>Тбанк</TitleBank>
+                  <TitleBank>Т-Банк</TitleBank>
                   <NumberBunkStyle>2200 7009 8116 9526</NumberBunkStyle>
-                  <TitleBank> Альфа-банк</TitleBank>
+                  <TitleBank> Альфа-Банк</TitleBank>
                   <NumberBunkStyle>4584 4328 2524 1376</NumberBunkStyle>
                   <TitleBank>ВТБ</TitleBank>
                   <NumberBunkStyle>2200 2480 8913 7201</NumberBunkStyle>
-                  <TitleBank>Почта банк</TitleBank>
+                  <TitleBank>Почта Банк</TitleBank>
                   <NumberBunkStyle>2200770419928124</NumberBunkStyle>
                </ContainerBank>
                <ContainerBank />
                <InputPay
                   label="Загрузите чек оплаты"
-                  onDropFiles={files => handleImage(files[0], 'receipt')}
+                  value={paymentReceiptFile}
+                  onDropFiles={files =>
+                     handleImage(files[0], 'paymentReceiptFile')
+                  }
                />
                {receiptError && <p style={{ color: 'red' }}>{receiptError}</p>}
             </ContainerAddImageSehond>
@@ -177,12 +149,15 @@ const AdversitingPage = () => {
                <PragrafTitile>Загрузите фото</PragrafTitile>
             </BoxSyleTitle>
             <FileUpload
+               value={imageFile}
                setFieldValue={(field, value) => {
                   if (field === 'imageFile') {
+                     console.log('Загруженный файл:', value)
                      setImageFile(value)
                   }
                }}
             />
+
             {imageError && <p style={{ color: 'red' }}>{imageError}</p>}
          </ContainerAddImage>
 

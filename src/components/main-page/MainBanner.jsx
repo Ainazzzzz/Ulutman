@@ -12,6 +12,7 @@ import { categoryTab } from '../../utils/constants/main'
 import { PATHS } from '../../utils/constants/paths'
 import { serializeToQueryParams } from '../../utils/general/serialize'
 import { getAllMetros } from '../../redux/main/mainThunk'
+import Slider from './Slider'
 
 export const MainBanner = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
@@ -93,6 +94,11 @@ export const MainBanner = () => {
                ))}
             </NavList>
          </NavContainer>
+         {isMobile && (
+            <div>
+               <Slider />
+            </div>
+         )}
       </MainContainer>
    )
 }

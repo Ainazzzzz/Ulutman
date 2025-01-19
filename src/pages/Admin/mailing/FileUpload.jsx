@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useDropzone } from 'react-dropzone'
 import CloseIcon from '../../../assets/icons/close-icon.svg?react'
 import {
@@ -9,19 +10,21 @@ import {
    ImagePreview,
    StyledDropzone,
 } from './MailingFormStyles'
+import { uploadToS3Thunks } from '../../../redux/uploadThunks'
 
-const FileUpload = ({ setFieldValue, touched, errors, id }) => {
+const FileUpload = ({ setFieldValue, touched, errors, id, value }) => {
    const [imagePreview, setImagePreview] = useState(null)
-
+   const dispatch = useDispatch()
    const onDrop = acceptedFiles => {
       const file = acceptedFiles[0]
-      setFieldValue('image', file)
-      const reader = new FileReader()
-      reader.onloadend = () => {
-         setImagePreview(reader.result)
-      }
+
       if (file) {
+         setFieldValue('imageFile', file)
+
+         const reader = new FileReader()
+         reader.onloadend = () => setImagePreview(reader.result)
          reader.readAsDataURL(file)
+         dispatch(uploadToS3Thunks([file]))
       } else {
          setImagePreview(null)
       }
@@ -29,7 +32,7 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
 
    const handleRemoveImage = () => {
       setImagePreview(null)
-      setFieldValue('image', null)
+      setFieldValue('imageFile', null)
    }
 
    const { getRootProps, getInputProps } = useDropzone({
@@ -40,6 +43,11 @@ const FileUpload = ({ setFieldValue, touched, errors, id }) => {
       },
       onDrop,
    })
+   useEffect(() => {
+      if (!value) {
+         setImagePreview(null)
+      }
+   }, [value])
 
    return (
       <StyledDropzone {...getRootProps({ className: 'dropzone' })}>
