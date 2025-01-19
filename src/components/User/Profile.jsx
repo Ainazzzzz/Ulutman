@@ -6,10 +6,12 @@ import { Button } from '../UI/Button'
 import Input from '../UI/Input'
 import { profileValidation } from '../../utils/general/validation/profileValidation'
 import { updateUserProfile } from '../../redux/users/profileThunk'
+import { useTranslation } from 'react-i18next'
 
 export const Profile = () => {
    const dispatch = useDispatch()
    const { userData } = useSelector(state => state.auth)
+   const { t } = useTranslation()
 
    const [isEdit, setIsEdit] = useState(false)
 
@@ -18,7 +20,7 @@ export const Profile = () => {
          username: userData.name || '',
          emailAddress: userData.email || '',
       },
-      validationSchema: profileValidation,
+      validationSchema: profileValidation(t),
       onSubmit: profileData => {
          dispatch(
             updateUserProfile({
@@ -36,8 +38,8 @@ export const Profile = () => {
       <Form onSubmit={formik.handleSubmit}>
          <Container>
             <StyledInput
-               label="Имя"
-               placeholder="Иван"
+               label={t('user.profile.name')}
+               placeholder={t('user.profile.namePlaceholder')}
                name="username"
                value={formik.values.username}
                onChange={formik.handleChange}
@@ -53,9 +55,9 @@ export const Profile = () => {
 
          <Container>
             <EmailInput
-               label="Электронная почта"
+               label={t('user.profile.email')}
                type="email"
-               placeholder="example@mail.com"
+               placeholder={t('user.profile.emailPlaceholder')}
                name="emailAddress"
                value={formik.values.emailAddress}
                onChange={formik.handleChange}
@@ -72,12 +74,16 @@ export const Profile = () => {
          {isEdit ? (
             <BtnContainer>
                <StyledButton onClick={toggleIsEdit} variant="outlined">
-                  Отменить
+                  {t('user.profile.cancelBtn')}
                </StyledButton>
-               <StyledButton type="submit">Сохранить</StyledButton>
+               <StyledButton type="submit">
+                  {t('user.profile.saveBtn')}
+               </StyledButton>
             </BtnContainer>
          ) : (
-            <StyledButton onClick={toggleIsEdit}>Редактировать</StyledButton>
+            <StyledButton onClick={toggleIsEdit}>
+               {t('user.profile.editBtn')}
+            </StyledButton>
          )}
       </Form>
    )

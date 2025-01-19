@@ -1,23 +1,28 @@
 import React from 'react'
 import Modal from '../../UI/Modal'
 import { styled } from '@mui/material'
-
-const fields = [
-   { label: 'Количество комнат' },
-   { label: 'Площадь кухни' },
-   { label: 'Общая площадь (кв.м)' },
-   { label: 'Год постройки' },
-   { label: 'Ремонт' },
-   { label: 'Отопление' },
-   { label: 'Права устанавливающие документы' },
-   { label: 'Строительная компания' },
-]
+import { useTranslation } from 'react-i18next'
 
 const DetailInfoModal = ({ open, onClose, setDetailInfo }) => {
+   const { t } = useTranslation()
+
+   const fields = [
+      { label: t('user.createAds.newCreateAdForm.detailInfo.room') },
+      { label: t('user.createAds.newCreateAdForm.detailInfo.area') },
+      { label: t('user.createAds.newCreateAdForm.detailInfo.totalArea') },
+      { label: t('user.createAds.newCreateAdForm.detailInfo.year') },
+      { label: t('user.createAds.newCreateAdForm.detailInfo.repair') },
+      { label: t('user.createAds.newCreateAdForm.detailInfo.heating') },
+      { label: t('user.createAds.newCreateAdForm.detailInfo.document') },
+      { label: t('user.createAds.newCreateAdForm.detailInfo.company') },
+   ]
+
    return (
       <Modal open={open} handleClose={onClose}>
          <ModalContent>
-            <Title>Детальная информация</Title>
+            <Title>
+               {t('user.createAds.newCreateAdForm.detailInfo.title')}
+            </Title>
 
             <FieldsContainer>
                {fields.map(field => (

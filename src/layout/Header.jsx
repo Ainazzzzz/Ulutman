@@ -1,22 +1,13 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { styled, Typography, useMediaQuery } from '@mui/material'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-
 import { IconButton } from '../components/IconButton'
 import { Button } from '../components/UI/Button'
 import ReusableSelect from '../components/UI/Select'
-import Modal from '../components/UI/Modal'
-import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal'
-
-import { languages } from '../utils/constants/languages'
+import { useState } from 'react'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import { useDispatch, useSelector } from 'react-redux'
 import { renderFlag } from '../utils/general/renderFlag'
-
-import { logOut } from '../redux/auth/authThunk'
-
+import { SignIn } from '../pages/user/auth/SignIn.jsx'
 import HeartLike from '../assets/icons/white-heart.svg?react'
 import UserLogo from '../assets/icons/user.svg?react'
 import Plus from '../assets/icons/plus.svg?react'
@@ -24,9 +15,15 @@ import MenuIcon from '../assets/icons/menu-icon.svg?react'
 import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react'
 import ComeIcon from '../assets/icons/come-icon.svg?react'
 import Language from '../assets/icons/language-icon.svg?react'
-import LogOutIcon from '../assets/icons/logout-icon.svg?react'
+import LogOutIcon from '../assets/icons/come-icon.svg?react'
+import { logOut } from '../redux/auth/authThunk.js'
+import { useNavigate } from 'react-router-dom'
+import SignUp from '../pages/user/auth/signUp.jsx'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
-import Auth from '../pages/user/auth/Auth'
+import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx'
+import { useTranslation } from 'react-i18next'
+import Modal from '../components/UI/Modal.jsx'
+import Auth from '../pages/user/auth/Auth.jsx'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -51,6 +48,7 @@ export const Header = () => {
    const { isAuth, userData } = useSelector(state => state.auth)
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const navigate = useNavigate()
+   const { i18n, t } = useTranslation()
 
    const [language, setLanguage] = useState('ru')
    const [openMenu, setOpenMenu] = useState(null)
@@ -70,7 +68,13 @@ export const Header = () => {
       setOpenLogoutConfirm(false)
    }
 
-   const handleSelect = event => setLanguage(event.target.value)
+   const handleSelect = event => {
+      const lng = event.target.value
+      setLanguage(event.target.value)
+
+      i18n.changeLanguage(lng)
+   }
+
    const handleClick = event => setOpenMenu(event.currentTarget)
 
    const closeProfileOptions = () => {
@@ -106,6 +110,15 @@ export const Header = () => {
       setOpenOptionsProfile(event.currentTarget)
    }
 
+   const languages = [
+      { label: t('admin.header.select.ru'), value: 'ru' },
+      { label: t('admin.header.select.kg'), value: 'kg' },
+      { label: t('admin.header.select.tj'), value: 'tj' },
+      { label: t('admin.header.select.uz'), value: 'uz' },
+      { label: t('admin.header.select.en'), value: 'en' },
+      { label: t('admin.header.select.tr'), value: 'tr' },
+   ]
+
    return (
       <>
          <ConfirmLogoutModal
@@ -129,11 +142,11 @@ export const Header = () => {
                   >
                      {!isAuth ? (
                         <MenuItemStyle onClick={handleOpenModal}>
-                           <ComeIcon /> Войти
+                           <ComeIcon /> {t('user.layout.header.enter')}
                         </MenuItemStyle>
                      ) : (
                         <MenuItemStyle onClick={logOutHandler}>
-                           <LogOutIcon /> Выйти
+                           <LogOutIcon /> {t('user.layout.header.logOut')}
                         </MenuItemStyle>
                      )}
                      <Line />
@@ -143,22 +156,25 @@ export const Header = () => {
                               navigateToPageHandler('my-page/profile')
                            }
                         >
-                           <UserLogo /> Профиль
+                           <UserLogo /> {t('user.layout.header.profile')}
                         </MenuItemStyle>
                      )}
                      <MenuItemStyle onClick={handleClose}>
-                        <SearchIcon color="#fff" /> Поиск
+                        <SearchIcon color="#fff" />{' '}
+                        {t('user.layout.header.search')}
                      </MenuItemStyle>
-                     <MenuItemStyle onClick={handleOpenPublishModal}>
-                        <Plus /> Опубликовать
+                     <MenuItemStyle
+                        onClick={() => handleOpenPublishModal('create-ad')}
+                     >
+                        <Plus /> {t('user.layout.header.create-ad')}
                      </MenuItemStyle>
                      <MenuItemStyle
                         onClick={() => handleNavigationPage('favorite')}
                      >
-                        <HeartLike /> Избранное
+                        <HeartLike /> {t('user.layout.header.favorite')}
                      </MenuItemStyle>
                      <MenuItemStyle onClick={handleClose}>
-                        <Language /> Сменить язык
+                        <Language /> {t('user.layout.header.language')}
                      </MenuItemStyle>
                   </MenuStyle>
                </div>
@@ -170,7 +186,7 @@ export const Header = () => {
                            <IconButton>
                               <HeartLike />
                            </IconButton>
-                           <span>Избранное</span>
+                           {t('user.layout.header.favorite')}
                         </Block>
                         <Block onClick={profileHandler}>
                            <IconButton>
@@ -189,10 +205,10 @@ export const Header = () => {
                                  navigateToPageHandler('my-page/profile')
                               }
                            >
-                              Профиль
+                              {t('user.layout.header.profile')}
                            </MenuItem>
                            <MenuItemLogOut onClick={logOutHandler}>
-                              <LogOutIcon /> Выйти
+                              <LogOutIcon /> {t('user.layout.header.logOut')}
                            </MenuItemLogOut>
                         </MenuProfile>
                      </>
@@ -206,11 +222,15 @@ export const Header = () => {
                      />
                   </Block>
                   {isAuth ? (
-                     <ButtonStyle onClick={handleOpenPublishModal}>
-                        <Plus /> Опубликовать
+                     <ButtonStyle
+                        onClick={() => handleOpenPublishModal('create-ad')}
+                     >
+                        <Plus /> {t('user.layout.header.create-ad')}
                      </ButtonStyle>
                   ) : (
-                     <ButtonStyle onClick={handleOpenModal}>Войти</ButtonStyle>
+                     <ButtonStyle onClick={handleOpenModal}>
+                        {t('user.layout.header.enter')}
+                     </ButtonStyle>
                   )}
                </ContainerBlock>
             )}
@@ -238,6 +258,9 @@ const MenuItemLogOut = styled(MenuItem)({
    display: 'flex',
    gap: '5px',
    color: '#FF0000',
+   '& svg path': {
+      stroke: 'red',
+   },
 })
 
 const Wrapper = styled('header')(({ theme }) => ({

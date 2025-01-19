@@ -1,7 +1,4 @@
 import { styled } from '@mui/material'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { MainBanner } from '../components/main-page/MainBanner'
 import AnnouncementsSorter from '../components/AnnouncementsSorter'
 import AboutUs from '../components/main-page/AboutUs'
@@ -9,10 +6,15 @@ import { Button } from '../components/UI/Button'
 import { CARDS, SORT_BY_CATEGROY_OPTIONS } from '../utils/constants'
 import { CardList } from '../components/UI/Card/CardList'
 import Slider from '../components/main-page/Slider'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { getMainAds, sortPublishesRequest } from '../redux/main/mainThunk'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export const MainPage = () => {
    const { publishes, isLoading } = useSelector(state => state.main)
+   const { t } = useTranslation()
 
    const [sortedAds, setSortedAds] = useState([])
    const dispatch = useDispatch()
@@ -33,6 +35,12 @@ export const MainPage = () => {
    const handleSortChange = sortValue => {
       dispatch(sortPublishesRequest(sortValue))
    }
+   const transformedSortCategory = SORT_BY_CATEGROY_OPTIONS.map(item => {
+      return {
+         ...item,
+         label: t(`global.sortCategory.${item.value}`),
+      }
+   })
 
    return (
       <div>
@@ -42,13 +50,11 @@ export const MainPage = () => {
          </SliderBox>
          <Container>
             <Block>
-               <Title>Страница объявлений</Title>
-               {publishes?.length !== 0 && (
-                  <AnnouncementsSorter
-                     options={SORT_BY_CATEGROY_OPTIONS}
-                     onSortChange={handleSortChange}
-                  />
-               )}
+               <Title>{t('user.home.publishes.title')}</Title>
+               <AnnouncementsSorter
+                  options={transformedSortCategory}
+                  onSortChange={handleSortChange}
+               />
             </Block>
 
             <CardList
@@ -56,11 +62,9 @@ export const MainPage = () => {
                advertising={CARDS}
                loading={isLoading}
             />
-            {publishes.length !== 0 && (
-               <Button variant="category-sort" onClick={seeMoreHandler}>
-                  Посмотреть еще
-               </Button>
-            )}
+            <Button variant="category-sort" onClick={seeMoreHandler}>
+               {t('user.home.publishes.all-publishes-button')}
+            </Button>
             <AboutUs />
          </Container>
       </div>

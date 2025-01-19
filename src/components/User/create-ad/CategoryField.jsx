@@ -4,6 +4,7 @@ import {
    Container,
    ErrorMessage,
 } from '../../../pages/Admin/mailing/MailingFormStyles'
+import { useTranslation } from 'react-i18next'
 
 const CategoryField = ({
    selectCategory,
@@ -11,27 +12,30 @@ const CategoryField = ({
    error,
    handleOpenCategoryModal,
    subCategory,
-}) => (
-   <StyledContainer>
-      <Label>Категория</Label>
-      <WrapperCategory>
-         <SelectInfo>
-            {selectCategory.title} {selectCategory.subCategory ? '/' : null}{' '}
-            {subCategory.text}
-         </SelectInfo>
-         <Container>
-            <CategoryButton
-               variant="outlined"
-               type="button"
-               onClick={handleOpenCategoryModal}
-            >
-               Выбрать
-            </CategoryButton>
-            {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
-         </Container>
-      </WrapperCategory>
-   </StyledContainer>
-)
+}) => {
+   const { t } = useTranslation()
+   return (
+      <StyledContainer>
+         <Label>{t('user.createAds.newCreateAdForm.category')}</Label>
+         <WrapperCategory>
+            <SelectInfo>
+               {selectCategory.title} {selectCategory.subCategory ? '/' : null}{' '}
+               {subCategory.text}
+            </SelectInfo>
+            <Container>
+               <CategoryButton
+                  variant="outlined"
+                  type="button"
+                  onClick={handleOpenCategoryModal}
+               >
+                  {t('user.createAds.newCreateAdForm.categoryButton')}
+               </CategoryButton>
+               {touched && error ? <ErrorMessage>{error}</ErrorMessage> : null}
+            </Container>
+         </WrapperCategory>
+      </StyledContainer>
+   )
+}
 export default CategoryField
 
 const StyledContainer = styled(Container)({

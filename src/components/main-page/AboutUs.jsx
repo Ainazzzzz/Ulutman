@@ -1,29 +1,20 @@
-import React from 'react'
-import { Box, Typography, styled } from '@mui/material'
-import AboutUsImg from '../../assets/images/about-us.png'
+import React from 'react';
+import AboutUsImg from '../../assets/images/about-us.png';
+import { Box, Typography, styled } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const AboutUs = () => {
+   const { t } = useTranslation();
+
    return (
       <Container>
-         <Title>О нас</Title>
+         <Title>{t('user.home.about.title')}</Title>
          <SecondContainer>
-            {/* <div> */}
             <div>
                <SecondTitle>ulutman.ru</SecondTitle>
-               <Description>
-                  Это идеальное место для тех, кто ищет проверенные объявления о
-                  продаже и аренде жилья, загородной или коммерческой
-                  недвижимости.
-               </Description>
-               <Description>
-                  Мы предлагаем широкий выбор услуг и возможностей для
-                  размещения рекламы. Наш сайт открыт для мигрантов из
-                  Узбекистана, Киргизии и других стран, а также для
-                  русскоязычного населения, ищущего аренду комнат и квартир, а
-                  также другие необходимые сервисы.
-               </Description>
+               <Description>{t('user.home.about.description1')}</Description>
+               <Description>{t('user.home.about.description2')}</Description>
             </div>
-            {/* </div> */}
             <Image src={AboutUsImg} alt="About Us" />
          </SecondContainer>
       </Container>

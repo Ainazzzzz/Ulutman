@@ -1,14 +1,16 @@
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { useState } from 'react'
-import { styled, TextField } from '@mui/material'
 import { Button } from './UI/Button'
 import MenuIcon from '../assets/icons/menu.svg?react'
 import { CATEGORY_MENU } from '../utils/constants'
+import { styled, TextField } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
    const [categorySearchText, setCategorySearchText] = useState('')
    const [anchorEl, setAnchorEl] = useState(null)
+   const { t } = useTranslation()
 
    const handleClick = event => setAnchorEl(event.currentTarget)
 
@@ -20,6 +22,13 @@ const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
    const handleCloseFn = () => handleClose('По умолчанию')
 
    const handleCategorySearch = e => setCategorySearchText(e.target.value)
+
+   const transformedCategoryMenu = CATEGORY_MENU.map(item => {
+      return {
+         ...item,
+         label: t(`user.home.banner.form.category-menu.${item.value}`),
+      }
+   })
 
    return (
       <>
@@ -56,7 +65,7 @@ const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
                onChange={handleCategorySearch}
                variant="outlined"
             />
-            {CATEGORY_MENU.map(option => (
+            {transformedCategoryMenu.map(option => (
                <MenuItem
                   key={option.id}
                   onClick={() => handleClose(option.label)}

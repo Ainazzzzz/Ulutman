@@ -1,56 +1,32 @@
-import { styled, useMediaQuery } from '@mui/material'
-import { Outlet, useNavigate, useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import Breadcrumbs from './UI/Breadcrumbs'
 import SearchInput from './UI/SearchInput'
+import { styled, useMediaQuery } from '@mui/material'
 import ChevronLeft from '../assets/icons/chevron-left.svg?react'
-import {
-   categoriesThunks,
-   searchInputThunks,
-} from '../redux/categories/userCategoriesThunk'
-import { serializeToQueryParams } from '../utils/general/serialize'
+import { Outlet, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export const Categories = () => {
-   const dispatch = useDispatch()
-   const navigate = useNavigate()
-
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const { subCategory } = useParams()
-   const [searchValue, setSearchValue] = useState('')
-
-   const handleSearch = () => {
-      const searchParams = serializeToQueryParams({
-         categories: subCategory,
-         titles: searchValue,
-      })
-
-      dispatch(searchInputThunks(searchParams))
-   }
-
-   const handleInputChange = e => {
-      setSearchValue(e.target.value)
-   }
+   const { t } = useTranslation()
 
    const path = {
-      WORK: 'Работа',
-      RENT: 'Аренда',
-      HOTEL: 'Гостиница',
-      SERVICES: 'Услуги',
-      REAL_ESTATE: 'Недвижимость',
-      AUTO: 'Авто',
-      SELL: 'Продам',
+      WORK: t('user.categories.breadcrumbs.path.work'),
+      RENT: t('user.categories.breadcrumbs.path.rent'),
+      HOTEL: t('user.categories.breadcrumbs.path.hotel'),
+      SERVICES: t('user.categories.breadcrumbs.path.services'),
+      REAL_ESTATE: t('user.categories.breadcrumbs.path.real_estate'),
+      AUTO: t('user.categories.breadcrumbs.path.auto'),
+      SELL: t('user.categories.breadcrumbs.path.sell'),
    }
 
    const breadcrumbs = [
-      { url: '/', title: 'Главная ' },
-      { url: `/${subCategory}`, title: path[subCategory] },
+      { url: '/', title: t('user.categories.breadcrumbs.main') },
+      {
+         url: `/${subCategory}`,
+         title: path[subCategory],
+      },
    ]
-
-   useEffect(() => {
-      dispatch(categoriesThunks({ subCategory: subCategory.toLowerCase() }))
-   }, [dispatch, subCategory])
-
    return (
       <Wrapper>
          <Container>
@@ -59,15 +35,12 @@ export const Categories = () => {
                   <Breadcrumbs path={breadcrumbs} />
                   {!isMobile && (
                      <BackStyle onClick={() => navigate('/')}>
-                        <ChevronLeft /> Назад
+                        <ChevronLeft /> {t('user.myPage.back')}
                      </BackStyle>
                   )}
                </FirstBlock>
                <SearchInputStyle
-                  placeholder="Поиск по названию"
-                  value={searchValue}
-                  onChange={handleInputChange}
-                  onSearch={handleSearch}
+                  placeholder={t('user.categories.search.inputLabel')}
                />
             </Block>
 

@@ -7,29 +7,30 @@ import Modal from '../../../components/UI/Modal'
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
 import Input from '../../../components/UI/Input'
 import { Button } from '../../../components/UI/Button'
-import { signUpSchema } from '../../../utils/general/validation/authValidation'
+import { createSignUpSchema } from '../../../utils/general/validation/authValidation'
 import { signUp } from '../../../redux/auth/authThunk'
 import Spinner from '../../../components/UI/Spinner'
 import GoogleAuth from './GoogleAuth'
+import { useTranslation } from 'react-i18next'
 
 const signUpInputs = [
    {
-      label: 'Введите имя',
+      label: 'signUp.name',
       value: 'name',
       type: 'text',
    },
    {
-      label: 'Введите email',
+      label: 'signUp.email',
       value: 'email',
       type: 'email',
    },
    {
-      label: 'Введите пароль',
+      label: 'signUp.password',
       value: 'password',
       type: 'password',
    },
    {
-      label: 'Подтвердите пароль',
+      label: 'signUp.confirmPassword',
       value: 'confirmPassword',
       type: 'password',
    },
@@ -38,6 +39,9 @@ const signUpInputs = [
 const SignUp = ({ open, onClose, openSignIn }) => {
    const dispatch = useDispatch()
    const { isLoading } = useSelector(state => state.auth)
+   const { t } = useTranslation()
+
+   const signUpSchema = createSignUpSchema(t)
 
    const handleOpenSignInModal = () => {
       openSignIn()
@@ -67,11 +71,11 @@ const SignUp = ({ open, onClose, openSignIn }) => {
             <CloseIcon onClick={onClose} />
          </IconStyle>
          <Box onSubmit={handleSubmit}>
-            <h2>Регистрация</h2>
+            <h2>{t('signUp.title')}</h2>
             {signUpInputs.map(item => (
                <div key={item.value} style={{ position: 'relative' }}>
                   <Input
-                     placeholder={item.label}
+                     placeholder={t(item.label)}
                      onChange={handleChange}
                      name={item.value}
                      id={item.value}
@@ -96,14 +100,14 @@ const SignUp = ({ open, onClose, openSignIn }) => {
                   <Spinner />
                </Button>
             ) : (
-               <Button type="submit">Регистрация</Button>
+               <Button type="submit">{t('signUp.title')}</Button>
             )}
             <GoogleAuth />
 
             <Typography align="center">
-               У вас есть аккаунт?{' '}
+               {t('signUp.account')}
                <NavLink to="" onClick={handleOpenSignInModal}>
-                  Войти
+                  {t('signUp.enter')}
                </NavLink>
             </Typography>
          </Box>

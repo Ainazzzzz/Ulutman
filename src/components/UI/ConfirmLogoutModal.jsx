@@ -1,18 +1,23 @@
 import { DialogActions, DialogContent, styled } from '@mui/material'
 import Modal from './Modal'
 import { Button } from './Button'
+import { useTranslation } from 'react-i18next'
 
-export const ConfirmLogoutModal = ({ open, onClose, onConfirm }) => (
-   <Modal open={open} handleClose={onClose}>
-      <StyledDialogContent>Вы точно хотите выйти?</StyledDialogContent>
-      <StyledDialogActions>
-         <Button onClick={onClose} variant="outlined">
-            Отмена
-         </Button>
-         <Button onClick={onConfirm}>Выйти</Button>
-      </StyledDialogActions>
-   </Modal>
-)
+export const ConfirmLogoutModal = ({ open, onClose, onConfirm }) => {
+   const { t } = useTranslation()
+
+   return (
+      <Modal open={open} handleClose={onClose}>
+         <StyledDialogContent>{t('user.logOut.title')}</StyledDialogContent>
+         <StyledDialogActions>
+            <Button onClick={onClose} variant="outlined">
+               {t('user.logOut.cancel')}
+            </Button>
+            <Button onClick={onConfirm}>{t('user.logOut.logOut')}</Button>
+         </StyledDialogActions>
+      </Modal>
+   )
+}
 
 const StyledDialogContent = styled(DialogContent)({
    fontSize: '18px',

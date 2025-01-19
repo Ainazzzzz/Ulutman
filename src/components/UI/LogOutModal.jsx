@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import Modal from './Modal'
 import { Button } from './Button'
 import { logOut } from '../../redux/auth/authThunk'
+import { useTranslation } from 'react-i18next'
 
 const LogOutModal = ({ open, onClose }) => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
+   const { t } = useTranslation()
 
    const handleLogout = () => {
       dispatch(logOut({ navigate, toggleModal: onClose }))
@@ -17,12 +19,12 @@ const LogOutModal = ({ open, onClose }) => {
    return (
       <Modal open={open} handleClose={onClose}>
          <Container>
-            <p>Вы действительно хотите выйти?</p>
+            <p>{t('user.logOut.title')}</p>
 
             <div>
-               <Button onClick={handleLogout}>Да</Button>
+               <Button onClick={handleLogout}>{t('user.logOut.logOut')}</Button>
                <Button variant="" onClick={onClose}>
-                  Нет
+                  {t('user.logOut.cancel')}
                </Button>
             </div>
          </Container>

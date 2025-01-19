@@ -126,7 +126,7 @@ export const forgotPassword = createAsyncThunk(
    ) => {
       try {
          const { data } = await axiosInstance.get(
-            `/mailing/sendPasswordResetCode?email=${email}`,
+            `/auth/sendPasswordResetCode?email=${email}`,
          )
 
          showToast('success', `На почту ${email} отправлен код`)
@@ -147,7 +147,7 @@ export const resetPassword = createAsyncThunk(
    async ({ formData, toggleSignInModal, onClose }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.post(
-            '/mailing/resetPassword',
+            '/auth/resetPassword',
             undefined,
             {
                params: formData,

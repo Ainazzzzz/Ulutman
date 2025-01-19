@@ -7,6 +7,7 @@ import InfoIcon from '../../assets/icons/info-warning.svg?react'
 import PhoneIcon from '../../assets/icons/phone-green-icon.svg?react'
 import PlusIcon from '../../assets/icons/plusIcon.svg?react'
 import { Button } from './Button'
+import { useTranslation } from 'react-i18next'
 
 const Transition = forwardRef((props, ref) => (
    <Slide direction="up" ref={ref} {...props} />
@@ -14,6 +15,7 @@ const Transition = forwardRef((props, ref) => (
 
 const Modal = ({ children, variant = 'custom', handleClose, open }) => {
    const navigate = useNavigate()
+   const { t } = useTranslation()
 
    const handleNavigationPage = path => {
       navigate(path)
@@ -51,18 +53,18 @@ const Modal = ({ children, variant = 'custom', handleClose, open }) => {
          )}
          {variant === 'publish' && (
             <ContainerPublish>
-               <TitlePublish>Добавить</TitlePublish>
+               <TitlePublish>{t('user.createModal.title')}</TitlePublish>
 
                <ButtonAdversitinPublish>
                   <ButtunPublish
                      onClick={() => handleNavigationPage('create-ad')}
                   >
-                     Объявление
+                     {t('user.createModal.addBtn')}
                   </ButtunPublish>
                   <ButtunStyle
                      onClick={() => handleNavigationPage('advertising_page')}
                   >
-                     Реклама
+                     {t('user.createModal.advertisingBtn')}
                   </ButtunStyle>
                </ButtonAdversitinPublish>
             </ContainerPublish>
