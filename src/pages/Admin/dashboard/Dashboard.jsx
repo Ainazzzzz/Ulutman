@@ -1,5 +1,4 @@
 import { Box, styled, Typography } from '@mui/material'
-import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { dashBoard } from '../../../redux/dashboard/dashboardThunks'
@@ -7,13 +6,13 @@ import Spinner from '../../../components/UI/Spinner'
 import { dashboard } from '../../../utils/constants/dashboard'
 
 const colorMappings = {
-   WORK: 'rgba(255, 58, 41, 0.1)',
-   RENT: 'rgba(2, 160, 252, 0.1)',
-   HOTEL: 'rgba(67, 57, 242, 0.1)',
-   SERVICES: 'rgba(52, 181, 58, 0.1)',
-   REAL_ESTATE: 'rgba(255, 178, 0, 0.1)',
-   AUTO: 'rgba(245, 25, 105, 0.1)',
-   SELL: 'rgba(7, 249, 234, 0.1)',
+   Работа: 'rgba(255, 58, 41, 0.1)',
+   Аренда: 'rgba(2, 160, 252, 0.1)',
+   Гостиница: 'rgba(67, 57, 242, 0.1)',
+   Услуги: 'rgba(52, 181, 58, 0.1)',
+   Недвижимость: 'rgba(255, 178, 0, 0.1)',
+   Авто: 'rgba(245, 25, 105, 0.1)',
+   Продам: 'rgba(7, 249, 234, 0.1)',
 }
 
 const customBackgroundColor = (title, value) => {
@@ -28,7 +27,6 @@ const customBackgroundColor = (title, value) => {
    }
 }
 const Dashboard = () => {
-   const { t } = useTranslation()
    const dispatch = useDispatch()
    const { infoDashboard, isLoading } = useSelector(state => state.dashboard)
 
@@ -44,12 +42,10 @@ const Dashboard = () => {
 
    return (
       <StyledContainer>
-         <Title>{t('admin.dashboard.title')}</Title>
+         <Title>Статистика</Title>
 
          <StyledBox>
-            <Typography variant="h1">
-               {t('admin.dashboard.popularCategory')}
-            </Typography>
+            <Typography variant="h1">Популярность категории</Typography>
 
             <ContainerCategory>
                {categoryPopularity.length > 0
@@ -57,7 +53,8 @@ const Dashboard = () => {
                        <ContainerListCategory key={crypto.randomUUID()}>
                           <WrapperItemFirst>
                              <Typography className="title">
-                                {t(`admin.dashboard.${title}`)}
+                                {/* {t(`admin.dashboard.${title}`)} */}
+                                {title}
                              </Typography>
                              <Typography>{value} of 100 </Typography>
                           </WrapperItemFirst>
@@ -73,9 +70,7 @@ const Dashboard = () => {
                   : dashboard.map(({ title, value }) => (
                        <ContainerListCategory key={crypto.randomUUID()}>
                           <WrapperItemFirst>
-                             <Typography className="title">
-                                {t(`admin.dashboard.${title}`)}
-                             </Typography>
+                             <Typography className="title">{title}</Typography>
                              <Typography>{value} of 100 </Typography>
                           </WrapperItemFirst>
 

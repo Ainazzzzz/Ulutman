@@ -1,5 +1,4 @@
 import { Categories } from '../components/Categories'
-import { Ads } from '../components/User/Ads'
 import { CategoryTab } from '../components/User/CategoryTab'
 import { FeaturedAds } from '../components/User/FeaturedAds'
 import { Profile } from '../components/User/Profile'
@@ -12,6 +11,7 @@ import DetailInfo from '../pages/user/detail-info/DetailInfo'
 import { SearchMainPage } from '../pages/user/SearchMainPage'
 import { PATHS } from '../utils/constants/paths'
 import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole'
+import { Ads } from '../components/User/Ads'
 
 export const UserRoutes = role => [
    {

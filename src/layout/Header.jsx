@@ -142,11 +142,11 @@ export const Header = () => {
                   >
                      {!isAuth ? (
                         <MenuItemStyle onClick={handleOpenModal}>
-                           <ComeIcon /> Войти
+                           <ComeIcon /> {t('user.layout.header.enter')}
                         </MenuItemStyle>
                      ) : (
                         <MenuItemStyle onClick={logOutHandler}>
-                           <LogOutIcon /> Выйти
+                           <LogOutIcon /> {t('user.layout.header.logOut')}
                         </MenuItemStyle>
                      )}
                      <Line />
@@ -156,11 +156,12 @@ export const Header = () => {
                               navigateToPageHandler('my-page/profile')
                            }
                         >
-                           <UserLogo /> Профиль
+                           <UserLogo /> {t('user.layout.header.profile')}
                         </MenuItemStyle>
                      )}
                      <MenuItemStyle onClick={handleClose}>
-                        <SearchIcon color="#fff" /> Поиск
+                        <SearchIcon color="#fff" />{' '}
+                        {t('user.layout.header.search')}
                      </MenuItemStyle>
                      <MenuItemStyle
                         onClick={() => handleOpenPublishModal('create-ad')}
@@ -170,10 +171,10 @@ export const Header = () => {
                      <MenuItemStyle
                         onClick={() => handleNavigationPage('favorite')}
                      >
-                        <WhiteHeart /> {t('user.layout.header.favorite')}
+                        <HeartLike /> {t('user.layout.header.favorite')}
                      </MenuItemStyle>
                      <MenuItemStyle onClick={handleClose}>
-                        <Language /> Сменить язык
+                        <Language /> {t('user.layout.header.language')}
                      </MenuItemStyle>
                   </MenuStyle>
                </div>
@@ -227,7 +228,9 @@ export const Header = () => {
                         <Plus /> {t('user.layout.header.create-ad')}
                      </ButtonStyle>
                   ) : (
-                     <ButtonStyle onClick={handleOpenModal}>Войти</ButtonStyle>
+                     <ButtonStyle onClick={handleOpenModal}>
+                        {t('user.layout.header.enter')}
+                     </ButtonStyle>
                   )}
                </ContainerBlock>
             )}
@@ -269,6 +272,11 @@ const Wrapper = styled('header')(({ theme }) => ({
    padding: '14px 60px',
    svg: { cursor: 'pointer' },
    [theme.breakpoints.down('md')]: { padding: '16px', height: '59px' },
+   position: 'fixed',
+   top: '0',
+   left: 0,
+   width: '100%',
+   zIndex: '99',
 }))
 
 const Block = styled('div')(() => ({
@@ -329,8 +337,8 @@ const SelectStyle = styled(ReusableSelect)(() => ({
    '.MuiOutlinedInput-notchedOutline': { border: 'none' },
    '&:hover .MuiOutlinedInput-notchedOutline': { border: 'none' },
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 'none' },
-   '.MuiSelect-icon': { right: '5px', top: '15px' },
-   '.MuiSelect-select': { paddingLeft: '0px' },
+   '.MuiSelect-icon': { right: '5px', top: '6px' },
+   '.MuiSelect-select': { padding: 0 },
 }))
 
 const MenuStyle = styled(Menu)(() => ({

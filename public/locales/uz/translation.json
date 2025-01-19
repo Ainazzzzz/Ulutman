@@ -70,7 +70,10 @@
             "favorite": "Sevimlilar",
             "create-ad": "E'lon berish",
             "profile": "Profil",
-            "logOut": "Chiqish"
+            "logOut": "Chiqish",
+            "enter": "Kirish",
+            "search": "Qidiruv",
+            "language": "Tilni o'zgartiring"
          },
          "footer": {
             "work": "Ish",
@@ -152,8 +155,8 @@
             "infoList2": "Tovarlar yoki xizmatlar haqida yolg'on ma'lumot.",
             "infoList3": "Mualliflik huquqining buzilishi.",
             "infoList4": " Qoidalarni buzish reklamani o'chirishga va hisobni blokirovka qilishga olib kelishi mumkin.",
-            "infoList5": " &ldquo;Ijara va ldquo; toifasi uchun: 1000 rubl.",
-            "infoList6": " &ldquo;Mehmonxona&ldquo; toifasi uchun: 2000 rubl.",
+            "infoList5": " Ijara va toifasi uchun: 1000 rubl.",
+            "infoList6": " Mehmonxona toifasi uchun: 2000 rubl.",
             "infoList7": " Reklama bannerining ko'rinishi: 50% dan.",
             "infoList8": " Bannerni birinchi o'ringa ko'tarish qobiliyati: har 24 soatda."
          },
@@ -243,6 +246,13 @@
             "metro": "Metro",
             "address": "Manzil",
             "button": "Yaratish"
+         },
+         "bank": {
+            "sber": "Sberbank",
+            "t": "Bank",
+            "btb": "VTB",
+            "alfa": "AlfaBank",
+            "pochta": "PochtaBank"
          }
       },
       "advertising": {
@@ -294,7 +304,8 @@
          "label1": "Faol",
          "label2": "Rad etildi",
          "label3": "Mening reklamalarim",
-         "myAdsMessage": "Tanlangan yorliq uchun ma'lumotlar yo'q"
+         "myAdsMessage": "Tanlangan yorliq uchun ma'lumotlar yo'q",
+         "delete": "Hammasini olib tashlang"
       },
       "modal": {
          "title": "Siz o'chirishni xohlayotganingizga aminmisiz?",
@@ -305,6 +316,7 @@
          "title": "Tanlangan e'lonlar",
          "back": "Orqaga",
          "favoriteMessage": "Tanlangan reklamalar yo'q",
+         "delete": "Hammasini olib tashlang",
          "breadcrumbs": {
             "main": "Bosh sahifa",
             "currentPage": "Tanlangan e'lonlar"
@@ -372,6 +384,12 @@
          "message": "Ma'lumotlar yo'q",
          "hide": "Yashirish",
          "readMore": "Ko'proq o'qing"
+      },
+      "searchMain": {
+         "breadcrumbs": {
+            "main": "Bosh sahifa"
+         },
+         "inputPlaceholder": "Sarlavha bo'yicha qidirish"
       }
    },
    "global": {
@@ -382,5 +400,61 @@
          "cheapest": "Arzonlaridan boshlab",
          "expensive": "Qimmatlaridan boshlab"
       }
+   },
+   "signIn": {
+      "enter": "Kirish",
+      "emailRequired": "Elektron pochta majburiy",
+      "passwordRequired": "Parol talab qilinadi",
+      "email": "Elektron pochtani kiriting",
+      "password": "Parolni kiriting",
+      "forgot": " Parolni unutdingizmi?",
+      "noAccount": "Sizda hisob yo'qmi?",
+      "create": "Uni yarating",
+      "googleAuth": {
+         "btn2": "Google bilan tizimga kiring",
+         "btn1": "Avtorizatsiya...",
+         "success": "Google orqali avtorizatsiya muvaffaqiyatli!",
+         "error": "Google orqali avtorizatsiya qilishda xato:"
+      }
+   },
+   "signUp": {
+      "title": "Ro'yxatdan o'tish",
+      "enter": "Kirish",
+      "account": " Sizda hisob bormi?",
+      "name": "Ismni kiriting",
+      "email": "Elektron pochtani kiriting ",
+      "password": "Parolni kiriting ",
+      "confirmPassword": "Parolni tasdiqlang",
+      "signUpValidation": {
+         "name": "Ism kamida 2 belgidan iborat bo'lishi kerak",
+         "nameRequired": "Ism majburiydir",
+         "email": "Noto'g'ri elektron pochta",
+         "emailMatches": "Elektron pochta to'g'ri manzil bo'lishi kerak",
+         "emailRequired": "Pochta majburiy",
+         "password": "Parol kamida 6 belgidan iborat bo'lishi kerak",
+         "passwordRequired": "Parol talab qilinadi",
+         "confirmPassword": "Parollar mos kelishi kerak",
+         "confirmPasswordRequired": "Parollar mos kelishi kerak"
+      }
+   },
+   "forgotPassword": {
+      "title": "Parolni tiklash",
+      "label": "Pochta",
+      "placeholder": "Elektron pochtani kiriting",
+      "btn": "Kodni oling",
+      "error": "Elektron pochta majburiy"
+   },
+   "resetPassword": {
+      "title": "Parolni tiklash",
+      "label1": "Kod",
+      "label2": "Pochta",
+      "label3": "Yangi parol",
+      "label4": "Parolni tasdiqlang",
+      "placeholder1": "Kod",
+      "placeholder2": "example@gmail.com",
+      "placeholder3": "Parol",
+      "placeholder4": "Parolni tasdiqlang",
+      "btn": "Davom eting",
+      "error": "Parollar mos kelishi kerak"
    }
 }

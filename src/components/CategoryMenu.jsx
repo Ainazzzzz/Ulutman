@@ -1,16 +1,16 @@
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
-import { Button } from './UI/Button';
-import MenuIcon from '../assets/icons/menu.svg?react';
-import { CATEGORY_MENU } from '../utils/constants';
-import { styled, TextField } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import { useState } from 'react'
+import { Button } from './UI/Button'
+import MenuIcon from '../assets/icons/menu.svg?react'
+import { CATEGORY_MENU } from '../utils/constants'
+import { styled, TextField } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
-   const [categorySearchText, setCategorySearchText] = useState('');
-   const [anchorEl, setAnchorEl] = useState(null);
-   const { t } = useTranslation();
+   const [categorySearchText, setCategorySearchText] = useState('')
+   const [anchorEl, setAnchorEl] = useState(null)
+   const { t } = useTranslation()
 
    const handleClick = event => setAnchorEl(event.currentTarget)
 
@@ -27,8 +27,8 @@ const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
       return {
          ...item,
          label: t(`user.home.banner.form.category-menu.${item.value}`),
-      };
-   });
+      }
+   })
 
    return (
       <>

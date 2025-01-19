@@ -71,7 +71,10 @@
             "favorite": "Favoriler",
             "create-ad": "İlan Ver",
             "profile": "Profil",
-            "logOut": "Çıkış Yap"
+            "logOut": "Çıkış Yap",
+            "enter": "Ворид кунед",
+            "search": "Ҷустуҷӯ",
+            "language": "Иваз кардани забон"
          },
          "footer": {
             "work": "İş",
@@ -153,8 +156,8 @@
             "infoList2": "Mal veya hizmetler hakkında yanlış bilgiler.",
             "infoList3": "Telif hakkı ihlalleri.",
             "infoList4": " Kuralların ihlali, reklamın silinmesine ve hesabın askıya alınmasına neden olabilir.",
-            "infoList5": " Kategori için &ldquo;Kiralama&ldquo;: 1000 ruble.",
-            "infoList6": " Kategori için &ldquo;Otel&ldquo;: 2000 ruble.",
+            "infoList5": " Kategori için Kiralama: 1000 ruble.",
+            "infoList6": " Kategori için Otel: 2000 ruble.",
             "infoList7": " Reklam afişinin görünürlüğü:% 50'den itibaren.",
             "infoList8": " Afişi ilk konuma kaldırma yeteneği: her 24 saatte bir."
          },
@@ -243,6 +246,13 @@
             "metro": "Metro",
             "address": "Adres",
             "button": "Oluştur"
+         },
+         "bank": {
+            "sber": "Sberbank",
+            "t": "ТBank",
+            "btb": "VTB",
+            "alfa": "Alfa Bankası",
+            "pochta": "Posta Bankası"
          }
       },
       "advertising": {
@@ -294,7 +304,8 @@
          "label1": "Aktif",
          "label2": "Reddedildi",
          "label3": "Reklamlarım",
-         "myAdsMessage": "Seçilen sekme için veri yok"
+         "myAdsMessage": "Seçilen sekme için veri yok",
+         "delete": "Tümünü sil"
       },
       "modal": {
          "title": "Silmek istediğinize emin misiniz?",
@@ -305,6 +316,7 @@
          "title": "Öne çıkan Reklamlar",
          "back": "Geri",
          "favoriteMessage": "Öne çıkan reklam yok",
+         "delete": "Tümünü sil",
          "breadcrumbs": {
             "main": "Ana",
             "currentPage": "Öne çıkan Reklamlar"
@@ -372,6 +384,12 @@
          "message": "Veri yok",
          "hide": "Gizlemek",
          "readMore": "Devamını oku"
+      },
+      "searchMain": {
+         "breadcrumbs": {
+            "main": "Ana"
+         },
+         "inputPlaceholder": "Ada göre ara"
       }
    },
    "global": {
@@ -382,5 +400,61 @@
          "cheapest": "En Ucuzdan Başla",
          "expensive": "En Pahalıdan Başla"
       }
+   },
+   "signIn": {
+      "enter": "Girmek",
+      "emailRequired": "E-posta gereklidir",
+      "passwordRequired": "Şifre zorunludur",
+      "email": "E-postanızı girin",
+      "password": "Şifreyi girin",
+      "forgot": "Şifrenizi mi unuttunuz?",
+      "noAccount": " Hesabınız yok mu?",
+      "create": "Onu yaratın",
+      "googleAuth": {
+         "btn2": "Google ile giriş yapın",
+         "btn1": "Yetkilendirme...",
+         "success": "Google üzerinden yetkilendirme başarıyla yapıldı!",
+         "error": "Google üzerinden yetkilendirmede hata oluştu:"
+      }
+   },
+   "signUp": {
+      "title": "Kayıt",
+      "enter": "Girmek",
+      "account": "Hesabınız var mı?",
+      "name": "Adı girin",
+      "email": "E-postanızı girin ",
+      "password": "Şifreyi girin ",
+      "confirmPassword": "Şifreyi doğrulayın",
+      "signUpValidation": {
+         "name": "Ad 2 karakterden kısa olmamalıdır",
+         "nameRequired": "İsim zorunludur",
+         "email": "Yanlış e-posta",
+         "emailMatches": "E-posta adresi doğru adres olmalıdır",
+         "emailRequired": "Posta zorunludur",
+         "password": "Şifre 6 karakterden kısa olmamalıdır",
+         "passwordRequired": "Şifre zorunludur",
+         "confirmPassword": "Şifreler eşleşmelidir",
+         "confirmPasswordRequired": "Şifreler eşleşmelidir"
+      }
+   },
+   "forgotPassword": {
+      "title": "Şifreyi sıfırla",
+      "label": "Posta",
+      "placeholder": "E-postanızı girin",
+      "btn": "Kodu al",
+      "error": "E-posta gereklidir"
+   },
+   "resetPassword": {
+      "title": "Şifreyi sıfırla",
+      "label1": "Kod",
+      "label2": "Posta",
+      "label3": "Yeni şifre",
+      "label4": "Şifreyi doğrulayın",
+      "placeholder1": "Kod",
+      "placeholder2": "example@gmail.com",
+      "placeholder3": "Parola",
+      "placeholder4": "Şifreyi doğrulayın",
+      "btn": "Devam et",
+      "error": "Şifreler eşleşmelidir"
    }
 }

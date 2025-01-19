@@ -137,8 +137,8 @@
                "infoList2": "False information about products or services.",
                "infoList3": "Copyright violations.",
                "infoList4": " Violation of the rules may result in the deletion of the ad and the account being blocked.",
-               "infoList5": " For the &ldquo;Rent&ldquo;: 1000 rubles.",
-               "infoList6": " For the &ldquo;Hotel&ldquo;: 2000 rubles",
+               "infoList5": " For the Rent: 1000 rubles.",
+               "infoList6": " For the Hotel: 2000 rubles",
                "infoList7": " Advertising banner visibility: from 50%."
             },
             "newCreateAdForm": {
@@ -225,6 +225,13 @@
                "metro": "Metro",
                "address": "Address",
                "button": "Create"
+            },
+            "bank": {
+               "sber": "Sberbank",
+               "t": "TBank",
+               "btb": "VTB",
+               "alfa": "AlfaBank",
+               "pochta": "PochtaBank"
             }
          }
       }
@@ -235,7 +242,11 @@
          "header": {
             "favorite": "Favorites",
             "create-ad": "Publish",
-            "profile": "Profile"
+            "profile": "Profile",
+            "logOut": "Exit",
+            "enter": "Enter",
+            "search": "Search",
+            "language": "Change the language"
          },
          "footer": {
             "work": "Work",
@@ -326,7 +337,8 @@
          "label1": "Actively",
          "label2": "Rejected",
          "label3": "My ads",
-         "myAdsMessage": "There is no data for the selected tab"
+         "myAdsMessage": "There is no data for the selected tab",
+         "delete": "Delete all"
       },
       "modal": {
          "title": "Are you sure you want to delete it?",
@@ -337,6 +349,8 @@
          "title": "Selected ads",
          "back": "Back",
          "favoriteMessage": "There are no favorite ads",
+         "delete": "Delete all",
+
          "breadcrumbs": {
             "main": "Main",
             "currentPage": "Selected ads"
@@ -404,6 +418,12 @@
          "message": "No data available",
          "hide": "Hide",
          "readMore": "Read more"
+      },
+      "searchMain": {
+         "breadcrumbs": {
+            "main": "Main"
+         },
+         "inputPlaceholder": "Name search"
       }
    },
    "global": {
@@ -414,5 +434,61 @@
          "cheapest": "Cheapest First",
          "expensive": "Most Expensive First"
       }
+   },
+   "signIn": {
+      "enter": "Enter",
+      "emailRequired": "Email is required",
+      "passwordRequired": "A password is required",
+      "email": "Enter your email address",
+      "password": "Enter the password",
+      "forgot": " Forgot your password?",
+      "noAccount": " Don't you have an account?",
+      "create": "Create it",
+      "googleAuth": {
+         "btn2": "Log in using Google",
+         "btn1": "Authorization...",
+         "success": "Authorization via Google is successful!",
+         "error": "Error when logging in via Google:"
+      }
+   },
+   "signUp": {
+      "title": "Registration",
+      "enter": "Enter",
+      "account": "Do you have an account?",
+      "name": "Enter a name",
+      "email": "Enter your email address ",
+      "password": "Enter the password",
+      "confirmPassword": "Confirm the password",
+      "signUpValidation": {
+         "name": "The name must be at least 2 characters long.",
+         "nameRequired": "The name is required",
+         "email": "Incorrect email address",
+         "emailMatches": "The email must be a valid address",
+         "emailRequired": "Mail is required",
+         "password": "The password must be at least 6 characters long.",
+         "passwordRequired": "A password is required",
+         "confirmPassword": "Passwords must match",
+         "confirmPasswordRequired": "Passwords must match"
+      }
+   },
+   "forgotPassword": {
+      "title": "Password reset",
+      "label": "Email",
+      "placeholder": "Enter your email address",
+      "btn": "Get the code",
+      "error": "Email is required"
+   },
+   "resetPassword": {
+      "title": "Password reset",
+      "label1": "Code",
+      "label2": "Mail",
+      "label3": "New password",
+      "label4": "Confirm the password",
+      "placeholder1": "Code",
+      "placeholder2": "example@gmail.com",
+      "placeholder3": "Password",
+      "placeholder4": "Confirm the password",
+      "btn": "Continue",
+      "error": "Passwords must match"
    }
 }

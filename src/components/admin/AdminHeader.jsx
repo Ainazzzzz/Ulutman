@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { InputBase, MenuItem, styled, useMediaQuery, Menu } from '@mui/material'
-import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
 import { useSelector } from 'react-redux'
@@ -17,25 +16,14 @@ import Language from '../../assets/icons/language-icon.svg?react'
 import ReusableSelect from '../UI/Select'
 import LogOutModal from '../UI/LogOutModal'
 import { IconButton } from '../IconButton'
-import LanguageModal from './LanguageModal'
-import { renderFlag } from '../../utils/general/renderFlag'
+import { useTranslation } from 'react-i18next'
 
 const AdminHeader = () => {
-   const { i18n, t } = useTranslation()
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
-   const [language, setLanguage] = useState('ru')
    const [openMenu, setOpenMenu] = useState(null)
    const [openLogOutModal, setOpenLogOutModal] = useState(false)
-   const [openLanguageModal, setOpenLanguageModal] = useState(false)
-
+   const { t } = useTranslation()
    const { userData } = useSelector(state => state.auth)
-
-   const handleSelect = event => {
-      const lng = event.target.value
-      setLanguage(event.target.value)
-
-      i18n.changeLanguage(lng)
-   }
 
    const handleClose = () => {
       setOpenMenu(null)
@@ -50,20 +38,9 @@ const AdminHeader = () => {
       setOpenLogOutModal(prev => !prev)
    }
 
-   const closeLanguageModal = () => setOpenLanguageModal(false)
    const handleOpenLanguageModal = () => {
-      setOpenLanguageModal(true)
       setOpenMenu(null)
    }
-
-   const languages = [
-      { label: t('admin.header.select.ru'), value: 'ru' },
-      { label: t('admin.header.select.kg'), value: 'kg' },
-      { label: t('admin.header.select.tj'), value: 'tj' },
-      { label: t('admin.header.select.uz'), value: 'uz' },
-      { label: t('admin.header.select.en'), value: 'en' },
-      { label: t('admin.header.select.tr'), value: 'tr' },
-   ]
 
    return (
       <>
@@ -97,33 +74,29 @@ const AdminHeader = () => {
                      <MenuItemStyle onClick={handleClose}>
                         <NavLink to="users">
                            <Users />
-                           {t('admin.sideBar.users')}
+                           Пользователи
                         </NavLink>
                      </MenuItemStyle>
 
                      <MenuItemStyle onClick={handleClose}>
                         <NavLink to="ads">
-                           <Announcement /> {t('admin.sideBar.ads')}
+                           <Announcement />
+                           Объявления
                         </NavLink>
                      </MenuItemStyle>
 
                      <MenuItemStyle onClick={handleClose}>
                         <NavLink to="categories">
                            <Category />
-                           {t('admin.sideBar.categories')}
+                           Категории
                         </NavLink>
                      </MenuItemStyle>
 
                      <MenuItemStyle onClick={handleClose}>
                         <NavLink to="moderation">
                            <Modearation />
-                           {t('admin.sideBar.moderation')}
+                           Модерация
                         </NavLink>
-                     </MenuItemStyle>
-
-                     <MenuItemStyle onClick={handleOpenLanguageModal}>
-                        <Language />
-                        {t('admin.sideBar.changeLanguage')}
                      </MenuItemStyle>
                   </MenuStyle>
                </div>
@@ -133,21 +106,10 @@ const AdminHeader = () => {
                      <SearchIconStyle>
                         <SearchIcon />
                      </SearchIconStyle>
-                     <InputBase
-                        placeholder={t('admin.header.inputLabel')}
-                        sx={{ width: '100%' }}
-                     />
+                     <InputBase placeholder="Поиск" sx={{ width: '100%' }} />
                   </InputStyle>
 
                   <MiddleContainerBox>
-                     <FlagLanguageStyle>
-                        <div>{renderFlag(language)}</div>
-                        <SelectStyle
-                           options={languages}
-                           value={language}
-                           onChange={handleSelect}
-                        />
-                     </FlagLanguageStyle>
                      <ContainerProfileTitle>
                         <TitleAdmin>{userData.name}</TitleAdmin>
                      </ContainerProfileTitle>
@@ -157,7 +119,6 @@ const AdminHeader = () => {
          </WrapperAdminHeader>
 
          <LogOutModal open={openLogOutModal} onClose={toggleLogOutModal} />
-         <LanguageModal open={openLanguageModal} onClose={closeLanguageModal} />
       </>
    )
 }

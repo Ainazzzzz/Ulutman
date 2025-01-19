@@ -1,20 +1,24 @@
 import * as Yup from 'yup'
 
-export const signUpSchema = Yup.object().shape({
-   name: Yup.string()
-      .min(2, 'Имя должно быть не короче 2 символов')
-      .required('Имя обязательно'),
-   email: Yup.string()
-      .email('Некорректный email')
-      .matches(
-         /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
-         'Email должен быть адресом @gmail.com',
-      )
-      .required('Почта обязательна'),
-   password: Yup.string()
-      .min(6, 'Пароль должен быть не короче 6 символов')
-      .required('Пароль обязателен'),
-   confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
-      .required('Подтверждение пароля обязательно'),
-})
+export const createSignUpSchema = t =>
+   Yup.object().shape({
+      name: Yup.string()
+         .min(2, t('signUp.signUpValidation.name'))
+         .required(t('signUp.signUpValidation.nameRequired')),
+      email: Yup.string()
+         .email(t('signUp.signUpValidation.email'))
+         .matches(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            t('signUp.signUpValidation.emailMatches'),
+         )
+         .required(t('signUp.signUpValidation.emailRequired')),
+      password: Yup.string()
+         .min(6, t('signUp.signUpValidation.password'))
+         .required(t('signUp.signUpValidation.passwordRequired')),
+      confirmPassword: Yup.string()
+         .oneOf(
+            [Yup.ref('password'), null],
+            t('signUp.signUpValidation.confirmPassword'),
+         )
+         .required(t('signUp.signUpValidation.confirmPasswordRequired')),
+   })

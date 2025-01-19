@@ -15,6 +15,8 @@ export const PublishesCategoryModal = ({
 }) => {
    const [selectedCategory, setSelectedCategory] = useState(null)
    const { t } = useTranslation()
+   console.log(t('categoryModal.subCategory.partTime'))
+   console.log(selectedCategory)
    const categoryHandler = useCallback(
       category => {
          onCategoryClick(category)
@@ -91,6 +93,7 @@ export const PublishesCategoryModal = ({
                      ? t('user.categoryModal.subcategory')
                      : t('user.categoryModal.category')}
                </Title>
+
                <StyledCloseIcon onClick={onClose} />
             </Header>
 

@@ -48,7 +48,7 @@ export const MainBanner = () => {
       dispatch(getAllMetros())
    }, [dispatch])
 
-   const transformedCategories = categories.map(item => {
+   const transformedCategories = categoryTab.map(item => {
       return {
          ...item,
          title: t(`user.home.categories.${item.category}`),

@@ -7,10 +7,12 @@ import Input from '../../../components/UI/Input'
 import { Button } from '../../../components/UI/Button'
 import Spinner from '../../../components/UI/Spinner'
 import { resetPassword } from '../../../redux/auth/authThunk'
+import { useTranslation } from 'react-i18next'
 
 const ResetPassword = ({ open, onClose, toggleSignInModal }) => {
    const dispatch = useDispatch()
    const { isLoading } = useSelector(state => state.auth)
+   const { t } = useTranslation()
 
    const [code, setCode] = useState('')
    const [password, setPassword] = useState('')
@@ -24,10 +26,12 @@ const ResetPassword = ({ open, onClose, toggleSignInModal }) => {
 
    const handlePasswordChange = e => {
       setPassword(e.target.value)
+      setError('')
    }
 
    const handleConfirmPasswordChange = e => {
       setConfirmPassword(e.target.value)
+      setError('')
    }
 
    const handleEmailChange = e => {
@@ -50,7 +54,7 @@ const ResetPassword = ({ open, onClose, toggleSignInModal }) => {
          dispatch(resetPassword({ formData, toggleSignInModal, onClose }))
          setError('')
       } else {
-         setError('Пароли должны совпадать')
+         setError(t('resetPassword.error'))
       }
    }
 
@@ -60,11 +64,11 @@ const ResetPassword = ({ open, onClose, toggleSignInModal }) => {
             <CloseIcon onClick={handleClose} />
          </IconStyle>
          <Form onSubmit={handleSubmit}>
-            <h2>Сброс пароля</h2>
+            <h2>{t('resetPassword.title')}</h2>
 
             <Input
-               label="Код"
-               placeholder="Код"
+               label={t('resetPassword.label1')}
+               placeholder={t('resetPassword.placeholder1')}
                value={code}
                onChange={handleCodeChange}
                id="code"
@@ -73,8 +77,8 @@ const ResetPassword = ({ open, onClose, toggleSignInModal }) => {
             />
 
             <Input
-               label="Почта"
-               placeholder="example@gmail.com"
+               label={t('resetPassword.label2')}
+               placeholder={t('resetPassword.placeholder2')}
                value={email}
                onChange={handleEmailChange}
                id="email"
@@ -83,33 +87,34 @@ const ResetPassword = ({ open, onClose, toggleSignInModal }) => {
             />
 
             <Input
-               label="Новый пароль"
-               placeholder="Пароль"
+               label={t('resetPassword.label3')}
+               placeholder={t('resetPassword.placeholder3')}
                value={password}
                onChange={handlePasswordChange}
                id="password"
                type="password"
                required
             />
+            <div style={{ position: 'relative' }}>
+               <Input
+                  label={t('resetPassword.label4')}
+                  placeholder={t('resetPassword.placeholder4')}
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                  id="confirmPassword"
+                  type="password"
+                  required
+               />
 
-            <Input
-               label="Подтвердите пароль"
-               placeholder="Подтвердите пароль"
-               value={confirmPassword}
-               onChange={handleConfirmPasswordChange}
-               id="confirmPassword"
-               type="password"
-               required
-            />
-
-            {error && <ErrorText>{error}</ErrorText>}
+               {error && <ErrorText>{error}</ErrorText>}
+            </div>
 
             {isLoading ? (
                <Button disabled={isLoading}>
                   <Spinner />
                </Button>
             ) : (
-               <Button type="submit">Продолжить</Button>
+               <Button type="submit">{t('resetPassword.btn')}</Button>
             )}
          </Form>{' '}
       </Modal>
@@ -143,4 +148,5 @@ const IconStyle = styled('div')(() => ({
 
 const ErrorText = styled('span')(() => ({
    color: '#f00',
+   position: 'absolute',
 }))

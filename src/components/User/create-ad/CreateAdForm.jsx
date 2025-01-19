@@ -16,24 +16,6 @@ import { getAllMetros } from '../../../redux/main/mainThunk'
 import UploadReceipt from '../../User/create-ad/UploadReceipt'
 import { useTranslation } from 'react-i18next'
 
-const banks = [
-   { value: 'Сбербанк', label: 'Сбербанк' },
-   { value: 'ТБанк', label: 'ТБанк' },
-   { value: 'ВТБ', label: 'ВТБ' },
-   { value: 'АльфаБанк', label: 'Альфа-Банк' },
-   { value: 'Газпромбанк', label: 'Газпромбанк' },
-   { value: 'Райффайзенбанк', label: 'Райффайзенбанк' },
-   { value: 'Росбанк', label: 'Росбанк' },
-   { value: 'ПочтаБанк', label: 'Почта Банк' },
-   { value: 'ХоумКредитБанк', label: 'Хоум Кредит Банк' },
-   { value: 'Открытие', label: 'Открытие' },
-   { value: 'Совкомбанк', label: 'Совкомбанк' },
-   { value: 'ЮниКредитБанк', label: 'ЮниКредит Банк' },
-   { value: 'Уралсиб', label: 'Уралсиб' },
-   { value: 'АкБарсБанк', label: 'Ак Барс Банк' },
-   { value: 'МТС Банк', label: 'МТС Банк' },
-]
-
 // export const validationAdForm = Yup.object({
 //    title: Yup.string().required(t('user.createAds.validationForm.title')),
 //    phoneNumber: Yup.string()
@@ -97,6 +79,13 @@ export const CreateAdForm = () => {
          label: 'Электросталь',
       },
    ]
+   const banks = [
+      { value: t('user.createAds.bank.sber'), label: 'Сбербанк' },
+      { value: t('user.createAds.bank.t'), label: 'ТБанк' },
+      { value: t('user.createAds.bank.btb'), label: 'ВТБ' },
+      { value: t('user.createAds.bank.alfa'), label: 'Альфа-Банк' },
+      { value: t('user.createAds.bank.pochta'), label: 'Почта Банк' },
+   ]
 
    const validationAdForm = Yup.object({
       title: Yup.string().required(t('user.createAds.validationForm.title')),
@@ -117,7 +106,7 @@ export const CreateAdForm = () => {
       ),
       city: Yup.string().required(t('user.createAds.validationForm.city')),
       address: Yup.string().required(t('user.createAds.validationForm.adress')),
-      metro: Yup.string().required('user.createAds.validationForm.metro'),
+      metro: Yup.string().required(t('user.createAds.validationForm.metro')),
       price: Yup.number()
          .required(t('user.createAds.validationForm.priceRequired'))
          .typeError(t('user.createAds.validationForm.priceTypeError')),
@@ -242,10 +231,6 @@ export const CreateAdForm = () => {
                   </ErrorText>
                )}
             </div>
-
-            <DetailInfo type="button" onClick={toggleDetailInfoModal}>
-               {t('user.createAds.newCreateAdForm.detailInfoButton')}
-            </DetailInfo>
 
             <Input
                placeholder={t(

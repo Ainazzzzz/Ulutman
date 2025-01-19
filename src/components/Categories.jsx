@@ -35,7 +35,7 @@ export const Categories = () => {
                   <Breadcrumbs path={breadcrumbs} />
                   {!isMobile && (
                      <BackStyle onClick={() => navigate('/')}>
-                        <ChevronLeft /> Назад
+                        <ChevronLeft /> {t('user.myPage.back')}
                      </BackStyle>
                   )}
                </FirstBlock>
