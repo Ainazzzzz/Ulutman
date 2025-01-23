@@ -4,37 +4,55 @@ import { useDispatch, useSelector } from 'react-redux'
 import TableSkeleton from '../../../components/UI/TableSkeleton'
 import Table from '../../../components/UI/Table'
 import { getAdminTableHeaders } from '../category/AdminTableHeader'
-import { getAdvertising } from '../../../redux/advertising/advertisingThunk'
+import {
+   getAdvertisingDeactive,
+   postAdvertisingActivated,
+} from '../../../redux/advertising/advertisingThunk'
 
 const Advertising = () => {
    const dispatch = useDispatch()
-   const { isLoading, advertising } = useSelector(state => state.advertising)
+   const { isDeactivatedLoading, deactivatedAdvertising } = useSelector(
+      state => state.advertising,
+   )
+   console.log(deactivatedAdvertising)
+
+   const handleStatusChange = item => {
+      dispatch(postAdvertisingActivated(item.id))
+   }
 
    const MAILING_COLUMN = [
       {
-         Header: 'ИМЯ',
-         accessor: 'userName',
+         Header: 'Название банка',
+         accessor: 'bank',
+      },
+      {
+         Header: 'id',
+         accessor: 'id',
       },
       {
          Header: 'Электронный адрес',
-         accessor: 'email',
+         accessor: 'userGmail',
       },
-      {
-         Header: 'категория',
-         accessor: 'category',
-      },
-      {
-         Header: 'ДАТА создание',
-         accessor: 'createDate',
-      },
+      // {
+      //    Header: 'ДАТА создания',
+      //    accessor: 'user.createDate',
+      // },
       {
          Header: 'СТАТУС',
-         accessor: 'status',
+         accessor: 'active',
+         Cell: ({ row }) => (
+            <ButtunActive
+               type="button"
+               onClick={() => handleStatusChange(row.original)}
+            >
+               {row.original.active ? 'Деактивировать' : 'Активировать'}
+            </ButtunActive>
+         ),
       },
    ]
 
    useEffect(() => {
-      dispatch(getAdvertising())
+      dispatch(getAdvertisingDeactive())
    }, [])
    const toggleModal = () => {}
 
@@ -44,7 +62,6 @@ const Advertising = () => {
             () => toggleModal('blockUser'),
             MAILING_COLUMN,
             'user',
-            // setUserData,
          ),
       [toggleModal],
    )
@@ -53,10 +70,10 @@ const Advertising = () => {
       <Wrapper>
          <h1>Управление рекламой</h1>
 
-         {isLoading ? (
+         {isDeactivatedLoading ? (
             <TableSkeleton />
          ) : (
-            <Table data={advertising} column={headers} />
+            <Table data={deactivatedAdvertising} column={headers} />
          )}
       </Wrapper>
    )
@@ -72,4 +89,16 @@ const Wrapper = styled('div')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       overflowX: 'scroll',
    },
+}))
+
+const ButtunActive = styled('div')(() => ({
+   display: 'flex',
+   justifyContent: 'center',
+   alignItems: 'center',
+   background: '#7e52ff',
+   cursor: 'pointer',
+   color: 'white',
+   width: '140px',
+   height: '30px',
+   borderRadius: '10px',
 }))

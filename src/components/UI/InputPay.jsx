@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { styled } from '@mui/material'
 import PDF from '../../assets/icons/pdf.svg?react'
@@ -8,29 +8,37 @@ const InputPay = ({
    multiple = false,
    maxSize = 1048576,
    onDropFiles,
+   value = null,
 }) => {
-   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+   const [files, setFiles] = useState([])
+   const { getRootProps, getInputProps } = useDropzone({
       accept,
       multiple,
       maxSize,
       onDrop: acceptedFiles => {
+         setFiles(acceptedFiles)
          if (onDropFiles) {
             onDropFiles(acceptedFiles)
          }
       },
    })
+   useEffect(() => {
+      if (!value) {
+         setFiles([])
+      }
+   }, [value])
 
    return (
       <PdFcontainer {...getRootProps()}>
+         <p>Загрузите чек</p>
          <input {...getInputProps()} type="file" />
          <ContainerPdf>
-            {/* <p>{label}</p> */}
             <PDF />
          </ContainerPdf>
 
-         {acceptedFiles.length > 0 && (
+         {files.length > 0 && (
             <ul>
-               {acceptedFiles.map(file => (
+               {files.map(file => (
                   <li key={file.path}>
                      {file.path} - {(file.size / 1024).toFixed(2)} KB
                   </li>

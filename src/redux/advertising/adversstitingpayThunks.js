@@ -23,6 +23,7 @@ export const addAdvertisingThunks = createAsyncThunk(
                },
             },
          )
+
          setIsLoading(false)
          toast.success('Реклама успешно создана!', {
             position: 'top-right',

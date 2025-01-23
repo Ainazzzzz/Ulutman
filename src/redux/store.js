@@ -12,9 +12,10 @@ import { categoriesSlice } from './categories/categoriesSlice'
 import { publishesSlice } from './publishes/publishesSlice'
 import { myAdsSlice } from './users/myAdsSlice'
 import { detailInfoSlice } from './datailInfo/detailInfoSlice'
-import { advertisingSlice } from './advertising/adverstitingPaySlices'
+
 import { userCategoriesSlice } from './categories/userCategoriesSlice'
 import { fileSlice } from './files/fileSlice'
+import { advertisingSlice } from './advertising/advertisingSlice'
 
 export const store = configureStore({
    reducer: {
