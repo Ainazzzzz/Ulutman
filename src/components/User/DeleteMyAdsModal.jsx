@@ -3,11 +3,13 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Modal from '../UI/Modal'
 import { deleteSelectedAds } from '../../redux/users/myAdsThunk'
+import { useTranslation } from 'react-i18next'
 
 export const DeleteMyAdsModal = ({ userId, selectedIds }) => {
    const dispatch = useDispatch()
    const errorMessage = useSelector(state => state.myAds.errorMessage)
    const [isOpen, setIsOpen] = useState(true)
+   const { t } = useTranslation()
 
    const handleDeleteSelectedAds = () => {
       if (selectedIds.length > 0) {
@@ -22,13 +24,15 @@ export const DeleteMyAdsModal = ({ userId, selectedIds }) => {
    return (
       <Modal open={isOpen} handleClose={handleCloseModal} variant="delete">
          <Container>
-            <Title>Вы уверены, что хотите удалить?</Title>
+            <Title>{t('user.modal.title')}</Title>
             {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
             <div>
-               <FirstButton onClick={handleCloseModal}>Отменить</FirstButton>
+               <FirstButton onClick={handleCloseModal}>
+                  {t('user.modal.cancelBtn')}
+               </FirstButton>
 
                <SecondButton onClick={handleDeleteSelectedAds}>
-                  Удалить
+                  {t('user.modal.deleteBtn')}
                </SecondButton>
             </div>
          </Container>

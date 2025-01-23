@@ -1,41 +1,41 @@
 import { styled } from '@mui/material'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
+// import { CreateAdForm } from '../../components/User/CreateAdForm'
+import { useTranslation } from 'react-i18next'
 import { CreateAdForm } from '../../components/User/create-ad/CreateAdForm'
 
 export const CreateAdPage = () => {
+   const { t } = useTranslation()
+
    const path = [
-      { title: 'Главная', url: '/user' },
-      { title: 'Новое объявление', url: '/create-ad' },
+      { title: t('user.createAds.breadcrumbs.main'), url: '/' },
+      {
+         title: t('user.createAds.breadcrumbs.currentPage'),
+         url: '/create-ad',
+      },
    ]
 
    return (
       <Wrapper>
          <Breadcrumbs path={path} />
-         <PageTitle>Новое объявление</PageTitle>
+         <PageTitle>{t('user.createAds.title')}</PageTitle>
          <Container>
-            <Title>
-               Публикации, которые запрещено размещать на сайте ULUTMAN.ru:
-            </Title>
+            <Title>{t('user.createAds.information.infoTitle1')}</Title>
             <List>
-               <li>Контент, противоречащий закону.</li>
-               <li>Ложная информация о товарах или услугах.</li>
-               <li>Нарушения авторских прав.</li>
+               <li>{t('user.createAds.information.infoList1')}</li>
+               <li>{t('user.createAds.information.infoList2')}</li>
+               <li>{t('user.createAds.information.infoList3')}</li>
             </List>
-            <Paragraph>
-               Нарушение правил может привести к удалению объявления и
-               блокировке аккаунта.
-            </Paragraph>
+            <Paragraph>{t('user.createAds.information.infoList4')}</Paragraph>
 
-            <Subtitle>Стоимость размещения баннера за месяц:</Subtitle>
+            <Subtitle>{t('user.createAds.information.infoTitle2')}</Subtitle>
             <UnorderedList>
-               <li>Для категории &ldquo;Аренда&ldquo;: 1000 рублей</li>
-               <li>Для категории &ldquo;Гостиница&ldquo;: 2000 рублей</li>
+               <li>{t('user.createAds.information.infoList5')}</li>
+               <li>{t('user.createAds.information.infoList6')}</li>
             </UnorderedList>
 
-            <Paragraph>Видимость рекламного баннера: от 50%.</Paragraph>
-            <Paragraph>
-               Возможность поднять баннер на первую позицию: каждые 24 часа.
-            </Paragraph>
+            <Paragraph>{t('user.createAds.information.infoList7')}</Paragraph>
+            <Paragraph>{t('user.createAds.information.infoList8')}</Paragraph>
          </Container>
          <CreateAdForm />
       </Wrapper>

@@ -72,8 +72,8 @@ const FileUpload = ({ setFieldValue, touched, errors, id, value }) => {
                ) : (
                   <div className="block">
                      <CameraIcon />
-                     <b>Добавьте фото</b>
-                     <p>Для добавления картинки щелкните или перетащите его</p>
+                     <b>{t('user.advertising.uploadPhotoTitle')}</b>
+                     <p>{t('user.advertising.uploadPhotoDesc')}</p>
                   </div>
                )}
                <div className="container-error">

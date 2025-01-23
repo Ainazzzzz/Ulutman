@@ -6,10 +6,13 @@ import GoogleIcon from '../../../assets/icons/google-icon.svg?react'
 import { Button } from '../../../components/UI/Button'
 import { googleAuth } from '../../../redux/auth/authThunk'
 import { autoLogin } from '../../../redux/auth/authSlice'
+import { showToast } from '../../../hooks/useToast'
+import { useTranslation } from 'react-i18next'
 
 const GoogleAuth = ({ onClose }) => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
+   const { t } = useTranslation()
    const { isLoading } = useSelector(state => state.auth)
 
    const handleGoogleLogin = async () => {
@@ -20,10 +23,10 @@ const GoogleAuth = ({ onClose }) => {
                onClose()
                navigate('/')
             })
-
-         console.log('Авторизация через Google успешна')
+         showToast('succes', t('signIn.googleAuth.success'))
       } catch (error) {
-         console.error('Ошибка при авторизации через Google:', error)
+         showToast('error', error.message)
+         console.error(t('signIn.googleAuth.error'), error)
       }
    }
 
@@ -41,7 +44,7 @@ const GoogleAuth = ({ onClose }) => {
          disabled={isLoading}
       >
          <GoogleIcon />
-         {isLoading ? 'Авторизация...' : 'Войти с помощью Google'}
+         {isLoading ? t('signIn.googleAuth.btn1') : t('signIn.googleAuth.btn2')}
       </StyledButton>
    )
 }

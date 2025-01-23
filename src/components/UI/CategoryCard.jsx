@@ -44,7 +44,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                   <div>
                      <FirstBlock>
                         <Price>
-                           {item.price} <SumIcon />
+                           {item.price} <SumIcon />c
                         </Price>
                         <IconButton onClick={() => handleToggleFavorite(item)}>
                            <GrayHeart
@@ -66,11 +66,11 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                      </SecondBlock>
                      <SecondBlock>
                         <Home />
-                        <p>
+                        {/* <p>
                            {item.quantity} -комн. кв.{' '}
                            {item.propertyDetails?.totalArea}м<sup>2</sup>{' '}
                            {item.floor}
-                        </p>
+                        </p> */}
                      </SecondBlock>
                      <Description>{item.description}</Description>
                   </div>
@@ -125,11 +125,11 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                      </SecondBlock>
                      <SecondBlock>
                         <Home />
-                        <p>
+                        {/* <p>
                            {item.quantity} -комн. кв.{' '}
                            {item.propertyDetails?.totalArea}м<sup>2</sup>{' '}
                            {item.floor}
-                        </p>
+                        </p> */}
                      </SecondBlock>
                      <Description>{item.description}</Description>
                   </div>

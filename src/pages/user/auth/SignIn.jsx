@@ -9,32 +9,46 @@ import { signIn } from '../../../redux/auth/authThunk'
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
 import Spinner from '../../../components/UI/Spinner'
 import GoogleAuth from './GoogleAuth'
+import { useTranslation } from 'react-i18next'
 
 export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
    const dispatch = useDispatch()
+   const { t } = useTranslation()
    const { isLoading } = useSelector(state => state.auth)
 
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
-   const [, setError] = useState('')
+   const [emailError, setEmailError] = useState('')
+   const [passwordError, setPasswordError] = useState('')
 
    const handleEmailChange = event => {
       setEmail(event.target.value)
-      setError('')
    }
 
    const handlePasswordChange = event => {
       setPassword(event.target.value)
-      setError('')
    }
 
    const handleSubmit = e => {
       e.preventDefault()
 
-      if (!email || !password) {
-         setError('Пожалуйста, заполните все поля.')
-         return
+      let hasError = false
+
+      if (!email) {
+         setEmailError(t('signIn.emailRequired'))
+         hasError = true
+      } else {
+         setEmailError('')
       }
+
+      if (!password) {
+         setPasswordError(t('signIn.passwordRequired'))
+         hasError = true
+      } else {
+         setPasswordError('')
+      }
+
+      if (hasError) return
 
       const newData = {
          email,
@@ -50,31 +64,26 @@ export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
             <CloseIcon onClick={onClose} />
          </IconStyle>
          <Box onSubmit={handleSubmit}>
-            <h2>Войти</h2>
-
-            <Input
-               placeholder="Введите email"
-               value={email}
-               onChange={handleEmailChange}
-               id="email"
-               type="email"
-            />
-            <div>
+            <h2>{t('signIn.enter')}</h2>
+            <div style={{ position: 'relative' }}>
                <Input
-                  placeholder="Введите пароль"
+                  placeholder={t('signIn.email')}
+                  value={email}
+                  onChange={handleEmailChange}
+                  id="email"
+                  type="email"
+               />
+               {emailError && <ErrorText>{emailError}</ErrorText>}
+            </div>
+            <div style={{ position: 'relative' }}>
+               <Input
+                  placeholder={t('signIn.password')}
                   value={password}
                   onChange={handlePasswordChange}
                   id="pasword"
                   type="password"
                />
-               <NavLink
-                  onClick={() => {
-                     openForgotPassword()
-                     onClose()
-                  }}
-               >
-                  Забыли пароль?
-               </NavLink>
+               {passwordError && <ErrorText>{passwordError}</ErrorText>}
             </div>
 
             {isLoading ? (
@@ -82,18 +91,28 @@ export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
                   <Spinner />
                </Button>
             ) : (
-               <Button type="submit">Войти</Button>
+               <Button type="submit">{t('signIn.enter')}</Button>
             )}
-            <GoogleAuth onClose={onClose} />
+            <div>
+               <GoogleAuth onClose={onClose} />
+               <NavLink
+                  onClick={() => {
+                     openForgotPassword()
+                     onClose()
+                  }}
+               >
+                  {t('signIn.forgot')}
+               </NavLink>
+            </div>
             <Typography align="center">
-               У вас нету аккаунта?{' '}
+               {t('signIn.noAccount')}
                <NavLink
                   onClick={() => {
                      openSignUp()
                      onClose()
                   }}
                >
-                  Создайте её
+                  {t('signIn.create')}
                </NavLink>
             </Typography>
          </Box>
@@ -122,4 +141,9 @@ const IconStyle = styled('div')(() => ({
       right: '26px',
       cursor: 'pointer',
    },
+}))
+const ErrorText = styled('p')(() => ({
+   color: 'red',
+   fontSize: '12px',
+   position: 'absolute',
 }))

@@ -12,11 +12,13 @@ import {
    RaisingPublication,
 } from '../../redux/users/myAdsThunk'
 import { PhoneModal } from '../UI/PhoneModal'
+import { useTranslation } from 'react-i18next'
 
 export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
    const dispatch = useDispatch()
    const [openPhoneModal, setOpenPhoneModal] = useState(false)
    const [liftTimestamps, setLiftTimestamps] = useState({})
+   const { t } = useTranslation()
 
    const { favoriteCounts } = useSelector(state => state.myAds)
 
@@ -55,7 +57,7 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
    return (
       <CONTAINER>
          {myAds.length === 0 ? (
-            <p>Нет данных для выбранной вкладки</p>
+            <p>{t('user.myAds.myAdsMessage')}</p>
          ) : (
             myAds.map(item => {
                return (

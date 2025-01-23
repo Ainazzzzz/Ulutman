@@ -5,7 +5,6 @@ import ListItem from '@mui/material/ListItem'
 import { styled, Typography } from '@mui/material'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Fragment, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import LogOutModal from './LogOutModal'
 
 import Ulutman from '../../assets/icons/ulutman-logo-icon.svg?react'
@@ -22,28 +21,10 @@ const dataArray = [
    },
    { key: 'ads', value: 'Объявления' },
    { key: 'categories', value: 'Категории' },
-
-   // На время убрал Модерация
-   // {
-   //    key: 'moderation',
-   //    value: 'Модерация',
-   //    icon: <StyledArrow />,
-   //    subData: [
-   //       {
-   //          key: 'complaints',
-   //          value: 'Управление жалобами и нарушениями',
-   //       },
-   //       {
-   //          key: 'comments',
-   //          value: 'Модерация комментариев и сообщений',
-   //       },
-   //    ],
-   // },
    { key: 'advertising', value: 'Реклама' },
 ]
 
 export const SideBar = () => {
-   const { t } = useTranslation()
    const navigate = useNavigate()
 
    const [openModal, setOpenModal] = useState(false)
@@ -67,7 +48,7 @@ export const SideBar = () => {
                         to={item.key}
                         onClick={() => item.subData && toggleSubLink(item.key)}
                      >
-                        {t(`admin.sideBar.${item.key}`)}
+                        {item.value}
                         {item.icon && item.icon}
                      </NavStyle>
                   </ListItemStyle>
@@ -77,9 +58,7 @@ export const SideBar = () => {
                      ? item.subData.map(subItem => (
                           <SubListItem key={subItem.key}>
                              <NavStyle to={`${item.key}/${subItem.key}`}>
-                                <Typography>
-                                   {t(`admin.sideBar.subLinks.${subItem.key}`)}
-                                </Typography>
+                                <Typography>{subItem.key}</Typography>
                              </NavStyle>
                           </SubListItem>
                        ))
@@ -92,9 +71,7 @@ export const SideBar = () => {
          <br />
          <List>
             <ListItemStyle>
-               <LogOutBtn onClick={toggleModal}>
-                  {t('admin.sideBar.logOut')}
-               </LogOutBtn>
+               <LogOutBtn onClick={toggleModal}>Выйти</LogOutBtn>
             </ListItemStyle>
          </List>
       </Box>

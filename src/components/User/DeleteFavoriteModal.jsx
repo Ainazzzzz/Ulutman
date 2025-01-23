@@ -1,19 +1,25 @@
 import { styled } from '@mui/material'
 import { useState } from 'react'
 import Modal from '../UI/Modal'
+import { useTranslation } from 'react-i18next'
 
 export const DeleteFavoriteModal = ({ onDelete }) => {
    const [isOpen, setIsOpen] = useState(true)
+   const { t } = useTranslation()
 
    const onClose = () => setIsOpen(!isOpen)
 
    return (
       <Modal open={isOpen} handleClose={onClose} variant="delete">
          <Container>
-            <Title>Вы уверены, что хотите удалить?</Title>
+            <Title>{t('user.modal.title')}</Title>
             <div>
-               <FirstButton onClick={onClose}>Отменить</FirstButton>
-               <SecondButton onClick={onDelete}>Удалить</SecondButton>
+               <FirstButton onClick={onClose}>
+                  {t('user.modal.cancelBtn')}
+               </FirstButton>
+               <SecondButton onClick={onDelete}>
+                  {t('user.modal.deleteBtn')}
+               </SecondButton>
             </div>
          </Container>
       </Modal>

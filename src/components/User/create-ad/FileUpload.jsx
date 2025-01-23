@@ -4,8 +4,10 @@ import { useDropzone } from 'react-dropzone'
 import { Box, Typography, IconButton, styled } from '@mui/material'
 import CloseIcon from '../../../assets/icons/close-icon.svg?react'
 import { CameraIcon } from '../../../pages/Admin/mailing/MailingFormStyles'
+import { useTranslation } from 'react-i18next'
 
 const FileUpload = ({ setImageFiles, imageFiles, errors }) => {
+   const { t } = useTranslation()
    const onDrop = acceptedFiles => {
       const validFiles = acceptedFiles.filter(file =>
          ['image/jpeg', 'image/png', 'image/gif'].includes(file.type),
@@ -53,7 +55,11 @@ const FileUpload = ({ setImageFiles, imageFiles, errors }) => {
                      <CloseIcon fontSize="small" />
                   </IconButton>
                   {file === 0 && (
-                     <MainPhotoButton>Главное фото</MainPhotoButton>
+                     <MainPhotoButton>
+                        {t(
+                           'user.createAds.newCreateAdFrom.uploadPhoto.uploadImage',
+                        )}
+                     </MainPhotoButton>
                   )}
                </ImageWrapper>
             ))}
@@ -66,9 +72,15 @@ const FileUpload = ({ setImageFiles, imageFiles, errors }) => {
                >
                   <input {...getInputProps()} />
                   <CameraIcon fontSize="large" />
-                  <Typography variant="body1">Добавьте фото</Typography>
+                  <Typography variant="body1">
+                     {t(
+                        'user.createAds.newCreateAdForm.uploadPhoto.uploadTitle',
+                     )}
+                  </Typography>
                   <Typography variant="body2" color="textSecondary">
-                     Для добавления картинки щелкните или перетащите его
+                     {t(
+                        'user.createAds.newCreateAdForm.uploadPhoto.uploadDescription',
+                     )}
                   </Typography>
                </StyledBox>
             )}

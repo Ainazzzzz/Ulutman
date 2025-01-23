@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { styled, useMediaQuery } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,9 +19,12 @@ export const MainBanner = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
    const { metros } = useSelector(state => state.main)
+   const { t } = useTranslation()
 
    const [selectValue, setSelectValue] = useState('')
-   const [selectedCategory, setSelectedCategory] = useState('По умолчанию')
+   const [selectedCategory, setSelectedCategory] = useState(
+      t('user.home.banner.form.category'),
+   )
    const [searchValue, setSearchValue] = useState('')
 
    const navigate = useNavigate()
@@ -45,10 +49,17 @@ export const MainBanner = () => {
       dispatch(getAllMetros())
    }, [dispatch])
 
+   const transformedCategories = categoryTab.map(item => {
+      return {
+         ...item,
+         title: t(`user.home.categories.${item.category}`),
+      }
+   })
+
    return (
       <MainContainer banner={mobile ? MobileBanner : banner}>
          <ContentWrapper>
-            <Title>Реклама и Услуги для Вашего Бизнеса</Title>
+            <Title>{t('user.home.banner.title')}</Title>
 
             <InputWrapper>
                <div className="container-select">
@@ -61,7 +72,7 @@ export const MainBanner = () => {
                         onChange={selectMetroChangeHandler}
                         options={metros}
                         value={selectValue}
-                        placeholder="выберите метро"
+                        placeholder={t('user.home.banner.form.select-metro')}
                      />
                   )}
                </div>
@@ -79,19 +90,21 @@ export const MainBanner = () => {
 
          <NavContainer>
             <NavList>
-               {categoryTab.map(({ Icon, title, background, category }) => (
-                  <NavItem
-                     key={title}
-                     onClick={() => navigate(`category/${category}`)}
-                  >
-                     <span>
-                        <IconWrapper background={background}>
-                           <Icon />
-                        </IconWrapper>
-                        <p>{title}</p>
-                     </span>
-                  </NavItem>
-               ))}
+               {transformedCategories.map(
+                  ({ Icon, title, background, category }) => (
+                     <NavItem
+                        key={title}
+                        onClick={() => navigate(`category/${category}`)}
+                     >
+                        <span>
+                           <IconWrapper background={background}>
+                              <Icon />
+                           </IconWrapper>
+                           <p>{title}</p>
+                        </span>
+                     </NavItem>
+                  ),
+               )}
             </NavList>
          </NavContainer>
          {isMobile && (

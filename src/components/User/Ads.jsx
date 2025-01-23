@@ -3,17 +3,18 @@
 import { styled, useMediaQuery } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import DeleteAll from '../../assets/icons/delete-all-icon.svg?react'
-import DeleteMobile from '../../assets/icons/delete-mobile-icon.svg?react'
+import DeleteIcon from '../../assets/icons/delete.svg?react'
 import { MyAds } from './MyAds'
 import TabsUi from '../UI/TabsUi'
 import { DeleteMyAdsModal } from './DeleteMyAdsModal'
 import { getMyAds, getRejectedPublishes } from '../../redux/users/myAdsThunk'
+import { useTranslation } from 'react-i18next'
 
 export const Ads = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const [activeTab, setActiveTab] = useState('1')
    const dispatch = useDispatch()
+   const { t } = useTranslation()
 
    const [selectedIds, setSelectedIds] = useState([])
    const [isModalOpen, setIsModalOpen] = useState(false)
@@ -30,9 +31,9 @@ export const Ads = () => {
    )
 
    const secondTab = [
-      { value: '1', label: `Активно (${activeAdsCount})` },
-      { value: '2', label: `Отклонено (${rejectedAdsCount})` },
-      { value: '3', label: `Мои рекламы(${myAdsCount})` },
+      { value: '1', label: `${t('user.myAds.label1')} (${activeAdsCount})` },
+      { value: '2', label: `${t('user.myAds.label2')} (${rejectedAdsCount})` },
+      { value: '3', label: `${t('user.myAds.label3')} (${myAdsCount})` },
    ]
 
    const handleDelete = () => {
@@ -60,31 +61,38 @@ export const Ads = () => {
          <Container>
             <Line />
             <Block>
-               <TabsUi
-                  tabs={secondTab}
-                  activeTab={activeTab}
-                  onTabChange={handleTabChange}
-               />
+               <div>
+                  <TabsUi
+                     tabs={secondTab}
+                     activeTab={activeTab}
+                     onTabChange={handleTabChange}
+                  />
+               </div>
 
                {isMobile ? (
-                  <DeleteMobile
+                  <DeleteAll
                      onClick={handleDelete}
                      style={{
                         cursor:
                            selectedIds.length > 0 ? 'pointer' : 'not-allowed',
                         opacity: selectedIds.length > 0 ? 1 : 0.5,
                      }}
-                  />
+                  >
+                     <DeleteIcon />
+                     <p>{t('user.myAds.delete')}</p>
+                  </DeleteAll>
                ) : (
                   <DeleteAll
+                     onClick={handleDelete}
                      style={{
-                        marginTop: '10px',
                         cursor:
                            selectedIds.length > 0 ? 'pointer' : 'not-allowed',
                         opacity: selectedIds.length > 0 ? 1 : 0.5,
                      }}
-                     onClick={handleDelete}
-                  />
+                  >
+                     <DeleteIcon />
+                     <p>{t('user.myAds.delete')}</p>
+                  </DeleteAll>
                )}
             </Block>
          </Container>
@@ -128,4 +136,24 @@ const Container = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '24px',
+}))
+
+const DeleteAll = styled('div')(({ theme }) => ({
+   padding: '0px 10px 0px 10px',
+   marginTop: '8px',
+   height: '36px',
+   borderRadius: '10px',
+   background: '#FF00001A',
+   display: 'flex',
+   gap: '4px',
+   alignItems: 'center',
+   justifyContent: 'center',
+   [theme.breakpoints.down('md')]: {
+      width: '343px',
+   },
+   p: {
+      fontWeight: '500',
+      color: '#FF0000',
+      cursor: 'pointer',
+   },
 }))

@@ -1,19 +1,22 @@
 import { styled } from '@mui/material'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import Calling from '../../assets/icons/calling.svg?react'
-import { categoryTab } from '../../utils/constants/main'
+import { useTranslation } from 'react-i18next'
 
 const Footer = () => {
+   const { t } = useTranslation()
+
    return (
       <WrapperDiv>
          <TitleUlutman>Ulutman</TitleUlutman>
          <ContainerCategory>
-            {categoryTab.map(({ title, category }) => (
-               <NavItem key={title} to={`category/${category}`}>
-                  <span>{title}</span>
-               </NavItem>
-            ))}
+            <div>{t('user.layout.footer.work')}</div>
+            <div>{t('user.layout.footer.rent')}</div>
+            <div>{t('user.layout.footer.hotel')}</div>
+            <div>{t('user.layout.footer.services')}</div>
+            <div>{t('user.layout.footer.real_estate')}</div>
+            <div>{t('user.layout.footer.auto')}</div>
+            <div>{t('user.layout.footer.sell')}</div>
          </ContainerCategory>
          <NumberContainer>
             <div>
@@ -113,16 +116,16 @@ const CallingIcon = styled(Calling)(({ theme }) => ({
    },
 }))
 
-const NavItem = styled(NavLink)(() => ({
-   color: '#222',
-   textDecoration: 'none',
-   cursor: 'pointer',
+// const NavItem = styled(NavLink)(() => ({
+//    color: '#222',
+//    textDecoration: 'none',
+//    cursor: 'pointer',
 
-   ':hover': {
-      textDecoration: 'underline',
-   },
+//    ':hover': {
+//       textDecoration: 'underline',
+//    },
 
-   '&.active': {
-      textDecoration: 'underline',
-   },
-}))
+//    '&.active': {
+//       textDecoration: 'underline',
+//    },
+// }))

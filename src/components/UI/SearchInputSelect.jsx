@@ -1,7 +1,13 @@
-import { InputAdornment, styled, TextField, useMediaQuery } from '@mui/material'
-import Search from '../../assets/icons/search.svg?react'
-import { Button } from './Button'
-import ReusableSelect from './Select'
+import {
+   InputAdornment,
+   styled,
+   TextField,
+   useMediaQuery,
+} from '@mui/material';
+import Search from '../../assets/icons/search.svg?react';
+import { Button } from './Button';
+import ReusableSelect from './Select';
+import { useTranslation } from 'react-i18next';
 
 export const SearchInputSelect = ({
    onClick,
@@ -11,13 +17,14 @@ export const SearchInputSelect = ({
    options,
    search,
 }) => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
+   const { t } = useTranslation();
    return (
       <Wrapper>
          <StyledInput
             fullWidth
             value={search}
-            placeholder="Поиск по названию"
+            placeholder={t('user.home.banner.form.search-publishes')}
             onChange={handleChangeSearch}
             InputProps={{
                startAdornment: (
@@ -26,20 +33,26 @@ export const SearchInputSelect = ({
                   </InputAdornment>
                ),
 
-               endAdornment: !isMobile ? (
-                  <InputAdornment position="end">
-                     <StyledSelect
-                        value={selectValue}
-                        options={options}
-                        onChange={onSelectChange}
-                        placeholder="выберите метро"
-                     />
-                  </InputAdornment>
-               ) : null,
+               endAdornment: (
+                  <>
+                     {isMobile || (
+                        <InputAdornment position="end">
+                           <StyledSelect
+                              value={selectValue}
+                              options={options}
+                              onChange={onSelectChange}
+                              placeholder={t(
+                                 'user.home.banner.form.select-metro',
+                              )}
+                           />
+                        </InputAdornment>
+                     )}
+                  </>
+               ),
             }}
          />
          <Button variant="search" onClick={onClick}>
-            Поиск
+            {t('global.searchButton')}
          </Button>
       </Wrapper>
    )
