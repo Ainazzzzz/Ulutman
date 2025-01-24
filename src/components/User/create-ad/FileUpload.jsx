@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { useDropzone } from 'react-dropzone'
 import { Box, Typography, IconButton, styled } from '@mui/material'
 import CloseIcon from '../../../assets/icons/close-icon.svg?react'
@@ -35,7 +36,7 @@ const FileUpload = ({ setImageFiles, imageFiles, errors }) => {
    return (
       <Box>
          <ImageContainer>
-            {imageFiles.map((file, i) => (
+            {imageFiles?.map((file, i) => (
                <ImageWrapper key={crypto.randomUUID()}>
                   <ImagePreview
                      src={URL.createObjectURL(file)}
@@ -62,7 +63,7 @@ const FileUpload = ({ setImageFiles, imageFiles, errors }) => {
                   )}
                </ImageWrapper>
             ))}
-            {imageFiles.length < 6 && (
+            {imageFiles?.length < 6 && (
                <StyledBox
                   textAlign="center"
                   p={2}
