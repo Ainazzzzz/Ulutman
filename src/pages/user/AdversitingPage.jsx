@@ -116,6 +116,7 @@ const AdversitingPage = () => {
             imageFile,
             paymentReceiptFile,
             setIsLoading,
+            t,
          }),
       )
 

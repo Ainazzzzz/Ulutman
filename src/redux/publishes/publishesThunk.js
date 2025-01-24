@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { axiosInstance } from '../../config/axiosInstance'
+import { showToast } from '../../hooks/useToast'
 
 export const fetchPublishesUser = createAsyncThunk(
    'publishes/fetchPublishesUser',
-   async ({ publishe, navigate }, { rejectWithValue }) => {
+   async ({ publishe, navigate, t }, { rejectWithValue }) => {
       const { images, city, paymentReceiptFile, ...filteredPublishe } = publishe
       try {
          const params = Object.fromEntries(
@@ -42,11 +43,12 @@ export const fetchPublishesUser = createAsyncThunk(
                params: { ...params, subcategory: params.subcategory.value },
             },
          )
-
+         showToast('success', t('toast.publishes.success'))
          navigate('/user')
 
          return data
       } catch (error) {
+         showToast('error', error.response.data)
          return rejectWithValue(error.message)
       }
    },

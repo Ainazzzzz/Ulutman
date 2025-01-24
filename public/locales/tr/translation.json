@@ -390,6 +390,12 @@
             "main": "Ana"
          },
          "inputPlaceholder": "Ada göre ara"
+      },
+      "recommendations": {
+         "breadcrumbs": {
+            "main": "Ana"
+         },
+         "title": "Tüm duyurular"
       }
    },
    "global": {
@@ -456,5 +462,34 @@
       "placeholder4": "Şifreyi doğrulayın",
       "btn": "Devam et",
       "error": "Şifreler eşleşmelidir"
+   },
+   "toast": {
+      "advertisingSuccess": "Reklamlar başarıyla oluşturuldu!",
+      "signIn": {
+         "success": "Başarılı!!",
+         "error": "Bir şeyler ters gitti"
+      },
+      "signUp": {
+         "success": "Devam etmek için giriş yapın"
+      },
+      "forgot": {
+         "success": "Postaya bir kod gönderildi!",
+         "error": "Bir şeyler ters gitti"
+      },
+      "reset": {
+         "success": "Пароль успешно изменён!",
+         "error": "Bir şeyler ters gitti"
+      },
+      "profile": {
+         "success": "Başarıyla güncellendi!"
+      },
+      "favorite": {
+         "deleteAll": "Yayınlar başarıyla silindi!",
+         "success": "Yayın favorilerinize başarıyla eklendi!",
+         "deleteSuccess": "Yayın başarıyla silindi!"
+      },
+      "publishes": {
+         "success": "Reklam başarıyla oluşturuldu!"
+      }
    }
 }

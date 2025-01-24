@@ -16,29 +16,6 @@ import { getAllMetros } from '../../../redux/main/mainThunk'
 import UploadReceipt from '../../User/create-ad/UploadReceipt'
 import { useTranslation } from 'react-i18next'
 
-// export const validationAdForm = Yup.object({
-//    title: Yup.string().required(t('user.createAds.validationForm.title')),
-//    phoneNumber: Yup.string()
-//       .required('Телефон обязателен')
-//       .matches(/^\+7\d{10}$/, 'Некорректный формат телефона'),
-//    category: Yup.string().required('Категория обязательна'),
-//    images: Yup.array()
-//       .min(1, 'Поле изображений должно содержать хотя бы 1 элемент.')
-//       .required('Загрузите фото'),
-//    description: Yup.string().required('Описание обязательно'),
-//    city: Yup.string().required('Город обязателен'),
-//    address: Yup.string().required('Адрес обязателен'),
-//    metro: Yup.string().required('Метро обязательно'),
-//    price: Yup.number()
-//       .required('Цена обязательна')
-//       .typeError('Цена должна быть числом'),
-//    bank: Yup.string().required('Банк обязателен'),
-//    paymentReceiptFile: Yup.array()
-//       .min(1, 'Чек обязателен.')
-//       .required('Чек обязателен'),
-//    propertyDetails: Yup.object().optional(),
-// })
-
 export const CreateAdForm = () => {
    const { t } = useTranslation()
    const citiesOfMoscow = [
@@ -159,6 +136,7 @@ export const CreateAdForm = () => {
             fetchPublishesUser({
                publishe: { userId: userData.userId, ...values },
                navigate,
+               t,
             }),
          )
       },

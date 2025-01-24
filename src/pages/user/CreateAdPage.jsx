@@ -1,6 +1,5 @@
 import { styled } from '@mui/material'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
-// import { CreateAdForm } from '../../components/User/CreateAdForm'
 import { useTranslation } from 'react-i18next'
 import { CreateAdForm } from '../../components/User/create-ad/CreateAdForm'
 

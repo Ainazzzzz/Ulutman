@@ -57,9 +57,9 @@ const DetailInfo = () => {
       const isFavorite = detailInfo?.detailInfo?.detailFavorite
 
       if (isFavorite) {
-         dispatch(deleteFavorite(detailInfo.detailInfo.id))
+         dispatch(deleteFavorite({ id: detailInfo.detailInfo.id, t }))
       } else {
-         dispatch(postFavorite(detailInfo.detailInfo.id))
+         dispatch(postFavorite({ id: detailInfo.detailInfo.id, t }))
       }
    }
 

@@ -12,17 +12,19 @@ import {
    deleteFavoriteStatus,
    updateFavoriteStatus,
 } from '../../../redux/main/mainThunk'
+import { useTranslation } from 'react-i18next'
 
 export const CardList = ({ cards, advertising, loading }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const { isAuth } = useSelector(state => state.auth)
    const dispatch = useDispatch()
    const navigate = useNavigate()
+   const { t } = useTranslation()
    const [openLogin, setOpenLogin] = useState(false)
 
    const updateFavoriteHandler = id => {
       if (isAuth) {
-         dispatch(updateFavoriteStatus(id))
+         dispatch(updateFavoriteStatus({ id, t }))
       } else {
          setOpenLogin(true)
       }
@@ -30,7 +32,7 @@ export const CardList = ({ cards, advertising, loading }) => {
 
    const deleteFavoriteHandler = id => {
       if (isAuth) {
-         dispatch(deleteFavoriteStatus(id))
+         dispatch(deleteFavoriteStatus({ id, t }))
       } else {
          setOpenLogin(true)
       }
@@ -56,6 +58,7 @@ export const CardList = ({ cards, advertising, loading }) => {
                         onNavigateDetail={handleNavigateDetail}
                         onUpdateFavorite={() => updateFavoriteHandler(card.id)}
                         onDeleteFavorite={() => deleteFavoriteHandler(card.id)}
+                        t={t}
                      />
                   </Grid>
                ))}
