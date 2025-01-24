@@ -16,29 +16,6 @@ import { getAllMetros } from '../../../redux/main/mainThunk'
 import UploadReceipt from '../../User/create-ad/UploadReceipt'
 import { useTranslation } from 'react-i18next'
 
-// export const validationAdForm = Yup.object({
-//    title: Yup.string().required(t('user.createAds.validationForm.title')),
-//    phoneNumber: Yup.string()
-//       .required('Телефон обязателен')
-//       .matches(/^\+7\d{10}$/, 'Некорректный формат телефона'),
-//    category: Yup.string().required('Категория обязательна'),
-//    images: Yup.array()
-//       .min(1, 'Поле изображений должно содержать хотя бы 1 элемент.')
-//       .required('Загрузите фото'),
-//    description: Yup.string().required('Описание обязательно'),
-//    city: Yup.string().required('Город обязателен'),
-//    address: Yup.string().required('Адрес обязателен'),
-//    metro: Yup.string().required('Метро обязательно'),
-//    price: Yup.number()
-//       .required('Цена обязательна')
-//       .typeError('Цена должна быть числом'),
-//    bank: Yup.string().required('Банк обязателен'),
-//    paymentReceiptFile: Yup.array()
-//       .min(1, 'Чек обязателен.')
-//       .required('Чек обязателен'),
-//    propertyDetails: Yup.object().optional(),
-// })
-
 export const CreateAdForm = () => {
    const { t } = useTranslation()
    const citiesOfMoscow = [
@@ -110,12 +87,22 @@ export const CreateAdForm = () => {
       price: Yup.number()
          .required(t('user.createAds.validationForm.priceRequired'))
          .typeError(t('user.createAds.validationForm.priceTypeError')),
-      bank: Yup.string().required('Банк обязателен'),
-      paymentReceiptFile: Yup.array()
-         .min(1, t('user.createAds.validationForm.paymentReceiptFileMin'))
-         .required(
-            t('user.createAds.validationForm.paymentReceiptFileRequired'),
-         ),
+      bank: Yup.string().when('category', (category, schema) => {
+         if (category?.includes('REAL_ESTATE') || category?.includes('HOTEL')) {
+            return schema.required(t('user.createAds.validationForm.bank'))
+         }
+         return schema.notRequired()
+      }),
+      paymentReceiptFile: Yup.array().when('category', (category, schema) => {
+         if (category?.includes('REAL_ESTATE') || category?.includes('HOTEL')) {
+            return schema
+               .min(1, t('user.createAds.validationForm.paymentReceiptFileMin'))
+               .required(
+                  t('user.createAds.validationForm.paymentReceiptFileRequired'),
+               )
+         }
+         return schema.notRequired()
+      }),
       propertyDetails: Yup.object().optional(),
    })
 
@@ -163,6 +150,7 @@ export const CreateAdForm = () => {
          )
       },
    })
+   console.log(values)
 
    const onCategoryClick = category => setSelectCategory(category)
    const onSubCategoryClick = subCategory =>
@@ -305,16 +293,6 @@ export const CreateAdForm = () => {
                error={!!errors.bank}
                helperText={errors.bank}
             />
-            {/* <Input
-               placeholder="нет"
-               label="Прикрепите чек"
-               name="paymentReceiptFile"
-               value={values.paymentReceiptFile}
-               onChange={handleChange}
-               error={!!errors.paymentReceiptFile}
-               helperText={errors.paymentReceiptFile}
-               required
-            /> */}
 
             <div>
                <UploadReceipt

@@ -130,8 +130,8 @@ export const forgotPassword = createAsyncThunk(
          )
 
          showToast('success', `На почту ${email} отправлен код`)
-         toggleResetPasswordModal()
          onClose()
+         toggleResetPasswordModal()
 
          return data
       } catch (e) {

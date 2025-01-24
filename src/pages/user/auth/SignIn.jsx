@@ -93,23 +93,32 @@ export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
             ) : (
                <Button type="submit">{t('signIn.enter')}</Button>
             )}
-            <div>
+            <Wrapper>
                <GoogleAuth onClose={onClose} />
                <NavLink
+                  style={{
+                     color: '#7E52FF',
+                     textDecoration: 'none',
+                  }}
                   onClick={() => {
-                     openForgotPassword()
                      onClose()
+                     openForgotPassword()
                   }}
                >
                   {t('signIn.forgot')}
                </NavLink>
-            </div>
-            <Typography align="center">
+            </Wrapper>
+            <Typography
+               align="center"
+               color={'#000'}
+               style={{ display: 'flex', gap: '5px' }}
+            >
                {t('signIn.noAccount')}
                <NavLink
+                  style={{ color: '#7E52FF', textDecoration: 'none' }}
                   onClick={() => {
-                     openSignUp()
                      onClose()
+                     openSignUp()
                   }}
                >
                   {t('signIn.create')}
@@ -123,12 +132,11 @@ export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
 const Box = styled('form')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
-   gap: '30px',
+   gap: '20px',
    h2: {
       textAlign: 'center',
       fontWeight: '600',
       fontSize: '26px',
-      paddingTop: '50px',
       [theme.breakpoints.down('md')]: {
          fontSize: '24px',
       },
@@ -147,3 +155,9 @@ const ErrorText = styled('p')(() => ({
    fontSize: '12px',
    position: 'absolute',
 }))
+
+const Wrapper = styled('div')({
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '10px',
+})

@@ -14,6 +14,7 @@ const CategoryField = ({
    subCategory,
 }) => {
    const { t } = useTranslation()
+
    return (
       <StyledContainer>
          <Label>{t('user.createAds.newCreateAdForm.category')}</Label>

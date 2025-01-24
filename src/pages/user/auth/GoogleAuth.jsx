@@ -42,6 +42,7 @@ const GoogleAuth = ({ onClose }) => {
          type="button"
          onClick={handleGoogleLogin}
          disabled={isLoading}
+         fullWidth={true}
       >
          <GoogleIcon />
          {isLoading ? t('signIn.googleAuth.btn1') : t('signIn.googleAuth.btn2')}
