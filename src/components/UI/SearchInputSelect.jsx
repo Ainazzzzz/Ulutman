@@ -1,13 +1,8 @@
-import {
-   InputAdornment,
-   styled,
-   TextField,
-   useMediaQuery,
-} from '@mui/material';
-import Search from '../../assets/icons/search.svg?react';
-import { Button } from './Button';
-import ReusableSelect from './Select';
-import { useTranslation } from 'react-i18next';
+import { InputAdornment, styled, TextField, useMediaQuery } from '@mui/material'
+import Search from '../../assets/icons/search.svg?react'
+import { Button } from './Button'
+import ReusableSelect from './Select'
+import { useTranslation } from 'react-i18next'
 
 export const SearchInputSelect = ({
    onClick,
@@ -17,8 +12,8 @@ export const SearchInputSelect = ({
    options,
    search,
 }) => {
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
-   const { t } = useTranslation();
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const { t } = useTranslation()
    return (
       <Wrapper>
          <StyledInput

@@ -204,15 +204,12 @@ const StyledSelect = styled(ReusableSelect)(() => ({
    '& .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
+
    '&:hover .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: 'none',
-   },
-
-   '& .MuiSelect-select': {
-      padding: '18px 0 15px 10px',
    },
 }))
 

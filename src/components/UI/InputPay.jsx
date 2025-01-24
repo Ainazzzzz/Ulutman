@@ -51,7 +51,7 @@ const InputPay = ({
 
 export default InputPay
 const PdFcontainer = styled('div')(() => ({
-   width: '365px',
+   maxWidth: '400px',
    height: '44px',
    padding: '10px 0px 0px 0px',
    display: 'flex',

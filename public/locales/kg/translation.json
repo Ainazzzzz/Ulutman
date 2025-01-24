@@ -171,7 +171,7 @@
             "uploadPhoto": {
                "uploadImage": "Башкы сүрөт",
                "uploadTitle": "Сүрөт кошуу",
-               "uploadDescription": "Сүрөт кошуу үчүн аны чыкылдатыңыз же сүйрөңүз"
+               "uploadDescription": "Сүрөт кошуу үчүн аны басыңыз же сүйрөңүз"
             },
             "detailInfoButton": "Толук маалымат",
             "detailInfo": {
@@ -213,11 +213,11 @@
             "adButton": "Түзүү"
          },
          "validationForm": {
-            "title": "Чек милдеттүү",
+           "title": "Жарыянын аталышы милдеттүү",
             "phoneNumberRequired": "Телефон милдеттүү",
             "phoneNumberMatches": "Туура эмес телефон форматы",
             "category": "Категория милдеттүү",
-            "imagesMin": "Сүрөттөр талаасы кеминде 1 элементти камтышы керек",
+            "imagesMin": "Сүрөттөр талаасы жок дегенде 1 сүрөттү камтышы керек",
             "imagesRequired": "Сүрөт жүктөө керек",
             "description": "Сүрөттөө милдеттүү",
             "city": "Шаар милдеттүү",

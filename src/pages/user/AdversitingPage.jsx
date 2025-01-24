@@ -1,21 +1,29 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import { Button } from '../../components/UI/Button'
 import ChevronLeft from '../../assets/icons/chevron-left.svg?react'
-import Input from '../../components/UI/Input'
 import 'react-toastify/dist/ReactToastify.css'
 import InputPay from '../../components/UI/InputPay'
 import { addAdvertisingThunks } from '../../redux/advertising/adversstitingpayThunks'
 import { Loading } from '../../components/UI/Loading'
 import FileUpload from '../Admin/mailing/FileUpload'
+import { useTranslation } from 'react-i18next'
+import ReusableSelect from '../../components/UI/Select'
 
-const AdversitingPage = () => {
+const optionsBank = [
+   { value: 'SBERBANK', label: 'Сбербанк' },
+   { value: 'TBANK', label: 'Т-Банк' },
+   { value: 'ALPHA_BANK', label: 'Альфа-Банк' },
+   { value: 'BTB', label: 'ВТБ' },
+   { value: 'POST_BANK', label: 'Почта Банк' },
+]
+
+const AdvertisingPage = () => {
    const [bankName, setBankName] = useState('')
    const { t } = useTranslation()
    const [bankError, setBankError] = useState('')
@@ -35,18 +43,13 @@ const AdversitingPage = () => {
       },
    ]
 
-   const handleGoBack = () => {
-      navigate('/')
-   }
+   const handleGoBack = () => navigate('/user')
 
-   const validBanks = ['Сбербанк', 'Т-Банк', 'Альфа-Банк', 'ВТБ', 'Почта Банк']
+   const validBanks = optionsBank.map(option => option.label)
 
    const handleImage = (file, type) => {
-      if (type === 'imageFile') {
-         setImageFile(file)
-      } else if (type === 'paymentReceiptFile') {
-         setPaymentReceiptFile(file)
-      }
+      if (type === 'imageFile') setImageFile(file)
+      else if (type === 'paymentReceiptFile') setPaymentReceiptFile(file)
    }
 
    const handleSubmit = async () => {
@@ -56,7 +59,12 @@ const AdversitingPage = () => {
 
       let isValid = true
 
-      if (!validBanks.includes(bankName)) {
+      const selectedBankLabel = optionsBank.find(
+         option => option.value === bankName,
+      )?.label
+      console.log(selectedBankLabel)
+
+      if (!selectedBankLabel || !validBanks.includes(selectedBankLabel)) {
          setBankError(t('user.advertising.advertisingValidation.bankError'))
          isValid = false
       }
@@ -69,28 +77,31 @@ const AdversitingPage = () => {
       }
 
       if (!imageFile) {
-         setImageError('Пожалуйста, загрузите фото.')
+         setImageError(t('user.advertising.advertisingValidation.imageError'))
          isValid = false
       }
 
-      if (!isValid) {
-         return
-      }
+      if (!isValid) return
 
       setIsLoading(true)
 
-      dispatch(
-         addAdvertisingThunks({
-            bank: bankName,
-            imageFile,
-            paymentReceiptFile,
-            setIsLoading,
-         }),
-      )
+      try {
+         await dispatch(
+            addAdvertisingThunks({
+               bank: bankName,
+               imageFile,
+               paymentReceiptFile,
+            }),
+         )
 
-      setBankName('')
-      setImageFile('')
-      setPaymentReceiptFile(null)
+         setBankName('')
+         setImageFile('')
+         setPaymentReceiptFile(null)
+      } catch (error) {
+         console.error('Ошибка при добавлении рекламы:', error)
+      } finally {
+         setIsLoading(false)
+      }
    }
 
    return (
@@ -121,28 +132,15 @@ const AdversitingPage = () => {
          </InfoBank>
          <BoxInputStyle>
             <ContainerAddImageSehond>
-               <Input
-                  name="bank"
-                  label="Банк"
-                  placeholder="Укажите банк, на который перевели деньги"
-                  value={bankName}
-                  onChange={e => setBankName(e.target.value)}
-               />
-               {bankError && <p style={{ color: 'red' }}>{bankError}</p>}
-
-               <ContainerBank>
-                  <TitleBank>Сбербанк</TitleBank>
-                  <NumberBunkStyle>2202 2081 2356 1699</NumberBunkStyle>
-                  <TitleBank>Т-Банк</TitleBank>
-                  <NumberBunkStyle>2200 7009 8116 9526</NumberBunkStyle>
-                  <TitleBank> Альфа-Банк</TitleBank>
-                  <NumberBunkStyle>4584 4328 2524 1376</NumberBunkStyle>
-                  <TitleBank>ВТБ</TitleBank>
-                  <NumberBunkStyle>2200 2480 8913 7201</NumberBunkStyle>
-                  <TitleBank>Почта Банк</TitleBank>
-                  <NumberBunkStyle>2200770419928124</NumberBunkStyle>
-               </ContainerBank>
-               <ContainerBank />
+               <WrapperSelect>
+                  <ReusableSelect
+                     value={bankName}
+                     placeholder={'Укажите банк, на который перевели деньги'}
+                     options={optionsBank}
+                     onChange={e => setBankName(e.target.value)}
+                  />
+                  {bankError && <p style={{ color: 'red' }}>{bankError}</p>}
+               </WrapperSelect>
                <InputPay
                   label="Загрузите чек оплаты"
                   value={paymentReceiptFile}
@@ -163,13 +161,9 @@ const AdversitingPage = () => {
             <FileUpload
                value={imageFile}
                setFieldValue={(field, value) => {
-                  if (field === 'imageFile') {
-                     console.log('Загруженный файл:', value)
-                     setImageFile(value)
-                  }
+                  if (field === 'imageFile') setImageFile(value)
                }}
             />
-
             {imageError && <p style={{ color: 'red' }}>{imageError}</p>}
          </ContainerAddImage>
 
@@ -180,40 +174,31 @@ const AdversitingPage = () => {
    )
 }
 
-export default AdversitingPage
+export default AdvertisingPage
+
 const WrapperContainer = styled('div')(({ theme }) => ({
-   padding: '60px',
-   [theme.breakpoints.down('sm')]: {
-      padding: '30px',
-   },
+   padding: '30px 60px',
+   [theme.breakpoints.down('sm')]: { padding: '30px' },
 }))
 const ParagrahStyle = styled('p')(({ theme }) => ({
    fontSize: '12px',
    fontWeight: '600',
    lineHeight: '17.94px',
    color: ' #000000A3',
-   [theme.breakpoints.down('sm')]: {
-      fontSize: '10px',
-      lineHeight: '15px',
-   },
+   [theme.breakpoints.down('sm')]: { fontSize: '10px', lineHeight: '15px' },
 }))
 const Titile = styled('h1')(({ theme }) => ({
    fontSize: '34px',
    fontWeight: '600',
-   padding: '24px 0 24px  0px',
-   [theme.breakpoints.down('sm')]: {
-      fontSize: '28px',
-   },
+   padding: '24px 0 24px 0px',
+   [theme.breakpoints.down('sm')]: { fontSize: '28px' },
 }))
-
 const ContainerAddImage = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    gap: '8px',
    paddingBottom: '40px',
-   [theme.breakpoints.down('sm')]: {
-      paddingBottom: '20px',
-   },
+   [theme.breakpoints.down('sm')]: { paddingBottom: '20px' },
 }))
 const ContainerAddImageSehond = styled('div')(() => ({
    display: 'flex',
@@ -221,7 +206,7 @@ const ContainerAddImageSehond = styled('div')(() => ({
    gap: '8px',
    padding: '24px 0px 0px 0',
    '.css-evt46c-MuiFormControl-root-MuiTextField-root .MuiInputBase-root': {
-      width: '365px',
+      maxWidth: '400px',
    },
 }))
 const PragrafTitile = styled('p')(() => ({
@@ -234,6 +219,7 @@ const BoxSyleTitle = styled('div')(() => ({
    gap: '10px',
    paddingTop: '24px',
 }))
+const WrapperSelect = styled('div')({ maxWidth: '400px' })
 const FirstBlock = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
@@ -252,37 +238,11 @@ const FirstBlock = styled('div')(({ theme }) => ({
       alignItems: 'flex-start',
    },
 }))
-const InfoBank = styled('div')(() => ({
-   display: 'flex',
-}))
-const ContainerBank = styled('div')(() => ({
-   display: 'flex',
-   flexDirection: 'column',
-   gap: '8px',
-
-   '.css-evt46c-MuiFormControl-root-MuiTextField-root .MuiInputBase-root': {
-      width: '365px',
-   },
-}))
+const InfoBank = styled('div')(() => ({ display: 'flex' }))
 const BoxInputStyle = styled('div')(() => ({
    display: 'flex',
-
    flexDirection: 'column',
    '.css-wxfmmo-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root': {
       width: '365px',
    },
-}))
-const TitleBank = styled('div')(() => ({
-   color: '#282828',
-   fontWeight: '600',
-}))
-const NumberBunkStyle = styled('div')(() => ({
-   width: '365px',
-   height: '44px',
-   border: '1px solid #cfcfcf',
-   borderRadius: '10px',
-   display: 'flex',
-   alignItems: 'center',
-   paddingLeft: '20px',
-   color: ' #000000A3',
 }))
