@@ -128,7 +128,7 @@ const Box = styled('form')(({ theme }) => ({
       textAlign: 'center',
       fontWeight: '600',
       fontSize: '26px',
-      paddingTop: '50px',
+      // paddingTop: '10px',
       [theme.breakpoints.down('md')]: {
          fontSize: '24px',
       },
