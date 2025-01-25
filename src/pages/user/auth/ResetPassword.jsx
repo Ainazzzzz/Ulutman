@@ -131,7 +131,6 @@ const Form = styled('form')(({ theme }) => ({
       textAlign: 'center',
       fontWeight: '600',
       fontSize: '26px',
-      paddingTop: '50px',
       [theme.breakpoints.down('md')]: {
          fontSize: '24px',
       },

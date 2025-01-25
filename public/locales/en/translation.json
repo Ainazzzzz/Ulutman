@@ -193,11 +193,11 @@
                "adButton": "To create"
             },
             "validationForm": {
-               "title": "The product name is required",
+               "title": "The title of the publication is required",
                "phoneNumberRequired": "Phone number is required",
                "phoneNumberMatches": "Incorrect phone format",
                "category": "The category is required",
-               "imagesMin": "The image field must contain at least 1 element",
+               "imagesMin": "The images field must contain at least 1 photo",
                "imagesRequired": "Upload a photo",
                "description": "The description is required",
                "city": "The city is required",

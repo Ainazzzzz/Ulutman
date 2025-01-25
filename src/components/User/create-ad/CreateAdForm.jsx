@@ -87,12 +87,22 @@ export const CreateAdForm = () => {
       price: Yup.number()
          .required(t('user.createAds.validationForm.priceRequired'))
          .typeError(t('user.createAds.validationForm.priceTypeError')),
-      bank: Yup.string().required('Банк обязателен'),
-      paymentReceiptFile: Yup.array()
-         .min(1, t('user.createAds.validationForm.paymentReceiptFileMin'))
-         .required(
-            t('user.createAds.validationForm.paymentReceiptFileRequired'),
-         ),
+      bank: Yup.string().when('category', (category, schema) => {
+         if (category?.includes('REAL_ESTATE') || category?.includes('HOTEL')) {
+            return schema.required(t('user.createAds.validationForm.bank'))
+         }
+         return schema.notRequired()
+      }),
+      paymentReceiptFile: Yup.array().when('category', (category, schema) => {
+         if (category?.includes('REAL_ESTATE') || category?.includes('HOTEL')) {
+            return schema
+               .min(1, t('user.createAds.validationForm.paymentReceiptFileMin'))
+               .required(
+                  t('user.createAds.validationForm.paymentReceiptFileRequired'),
+               )
+         }
+         return schema.notRequired()
+      }),
       propertyDetails: Yup.object().optional(),
    })
 
@@ -141,6 +151,7 @@ export const CreateAdForm = () => {
          )
       },
    })
+   console.log(values)
 
    const onCategoryClick = category => setSelectCategory(category)
    const onSubCategoryClick = subCategory =>
@@ -283,16 +294,6 @@ export const CreateAdForm = () => {
                error={!!errors.bank}
                helperText={errors.bank}
             />
-            {/* <Input
-               placeholder="нет"
-               label="Прикрепите чек"
-               name="paymentReceiptFile"
-               value={values.paymentReceiptFile}
-               onChange={handleChange}
-               error={!!errors.paymentReceiptFile}
-               helperText={errors.paymentReceiptFile}
-               required
-            /> */}
 
             <div>
                <UploadReceipt

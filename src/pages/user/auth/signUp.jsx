@@ -44,8 +44,8 @@ const SignUp = ({ open, onClose, openSignIn }) => {
    const signUpSchema = createSignUpSchema(t)
 
    const handleOpenSignInModal = () => {
-      openSignIn()
       onClose()
+      openSignIn()
    }
 
    const submitHandler = val => {
@@ -104,7 +104,7 @@ const SignUp = ({ open, onClose, openSignIn }) => {
             )}
             <GoogleAuth />
 
-            <Typography align="center">
+            <Typography display={'flex'} gap={1}>
                {t('signUp.account')}
                <NavLink to="" onClick={handleOpenSignInModal}>
                   {t('signUp.enter')}
@@ -125,7 +125,6 @@ const Box = styled('form')(({ theme }) => ({
       textAlign: 'center',
       fontWeight: '600',
       fontSize: '26px',
-      paddingTop: '50px',
       [theme.breakpoints.down('md')]: {
          fontSize: '24px',
       },

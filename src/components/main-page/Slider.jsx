@@ -31,7 +31,7 @@ const Slider = () => {
    }, [])
 
    return (
-      <div>
+      <Wrapper>
          {isMobile ? (
             <StyledSwiper
                ref={sliderRef}
@@ -75,11 +75,15 @@ const Slider = () => {
                </NextArrow>
             </StyledSwiper>
          )}
-      </div>
+      </Wrapper>
    )
 }
 
 export default Slider
+
+const Wrapper = styled('div')({
+   minHeight: '120px',
+})
 
 const StyledSwiper = styled(Swiper)(() => ({
    width: '100%',

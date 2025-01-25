@@ -213,11 +213,11 @@
          },
 
          "validationForm": {
-            "title": "Mahsulot nomi majburiydir",
+            "title": "Eʼlon nomi majburiy",
             "phoneNumberRequired": "Telefon talab qilinadi",
             "phoneNumberMatches": "Noto'g'ri telefon formati",
             "category": "Kategoriya talab qilinadi",
-            "imagesMin": "Rasmlar maydonida kamida 1 ta element bo'lishi kerak",
+            "imagesMin": "Rasmlar maydoni kamida bitta rasmni o‘z ichiga olishi kerak",
             "imagesRequired": "Fotosuratni yuklang",
             "description": "Ta'rif majburiydir",
             "city": "Shahar majburiy",

@@ -15,8 +15,6 @@ export const PublishesCategoryModal = ({
 }) => {
    const [selectedCategory, setSelectedCategory] = useState(null)
    const { t } = useTranslation()
-   console.log(t('categoryModal.subCategory.partTime'))
-   console.log(selectedCategory)
    const categoryHandler = useCallback(
       category => {
          onCategoryClick(category)
@@ -70,7 +68,7 @@ export const PublishesCategoryModal = ({
          selectedCategory?.map(sub => (
             <SubCategoryItem
                key={sub.id}
-               onClick={() => subCategoryHandler(sub)}
+               onClick={() => subCategoryHandler({ ...sub, text: t(sub.text) })}
             >
                {t(sub.text)}
             </SubCategoryItem>

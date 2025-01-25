@@ -63,13 +63,13 @@ export const SearchMainPage = () => {
                <FirstBlock>
                   <Breadcrumbs path={breadcrumbs} />
                </FirstBlock>
+               <SearchInput
+                  placeholder={t('user.searchMain.inputPlaceholder')}
+                  onChange={searchChangeHandler}
+                  value={searchValue}
+                  onClick={handleSearchSubmit}
+               />
             </Block>
-            <SearchInput
-               placeholder={t('user.searchMain.inputPlaceholder')}
-               onChange={searchChangeHandler}
-               value={searchValue}
-               onClick={handleSearchSubmit}
-            />
             <CategoryCard categories={searchPublishes} />
          </Container>
       </Wrapper>
@@ -113,12 +113,12 @@ const Container = styled('div')(({ theme }) => ({
 const Block = styled('div')({
    display: 'flex',
    flexDirection: 'column',
-   gap: '24px',
+   gap: '10px',
 })
 
 const Wrapper = styled('div')(({ theme }) => ({
    padding: '40px 60px 60px 60px',
    [theme.breakpoints.down('md')]: {
-      padding: '24px 16px 24px 16px',
+      padding: '0 16px 24px 16px',
    },
 }))

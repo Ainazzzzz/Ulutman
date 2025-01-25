@@ -20,7 +20,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
    const navigate = useNavigate()
 
    const handleNavigateDetail = id => {
-      navigate(PATHS.USER.DETAILS.replace(':detailsInfo', id))
+      navigate(PATHS.USER.DETAILS.replace(':id', id))
    }
 
    const handleOpen = id => setPhoneModal(id)
@@ -66,11 +66,6 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                      </SecondBlock>
                      <SecondBlock>
                         <Home />
-                        {/* <p>
-                           {item.quantity} -комн. кв.{' '}
-                           {item.propertyDetails?.totalArea}м<sup>2</sup>{' '}
-                           {item.floor}
-                        </p> */}
                      </SecondBlock>
                      <Description>{item.description}</Description>
                   </div>
@@ -125,11 +120,6 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                      </SecondBlock>
                      <SecondBlock>
                         <Home />
-                        {/* <p>
-                           {item.quantity} -комн. кв.{' '}
-                           {item.propertyDetails?.totalArea}м<sup>2</sup>{' '}
-                           {item.floor}
-                        </p> */}
                      </SecondBlock>
                      <Description>{item.description}</Description>
                   </div>

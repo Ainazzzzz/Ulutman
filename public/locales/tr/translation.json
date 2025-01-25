@@ -213,11 +213,11 @@
             "adButton": "Oluşturmak"
          },
          "validationForm": {
-            "title": "Çek zorunludur",
+            "title": "Yayın başlığı zorunludur",
             "phoneNumberRequired": "Telefon gereklidir",
             "phoneNumberMatches": "Yanlış telefon formatı",
             "category": "Kategori zorunludur",
-            "imagesMin": "Görüntüler alanı en az 1 öğe içermelidir",
+            "imagesMin": "Görseller alanı en az bir fotoğraf içermelidir",
             "imagesRequired": "Fotoğrafı yükleyin",
             "description": "Açıklama zorunludur",
             "city": "Şehir zorunludur",

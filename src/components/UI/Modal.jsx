@@ -89,7 +89,7 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
 
    '& .MuiDialog-paper': {
       borderRadius: '0.625rem',
-      padding: '2.5rem',
+      padding: '2rem',
       paddingTop: variant === 'custom' ? '2.5rem' : '3.8rem',
       overflow: 'visible',
       maxWidth: '1200px',
