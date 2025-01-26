@@ -132,6 +132,19 @@ const AdvertisingPage = () => {
          </InfoBank>
          <BoxInputStyle>
             <ContainerAddImageSehond>
+               <ContainerBank>
+                  <TitleBank>Сбербанк</TitleBank>
+                  <NumberBunkStyle>2202 2081 2356 1699</NumberBunkStyle>
+                  <TitleBank>Тбанк</TitleBank>
+                  <NumberBunkStyle>2200 7009 8116 9526</NumberBunkStyle>
+                  <TitleBank> Альфа-банк</TitleBank>
+                  <NumberBunkStyle>4584 4328 2524 1376</NumberBunkStyle>
+                  <TitleBank>ВТБ</TitleBank>
+                  <NumberBunkStyle>2200 2480 8913 7201</NumberBunkStyle>
+                  <TitleBank>Почта банк</TitleBank>
+                  <NumberBunkStyle>2200770419928124</NumberBunkStyle>
+               </ContainerBank>
+
                <WrapperSelect>
                   <ReusableSelect
                      value={bankName}
@@ -141,14 +154,21 @@ const AdvertisingPage = () => {
                   />
                   {bankError && <p style={{ color: 'red' }}>{bankError}</p>}
                </WrapperSelect>
-               <InputPay
-                  label="Загрузите чек оплаты"
-                  value={paymentReceiptFile}
-                  onDropFiles={files =>
-                     handleImage(files[0], 'paymentReceiptFile')
-                  }
-               />
-               {receiptError && <p style={{ color: 'red' }}>{receiptError}</p>}
+
+               <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <label htmlFor="payment" style={{ marginBottom: '10px' }}>
+                     Загрузите чек оплаты
+                  </label>
+                  <InputPay
+                     value={paymentReceiptFile}
+                     onDropFiles={files =>
+                        handleImage(files[0], 'paymentReceiptFile')
+                     }
+                  />
+                  {receiptError && (
+                     <p style={{ color: 'red' }}>{receiptError}</p>
+                  )}
+               </div>
             </ContainerAddImageSehond>
          </BoxInputStyle>
 
@@ -219,7 +239,7 @@ const BoxSyleTitle = styled('div')(() => ({
    gap: '10px',
    paddingTop: '24px',
 }))
-const WrapperSelect = styled('div')({ maxWidth: '400px' })
+const WrapperSelect = styled('div')({ maxWidth: '400px', marginTop: '20px' })
 const FirstBlock = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
@@ -245,4 +265,29 @@ const BoxInputStyle = styled('div')(() => ({
    '.css-wxfmmo-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root': {
       width: '365px',
    },
+}))
+
+const ContainerBank = styled('div')(() => ({
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '8px',
+
+   '.css-evt46c-MuiFormControl-root-MuiTextField-root .MuiInputBase-root': {
+      width: '365px',
+   },
+}))
+
+const TitleBank = styled('div')(() => ({
+   color: '#282828',
+   fontWeight: '600',
+}))
+const NumberBunkStyle = styled('div')(() => ({
+   width: '365px',
+   height: '44px',
+   border: '1px solid #cfcfcf',
+   borderRadius: '10px',
+   display: 'flex',
+   alignItems: 'center',
+   paddingLeft: '20px',
+   color: ' #000000A3',
 }))

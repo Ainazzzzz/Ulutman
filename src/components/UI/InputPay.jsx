@@ -30,20 +30,20 @@ const InputPay = ({
 
    return (
       <PdFcontainer {...getRootProps()}>
-         <p>Загрузите чек</p>
          <input {...getInputProps()} type="file" />
          <ContainerPdf>
             <PDF />
          </ContainerPdf>
 
          {files.length > 0 && (
-            <ul>
+            <List>
                {files.map(file => (
-                  <li key={file.path}>
-                     {file.path} - {(file.size / 1024).toFixed(2)} KB
+                  <li key={file.path} style={{ display: 'flex' }}>
+                     <ListItem> {file.path} </ListItem>-{' '}
+                     {(file.size / 1024).toFixed(2)} KB
                   </li>
                ))}
-            </ul>
+            </List>
          )}
       </PdFcontainer>
    )
@@ -55,7 +55,7 @@ const PdFcontainer = styled('div')(() => ({
    height: '44px',
    padding: '10px 0px 0px 0px',
    display: 'flex',
-   justifyContent: 'flex-end',
+   justifyContent: 'flex-start',
    border: '1px solid #cfcfcf',
    borderRadius: '10px',
 
@@ -67,6 +67,18 @@ const PdFcontainer = styled('div')(() => ({
 const ContainerPdf = styled('div')(() => ({
    display: 'flex',
    gap: '100px',
-   padding: '0 20px 0 20px',
+   padding: '0 20px 0 5px',
    color: 'gray',
+}))
+
+const List = styled('ul')(() => ({
+   display: 'flex',
+   justifyContent: 'flex-start',
+}))
+
+const ListItem = styled('p')(() => ({
+   overflow: 'hidden',
+   whiteSpace: 'nowrap',
+   textOverflow: 'ellipsis',
+   maxWidth: '270px',
 }))

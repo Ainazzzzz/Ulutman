@@ -14,7 +14,6 @@ const Slider = () => {
    const dispatch = useDispatch()
    const advertising = useSelector(state => state.advertising.advertising)
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
-   console.log(advertising)
 
    useEffect(() => {
       dispatch(getAdvertising())
@@ -43,7 +42,7 @@ const Slider = () => {
             >
                {advertising.map(item => (
                   <StyledSwiperSlide key={item.id}>
-                     <img src={item.imagePath} alt="реклама" />
+                     <img src={item.imageFile} alt="реклама" />
                   </StyledSwiperSlide>
                ))}
                <PrevArrow onClick={handlePrev}>
@@ -64,7 +63,7 @@ const Slider = () => {
             >
                {advertising.map(item => (
                   <StyledSwiperSlide key={item.id}>
-                     <img src={item.imagePath} alt="реклама" />
+                     <img src={item.imageFile} alt="реклама" />
                   </StyledSwiperSlide>
                ))}
                <PrevArrow onClick={handlePrev}>
