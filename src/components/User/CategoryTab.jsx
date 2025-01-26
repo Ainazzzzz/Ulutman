@@ -24,27 +24,26 @@ import { getAdvertising } from '../../redux/advertising/advertisingThunk'
 import { useTranslation } from 'react-i18next'
 import { Loading } from '../UI/Loading'
 
-const SORTY_CATEGORY_OPTIONS = [
-   {
-      value: 'newest',
-      label: 'Сначала новые',
-   },
-   {
-      value: 'cheapest',
-      label: 'Сначала дешевые',
-   },
-   {
-      value: 'expensive',
-      label: 'Сначала дорогие',
-   },
-]
-
 export const CategoryTab = () => {
+   const { t } = useTranslation()
+   const SORTY_CATEGORY_OPTIONS = [
+      {
+         value: 'newest',
+         label: t('global.sortCategory.newest'),
+      },
+      {
+         value: 'cheapest',
+         label: t('global.sortCategory.cheapest'),
+      },
+      {
+         value: 'expensive',
+         label: t('global.sortCategory.expensive'),
+      },
+   ]
    const dispatch = useDispatch()
 
    const { categories, isLoading } = useSelector(state => state.userCategories)
    const { advertising } = useSelector(state => state.advertising)
-   const { t } = useTranslation()
 
    const { subCategory } = useParams()
 
@@ -125,7 +124,7 @@ export const CategoryTab = () => {
                   onChange={handleChange}
                   variant={isMobile ? 'scrollable' : 'standard'}
                >
-                  <TabStyle label="Все" value="all" />
+                  <TabStyle label={t('global.sortCategory.all')} value="all" />
                   {transformedSubCategory?.map(item => (
                      <TabStyle
                         key={item.id}

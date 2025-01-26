@@ -37,7 +37,7 @@ export const FeaturedAds = () => {
       setIsOpenModal(!isOpenModal)
    }
    const onDelete = () => {
-      dispatch(deleteAllFavorites())
+      dispatch(deleteAllFavorites({ t }))
       setIsOpenModal(!isOpenModal)
    }
    const onDeleteById = id => {
@@ -63,16 +63,68 @@ export const FeaturedAds = () => {
             <SecondBlock>
                <h3>{t('user.favorite.title')}</h3>
                {isMobile ? (
-                  <DeleteAll onClick={handleDeleteFavorite}>
+                  <DeleteAll
+                     onClick={
+                        publishResponseList.length > 0
+                           ? handleDeleteFavorite
+                           : null
+                     }
+                     style={{
+                        cursor:
+                           publishResponseList.length > 0
+                              ? 'pointer'
+                              : 'not-allowed',
+                        opacity: publishResponseList.length > 0 ? 1 : 0.5,
+                     }}
+                  >
                      <DeleteIcon />
-                     <p onClick={handleDeleteFavorite}>
+                     <p
+                        onClick={
+                           publishResponseList.length > 0
+                              ? handleDeleteFavorite
+                              : null
+                        }
+                        style={{
+                           cursor:
+                              publishResponseList.length > 0
+                                 ? 'pointer'
+                                 : 'not-allowed',
+                           opacity: publishResponseList.length > 0 ? 1 : 0.5,
+                        }}
+                     >
                         {t('user.favorite.delete')}
                      </p>
                   </DeleteAll>
                ) : (
-                  <DeleteAll onClick={handleDeleteFavorite}>
+                  <DeleteAll
+                     onClick={
+                        publishResponseList.length > 0
+                           ? handleDeleteFavorite
+                           : null
+                     }
+                     style={{
+                        cursor:
+                           publishResponseList.length > 0
+                              ? 'pointer'
+                              : 'not-allowed',
+                        opacity: publishResponseList.length > 0 ? 1 : 0.5,
+                     }}
+                  >
                      <DeleteIcon />
-                     <p onClick={handleDeleteFavorite}>
+                     <p
+                        onClick={
+                           publishResponseList.length > 0
+                              ? handleDeleteFavorite
+                              : null
+                        }
+                        style={{
+                           cursor:
+                              publishResponseList.length > 0
+                                 ? 'pointer'
+                                 : 'not-allowed',
+                           opacity: publishResponseList.length > 0 ? 1 : 0.5,
+                        }}
+                     >
                         {t('user.favorite.delete')}
                      </p>
                   </DeleteAll>

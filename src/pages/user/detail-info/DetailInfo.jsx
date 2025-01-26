@@ -23,6 +23,7 @@ import {
 import { PhoneModal } from '../../../components/UI/PhoneModal'
 import { SimilarAds } from './SimilarAds'
 import { useTranslation } from 'react-i18next'
+import { display, maxHeight, maxWidth } from '@mui/system'
 
 const DetailInfo = () => {
    const dispatch = useDispatch()
@@ -31,6 +32,7 @@ const DetailInfo = () => {
    const { t } = useTranslation()
 
    const detailInfo = useSelector(state => state.detailInfo)
+   console.log(detailInfo)
 
    const [isExpanded, setIsExpanded] = useState(false)
    const [openModal, setOpenModal] = useState(false)
@@ -57,9 +59,9 @@ const DetailInfo = () => {
       const isFavorite = detailInfo?.detailInfo?.detailFavorite
 
       if (isFavorite) {
-         dispatch(deleteFavorite(detailInfo.detailInfo.id))
+         dispatch(deleteFavorite({ id: detailInfo.detailInfo.id, t }))
       } else {
-         dispatch(postFavorite(detailInfo.detailInfo.id))
+         dispatch(postFavorite({ id: detailInfo.detailInfo.id, t }))
       }
    }
 
@@ -88,7 +90,7 @@ const DetailInfo = () => {
                   </button>
                </Box>
 
-               <Box className="locatio-time-box">
+               {/* <Box className="locatio-time-box">
                   <Typography>
                      <LocationIcon className="location-icon" />
                      {detailInfo?.detailInfo?.address}
@@ -98,7 +100,7 @@ const DetailInfo = () => {
                      <ClockIcon />
                      {detailInfo?.detailInfo?.createDate}
                   </Typography>
-               </Box>
+               </Box> */}
 
                <Box>
                   <Typography className="title" variant="h3">
@@ -125,8 +127,8 @@ const DetailInfo = () => {
                               <SwiperSlide key={slide}>
                                  <img
                                     className="slide-image"
-                                    src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
-                                    alt="House"
+                                    alt="image"
+                                    src={slide}
                                  />
                               </SwiperSlide>
                            ))}
@@ -136,8 +138,8 @@ const DetailInfo = () => {
                            {detailInfo?.detailInfo?.images?.map(item => (
                               <img
                                  key={item}
-                                 src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
-                                 alt="House"
+                                 alt="image"
+                                 src={item}
                                  style={{
                                     width: '60px',
                                     height: '64px',
@@ -172,46 +174,22 @@ const DetailInfo = () => {
                                  }}
                               />
                            </Box>
+                           <Box className="locatio-time-box">
+                              <Typography>
+                                 <LocationIcon className="location-icon" />
+                                 {detailInfo?.detailInfo?.address}
+                              </Typography>
 
-                           {/* {detailInfo?.detailInfo?.category ===
-                              'REAL_ESTATE' && (
-                              <Box className="info-box-container">
-                                 <Typography className="info-part">
-                                    Оплата ЖКХ <span className="line" />
-                                    {detailInfo?.detailInfo?.conditions
-                                       ?.utilitiesIncluded || 'Не указано'}
-                                 </Typography>
+                              <Typography>
+                                 <ClockIcon />
+                                 {detailInfo?.detailInfo?.createDate}
+                              </Typography>
 
-                                 <Typography className="info-part">
-                                    Залог <span className="line" />{' '}
-                                    {
-                                       detailInfo?.detailInfo?.conditions
-                                          ?.deposit
-                                    }{' '}
-                                    ₽
-                                 </Typography>
-
-                                 <Typography className="info-part">
-                                    Комиссия <span className="line" />
-                                    {detailInfo?.detailInfo?.conditions
-                                       ?.commission || 'Не указано'}
-                                 </Typography>
-
-                                 <Typography className="info-part">
-                                    Предоплата
-                                    <span className="line" />
-                                    {detailInfo?.detailInfo?.conditions
-                                       ?.prepayment || 'Не указано'}
-                                 </Typography>
-
-                                 <Typography className="info-part">
-                                    Срок аренды
-                                    <span className="line" />
-                                    {detailInfo?.detailInfo?.conditions
-                                       ?.leaseTerm || 'Не указано'}
-                                 </Typography>
-                              </Box>
-                           )} */}
+                              <Typography>
+                                 <LocationIcon className="location-icon" />
+                                 {detailInfo?.detailInfo?.metroStation}
+                              </Typography>
+                           </Box>
 
                            <Box className="btns-container">
                               <Button onClick={handleShowPhoneNumber}>
@@ -273,9 +251,10 @@ const StyledContainer = styled(Box)(({ theme }) => ({
 
    '& .locatio-time-box': {
       display: 'flex',
+      flexDirection: 'column',
       color: '#A0A0A0',
-      alignItems: 'center',
-      gap: '2rem',
+      // alignItems: 'center',
+      gap: '10px',
       marginBottom: '1.3rem',
       [theme.breakpoints.down('md')]: {
          justifyContent: 'space-between',
@@ -377,7 +356,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       boxShadow: ' 0px 7px 12px 1px rgba(34, 60, 80, 0.14)',
       backgroundColor: 'white',
       [theme.breakpoints.down('md')]: {
-         width: '310px',
+         maxWidth: '350px',
          backgroundColor: 'initial',
          boxShadow: 'none',
       },
@@ -430,11 +409,11 @@ const StyledContainer = styled(Box)(({ theme }) => ({
    },
 
    '& .slide-image': {
-      width: '760px !important',
-      height: '446px !important',
+      maxWidth: '760px !important',
+      maxHeight: '446px !important',
       [theme.breakpoints.down('md')]: {
-         width: '343px !important',
-         height: '202px !important',
+         width: '343px',
+         height: '202px',
       },
    },
 
@@ -471,6 +450,9 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       '& .images': {
          display: 'flex',
          gap: '1.1rem',
+         [theme.breakpoints.down('md')]: {
+            display: 'none',
+         },
       },
 
       '& .swiper': {

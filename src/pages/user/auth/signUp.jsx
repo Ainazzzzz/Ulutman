@@ -49,7 +49,7 @@ const SignUp = ({ open, onClose, openSignIn }) => {
    }
 
    const submitHandler = val => {
-      dispatch(signUp({ val, handleOpenSignInModal }))
+      dispatch(signUp({ val, handleOpenSignInModal, t }))
    }
 
    const { values, handleChange, handleSubmit, errors, touched } = useFormik({

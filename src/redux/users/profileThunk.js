@@ -4,7 +4,7 @@ import { showToast } from '../../hooks/useToast'
 
 export const updateUserProfile = createAsyncThunk(
    'profile/updateUserProfile',
-   async ({ profileData, userId, setIsEdit }, { rejectWithValue }) => {
+   async ({ profileData, userId, setIsEdit, t }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.put(`user-accounts/${userId}`, {
             name: profileData.username,
@@ -18,7 +18,7 @@ export const updateUserProfile = createAsyncThunk(
          )
 
          setIsEdit(false)
-         showToast('success', 'Успешно обновлено')
+         showToast('success', t('toast.profile.success'))
 
          return data
       } catch (error) {

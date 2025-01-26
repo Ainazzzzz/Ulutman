@@ -11,7 +11,6 @@ import Users from '../../assets/icons/usersicon.svg?react'
 import Announcement from '../../assets/icons/announcement.svg?react'
 import Category from '../../assets/icons/category.svg?react'
 import Modearation from '../../assets/icons/moderation.svg?react'
-import Language from '../../assets/icons/language-icon.svg?react'
 
 import ReusableSelect from '../UI/Select'
 import LogOutModal from '../UI/LogOutModal'
@@ -22,7 +21,6 @@ const AdminHeader = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const [openMenu, setOpenMenu] = useState(null)
    const [openLogOutModal, setOpenLogOutModal] = useState(false)
-   const { t } = useTranslation()
    const { userData } = useSelector(state => state.auth)
 
    const handleClose = () => {
@@ -36,10 +34,6 @@ const AdminHeader = () => {
    const toggleLogOutModal = () => {
       handleClose()
       setOpenLogOutModal(prev => !prev)
-   }
-
-   const handleOpenLanguageModal = () => {
-      setOpenMenu(null)
    }
 
    return (
@@ -70,11 +64,24 @@ const AdminHeader = () => {
                      </MenuItemStyle>
 
                      <Line />
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to="dashboard">
+                           <Category />
+                           Статистика
+                        </NavLink>
+                     </MenuItemStyle>
 
                      <MenuItemStyle onClick={handleClose}>
                         <NavLink to="users">
                            <Users />
                            Пользователи
+                        </NavLink>
+                     </MenuItemStyle>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to="mailing">
+                           <Category />
+                           email-рассылки
                         </NavLink>
                      </MenuItemStyle>
 
@@ -91,11 +98,10 @@ const AdminHeader = () => {
                            Категории
                         </NavLink>
                      </MenuItemStyle>
-
                      <MenuItemStyle onClick={handleClose}>
-                        <NavLink to="moderation">
-                           <Modearation />
-                           Модерация
+                        <NavLink to="advertising">
+                           <Category />
+                           Реклама
                         </NavLink>
                      </MenuItemStyle>
                   </MenuStyle>

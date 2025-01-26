@@ -91,6 +91,7 @@ const AdvertisingPage = () => {
                bank: bankName,
                imageFile,
                paymentReceiptFile,
+               t,
             }),
          )
 

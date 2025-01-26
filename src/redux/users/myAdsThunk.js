@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { axiosInstance } from '../../config/axiosInstance'
+import { showToast } from '../../hooks/useToast'
 
 export const getMyAds = createAsyncThunk(
    'myAds',
@@ -53,7 +54,7 @@ export const RaisingPublication = createAsyncThunk(
 
 export const deleteSelectedAds = createAsyncThunk(
    'myAds/deleteSelectedAds',
-   async ({ userId, selectedIds }, { rejectWithValue, dispatch }) => {
+   async ({ userId, selectedIds, t }, { rejectWithValue, dispatch }) => {
       try {
          const { data } = await axiosInstance.delete(
             `users/my-publishes/delete-by-user/${userId}`,
@@ -62,7 +63,7 @@ export const deleteSelectedAds = createAsyncThunk(
             },
          )
          dispatch(getMyAds())
-
+         showToast('success', t('toast.favorite.deleteSuccess'))
          return data
       } catch (error) {
          return rejectWithValue(error.response?.data || error.message)
