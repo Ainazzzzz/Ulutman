@@ -116,29 +116,70 @@ export const CategoryTab = () => {
    console.log(categories)
 
    return (
-      <Box>
-         {isLoading && <Loading />}
-         <TabContext value={value}>
-            <BoxStyle>
-               <TabListStyle
-                  onChange={handleChange}
-                  variant={isMobile ? 'scrollable' : 'standard'}
-               >
-                  <TabStyle label={t('global.sortCategory.all')} value="all" />
-                  {transformedSubCategory?.map(item => (
-                     <TabStyle
-                        key={item.id}
-                        label={item.text}
-                        value={item.id}
-                     />
-                  ))}
-               </TabListStyle>
-               <div>
-                  {!isMobile && (
-                     <AnnouncementsSorter
-                        onSortChange={handleSortChange}
-                        options={SORTY_CATEGORY_OPTIONS}
-                     />
+      <div>
+         <Box>
+            <TabContext value={value}>
+               <BoxStyle>
+                  <TabListStyle
+                     onChange={handleChange}
+                     variant={isMobile ? 'scrollable' : 'standard'}
+                  >
+                     <TabStyle label="Все" value="all" />
+                     {findSubCategory.subCategory.map(item => (
+                        <TabStyle
+                           key={item.id}
+                           label={item.text}
+                           value={item.id}
+                        />
+                     ))}
+
+                     {/* <TabStyle
+                        label={
+                           <span>
+                              <Filter /> Ещё фильтры
+                           </span>
+                        }
+                        value="5"
+                     /> */}
+                  </TabListStyle>
+                  <div>
+                     {findSubCategory.subCategory > 0 && !isMobile && (
+                        <AnnouncementsSorter
+                           onSortChange={handleSortChange}
+                           options={SORTY_CATEGORY_OPTIONS}
+                        />
+                     )}
+                  </div>
+               </BoxStyle>
+
+               <TabPanelStyle value={value}>
+                  {isMobile ? (
+                     <>
+                        <CardList cards={categories} />
+                        <WrapperAdvertising>
+                           {advertising?.map(image => (
+                              <div key={image.id}>
+                                 <AdvertisingCategory image={image.imagePath} />
+                              </div>
+                           ))}
+                        </WrapperAdvertising>
+                     </>
+                  ) : (
+                     <>
+                        <MiniBlock>
+                           <CategoryCard
+                              categories={categories}
+                              handleToggleFavorite={handleToggleFavorite}
+                           />
+                        </MiniBlock>
+                        <WrapperAdvertising>
+                           {advertising?.map(image => (
+                              <div key={image.id}>
+                                 <AdvertisingCategory image={image.imagePath} />
+                              </div>
+                           ))}
+                        </WrapperAdvertising>
+                     </>
                   )}
                </div>
             </BoxStyle>

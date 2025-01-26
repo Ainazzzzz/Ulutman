@@ -1,10 +1,10 @@
-import React from 'react';
-import AboutUsImg from '../../assets/images/about-us.png';
-import { Box, Typography, styled } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import { Box, Typography, styled } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import AboutUsImg from '../../assets/images/about-us.png'
 
 const AboutUs = () => {
-   const { t } = useTranslation();
+   const { t } = useTranslation()
 
    return (
       <Container>
@@ -33,7 +33,7 @@ const Container = styled(Box)(({ theme }) => ({
 const Title = styled(Typography)(({ theme }) => ({
    fontWeight: 700,
    fontSize: '2.125rem',
-   marginBottom: '-50px',
+   marginBottom: '-20px',
 
    [theme.breakpoints.down('md')]: {
       margin: '0',
