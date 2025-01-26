@@ -29,7 +29,6 @@ export const CardList = ({ cards, advertising, loading }) => {
       forgot: false,
       reset: false,
    })
-   console.log(openLogin)
 
    const updateFavoriteHandler = id => {
       if (isAuth) {

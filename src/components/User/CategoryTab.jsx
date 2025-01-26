@@ -8,11 +8,9 @@ import { styled, useMediaQuery } from '@mui/system'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { CategoryCard } from '../UI/CategoryCard'
-// import Filter from '../../assets/icons/filter-category-icon.svg?react'
 import { AdvertisingCategory } from './AdvertisingCategory'
 import AnnouncementsSorter from '../AnnouncementsSorter'
 import { CardList } from '../UI/Card/CardList'
-// import { FilterModal } from './FilterModal'
 import { categoryTab } from '../../utils/constants/main'
 
 import {
@@ -24,6 +22,7 @@ import {
 } from '../../redux/categories/userCategoriesThunk'
 import { getAdvertising } from '../../redux/advertising/advertisingThunk'
 import { useTranslation } from 'react-i18next'
+import { Loading } from '../UI/Loading'
 
 export const CategoryTab = () => {
    const { t } = useTranslation()
@@ -43,7 +42,7 @@ export const CategoryTab = () => {
    ]
    const dispatch = useDispatch()
 
-   const { categories } = useSelector(state => state.userCategories)
+   const { categories, isLoading } = useSelector(state => state.userCategories)
    const { advertising } = useSelector(state => state.advertising)
 
    const { subCategory } = useParams()
@@ -55,6 +54,10 @@ export const CategoryTab = () => {
 
    useEffect(() => {
       dispatch(getAdvertising())
+   }, [dispatch])
+
+   useEffect(() => {
+      dispatch(categoryFilter({ categories: [subCategory] }))
    }, [dispatch])
 
    const handleToggleFavorite = adsData => {
@@ -90,7 +93,12 @@ export const CategoryTab = () => {
          )
 
          if (selectedSubCategory) {
-            dispatch(getSubCategory({ subCategory: selectedSubCategory.value }))
+            dispatch(
+               getSubCategory({
+                  category: findSubCategory?.category?.toLowerCase(),
+                  subCategory: selectedSubCategory.value,
+               }),
+            )
          }
       }
    }
@@ -99,86 +107,78 @@ export const CategoryTab = () => {
       dispatch(categoryFilter({ categories: [subCategory], sortBy: sortValue }))
    }
 
+   const transformedSubCategory = findSubCategory.subCategory.map(item => {
+      return {
+         ...item,
+         text: t(item.text),
+      }
+   })
+   console.log(categories)
+
    return (
-      <div>
-         <Box>
-            <TabContext value={value}>
-               <BoxStyle>
-                  <TabListStyle
-                     onChange={handleChange}
-                     variant={isMobile ? 'scrollable' : 'standard'}
-                  >
+      <Box>
+         {isLoading && <Loading />}
+         <TabContext value={value}>
+            <BoxStyle>
+               <TabListStyle
+                  onChange={handleChange}
+                  variant={isMobile ? 'scrollable' : 'standard'}
+               >
+                  <TabStyle label={t('global.sortCategory.all')} value="all" />
+                  {transformedSubCategory?.map(item => (
                      <TabStyle
-                        label={t('global.sortCategory.all')}
-                        value="all"
+                        key={item.id}
+                        label={item.text}
+                        value={item.id}
                      />
-                     {findSubCategory.subCategory.map(item => (
-                        <TabStyle
-                           key={item.id}
-                           label={item.text}
-                           value={item.id}
-                        />
-                     ))}
-
-                     {/* <TabStyle
-                        label={
-                           <span>
-                              <Filter /> Ещё фильтры
-                           </span>
-                        }
-                        value="5"
-                     /> */}
-                  </TabListStyle>
-                  <div>
-                     {!isMobile && (
-                        <AnnouncementsSorter
-                           onSortChange={handleSortChange}
-                           options={SORTY_CATEGORY_OPTIONS}
-                        />
-                     )}
-                  </div>
-               </BoxStyle>
-
-               <TabPanelStyle value={value}>
-                  {isMobile ? (
-                     <>
-                        <CardList cards={categories} />
-                        <WrapperAdvertising>
-                           {advertising?.map(image => (
-                              <div key={image.id}>
-                                 <AdvertisingCategory image={image.imagePath} />
-                              </div>
-                           ))}
-                        </WrapperAdvertising>
-                     </>
-                  ) : (
-                     <>
-                        <MiniBlock>
-                           <CategoryCard
-                              categories={categories}
-                              handleToggleFavorite={handleToggleFavorite}
-                           />
-                        </MiniBlock>
-                        <WrapperAdvertising>
-                           {advertising?.map(image => (
-                              <div key={image.id}>
-                                 <AdvertisingCategory image={image.imagePath} />
-                              </div>
-                           ))}
-                        </WrapperAdvertising>
-                     </>
+                  ))}
+               </TabListStyle>
+               <div>
+                  {!isMobile && (
+                     <AnnouncementsSorter
+                        onSortChange={handleSortChange}
+                        options={SORTY_CATEGORY_OPTIONS}
+                     />
                   )}
-               </TabPanelStyle>
+               </div>
+            </BoxStyle>
 
-               <TabPanel value="2">нет данных</TabPanel>
-               <TabPanel value="3">нет данных</TabPanel>
-               <TabPanel value="4">нет данных</TabPanel>
-               {/* <TabPanel value="5">
-                  <FilterModal />
-               </TabPanel> */}
-            </TabContext>
-         </Box>
-      </div>
+            <TabPanelStyle value={value}>
+               {isMobile ? (
+                  <>
+                     <CardList cards={categories} />
+                     {advertising.length === 0 ? null : (
+                        <WrapperAdvertising>
+                           {advertising?.map(image => (
+                              <div key={image.id}>
+                                 <AdvertisingCategory image={image.imageFile} />
+                              </div>
+                           ))}
+                        </WrapperAdvertising>
+                     )}
+                  </>
+               ) : (
+                  <>
+                     <MiniBlock>
+                        <CategoryCard
+                           categories={categories}
+                           handleToggleFavorite={handleToggleFavorite}
+                        />
+                     </MiniBlock>
+                     {advertising.length === 0 ? null : (
+                        <WrapperAdvertising>
+                           {advertising?.map(image => (
+                              <div key={image.id}>
+                                 <AdvertisingCategory image={image.imageFile} />
+                              </div>
+                           ))}
+                        </WrapperAdvertising>
+                     )}
+                  </>
+               )}
+            </TabPanelStyle>
+         </TabContext>
+      </Box>
    )
 }
 const TabListStyle = styled(TabList)(({ theme }) => ({

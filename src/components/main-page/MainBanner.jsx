@@ -163,6 +163,7 @@ const InputWrapper = styled('section')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
    gap: '10px',
+
    [theme.breakpoints.down('md')]: {
       flexDirection: 'column-reverse',
       gap: '7px',
@@ -175,6 +176,9 @@ const InputWrapper = styled('section')(({ theme }) => ({
       '.css-tp4w1y-MuiFormControl-root': {
          gap: '0',
          width: '154px',
+      },
+      '& .MuiFormControl-root': {
+         width: 'fit-content',
       },
       button: {
          display: 'flex',
@@ -201,6 +205,12 @@ const StyledSelect = styled(ReusableSelect)(() => ({
       padding: '7.5px',
       border: 'none',
    },
+
+   '& .MuiFormControl-root': {
+      width: 'fit-content',
+      background: 'red',
+   },
+
    '& .MuiOutlinedInput-notchedOutline': {
       border: 'none',
    },
