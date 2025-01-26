@@ -146,6 +146,7 @@ export const CreateAdForm = () => {
             fetchPublishesUser({
                publishe: { userId: userData.userId, ...values },
                navigate,
+               t,
             }),
          )
       },

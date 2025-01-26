@@ -17,7 +17,6 @@ const FileUpload = ({ setFieldValue, touched, errors, id, value }) => {
    const [imagePreview, setImagePreview] = useState(null)
    const dispatch = useDispatch()
    const { t } = useTranslation()
-
    const onDrop = acceptedFiles => {
       const file = acceptedFiles[0]
 

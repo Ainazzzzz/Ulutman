@@ -37,7 +37,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
             {isMobile ? (
                <Block>
                   <ImageStyle
-                     image={item.image || emptyImageCard}
+                     image={item.images[0] || emptyImageCard}
                      title={item.title}
                      onClick={() => handleNavigateDetail(item.id)}
                   />
@@ -74,7 +74,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                <Wrapper>
                   <Block>
                      <ImageStyle
-                        image={item.image || emptyImageCard}
+                        image={item.images[0] || emptyImageCard}
                         title={item.title}
                         onClick={() => handleNavigateDetail(item.id)}
                      />

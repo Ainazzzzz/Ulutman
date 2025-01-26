@@ -12,6 +12,7 @@ import {
    deleteFavoriteStatus,
    updateFavoriteStatus,
 } from '../../../redux/main/mainThunk'
+import { useTranslation } from 'react-i18next'
 import SignUp from '../../../pages/user/auth/signUp'
 import ForgotPassword from '../../../pages/user/auth/ForgotPassword'
 import ResetPassword from '../../../pages/user/auth/ResetPassword'
@@ -21,17 +22,17 @@ export const CardList = ({ cards, advertising, loading }) => {
    const { isAuth } = useSelector(state => state.auth)
    const dispatch = useDispatch()
    const navigate = useNavigate()
+   const { t } = useTranslation()
    const [openLogin, setOpenLogin] = useState({
       login: false,
       register: false,
       forgot: false,
       reset: false,
    })
-   console.log(openLogin)
 
    const updateFavoriteHandler = id => {
       if (isAuth) {
-         dispatch(updateFavoriteStatus(id))
+         dispatch(updateFavoriteStatus({ id, t }))
       } else {
          setOpenLogin({
             ...openLogin,
@@ -42,7 +43,7 @@ export const CardList = ({ cards, advertising, loading }) => {
 
    const deleteFavoriteHandler = id => {
       if (isAuth) {
-         dispatch(deleteFavoriteStatus(id))
+         dispatch(deleteFavoriteStatus({ id, t }))
       } else {
          setOpenLogin({
             ...openLogin,
@@ -83,6 +84,7 @@ export const CardList = ({ cards, advertising, loading }) => {
                         onNavigateDetail={handleNavigateDetail}
                         onUpdateFavorite={() => updateFavoriteHandler(card.id)}
                         onDeleteFavorite={() => deleteFavoriteHandler(card.id)}
+                        t={t}
                      />
                   </Grid>
                ))}

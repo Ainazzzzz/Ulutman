@@ -13,16 +13,20 @@ import {
 import { DeleteFavoriteModal } from './DeleteFavoriteModal'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
+import NoData from '../../assets/icons/empty-data.svg?react'
+import { Loading } from '../UI/Loading'
 
 export const FeaturedAds = () => {
    const [isOpenModal, setIsOpenModal] = useState(false)
    const { t } = useTranslation()
    const navigate = useNavigate()
    const dispatch = useDispatch()
-   const favorite = useSelector(
-      state => state.favoriteProducts?.favoriteProducts || [],
+   const { favoriteProducts, isLoading } = useSelector(
+      state => state.favoriteProducts || [],
    )
-   const publishResponseList = favorite?.publishResponseList || []
+   console.log(favoriteProducts)
+
+   const publishResponseList = favoriteProducts?.publishResponseList || []
 
    const breadCrumbs = [
       { url: '/', title: t('user.favorite.breadcrumbs.main') },
@@ -33,7 +37,7 @@ export const FeaturedAds = () => {
       setIsOpenModal(!isOpenModal)
    }
    const onDelete = () => {
-      dispatch(deleteAllFavorites())
+      dispatch(deleteAllFavorites({ t }))
       setIsOpenModal(!isOpenModal)
    }
    const onDeleteById = id => {
@@ -48,6 +52,7 @@ export const FeaturedAds = () => {
 
    return (
       <Wrapper>
+         {isLoading && <Loading />}
          <Container>
             <FirstBlock>
                <Breadcrumbs path={breadCrumbs} />
@@ -58,16 +63,68 @@ export const FeaturedAds = () => {
             <SecondBlock>
                <h3>{t('user.favorite.title')}</h3>
                {isMobile ? (
-                  <DeleteAll onClick={handleDeleteFavorite}>
+                  <DeleteAll
+                     onClick={
+                        publishResponseList.length > 0
+                           ? handleDeleteFavorite
+                           : null
+                     }
+                     style={{
+                        cursor:
+                           publishResponseList.length > 0
+                              ? 'pointer'
+                              : 'not-allowed',
+                        opacity: publishResponseList.length > 0 ? 1 : 0.5,
+                     }}
+                  >
                      <DeleteIcon />
-                     <p onClick={handleDeleteFavorite}>
+                     <p
+                        onClick={
+                           publishResponseList.length > 0
+                              ? handleDeleteFavorite
+                              : null
+                        }
+                        style={{
+                           cursor:
+                              publishResponseList.length > 0
+                                 ? 'pointer'
+                                 : 'not-allowed',
+                           opacity: publishResponseList.length > 0 ? 1 : 0.5,
+                        }}
+                     >
                         {t('user.favorite.delete')}
                      </p>
                   </DeleteAll>
                ) : (
-                  <DeleteAll onClick={handleDeleteFavorite}>
+                  <DeleteAll
+                     onClick={
+                        publishResponseList.length > 0
+                           ? handleDeleteFavorite
+                           : null
+                     }
+                     style={{
+                        cursor:
+                           publishResponseList.length > 0
+                              ? 'pointer'
+                              : 'not-allowed',
+                        opacity: publishResponseList.length > 0 ? 1 : 0.5,
+                     }}
+                  >
                      <DeleteIcon />
-                     <p onClick={handleDeleteFavorite}>
+                     <p
+                        onClick={
+                           publishResponseList.length > 0
+                              ? handleDeleteFavorite
+                              : null
+                        }
+                        style={{
+                           cursor:
+                              publishResponseList.length > 0
+                                 ? 'pointer'
+                                 : 'not-allowed',
+                           opacity: publishResponseList.length > 0 ? 1 : 0.5,
+                        }}
+                     >
                         {t('user.favorite.delete')}
                      </p>
                   </DeleteAll>
@@ -77,15 +134,11 @@ export const FeaturedAds = () => {
          </Container>
 
          {publishResponseList.length === 0 ? (
-            <NoFavoritesMessage>
-               {t('user.favorite.favoriteMessage')}
-            </NoFavoritesMessage>
+            <NoDataContainer>
+               <NoData />
+            </NoDataContainer>
          ) : (
-            <CardList
-               cards={publishResponseList}
-               onDeleteById={onDeleteById}
-               favorite={favorite}
-            />
+            <CardList cards={publishResponseList} onDeleteById={onDeleteById} />
          )}
       </Wrapper>
    )
@@ -163,5 +216,15 @@ const DeleteAll = styled('div')(({ theme }) => ({
       fontWeight: '500',
       color: '#FF0000',
       cursor: 'pointer',
+   },
+}))
+
+const NoDataContainer = styled('div')(() => ({
+   width: '100%',
+   display: 'flex',
+   justifyContent: 'center',
+
+   svg: {
+      width: '40%',
    },
 }))

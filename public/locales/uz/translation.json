@@ -390,12 +390,19 @@
             "main": "Bosh sahifa"
          },
          "inputPlaceholder": "Sarlavha bo'yicha qidirish"
+      },
+      "recommendations": {
+         "breadcrumbs": {
+            "main": "Bosh sahifa"
+         },
+         "title": "Butun reklama"
       }
    },
    "global": {
       "searchButton": "Qidiruv",
       "all-category": "Barcha kategoriyalar",
       "sortCategory": {
+         "all": "Hammasi",
          "newest": "Yangilaridan boshlab",
          "cheapest": "Arzonlaridan boshlab",
          "expensive": "Qimmatlaridan boshlab"
@@ -456,5 +463,34 @@
       "placeholder4": "Parolni tasdiqlang",
       "btn": "Davom eting",
       "error": "Parollar mos kelishi kerak"
+   },
+   "toast": {
+      "advertisingSuccess": "Reklama muvaffaqiyatli yaratildi!",
+      "signIn": {
+         "success": "Muvaffaqiyatli!",
+         "error": "Biror narsa noto'g'ri ketdi"
+      },
+      "signUp": {
+         "success": "Davom etish uchun tizimga kiring"
+      },
+      "forgot": {
+         "success": "Pochta kodi yuborildi!",
+         "error": "Biror narsa noto'g'ri ketdi"
+      },
+      "reset": {
+         "success": "Parol muvaffaqiyatli o'zgartirildi!",
+         "error": "Biror narsa noto'g'ri ketdi"
+      },
+      "profile": {
+         "success": "Muvaffaqiyatli yangilandi!"
+      },
+      "favorite": {
+         "deleteAll": "Nashrlar muvaffaqiyatli o'chirildi!",
+         "success": "Nashr sevimlilarga muvaffaqiyatli qo'shildi!",
+         "deleteSuccess": "Nashr muvaffaqiyatli o'chirildi!"
+      },
+      "publishes": {
+         "success": "Reklama muvaffaqiyatli yaratildi!"
+      }
    }
 }

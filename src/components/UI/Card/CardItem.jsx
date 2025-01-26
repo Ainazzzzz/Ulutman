@@ -20,9 +20,9 @@ export const CardItem = ({
    id,
    onNavigateDetail,
    title,
+   t,
 }) => {
    const [phoneModal, setPhoneModal] = useState(false)
-
    const handleClose = () => {
       setPhoneModal(false)
    }

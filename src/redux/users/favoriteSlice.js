@@ -10,11 +10,19 @@ export const favoriteSlice = createSlice({
    initialState: {
       favoriteProducts: {},
       isFavorite: false,
+      isLoading: false,
    },
    extraReducers: builder => {
       builder
+         .addCase(getAllFavorites.pending, (state, action) => {
+            state.isLoading = true
+         })
          .addCase(getAllFavorites.fulfilled, (state, action) => {
             state.favoriteProducts = action.payload
+            state.isLoading = false
+         })
+         .addCase(getAllFavorites.rejected, (state, action) => {
+            state.isLoading = false
          })
 
          .addCase(deleteAllFavorites.fulfilled, (state, action) => {

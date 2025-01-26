@@ -22,6 +22,7 @@ import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx'
 import { useTranslation } from 'react-i18next'
 import Modal from '../components/UI/Modal.jsx'
 import Auth from '../pages/user/auth/Auth.jsx'
+import { color, fontWeight } from '@mui/system'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -95,6 +96,7 @@ export const Header = () => {
       setOpenLogoutConfirm(true)
    }
    const handleNavigationPage = path => {
+      handleClose()
       navigate(path)
    }
 
@@ -157,10 +159,10 @@ export const Header = () => {
                            <UserLogo /> {t('user.layout.header.profile')}
                         </MenuItemStyle>
                      )}
-                     <MenuItemStyle onClick={handleClose}>
+                     {/* <MenuItemStyle onClick={handleClose}>
                         <SearchIcon color="#fff" />{' '}
                         {t('user.layout.header.search')}
-                     </MenuItemStyle>
+                     </MenuItemStyle> */}
                      <MenuItemStyle
                         onClick={() => handleOpenPublishModal('create-ad')}
                      >
@@ -171,9 +173,18 @@ export const Header = () => {
                      >
                         <HeartLike /> {t('user.layout.header.favorite')}
                      </MenuItemStyle>
-                     <MenuItemStyle onClick={handleClose}>
+                     {/* <MenuItemStyle onClick={handleClose}>
                         <Language /> {t('user.layout.header.language')}
-                     </MenuItemStyle>
+                     </MenuItemStyle>  */}
+
+                     <LanguageBox>
+                        <div>{renderFlag(language)}</div>
+                        <SelectStyle
+                           options={languages}
+                           value={language}
+                           onChange={handleSelect}
+                        />
+                     </LanguageBox>
                   </MenuStyle>
                </div>
             ) : (
@@ -307,6 +318,17 @@ const UserName = styled(Typography)(() => ({
    overflow: 'hidden',
    textOverflow: 'ellipsis',
    textWrap: 'nowrap',
+}))
+const LanguageBox = styled('div')(() => ({
+   display: 'flex',
+   gap: '10px',
+   alignItems: 'center',
+   paddingLeft: '40px',
+   paddingTop: '6px',
+   div: {
+      color: '#fff',
+      fontWeight: '600',
+   },
 }))
 
 const ContainerBlock = styled('div')(() => ({
