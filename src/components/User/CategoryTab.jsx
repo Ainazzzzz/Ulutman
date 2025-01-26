@@ -126,7 +126,7 @@ export const CategoryTab = () => {
                      /> */}
                   </TabListStyle>
                   <div>
-                     {!isMobile && (
+                     {findSubCategory.subCategory > 0 && !isMobile && (
                         <AnnouncementsSorter
                            onSortChange={handleSortChange}
                            options={SORTY_CATEGORY_OPTIONS}

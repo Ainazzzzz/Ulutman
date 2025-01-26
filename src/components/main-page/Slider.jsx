@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigation } from 'swiper/modules'
-import { styled, useMediaQuery } from '@mui/material'
+import { styled } from '@mui/material'
 import { useCallback, useEffect, useRef } from 'react'
 
 import SliderArrow from '../../assets/icons/slider-arrow.svg?react'
@@ -13,7 +13,7 @@ const Slider = () => {
    const sliderRef = useRef(null)
    const dispatch = useDispatch()
    const advertising = useSelector(state => state.advertising.advertising)
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+
    console.log(advertising)
 
    useEffect(() => {
@@ -32,49 +32,26 @@ const Slider = () => {
 
    return (
       <Wrapper>
-         {isMobile ? (
-            <StyledSwiper
-               ref={sliderRef}
-               modules={[Navigation]}
-               slidesPerView="auto"
-               spaceBetween={30}
-               loop
-               navigation={false}
-            >
-               {advertising.map(item => (
-                  <StyledSwiperSlide key={item.id}>
-                     <img src={item.imagePath} alt="реклама" />
-                  </StyledSwiperSlide>
-               ))}
-               <PrevArrow onClick={handlePrev}>
-                  <SliderArrow />
-               </PrevArrow>
-               <NextArrow onClick={handleNext}>
-                  <SliderArrow />
-               </NextArrow>
-            </StyledSwiper>
-         ) : (
-            <StyledSwiper
-               ref={sliderRef}
-               modules={[Navigation]}
-               slidesPerView="auto"
-               spaceBetween={30}
-               loop
-               navigation={false}
-            >
-               {advertising.map(item => (
-                  <StyledSwiperSlide key={item.id}>
-                     <img src={item.imagePath} alt="реклама" />
-                  </StyledSwiperSlide>
-               ))}
-               <PrevArrow onClick={handlePrev}>
-                  <SliderArrow />
-               </PrevArrow>
-               <NextArrow onClick={handleNext}>
-                  <SliderArrow />
-               </NextArrow>
-            </StyledSwiper>
-         )}
+         <StyledSwiper
+            ref={sliderRef}
+            modules={[Navigation]}
+            slidesPerView="auto"
+            spaceBetween={30}
+            loop
+            navigation={false}
+         >
+            {advertising.map(item => (
+               <StyledSwiperSlide key={item.id}>
+                  <img src={item.imageFile} alt="реклама" />
+               </StyledSwiperSlide>
+            ))}
+            <PrevArrow onClick={handlePrev}>
+               <SliderArrow />
+            </PrevArrow>
+            <NextArrow onClick={handleNext}>
+               <SliderArrow />
+            </NextArrow>
+         </StyledSwiper>
       </Wrapper>
    )
 }
@@ -85,10 +62,11 @@ const Wrapper = styled('div')({
    minHeight: '120px',
 })
 
-const StyledSwiper = styled(Swiper)(() => ({
+const StyledSwiper = styled(Swiper)(({ theme }) => ({
    width: '100%',
    height: 'auto',
    position: 'relative',
+   [theme.breakpoints.down('md')]: {},
 }))
 
 const StyledSwiperSlide = styled(SwiperSlide)(({ theme }) => ({
