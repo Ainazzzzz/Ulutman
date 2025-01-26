@@ -402,6 +402,7 @@
       "searchButton": "Ara",
       "all-category": "Tüm Kategoriler",
       "sortCategory": {
+         "all": "Tüm",
          "newest": "En Yeniden Eskiye",
          "cheapest": "En Ucuzdan Başla",
          "expensive": "En Pahalıdan Başla"

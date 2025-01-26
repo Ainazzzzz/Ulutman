@@ -13,6 +13,7 @@ import {
 import { DeleteFavoriteModal } from './DeleteFavoriteModal'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
+import TableSkeleton from '../UI/TableSkeleton'
 
 export const FeaturedAds = () => {
    const [isOpenModal, setIsOpenModal] = useState(false)

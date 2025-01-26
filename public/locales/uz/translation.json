@@ -402,6 +402,7 @@
       "searchButton": "Qidiruv",
       "all-category": "Barcha kategoriyalar",
       "sortCategory": {
+         "all": "Hammasi",
          "newest": "Yangilaridan boshlab",
          "cheapest": "Arzonlaridan boshlab",
          "expensive": "Qimmatlaridan boshlab"

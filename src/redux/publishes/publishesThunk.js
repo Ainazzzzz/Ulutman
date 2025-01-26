@@ -49,6 +49,7 @@ export const fetchPublishesUser = createAsyncThunk(
          return data
       } catch (error) {
          showToast('error', error.response.data)
+         console.error(error)
          return rejectWithValue(error.message)
       }
    },

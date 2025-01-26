@@ -393,6 +393,7 @@
       "searchButton": "Поиск",
       "all-category": "Все категории",
       "sortCategory": {
+         "all": "Все",
          "newest": "Сначала новые",
          "cheapest": "Сначала дешевые",
          "expensive": "Сначала дорогие"

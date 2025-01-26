@@ -40,7 +40,7 @@ export const signIn = createAsyncThunk(
 
 export const googleAuth = createAsyncThunk(
    'auth/googleAuth',
-   async ({ t }, { rejectWithValue }) => {
+   async (_, { rejectWithValue }) => {
       try {
          const { user } = await signInWithPopup(auth, provider)
 
@@ -129,12 +129,8 @@ export const forgotPassword = createAsyncThunk(
             `/auth/sendPasswordResetCode?email=${email}`,
          )
 
-<<<<<<< HEAD
          showToast('success', `${t('toast.forgot.success')} ${email}`)
          toggleResetPasswordModal()
-=======
-         showToast('success', `На почту ${email} отправлен код`)
->>>>>>> 25e441e4d02f2a14bc6d097b57ad3ff382100103
          onClose()
          toggleResetPasswordModal()
 

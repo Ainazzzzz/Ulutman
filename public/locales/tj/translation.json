@@ -554,7 +554,8 @@
    "global": {
       "searchButton": "Ҷустуҷӯ",
       "all-category": "Ҳамаи категорияҳо",
-      "category": {
+      "sortCategory": {
+         "all": "Ҳама",
          "newest": "Навтаринҳо аввал",
          "cheapest": "Арзонтаринҳо аввал",
          "expensive": "Гаронттаринҳо аввал"

@@ -563,7 +563,8 @@
    "global": {
       "searchButton": "Search",
       "all-category": "All Categories",
-      "category": {
+      "sortCategory": {
+         "all": "All",
          "newest": "Newest First",
          "cheapest": "Cheapest First",
          "expensive": "Most Expensive First"

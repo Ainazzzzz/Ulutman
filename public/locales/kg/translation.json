@@ -213,7 +213,7 @@
             "adButton": "Түзүү"
          },
          "validationForm": {
-           "title": "Жарыянын аталышы милдеттүү",
+            "title": "Жарыянын аталышы милдеттүү",
             "phoneNumberRequired": "Телефон милдеттүү",
             "phoneNumberMatches": "Туура эмес телефон форматы",
             "category": "Категория милдеттүү",
@@ -402,6 +402,7 @@
       "searchButton": "Издөө",
       "all-category": "Бардык категориялар",
       "sortCategory": {
+         "all": "Баардыгы",
          "newest": "Алгач жаңылары",
          "cheapest": "Алгач арзандары",
          "expensive": "Алгач кымбаттары"

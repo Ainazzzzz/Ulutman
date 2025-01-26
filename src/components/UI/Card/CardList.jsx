@@ -12,23 +12,17 @@ import {
    deleteFavoriteStatus,
    updateFavoriteStatus,
 } from '../../../redux/main/mainThunk'
-<<<<<<< HEAD
 import { useTranslation } from 'react-i18next'
-=======
 import SignUp from '../../../pages/user/auth/signUp'
 import ForgotPassword from '../../../pages/user/auth/ForgotPassword'
 import ResetPassword from '../../../pages/user/auth/ResetPassword'
->>>>>>> 25e441e4d02f2a14bc6d097b57ad3ff382100103
 
 export const CardList = ({ cards, advertising, loading }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const { isAuth } = useSelector(state => state.auth)
    const dispatch = useDispatch()
    const navigate = useNavigate()
-<<<<<<< HEAD
    const { t } = useTranslation()
-   const [openLogin, setOpenLogin] = useState(false)
-=======
    const [openLogin, setOpenLogin] = useState({
       login: false,
       register: false,
@@ -36,7 +30,6 @@ export const CardList = ({ cards, advertising, loading }) => {
       reset: false,
    })
    console.log(openLogin)
->>>>>>> 25e441e4d02f2a14bc6d097b57ad3ff382100103
 
    const updateFavoriteHandler = id => {
       if (isAuth) {
