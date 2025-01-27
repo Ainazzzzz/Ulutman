@@ -22,7 +22,7 @@ export const Categories = () => {
    }
 
    const breadcrumbs = [
-      { url: '/', title: t('user.categories.breadcrumbs.main') },
+      { url: '/user', title: t('user.categories.breadcrumbs.main') },
       {
          url: `/${subCategory}`,
          title: path[subCategory],

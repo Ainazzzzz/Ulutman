@@ -125,25 +125,16 @@ export const CategoryTab = () => {
                      variant={isMobile ? 'scrollable' : 'standard'}
                   >
                      <TabStyle label="Все" value="all" />
-                     {findSubCategory.subCategory.map(item => (
+                     {transformedSubCategory.map(item => (
                         <TabStyle
                            key={item.id}
                            label={item.text}
                            value={item.id}
                         />
                      ))}
-
-                     {/* <TabStyle
-                        label={
-                           <span>
-                              <Filter /> Ещё фильтры
-                           </span>
-                        }
-                        value="5"
-                     /> */}
                   </TabListStyle>
                   <div>
-                     {findSubCategory.subCategory > 0 && !isMobile && (
+                     {transformedSubCategory > 0 && !isMobile && (
                         <AnnouncementsSorter
                            onSortChange={handleSortChange}
                            options={SORTY_CATEGORY_OPTIONS}
@@ -181,45 +172,10 @@ export const CategoryTab = () => {
                         </WrapperAdvertising>
                      </>
                   )}
-               </div>
-            </BoxStyle>
-
-            <TabPanelStyle value={value}>
-               {isMobile ? (
-                  <>
-                     <CardList cards={categories} />
-                     {advertising.length === 0 ? null : (
-                        <WrapperAdvertising>
-                           {advertising?.map(image => (
-                              <div key={image.id}>
-                                 <AdvertisingCategory image={image.imageFile} />
-                              </div>
-                           ))}
-                        </WrapperAdvertising>
-                     )}
-                  </>
-               ) : (
-                  <>
-                     <MiniBlock>
-                        <CategoryCard
-                           categories={categories}
-                           handleToggleFavorite={handleToggleFavorite}
-                        />
-                     </MiniBlock>
-                     {advertising.length === 0 ? null : (
-                        <WrapperAdvertising>
-                           {advertising?.map(image => (
-                              <div key={image.id}>
-                                 <AdvertisingCategory image={image.imageFile} />
-                              </div>
-                           ))}
-                        </WrapperAdvertising>
-                     )}
-                  </>
-               )}
-            </TabPanelStyle>
-         </TabContext>
-      </Box>
+               </TabPanelStyle>
+            </TabContext>
+         </Box>
+      </div>
    )
 }
 const TabListStyle = styled(TabList)(({ theme }) => ({
