@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Grid, styled, useMediaQuery } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { CardItem } from './CardItem'
 import { SceletonCard } from './SceletonCard'
 import { Advertising } from './Advertising'
@@ -13,7 +14,6 @@ import {
    deleteFavoriteStatus,
    updateFavoriteStatus,
 } from '../../../redux/main/mainThunk'
-import { useTranslation } from 'react-i18next'
 import SignUp from '../../../pages/user/auth/signUp'
 import ForgotPassword from '../../../pages/user/auth/ForgotPassword'
 import ResetPassword from '../../../pages/user/auth/ResetPassword'
