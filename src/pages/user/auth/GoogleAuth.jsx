@@ -25,8 +25,7 @@ const GoogleAuth = ({ onClose }) => {
             })
          showToast('succes', t('signIn.googleAuth.success'))
       } catch (error) {
-         showToast('error', error.message)
-         console.error(t('signIn.googleAuth.error'), error)
+         console.error(error)
       }
    }
 

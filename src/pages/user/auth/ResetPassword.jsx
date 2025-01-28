@@ -51,7 +51,7 @@ const ResetPassword = ({ open, onClose, toggleSignInModal }) => {
             email,
          }
 
-         dispatch(resetPassword({ formData, toggleSignInModal, onClose }))
+         dispatch(resetPassword({ formData, toggleSignInModal, onClose, t }))
          setError('')
       } else {
          setError(t('resetPassword.error'))

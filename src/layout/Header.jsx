@@ -14,31 +14,12 @@ import UserLogo from '../assets/icons/user.svg?react'
 import Plus from '../assets/icons/plus.svg?react'
 import MenuIcon from '../assets/icons/menu-icon.svg?react'
 import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react'
-import Language from '../assets/icons/language-icon.svg?react'
 import LogOutIcon from '../assets/icons/come-icon.svg?react'
 import { logOut } from '../redux/auth/authThunk'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
 import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal'
 import Modal from '../components/UI/Modal'
 import Auth from '../pages/user/auth/Auth'
-
-const SearchIcon = ({ color = '#ffffff' }) => (
-   <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-   >
-      <path
-         d="M20.9998 21L15.8028 15.803M15.8028 15.803C17.2094 14.3965 17.9996 12.4887 17.9996 10.4995C17.9996 8.51035 17.2094 6.60262 15.8028 5.19605C14.3962 3.78947 12.4885 2.99927 10.4993 2.99927C8.51011 2.99927 6.60238 3.78947 5.19581 5.19605C3.78923 6.60262 2.99902 8.51035 2.99902 10.4995C2.99902 12.4887 3.78923 14.3965 5.19581 15.803C6.60238 17.2096 8.51011 17.9998 10.4993 17.9998C12.4885 17.9998 14.3962 17.2096 15.8028 15.803Z"
-         stroke={color}
-         strokeWidth="1.5"
-         strokeLinecap="round"
-         strokeLinejoin="round"
-      />
-   </svg>
-)
 
 export const Header = () => {
    const dispatch = useDispatch()
@@ -94,6 +75,7 @@ export const Header = () => {
       setOpenLogoutConfirm(true)
    }
    const handleNavigationPage = path => {
+      handleClose()
       navigate(path)
    }
 
@@ -156,10 +138,10 @@ export const Header = () => {
                            <UserLogo /> {t('user.layout.header.profile')}
                         </MenuItemStyle>
                      )}
-                     <MenuItemStyle onClick={handleClose}>
+                     {/* <MenuItemStyle onClick={handleClose}>
                         <SearchIcon color="#fff" />{' '}
                         {t('user.layout.header.search')}
-                     </MenuItemStyle>
+                     </MenuItemStyle> */}
                      <MenuItemStyle
                         onClick={() => handleOpenPublishModal('create-ad')}
                      >
@@ -170,9 +152,18 @@ export const Header = () => {
                      >
                         <HeartLike /> {t('user.layout.header.favorite')}
                      </MenuItemStyle>
-                     <MenuItemStyle onClick={handleClose}>
+                     {/* <MenuItemStyle onClick={handleClose}>
                         <Language /> {t('user.layout.header.language')}
-                     </MenuItemStyle>
+                     </MenuItemStyle>  */}
+
+                     <LanguageBox>
+                        <div>{renderFlag(language)}</div>
+                        <SelectStyle
+                           options={languages}
+                           value={language}
+                           onChange={handleSelect}
+                        />
+                     </LanguageBox>
                   </MenuStyle>
                </div>
             ) : (
@@ -306,6 +297,17 @@ const UserName = styled(Typography)(() => ({
    overflow: 'hidden',
    textOverflow: 'ellipsis',
    textWrap: 'nowrap',
+}))
+const LanguageBox = styled('div')(() => ({
+   display: 'flex',
+   gap: '10px',
+   alignItems: 'center',
+   paddingLeft: '40px',
+   paddingTop: '6px',
+   div: {
+      color: '#fff',
+      fontWeight: '600',
+   },
 }))
 
 const ContainerBlock = styled('div')(() => ({

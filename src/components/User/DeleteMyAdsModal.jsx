@@ -13,7 +13,7 @@ export const DeleteMyAdsModal = ({ userId, selectedIds }) => {
 
    const handleDeleteSelectedAds = () => {
       if (selectedIds.length > 0) {
-         dispatch(deleteSelectedAds({ userId, selectedIds }))
+         dispatch(deleteSelectedAds({ userId, selectedIds, t }))
       }
       setIsOpen(false)
    }

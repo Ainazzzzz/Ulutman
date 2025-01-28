@@ -14,6 +14,7 @@ export const userCategoriesSlice = createSlice({
    name: 'userCategories',
    initialState: {
       categories: [],
+      isLoading: false,
       favorites: [],
       filtercategory: [],
    },
@@ -22,20 +23,21 @@ export const userCategoriesSlice = createSlice({
    extraReducers: builder => {
       builder
          .addCase(categoriesThunks.pending, state => {
-            state.loading = true
+            state.isLoading = true
             state.error = null
          })
          .addCase(categoriesThunks.fulfilled, (state, action) => {
+            state.isLoading = false
             state.categories = action.payload
          })
          .addCase(categoriesThunks.rejected, (state, action) => {
-            state.loading = false
+            state.isLoading = false
             state.error = action.error.message
          })
 
       builder
          .addCase(categoriesFavorite.pending, state => {
-            state.loadingFavorites = true
+            state.isLoading = true
             state.errorFavorites = null
          })
          .addCase(categoriesFavorite.fulfilled, (state, action) => {
@@ -43,16 +45,16 @@ export const userCategoriesSlice = createSlice({
             if (!state.favorites.find(item => item.id === favoriteItem.id)) {
                state.favorites.push(favoriteItem)
             }
-            state.loadingFavorites = false
+            state.isLoading = false
          })
          .addCase(categoriesFavorite.rejected, (state, action) => {
-            state.loadingFavorites = false
+            state.isLoading = false
             state.errorFavorites = action.error.message
          })
 
       builder
          .addCase(removeFromFavorites.pending, state => {
-            state.loadingRemoveFavorite = true
+            state.isLoading = true
             state.errorRemoveFavorite = null
          })
          .addCase(removeFromFavorites.fulfilled, (state, action) => {
@@ -69,41 +71,49 @@ export const userCategoriesSlice = createSlice({
                state.categories[categoryIndex].detailFavorite = false
             }
 
-            state.loadingRemoveFavorite = false
+            state.isLoading = false
          })
          .addCase(removeFromFavorites.rejected, (state, action) => {
-            state.loadingRemoveFavorite = false
+            state.isLoading = false
             state.errorRemoveFavorite = action.error.message
          })
 
-      builder.addCase(categoryFilter.fulfilled, (state, action) => {
-         state.categories = action.payload
-      })
+      builder
+         .addCase(categoryFilter.pending, (state, action) => {
+            state.isLoading = true
+         })
+         .addCase(categoryFilter.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.categories = action.payload
+         })
+         .addCase(categoryFilter.rejected, (state, action) => {
+            state.isLoading = false
+         })
 
       builder
          .addCase(filtermodalThunks.pending, state => {
-            state.loading = true
+            state.isLoading = true
             state.errorFilter = null
          })
          .addCase(filtermodalThunks.fulfilled, (state, action) => {
-            state.loading = false
+            state.isLoading = false
             state.categories = action.payload
          })
          .addCase(filtermodalThunks.rejected, (state, action) => {
-            state.loading = false
+            state.isLoading = false
             state.errorFilter = action.error.message
          })
 
       builder
          .addCase(getSubCategory.pending, state => {
-            state.loading = true
+            state.isLoading = true
          })
          .addCase(getSubCategory.fulfilled, (state, action) => {
-            state.loading = false
+            state.isLoading = false
             state.categories = action.payload
          })
          .addCase(getSubCategory.rejected, state => {
-            state.loading = false
+            state.isLoading = false
             state.error = 'Failed to load subcategory data'
          })
 

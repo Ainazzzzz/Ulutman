@@ -1,4 +1,4 @@
-import { styled } from '@mui/material'
+import { styled, useMediaQuery } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -7,14 +7,17 @@ import { MainBanner } from '../components/main-page/MainBanner'
 import AnnouncementsSorter from '../components/AnnouncementsSorter'
 import AboutUs from '../components/main-page/AboutUs'
 import { Button } from '../components/UI/Button'
-import { CARDS, SORT_BY_CATEGROY_OPTIONS } from '../utils/constants'
+import { SORT_BY_CATEGROY_OPTIONS } from '../utils/constants'
 import { CardList } from '../components/UI/Card/CardList'
-import Slider from '../components/main-page/Slider'
 import { getMainAds, sortPublishesRequest } from '../redux/main/mainThunk'
+import Slider from '../components/main-page/Slider'
+import { AdvertisingCategory } from '../components/User/AdvertisingCategory'
 
 export const MainPage = () => {
    const { publishes, isLoading } = useSelector(state => state.main)
    const { t } = useTranslation()
+   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+   const { advertising } = useSelector(state => state.advertising)
 
    const [sortedAds, setSortedAds] = useState([])
    const dispatch = useDispatch()
@@ -41,6 +44,7 @@ export const MainPage = () => {
          label: t(`global.sortCategory.${item.value}`),
       }
    })
+   const hasPublishes = sortedAds.length > 0
 
    return (
       <div>
@@ -51,20 +55,30 @@ export const MainPage = () => {
          <Container>
             <Block>
                <Title>{t('user.home.publishes.title')}</Title>
-               <AnnouncementsSorter
-                  options={transformedSortCategory}
-                  onSortChange={handleSortChange}
-               />
+               {hasPublishes && (
+                  <AnnouncementsSorter
+                     options={transformedSortCategory}
+                     onSortChange={handleSortChange}
+                  />
+               )}
             </Block>
 
-            <CardList
-               cards={sortedAds.slice(0, 8)}
-               advertising={CARDS}
-               loading={isLoading}
-            />
-            <Button variant="category-sort" onClick={seeMoreHandler}>
-               {t('user.home.publishes.all-publishes-button')}
-            </Button>
+            <CardAdvetisinBox>
+               <CardList cards={sortedAds.slice(0, 8)} loading={isLoading} />
+               <div>
+                  {isMobile &&
+                     advertising?.map(image => (
+                        <WrapperAdvertising key={image.id}>
+                           <AdvertisingCategory image={image.imageFile} />
+                        </WrapperAdvertising>
+                     ))}
+               </div>
+            </CardAdvetisinBox>
+            {hasPublishes && (
+               <Button variant="category-sort" onClick={seeMoreHandler}>
+                  {t('user.home.publishes.all-publishes-button')}
+               </Button>
+            )}
             <AboutUs />
          </Container>
       </div>
@@ -100,5 +114,21 @@ const SliderBox = styled('div')(({ theme }) => ({
    margin: '-125px 0 0 0',
    [theme.breakpoints.down('md')]: {
       display: 'none',
+   },
+}))
+const CardAdvetisinBox = styled('div')(() => ({
+   display: 'flex',
+}))
+const WrapperAdvertising = styled('div')(({ theme }) => ({
+   marginBottom: '48px',
+   [theme.breakpoints.down('md')]: {
+      width: '100%',
+      maxHeight: 'calc(100vh - 200px)',
+      overflowY: 'auto',
+   },
+   img: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
    },
 }))

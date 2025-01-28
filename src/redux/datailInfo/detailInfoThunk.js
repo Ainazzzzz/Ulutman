@@ -17,13 +17,14 @@ export const getDetailInfo = createAsyncThunk(
 
 export const postFavorite = createAsyncThunk(
    'favorite/postFavorite',
-   async (id, { rejectWithValue, dispatch }) => {
+   async ({ id, t }, { rejectWithValue, dispatch }) => {
       try {
          const { data } = await axiosInstance.post(`addToFavorites/${id}`)
          dispatch(getDetailInfo({ id }))
-         showToast('success', 'Успешно добавлено в избранное')
+         showToast('success', t('toast.favorite.success'))
          return data
       } catch (error) {
+         showToast('error', error.response.data)
          return rejectWithValue(error.response.data)
       }
    },
@@ -31,16 +32,17 @@ export const postFavorite = createAsyncThunk(
 
 export const deleteFavorite = createAsyncThunk(
    'favorite/deleteFavorite',
-   async (id, { rejectWithValue, dispatch }) => {
+   async ({ id, t }, { rejectWithValue, dispatch }) => {
       try {
          const { data } = await axiosInstance.delete(
             `deleteFromFavorites/${id}`,
          )
          dispatch(getDetailInfo({ id }))
-         showToast('success', 'Удалено')
+         showToast('success', t('toast.favorite.deleteSuccess'))
 
          return data
       } catch (error) {
+         showToast('error', error.response.data)
          return rejectWithValue(error.response.data)
       }
    },

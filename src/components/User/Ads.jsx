@@ -83,7 +83,18 @@ export const Ads = () => {
                      }}
                   >
                      <DeleteIcon />
-                     <p>{t('user.myAds.delete')}</p>
+                     <p
+                        onClick={handleDelete}
+                        style={{
+                           cursor:
+                              selectedIds.length > 0
+                                 ? 'pointer'
+                                 : 'not-allowed',
+                           opacity: selectedIds.length > 0 ? 1 : 0.5,
+                        }}
+                     >
+                        {t('user.myAds.delete')}
+                     </p>
                   </DeleteAll>
                ) : (
                   <DeleteAll
@@ -95,7 +106,18 @@ export const Ads = () => {
                      }}
                   >
                      <DeleteIcon />
-                     <p>{t('user.myAds.delete')}</p>
+                     <p
+                        onClick={handleDelete}
+                        style={{
+                           cursor:
+                              selectedIds.length > 0
+                                 ? 'pointer'
+                                 : 'not-allowed',
+                           opacity: selectedIds.length > 0 ? 1 : 0.5,
+                        }}
+                     >
+                        {t('user.myAds.delete')}
+                     </p>
                   </DeleteAll>
                )}
             </Block>

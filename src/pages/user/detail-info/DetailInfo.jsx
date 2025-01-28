@@ -57,9 +57,9 @@ const DetailInfo = () => {
       const isFavorite = detailInfo?.detailInfo?.detailFavorite
 
       if (isFavorite) {
-         dispatch(deleteFavorite(detailInfo.detailInfo.id))
+         dispatch(deleteFavorite({ id: detailInfo.detailInfo.id, t }))
       } else {
-         dispatch(postFavorite(detailInfo.detailInfo.id))
+         dispatch(postFavorite({ id: detailInfo.detailInfo.id, t }))
       }
    }
 
@@ -88,18 +88,6 @@ const DetailInfo = () => {
                   </button>
                </Box>
 
-               <Box className="locatio-time-box">
-                  <Typography>
-                     <LocationIcon className="location-icon" />
-                     {detailInfo?.detailInfo?.address}
-                  </Typography>
-
-                  <Typography>
-                     <ClockIcon />
-                     {detailInfo?.detailInfo?.createDate}
-                  </Typography>
-               </Box>
-
                <Box>
                   <Typography className="title" variant="h3">
                      {detailInfo?.detailInfo?.title}
@@ -125,8 +113,8 @@ const DetailInfo = () => {
                               <SwiperSlide key={slide}>
                                  <img
                                     className="slide-image"
-                                    src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
-                                    alt="House"
+                                    alt=""
+                                    src={slide}
                                  />
                               </SwiperSlide>
                            ))}
@@ -136,8 +124,8 @@ const DetailInfo = () => {
                            {detailInfo?.detailInfo?.images?.map(item => (
                               <img
                                  key={item}
-                                 src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
-                                 alt="House"
+                                 alt=""
+                                 src={item}
                                  style={{
                                     width: '60px',
                                     height: '64px',
@@ -172,61 +160,37 @@ const DetailInfo = () => {
                                  }}
                               />
                            </Box>
-
-                           {/* {detailInfo?.detailInfo?.category ===
-                              'REAL_ESTATE' && (
-                              <Box className="info-box-container">
-                                 <Typography className="info-part">
-                                    Оплата ЖКХ <span className="line" />
-                                    {detailInfo?.detailInfo?.conditions
-                                       ?.utilitiesIncluded || 'Не указано'}
+                           <Box className="wrapper-info">
+                              <Box className="locatio-time-box">
+                                 <Typography>
+                                    <LocationIcon className="location-icon" />
+                                    {detailInfo?.detailInfo?.address}
                                  </Typography>
 
-                                 <Typography className="info-part">
-                                    Залог <span className="line" />{' '}
-                                    {
-                                       detailInfo?.detailInfo?.conditions
-                                          ?.deposit
-                                    }{' '}
-                                    ₽
+                                 <Typography>
+                                    <ClockIcon />
+                                    {detailInfo?.detailInfo?.createDate}
                                  </Typography>
 
-                                 <Typography className="info-part">
-                                    Комиссия <span className="line" />
-                                    {detailInfo?.detailInfo?.conditions
-                                       ?.commission || 'Не указано'}
-                                 </Typography>
-
-                                 <Typography className="info-part">
-                                    Предоплата
-                                    <span className="line" />
-                                    {detailInfo?.detailInfo?.conditions
-                                       ?.prepayment || 'Не указано'}
-                                 </Typography>
-
-                                 <Typography className="info-part">
-                                    Срок аренды
-                                    <span className="line" />
-                                    {detailInfo?.detailInfo?.conditions
-                                       ?.leaseTerm || 'Не указано'}
+                                 <Typography>
+                                    <LocationIcon className="location-icon" />
+                                    {detailInfo?.detailInfo?.metroStation}
                                  </Typography>
                               </Box>
-                           )} */}
-
-                           <Box className="btns-container">
                               <Button onClick={handleShowPhoneNumber}>
                                  {t('user.detailInfo.phone')}
                               </Button>
-                              {openModal && (
-                                 <PhoneModal
-                                    handleClose={handleShowPhoneNumber}
-                                    open={openModal}
-                                    phoneNumber={
-                                       detailInfo?.detailInfo?.phoneNumber
-                                    }
-                                 />
-                              )}
                            </Box>
+
+                           {openModal && (
+                              <PhoneModal
+                                 handleClose={handleShowPhoneNumber}
+                                 open={openModal}
+                                 phoneNumber={
+                                    detailInfo?.detailInfo?.phoneNumber
+                                 }
+                              />
+                           )}
                         </Box>
                      </Box>
                   </Box>
@@ -266,16 +230,31 @@ const DetailInfo = () => {
 export default DetailInfo
 
 const StyledContainer = styled(Box)(({ theme }) => ({
-   padding: '0 3rem',
+   padding: '0.5rem 3rem',
    [theme.breakpoints.down('md')]: {
-      padding: '24px 16px',
+      padding: '10px 16px',
+   },
+
+   '& .wrapper-info': {
+      display: 'flex',
+      flexDirection: 'column',
+      [theme.breakpoints.down('md')]: {
+         flexDirection: 'row',
+         alignItems: 'center',
+         justifyContent: 'space-between',
+         '& button': {
+            fontSize: '12px',
+            fontWeight: '400',
+            padding: '5px 10px',
+         },
+      },
    },
 
    '& .locatio-time-box': {
       display: 'flex',
+      flexDirection: 'column',
       color: '#A0A0A0',
-      alignItems: 'center',
-      gap: '2rem',
+      gap: '10px',
       marginBottom: '1.3rem',
       [theme.breakpoints.down('md')]: {
          justifyContent: 'space-between',
@@ -377,7 +356,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       boxShadow: ' 0px 7px 12px 1px rgba(34, 60, 80, 0.14)',
       backgroundColor: 'white',
       [theme.breakpoints.down('md')]: {
-         width: '310px',
+         maxWidth: '350px',
          backgroundColor: 'initial',
          boxShadow: 'none',
       },
@@ -430,11 +409,11 @@ const StyledContainer = styled(Box)(({ theme }) => ({
    },
 
    '& .slide-image': {
-      width: '760px !important',
-      height: '446px !important',
+      maxWidth: '760px !important',
+      maxHeight: '446px !important',
       [theme.breakpoints.down('md')]: {
-         width: '343px !important',
-         height: '202px !important',
+         width: '343px',
+         height: '202px',
       },
    },
 
@@ -471,6 +450,9 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       '& .images': {
          display: 'flex',
          gap: '1.1rem',
+         [theme.breakpoints.down('md')]: {
+            display: 'none',
+         },
       },
 
       '& .swiper': {

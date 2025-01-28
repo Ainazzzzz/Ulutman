@@ -62,11 +62,24 @@ const AdminHeader = () => {
                      </MenuItemStyle>
 
                      <Line />
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to="dashboard">
+                           <Category />
+                           Статистика
+                        </NavLink>
+                     </MenuItemStyle>
 
                      <MenuItemStyle onClick={handleClose}>
                         <NavLink to="users">
                            <Users />
                            Пользователи
+                        </NavLink>
+                     </MenuItemStyle>
+
+                     <MenuItemStyle onClick={handleClose}>
+                        <NavLink to="mailing">
+                           <Category />
+                           email-рассылки
                         </NavLink>
                      </MenuItemStyle>
 
@@ -83,11 +96,10 @@ const AdminHeader = () => {
                            Категории
                         </NavLink>
                      </MenuItemStyle>
-
                      <MenuItemStyle onClick={handleClose}>
-                        <NavLink to="moderation">
-                           <Modearation />
-                           Модерация
+                        <NavLink to="advertising">
+                           <Category />
+                           Реклама
                         </NavLink>
                      </MenuItemStyle>
                   </MenuStyle>

@@ -23,17 +23,14 @@ const AboutUs = () => {
 
 export default AboutUs
 
-const Container = styled(Box)(({ theme }) => ({
+const Container = styled(Box)(() => ({
    paddingTop: '60px',
-   [theme.breakpoints.down('md')]: {
-      padding: '0 1.25rem',
-   },
 }))
 
 const Title = styled(Typography)(({ theme }) => ({
    fontWeight: 700,
    fontSize: '2.125rem',
-   marginBottom: '-50px',
+   marginBottom: '-20px',
 
    [theme.breakpoints.down('md')]: {
       margin: '0',
@@ -71,7 +68,6 @@ const Description = styled(Typography)(({ theme }) => ({
    maxWidth: '24.75rem',
 
    width: '100%',
-   minWidth: '24.375rem',
 
    [theme.breakpoints.down('md')]: {
       maxWidth: '100%',

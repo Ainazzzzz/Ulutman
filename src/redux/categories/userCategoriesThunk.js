@@ -19,10 +19,12 @@ export const categoriesThunks = createAsyncThunk(
 
 export const getSubCategory = createAsyncThunk(
    'subcategory/get',
-   async ({ subCategory }, { rejectWithValue }) => {
+   async ({ category, subCategory }, { rejectWithValue }) => {
+      let transformedCategory =
+         category === 'real_estate' ? 'real-estate' : category
       try {
          const { data } = await axiosInstance.get(
-            `/main-page/real-estate/subcategory/${subCategory}`,
+            `/main-page/${transformedCategory}/subcategory/${subCategory}`,
          )
 
          return data

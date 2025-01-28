@@ -22,7 +22,7 @@ export const Categories = () => {
    }
 
    const breadcrumbs = [
-      { url: '/', title: t('user.categories.breadcrumbs.main') },
+      { url: '/user', title: t('user.categories.breadcrumbs.main') },
       {
          url: `/${subCategory}`,
          title: path[subCategory],
@@ -35,7 +35,7 @@ export const Categories = () => {
                <FirstBlock>
                   <Breadcrumbs path={breadcrumbs} />
                   {!isMobile && (
-                     <BackStyle onClick={() => navigate('/')}>
+                     <BackStyle onClick={() => navigate('/user')}>
                         <ChevronLeft /> {t('user.myPage.back')}
                      </BackStyle>
                   )}

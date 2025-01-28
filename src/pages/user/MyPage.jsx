@@ -70,7 +70,6 @@ const StyledNavLinkLast = styled(NavLink)({
    fontWeight: '400',
    fontSize: '16px',
    color: '#7E52FF',
-
    display: 'flex',
    alignItems: 'center',
 })

@@ -17,7 +17,7 @@ export const logOut = createAsyncThunk(
 
 export const signIn = createAsyncThunk(
    'auth/signIn',
-   async ({ userData, onClose }, { rejectWithValue }) => {
+   async ({ userData, onClose, t }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.post('auth/sign-in', userData)
 
@@ -25,12 +25,12 @@ export const signIn = createAsyncThunk(
 
          localStorage.setItem('ULUTMAN', JSON.stringify(updatedData))
 
-         showToast('success', 'Успешно')
+         showToast('success', t('toast.signIn.success'))
          onClose()
 
          return updatedData
       } catch (e) {
-         const errorMessage = e.response?.data || 'Что-то пошло не так'
+         const errorMessage = e.response?.data || t('toast.signIn.error')
          showToast('error', errorMessage)
          return rejectWithValue(errorMessage)
       }
@@ -76,16 +76,16 @@ export const googleAuth = createAsyncThunk(
 
 export const signUp = createAsyncThunk(
    'auth/signUp',
-   async ({ val, handleOpenSignInModal }, { rejectWithValue }) => {
+   async ({ val, handleOpenSignInModal, t }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.post('auth/sign-up', val)
 
-         showToast('success', 'Войдите чтобы продолжить')
+         showToast('success', t('toast.signUp.success'))
          handleOpenSignInModal()
 
          return data
       } catch (e) {
-         const errorMessage = e.response?.data || 'Что-то пошло не так'
+         const errorMessage = e.response?.data || t('toast.signIn.error')
          showToast('error', errorMessage)
          return rejectWithValue(errorMessage)
       }
@@ -116,7 +116,7 @@ export const addAdmin = createAsyncThunk(
 export const forgotPassword = createAsyncThunk(
    'auth/forgotPassword',
    async (
-      { email, toggleResetPasswordModal, onClose },
+      { email, toggleResetPasswordModal, onClose, t },
       { rejectWithValue },
    ) => {
       try {
@@ -124,13 +124,14 @@ export const forgotPassword = createAsyncThunk(
             `/auth/sendPasswordResetCode?email=${email}`,
          )
 
-         showToast('success', `На почту ${email} отправлен код`)
+         showToast('success', `${t('toast.forgot.success')} ${email}`)
+         toggleResetPasswordModal()
          onClose()
          toggleResetPasswordModal()
 
          return data
       } catch (e) {
-         const errorMessage = e.response?.data || 'Что-то пошло не так'
+         const errorMessage = e.response?.data || t('toast.forgot.error')
          showToast('error', errorMessage)
          return rejectWithValue(errorMessage)
       }
@@ -139,7 +140,7 @@ export const forgotPassword = createAsyncThunk(
 
 export const resetPassword = createAsyncThunk(
    'auth/resetPassword',
-   async ({ formData, toggleSignInModal, onClose }, { rejectWithValue }) => {
+   async ({ formData, toggleSignInModal, onClose, t }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.post(
             '/auth/resetPassword',
@@ -148,14 +149,14 @@ export const resetPassword = createAsyncThunk(
                params: formData,
             },
          )
-         showToast('success', `Пароль успешно изменён`)
+         showToast('success', t('toast.reset.success'))
 
          toggleSignInModal()
          onClose()
 
          return data
       } catch (e) {
-         const errorMessage = e.response?.data || 'Что-то пошло не так'
+         const errorMessage = e.response?.data || t('toast.reset.error')
          showToast('error', errorMessage)
          return rejectWithValue(errorMessage)
       }

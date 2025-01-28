@@ -27,6 +27,7 @@ export const Profile = () => {
                profileData,
                userId: userData.userId,
                setIsEdit,
+               t,
             }),
          )
       },

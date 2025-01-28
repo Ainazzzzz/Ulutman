@@ -40,6 +40,7 @@ const ForgotPassword = ({ open, onClose, toggleResetPasswordModal }) => {
             email,
             toggleResetPasswordModal,
             onClose,
+            t,
          }),
       )
    }

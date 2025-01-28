@@ -1,22 +1,40 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { styled } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import Calling from '../../assets/icons/calling.svg?react'
 
 const Footer = () => {
    const { t } = useTranslation()
+   const navigate = useNavigate()
 
    return (
       <WrapperDiv>
          <TitleUlutman>Ulutman</TitleUlutman>
          <ContainerCategory>
-            <div>{t('user.layout.footer.work')}</div>
-            <div>{t('user.layout.footer.rent')}</div>
-            <div>{t('user.layout.footer.hotel')}</div>
-            <div>{t('user.layout.footer.services')}</div>
-            <div>{t('user.layout.footer.real_estate')}</div>
-            <div>{t('user.layout.footer.auto')}</div>
-            <div>{t('user.layout.footer.sell')}</div>
+            <div onClick={() => navigate('category/WORK')}>
+               {t('user.layout.footer.work')}
+            </div>
+            <div onClick={() => navigate('category/RENT')}>
+               {t('user.layout.footer.rent')}
+            </div>
+            <div onClick={() => navigate('category/HOTEL')}>
+               {t('user.layout.footer.hotel')}
+            </div>
+            <div onClick={() => navigate('category/SERVICES')}>
+               {t('user.layout.footer.services')}
+            </div>
+            <div onClick={() => navigate('category/REAL_ESTATE')}>
+               {t('user.layout.footer.real_estate')}
+            </div>
+            <div onClick={() => navigate('category/AUTO')}>
+               {t('user.layout.footer.auto')}
+            </div>
+            <div onClick={() => navigate('category/SELL')}>
+               {t('user.layout.footer.sell')}
+            </div>
          </ContainerCategory>
          <NumberContainer>
             <div>
@@ -56,6 +74,9 @@ const ContainerCategory = styled('div')(({ theme }) => ({
    fontSize: '16px',
    fontWeight: '400',
    lineHeight: '19px',
+   div: {
+      cursor: 'pointer',
+   },
 
    [theme.breakpoints.down('sm')]: {
       fontSize: '14px',

@@ -5,7 +5,7 @@ import { axiosInstance } from '../../config/axiosInstance'
 export const addAdvertisingThunks = createAsyncThunk(
    'advertising/add',
    async (
-      { bank, imageFile, paymentReceiptFile, setIsLoading },
+      { bank, imageFile, paymentReceiptFile, setIsLoading, t },
       { rejectWithValue },
    ) => {
       try {
@@ -25,7 +25,7 @@ export const addAdvertisingThunks = createAsyncThunk(
          )
 
          setIsLoading(false)
-         toast.success('Реклама успешно создана!', {
+         toast.success(t('toast.advertisingSuccess'), {
             position: 'top-right',
             autoClose: 5000,
          })

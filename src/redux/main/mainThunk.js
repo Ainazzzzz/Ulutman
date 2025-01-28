@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { axiosInstance } from '../../config/axiosInstance'
+import { showToast } from '../../hooks/useToast'
 
 export const getMainAds = createAsyncThunk(
    'main/getMainAds',
@@ -15,11 +16,14 @@ export const getMainAds = createAsyncThunk(
 
 export const updateFavoriteStatus = createAsyncThunk(
    'main/updateFavoriteStatus',
-   async (id, { rejectWithValue, dispatch }) => {
+   async ({ id, t }, { rejectWithValue, dispatch }) => {
       try {
          await axiosInstance.post(`addToFavorites/${id}`)
+         showToast('success', t('toast.favorite.success'))
          return dispatch(getMainAds())
       } catch (error) {
+         showToast('error', error.response.data)
+
          return rejectWithValue(error.message)
       }
    },
@@ -27,11 +31,14 @@ export const updateFavoriteStatus = createAsyncThunk(
 
 export const deleteFavoriteStatus = createAsyncThunk(
    'main/deleteFavoriteStatus',
-   async (id, { rejectWithValue, dispatch }) => {
+   async ({ id, t }, { rejectWithValue, dispatch }) => {
       try {
          await axiosInstance.delete(`deleteFromFavorites/${id}`)
+         showToast('success', t('toast.favorite.deleteSuccess'))
+
          return dispatch(getMainAds())
       } catch (error) {
+         showToast('error', error.response.data)
          return rejectWithValue(error.message)
       }
    },

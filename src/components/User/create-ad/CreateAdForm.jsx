@@ -120,7 +120,6 @@ export const CreateAdForm = () => {
             subcategory: '',
             images: [],
             description: '',
-            city: '',
             metro: '',
             address: '',
             price: '',

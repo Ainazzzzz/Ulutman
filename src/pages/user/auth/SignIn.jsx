@@ -55,7 +55,7 @@ export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
          password,
       }
 
-      dispatch(signIn({ userData: newData, onClose }))
+      dispatch(signIn({ userData: newData, onClose, t }))
    }
 
    return (

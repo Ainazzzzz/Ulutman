@@ -10,7 +10,6 @@ import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useTranslation } from 'react-i18next'
 import { useDebounce } from '../../../hooks/useDebounce'
 import Table from '../../../components/UI/Table'
 import { getAdminTableHeaders } from '../category/AdminTableHeader'
@@ -29,7 +28,7 @@ import {
 import { CheckBox } from '../../../components/UI/Checkbox'
 import { checkAllUsers, checkUser } from '../../../redux/users/usersSlice'
 import TableSkeleton from '../../../components/UI/TableSkeleton'
-import BlockUserModal from './BlockUserModal'
+// import BlockUserModal from '../../../pages/Admin/users/BlockUserModal'
 
 const inputData = [{ id: 'name', value: 'По имени' }]
 const selectsConfig = [
@@ -80,7 +79,6 @@ const Users = () => {
    const dispatch = useDispatch()
    const { allUsers, isLoading } = useSelector(state => state.users)
    const navigate = useNavigate()
-   const { t } = useTranslation()
 
    const [userData, setUserData] = useState(null)
 
@@ -172,33 +170,27 @@ const Users = () => {
          ),
       },
       {
-         Header: t('admin.users.table.columns.name'),
+         Header: 'ИМЯ',
          accessor: 'userName',
       },
       {
-         Header: t('admin.users.table.columns.email'),
+         Header: 'ЭЛЕКТРОННЫЙ АДРЕС',
          accessor: 'email',
       },
       {
-         Header: t('admin.users.table.columns.role'),
+         Header: 'РОЛЬ',
          accessor: 'role',
-         Cell: ({ row }) => (
-            <p>{t(`admin.users.table.roles.${row.original.role}`)}</p>
-         ),
+         Cell: ({ row }) => <p>{`${row.original.role}`}</p>,
       },
       {
-         Header: t('admin.users.table.columns.dateOfRegistration'),
+         Header: 'ДАТА РЕГИСТРАЦИИ',
          accessor: 'createDate',
       },
       {
-         Header: t('admin.users.table.columns.status'),
+         Header: 'СТАТУС',
          accessor: 'status',
 
-         Cell: ({ row }) => (
-            <span>
-               {t(`admin.users.table.statuses.${row.original.status}`)}
-            </span>
-         ),
+         Cell: ({ row }) => <span>{`${row.original.status}`}</span>,
       },
    ]
 
@@ -216,7 +208,7 @@ const Users = () => {
    return (
       <Wrapper>
          <WrapperTitle>
-            <Description>{t('admin.users.title')}</Description>
+            <Description>Управление пользователем</Description>
             <Button onClick={() => navigate('/admin/add-administrator')}>
                <Plus /> Добавить администратора
             </Button>
@@ -246,11 +238,11 @@ const Users = () => {
             onClose={() => toggleModal('deleteAllModal')}
             onDelete={handleDeleteUser}
          />
-         <BlockUserModal
+         {/* <BlockUserModal
             isOpen={state.blockUser}
             onClose={() => toggleModal('blockUser')}
             userData={userData}
-         />
+         /> */}
       </Wrapper>
    )
 }
