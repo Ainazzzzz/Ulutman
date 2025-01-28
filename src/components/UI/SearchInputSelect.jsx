@@ -1,8 +1,8 @@
 import { InputAdornment, styled, TextField, useMediaQuery } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 import Search from '../../assets/icons/search.svg?react'
 import { Button } from './Button'
 import ReusableSelect from './Select'
-import { useTranslation } from 'react-i18next'
 
 export const SearchInputSelect = ({
    onClick,
@@ -28,21 +28,15 @@ export const SearchInputSelect = ({
                   </InputAdornment>
                ),
 
-               endAdornment: (
-                  <>
-                     {isMobile || (
-                        <InputAdornment position="end">
-                           <StyledSelect
-                              value={selectValue}
-                              options={options}
-                              onChange={onSelectChange}
-                              placeholder={t(
-                                 'user.home.banner.form.select-metro',
-                              )}
-                           />
-                        </InputAdornment>
-                     )}
-                  </>
+               endAdornment: isMobile || (
+                  <InputAdornment position="end">
+                     <StyledSelect
+                        value={selectValue}
+                        options={options}
+                        onChange={onSelectChange}
+                        placeholder={t('user.home.banner.form.select-metro')}
+                     />
+                  </InputAdornment>
                ),
             }}
          />

@@ -1,46 +1,25 @@
 import { styled, Typography, useMediaQuery } from '@mui/material'
-import { IconButton } from '../components/IconButton'
-import { Button } from '../components/UI/Button'
-import ReusableSelect from '../components/UI/Select'
 import { useState } from 'react'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { IconButton } from '../components/IconButton'
+import { Button } from '../components/UI/Button'
+import ReusableSelect from '../components/UI/Select'
 import { renderFlag } from '../utils/general/renderFlag'
 import HeartLike from '../assets/icons/white-heart.svg?react'
 import UserLogo from '../assets/icons/user.svg?react'
 import Plus from '../assets/icons/plus.svg?react'
 import MenuIcon from '../assets/icons/menu-icon.svg?react'
 import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react'
-import ComeIcon from '../assets/icons/come-icon.svg?react'
-import Language from '../assets/icons/language-icon.svg?react'
 import LogOutIcon from '../assets/icons/come-icon.svg?react'
-import { logOut } from '../redux/auth/authThunk.js'
-import { useNavigate } from 'react-router-dom'
+import { logOut } from '../redux/auth/authThunk'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
-import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx'
-import { useTranslation } from 'react-i18next'
-import Modal from '../components/UI/Modal.jsx'
-import Auth from '../pages/user/auth/Auth.jsx'
-import { color, fontWeight } from '@mui/system'
-
-const SearchIcon = ({ color = '#ffffff' }) => (
-   <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-   >
-      <path
-         d="M20.9998 21L15.8028 15.803M15.8028 15.803C17.2094 14.3965 17.9996 12.4887 17.9996 10.4995C17.9996 8.51035 17.2094 6.60262 15.8028 5.19605C14.3962 3.78947 12.4885 2.99927 10.4993 2.99927C8.51011 2.99927 6.60238 3.78947 5.19581 5.19605C3.78923 6.60262 2.99902 8.51035 2.99902 10.4995C2.99902 12.4887 3.78923 14.3965 5.19581 15.803C6.60238 17.2096 8.51011 17.9998 10.4993 17.9998C12.4885 17.9998 14.3962 17.2096 15.8028 15.803Z"
-         stroke={color}
-         strokeWidth="1.5"
-         strokeLinecap="round"
-         strokeLinejoin="round"
-      />
-   </svg>
-)
+import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal'
+import Modal from '../components/UI/Modal'
+import Auth from '../pages/user/auth/Auth'
 
 export const Header = () => {
    const dispatch = useDispatch()
@@ -142,7 +121,7 @@ export const Header = () => {
                   >
                      {!isAuth ? (
                         <MenuItemStyle onClick={handleOpenModal}>
-                           <ComeIcon /> {t('user.layout.header.enter')}
+                           <LogOutIcon /> {t('user.layout.header.enter')}
                         </MenuItemStyle>
                      ) : (
                         <MenuItemStyle onClick={logOutHandler}>

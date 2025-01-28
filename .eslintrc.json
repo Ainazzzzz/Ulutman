@@ -46,7 +46,8 @@
       "react/prop-types": "off",
       "no-param-reassign": "off",
       "default-param-last": "off",
-      "react/display-name": "off"
+      "react/display-name": "off",
+      "react/no-unstable-nested-components": "off"
    },
    "settings": {
       "react": {

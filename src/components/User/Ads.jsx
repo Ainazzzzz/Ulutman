@@ -3,12 +3,16 @@
 import { styled, useMediaQuery } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import DeleteIcon from '../../assets/icons/delete.svg?react'
 import { MyAds } from './MyAds'
 import TabsUi from '../UI/TabsUi'
 import { DeleteMyAdsModal } from './DeleteMyAdsModal'
-import { getMyAds, getRejectedPublishes } from '../../redux/users/myAdsThunk'
-import { useTranslation } from 'react-i18next'
+import {
+   getMyAds,
+   getRejectedPublishes,
+   myAdvertising,
+} from '../../redux/users/myAdsThunk'
 
 export const Ads = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
@@ -49,7 +53,7 @@ export const Ads = () => {
          ? dispatch(getMyAds())
          : tabValue === '2'
            ? dispatch(getRejectedPublishes())
-           : dispatch(MyAds())
+           : dispatch(myAdvertising())
    }
 
    useEffect(() => {

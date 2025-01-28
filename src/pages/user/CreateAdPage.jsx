@@ -1,6 +1,6 @@
 import { styled } from '@mui/material'
-import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import { useTranslation } from 'react-i18next'
+import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import { CreateAdForm } from '../../components/User/create-ad/CreateAdForm'
 
 export const CreateAdPage = () => {
@@ -41,8 +41,12 @@ export const CreateAdPage = () => {
    )
 }
 
-const Wrapper = styled('div')(() => ({
+const Wrapper = styled('div')(({ theme }) => ({
    padding: '24px 52px 52px',
+
+   [theme.breakpoints.down('md')]: {
+      padding: '4px 8px',
+   },
 }))
 
 const PageTitle = styled('h1')(() => ({

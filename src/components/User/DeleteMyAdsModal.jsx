@@ -1,9 +1,9 @@
 import { styled } from '@mui/material'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import Modal from '../UI/Modal'
 import { deleteSelectedAds } from '../../redux/users/myAdsThunk'
-import { useTranslation } from 'react-i18next'
 
 export const DeleteMyAdsModal = ({ userId, selectedIds }) => {
    const dispatch = useDispatch()

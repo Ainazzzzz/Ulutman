@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import LocationIcon from '../../../assets/icons/address-icon.svg?react'
 import ClockIcon from '../../../assets/icons/clock-icon.svg?react'
@@ -22,8 +23,6 @@ import {
 } from '../../../redux/datailInfo/detailInfoThunk'
 import { PhoneModal } from '../../../components/UI/PhoneModal'
 import { SimilarAds } from './SimilarAds'
-import { useTranslation } from 'react-i18next'
-import { display, fontSize, fontWeight, height, padding } from '@mui/system'
 
 const DetailInfo = () => {
    const dispatch = useDispatch()
@@ -32,7 +31,6 @@ const DetailInfo = () => {
    const { t } = useTranslation()
 
    const detailInfo = useSelector(state => state.detailInfo)
-   console.log(detailInfo)
 
    const [isExpanded, setIsExpanded] = useState(false)
    const [openModal, setOpenModal] = useState(false)
@@ -115,7 +113,7 @@ const DetailInfo = () => {
                               <SwiperSlide key={slide}>
                                  <img
                                     className="slide-image"
-                                    alt="image"
+                                    alt=""
                                     src={slide}
                                  />
                               </SwiperSlide>
@@ -126,7 +124,7 @@ const DetailInfo = () => {
                            {detailInfo?.detailInfo?.images?.map(item => (
                               <img
                                  key={item}
-                                 alt="image"
+                                 alt=""
                                  src={item}
                                  style={{
                                     width: '60px',

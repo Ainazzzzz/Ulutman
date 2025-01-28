@@ -2,13 +2,13 @@ import { styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import { CategoryCard } from '../../components/UI/CategoryCard'
 import { useMainCategoryParams } from '../../hooks/useSearchParams'
 import { searchCategoryAndMetroRequest } from '../../redux/main/mainThunk'
 import { serializeToQueryParams } from '../../utils/general/serialize'
 import SearchInput from '../../components/UI/SearchInput'
-import { useTranslation } from 'react-i18next'
 
 const CATEGORY_MAIN = {
    Работа: 'WORK',

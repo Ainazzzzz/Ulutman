@@ -38,8 +38,6 @@ const Dashboard = () => {
 
    const categoryPopularity = Object.entries(infoDashboard)
 
-   console.log(categoryPopularity.length)
-
    return (
       <StyledContainer>
          <Title>Статистика</Title>

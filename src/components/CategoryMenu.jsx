@@ -1,11 +1,11 @@
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { useState } from 'react'
+import { styled, TextField } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 import { Button } from './UI/Button'
 import MenuIcon from '../assets/icons/menu.svg?react'
 import { CATEGORY_MENU } from '../utils/constants'
-import { styled, TextField } from '@mui/material'
-import { useTranslation } from 'react-i18next'
 
 const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
    const [categorySearchText, setCategorySearchText] = useState('')
