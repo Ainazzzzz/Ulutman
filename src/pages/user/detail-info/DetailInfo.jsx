@@ -23,7 +23,7 @@ import {
 import { PhoneModal } from '../../../components/UI/PhoneModal'
 import { SimilarAds } from './SimilarAds'
 import { useTranslation } from 'react-i18next'
-import { display, maxHeight, maxWidth } from '@mui/system'
+import { display, fontSize, fontWeight, height, padding } from '@mui/system'
 
 const DetailInfo = () => {
    const dispatch = useDispatch()
@@ -89,18 +89,6 @@ const DetailInfo = () => {
                      {t('user.detailInfo.breadcrumbs.back')}
                   </button>
                </Box>
-
-               {/* <Box className="locatio-time-box">
-                  <Typography>
-                     <LocationIcon className="location-icon" />
-                     {detailInfo?.detailInfo?.address}
-                  </Typography>
-
-                  <Typography>
-                     <ClockIcon />
-                     {detailInfo?.detailInfo?.createDate}
-                  </Typography>
-               </Box> */}
 
                <Box>
                   <Typography className="title" variant="h3">
@@ -174,37 +162,37 @@ const DetailInfo = () => {
                                  }}
                               />
                            </Box>
-                           <Box className="locatio-time-box">
-                              <Typography>
-                                 <LocationIcon className="location-icon" />
-                                 {detailInfo?.detailInfo?.address}
-                              </Typography>
+                           <Box className="wrapper-info">
+                              <Box className="locatio-time-box">
+                                 <Typography>
+                                    <LocationIcon className="location-icon" />
+                                    {detailInfo?.detailInfo?.address}
+                                 </Typography>
 
-                              <Typography>
-                                 <ClockIcon />
-                                 {detailInfo?.detailInfo?.createDate}
-                              </Typography>
+                                 <Typography>
+                                    <ClockIcon />
+                                    {detailInfo?.detailInfo?.createDate}
+                                 </Typography>
 
-                              <Typography>
-                                 <LocationIcon className="location-icon" />
-                                 {detailInfo?.detailInfo?.metroStation}
-                              </Typography>
-                           </Box>
-
-                           <Box className="btns-container">
+                                 <Typography>
+                                    <LocationIcon className="location-icon" />
+                                    {detailInfo?.detailInfo?.metroStation}
+                                 </Typography>
+                              </Box>
                               <Button onClick={handleShowPhoneNumber}>
                                  {t('user.detailInfo.phone')}
                               </Button>
-                              {openModal && (
-                                 <PhoneModal
-                                    handleClose={handleShowPhoneNumber}
-                                    open={openModal}
-                                    phoneNumber={
-                                       detailInfo?.detailInfo?.phoneNumber
-                                    }
-                                 />
-                              )}
                            </Box>
+
+                           {openModal && (
+                              <PhoneModal
+                                 handleClose={handleShowPhoneNumber}
+                                 open={openModal}
+                                 phoneNumber={
+                                    detailInfo?.detailInfo?.phoneNumber
+                                 }
+                              />
+                           )}
                         </Box>
                      </Box>
                   </Box>
@@ -244,16 +232,30 @@ const DetailInfo = () => {
 export default DetailInfo
 
 const StyledContainer = styled(Box)(({ theme }) => ({
-   padding: '0 3rem',
+   padding: '0.5rem 3rem',
    [theme.breakpoints.down('md')]: {
-      padding: '24px 16px',
+      padding: '10px 16px',
+   },
+
+   '& .wrapper-info': {
+      display: 'flex',
+      flexDirection: 'column',
+      [theme.breakpoints.down('md')]: {
+         flexDirection: 'row',
+         alignItems: 'center',
+         justifyContent: 'space-between',
+         '& button': {
+            fontSize: '12px',
+            fontWeight: '400',
+            padding: '5px 10px',
+         },
+      },
    },
 
    '& .locatio-time-box': {
       display: 'flex',
       flexDirection: 'column',
       color: '#A0A0A0',
-      // alignItems: 'center',
       gap: '10px',
       marginBottom: '1.3rem',
       [theme.breakpoints.down('md')]: {
