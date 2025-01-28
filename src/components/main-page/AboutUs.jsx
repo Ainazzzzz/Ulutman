@@ -1,10 +1,10 @@
-import React from 'react';
-import AboutUsImg from '../../assets/images/about-us.png';
-import { Box, Typography, styled } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import { Box, Typography, styled } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import AboutUsImg from '../../assets/images/about-us.png'
 
 const AboutUs = () => {
-   const { t } = useTranslation();
+   const { t } = useTranslation()
 
    return (
       <Container>

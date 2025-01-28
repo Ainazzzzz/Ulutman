@@ -14,7 +14,6 @@ const Slider = () => {
    const dispatch = useDispatch()
    const advertising = useSelector(state => state.advertising.advertising)
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
-   console.log(advertising)
 
    useEffect(() => {
       dispatch(getAdvertising())

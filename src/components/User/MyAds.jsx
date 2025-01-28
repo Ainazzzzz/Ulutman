@@ -1,26 +1,20 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { styled } from '@mui/material'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { CheckBox } from '../UI/Checkbox'
 import Clock from '../../assets/icons/clock-icon.svg?react'
 import Favorite from '../../assets/icons/gray-heart.svg?react'
 import Call from '../../assets/icons/call-icon.svg?react'
-import {
-   getFavoriteCount,
-   RaisingPublication,
-} from '../../redux/users/myAdsThunk'
+import { RaisingPublication } from '../../redux/users/myAdsThunk'
 import { PhoneModal } from '../UI/PhoneModal'
-import { useTranslation } from 'react-i18next'
 
 export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
    const dispatch = useDispatch()
    const [openPhoneModal, setOpenPhoneModal] = useState(false)
-   const [liftTimestamps, setLiftTimestamps] = useState({})
    const { t } = useTranslation()
-
-   const { favoriteCounts } = useSelector(state => state.myAds)
 
    const handleCheckboxChange = id => {
       setSelectedIds(prev =>
@@ -29,30 +23,12 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
    }
 
    const handleRaising = adId => {
-      dispatch(RaisingPublication())
-      const now = Date.now()
-      setLiftTimestamps(prev => ({
-         ...prev,
-         [adId]: now,
-      }))
+      dispatch(RaisingPublication(adId))
    }
 
    const handleOpenPhoneModal = () => {
       setOpenPhoneModal(!openPhoneModal)
    }
-
-   const canLiftAd = adId => {
-      const lastLift = liftTimestamps[adId]
-      if (!lastLift) return true // Если объявление никогда не поднималось
-      const timeSinceLastLift = Date.now() - lastLift
-      return timeSinceLastLift >= 24 * 60 * 60 * 1000 // 24 часа
-   }
-
-   useEffect(() => {
-      myAds.forEach(item => {
-         dispatch(getFavoriteCount({ publishId: item.id }))
-      })
-   }, [dispatch, myAds])
 
    return (
       <CONTAINER>
@@ -68,7 +44,7 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
                            onChange={() => handleCheckboxChange(item.id)}
                         />
                         <Box>
-                           <ImageStyle src={item.images} alt="room-image" />
+                           <ImageStyle src={item.images[0]} alt="room-image" />
                            <Container>
                               <Title>{item.title}</Title>
                               <FirstBlock>
@@ -80,7 +56,7 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
                               <SecondBlock>
                                  <SecondMiniBlock>
                                     <Favorite />
-                                    <span>{favoriteCounts}</span>
+                                    <span>{item.favoriteCount}</span>
                                  </SecondMiniBlock>
                                  <SecondMiniBlock>
                                     <Call onClick={handleOpenPhoneModal} />
@@ -94,20 +70,20 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
                         <AnotherBlock>
                            <p
                               onClick={() => {
-                                 if (canLiftAd(item.id)) {
-                                    handleRaising(item.id)
-                                 }
+                                 handleRaising(item.id)
                               }}
                               style={{
-                                 cursor: canLiftAd(item.id)
+                                 cursor: !item.timeToNextBoost
                                     ? 'pointer'
                                     : 'not-allowed',
-                                 color: canLiftAd(item.id) ? 'black' : 'gray',
+                                 color: !item.timeToNextBoost
+                                    ? 'black'
+                                    : 'gray',
                               }}
                            >
-                              {canLiftAd(item.id)
+                              {!item.timeToNextBoost
                                  ? 'Поднять'
-                                 : ' Повторно можно поднять через 24 часа'}
+                                 : item.timeToNextBoost}
                            </p>
                         </AnotherBlock>
                      </AnotherContainer>

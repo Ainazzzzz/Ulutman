@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { styled } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 import AnnouncementsSorter from '../../../components/AnnouncementsSorter'
 import { SORT_BY_CATEGROY_OPTIONS } from '../../../utils/constants'
 import { CardList } from '../../../components/UI/Card/CardList'
 import { Button } from '../../../components/UI/Button'
 import { getSimilarAds } from '../../../redux/datailInfo/detailInfoThunk'
 import { sortPublishesRequest } from '../../../redux/main/mainThunk'
-import { useTranslation } from 'react-i18next'
 
 export const SimilarAds = ({ currentCategory }) => {
    const dispatch = useDispatch()

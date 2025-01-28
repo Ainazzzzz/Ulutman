@@ -2,10 +2,10 @@ import React from 'react'
 import { styled } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Modal from './Modal'
 import { Button } from './Button'
 import { logOut } from '../../redux/auth/authThunk'
-import { useTranslation } from 'react-i18next'
 
 const LogOutModal = ({ open, onClose }) => {
    const dispatch = useDispatch()

@@ -1,10 +1,10 @@
 import { styled } from '@mui/material'
 import { useState, useCallback, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import CloseIcon from '../../../assets/icons/close-icon.svg?react'
 import ArrowsIcon from '../../../assets/icons/arrowpurpul.svg?react'
 import { categoryTab } from '../../../utils/constants/main'
 import Modal from '../../UI/Modal'
-import { useTranslation } from 'react-i18next'
 
 export const PublishesCategoryModal = ({
    open,

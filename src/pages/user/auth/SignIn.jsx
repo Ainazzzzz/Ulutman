@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { styled, Typography } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import Modal from '../../../components/UI/Modal'
 import Input from '../../../components/UI/Input'
 import { Button } from '../../../components/UI/Button'
@@ -9,7 +10,6 @@ import { signIn } from '../../../redux/auth/authThunk'
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
 import Spinner from '../../../components/UI/Spinner'
 import GoogleAuth from './GoogleAuth'
-import { useTranslation } from 'react-i18next'
 
 export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
    const dispatch = useDispatch()
@@ -110,7 +110,7 @@ export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
             </Wrapper>
             <Typography
                align="center"
-               color={'#000'}
+               color="#000"
                style={{ display: 'flex', gap: '5px' }}
             >
                {t('signIn.noAccount')}

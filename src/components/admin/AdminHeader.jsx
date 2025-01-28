@@ -11,18 +11,14 @@ import Users from '../../assets/icons/usersicon.svg?react'
 import Announcement from '../../assets/icons/announcement.svg?react'
 import Category from '../../assets/icons/category.svg?react'
 import Modearation from '../../assets/icons/moderation.svg?react'
-import Language from '../../assets/icons/language-icon.svg?react'
 
-import ReusableSelect from '../UI/Select'
 import LogOutModal from '../UI/LogOutModal'
 import { IconButton } from '../IconButton'
-import { useTranslation } from 'react-i18next'
 
 const AdminHeader = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const [openMenu, setOpenMenu] = useState(null)
    const [openLogOutModal, setOpenLogOutModal] = useState(false)
-   const { t } = useTranslation()
    const { userData } = useSelector(state => state.auth)
 
    const handleClose = () => {
@@ -36,10 +32,6 @@ const AdminHeader = () => {
    const toggleLogOutModal = () => {
       handleClose()
       setOpenLogOutModal(prev => !prev)
-   }
-
-   const handleOpenLanguageModal = () => {
-      setOpenMenu(null)
    }
 
    return (
@@ -195,27 +187,6 @@ const InputStyle = styled('div')(() => ({
 const SearchIcon = styled(Search)(() => ({
    width: '19px',
    height: '19px',
-}))
-const SelectStyle = styled(ReusableSelect)(() => ({
-   '.MuiOutlinedInput-notchedOutline': {
-      border: 'none',
-   },
-   '&:hover .MuiOutlinedInput-notchedOutline': {
-      border: 'none',
-   },
-   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      border: 'none',
-   },
-
-   '.MuiSelect-select': {
-      paddingLeft: '0px',
-      paddingBottom: '9px',
-   },
-}))
-const FlagLanguageStyle = styled('div')(() => ({
-   display: 'flex',
-   gap: '10px',
-   alignItems: 'center',
 }))
 
 const ContainerProfileTitle = styled('div')(() => ({

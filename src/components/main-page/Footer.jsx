@@ -1,7 +1,7 @@
 import { styled } from '@mui/material'
 import React from 'react'
-import Calling from '../../assets/icons/calling.svg?react'
 import { useTranslation } from 'react-i18next'
+import Calling from '../../assets/icons/calling.svg?react'
 
 const Footer = () => {
    const { t } = useTranslation()

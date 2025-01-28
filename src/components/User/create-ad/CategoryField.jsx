@@ -1,10 +1,10 @@
 import { styled } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 import { Button } from '../../UI/Button'
 import {
    Container,
    ErrorMessage,
 } from '../../../pages/Admin/mailing/MailingFormStyles'
-import { useTranslation } from 'react-i18next'
 
 const CategoryField = ({
    selectCategory,

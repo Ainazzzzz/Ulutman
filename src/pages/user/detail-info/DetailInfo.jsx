@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import LocationIcon from '../../../assets/icons/address-icon.svg?react'
 import ClockIcon from '../../../assets/icons/clock-icon.svg?react'
@@ -22,7 +23,6 @@ import {
 } from '../../../redux/datailInfo/detailInfoThunk'
 import { PhoneModal } from '../../../components/UI/PhoneModal'
 import { SimilarAds } from './SimilarAds'
-import { useTranslation } from 'react-i18next'
 
 const DetailInfo = () => {
    const dispatch = useDispatch()

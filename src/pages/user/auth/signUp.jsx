@@ -3,6 +3,7 @@ import { styled, Typography } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import Modal from '../../../components/UI/Modal'
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
 import Input from '../../../components/UI/Input'
@@ -11,7 +12,6 @@ import { createSignUpSchema } from '../../../utils/general/validation/authValida
 import { signUp } from '../../../redux/auth/authThunk'
 import Spinner from '../../../components/UI/Spinner'
 import GoogleAuth from './GoogleAuth'
-import { useTranslation } from 'react-i18next'
 
 const signUpInputs = [
    {
@@ -104,7 +104,7 @@ const SignUp = ({ open, onClose, openSignIn }) => {
             )}
             <GoogleAuth />
 
-            <Typography display={'flex'} gap={1}>
+            <Typography display="flex" gap={1}>
                {t('signUp.account')}
                <NavLink to="" onClick={handleOpenSignInModal}>
                   {t('signUp.enter')}

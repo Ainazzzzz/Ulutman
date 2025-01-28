@@ -1,7 +1,7 @@
 import { styled } from '@mui/material'
 import { useState } from 'react'
-import Modal from '../UI/Modal'
 import { useTranslation } from 'react-i18next'
+import Modal from '../UI/Modal'
 
 export const DeleteFavoriteModal = ({ onDelete }) => {
    const [isOpen, setIsOpen] = useState(true)

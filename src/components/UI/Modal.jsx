@@ -2,12 +2,12 @@
 import { forwardRef } from 'react'
 import { Dialog, Slide, styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import DeleteIcon from '../../assets/icons/trash.svg?react'
 import InfoIcon from '../../assets/icons/info-warning.svg?react'
 import PhoneIcon from '../../assets/icons/phone-green-icon.svg?react'
 import PlusIcon from '../../assets/icons/plusIcon.svg?react'
 import { Button } from './Button'
-import { useTranslation } from 'react-i18next'
 
 const Transition = forwardRef((props, ref) => (
    <Slide direction="up" ref={ref} {...props} />

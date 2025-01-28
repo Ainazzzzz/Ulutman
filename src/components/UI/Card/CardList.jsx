@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 // * eslint-disable import/no-cycle */
 import { useState } from 'react'
 import { Grid, styled, useMediaQuery } from '@mui/material'
@@ -27,7 +28,6 @@ export const CardList = ({ cards, advertising, loading }) => {
       forgot: false,
       reset: false,
    })
-   console.log(openLogin)
 
    const updateFavoriteHandler = id => {
       if (isAuth) {
@@ -116,7 +116,6 @@ export const CardList = ({ cards, advertising, loading }) => {
                   register: false,
                   forgot: false,
                   reset: false,
-                  register: false,
                })
             }
             openSignIn={() =>
@@ -136,7 +135,6 @@ export const CardList = ({ cards, advertising, loading }) => {
                   register: false,
                   forgot: false,
                   reset: false,
-                  forgot: false,
                })
             }
             toggleResetPasswordModal={() =>
@@ -145,7 +143,6 @@ export const CardList = ({ cards, advertising, loading }) => {
                   register: false,
                   forgot: false,
                   reset: false,
-                  reset: true,
                })
             }
          />
@@ -157,7 +154,6 @@ export const CardList = ({ cards, advertising, loading }) => {
                   register: false,
                   forgot: false,
                   reset: false,
-                  reset: false,
                })
             }
             toggleSignInModal={() =>
@@ -166,7 +162,6 @@ export const CardList = ({ cards, advertising, loading }) => {
                   register: false,
                   forgot: false,
                   reset: false,
-                  login: true,
                })
             }
          />

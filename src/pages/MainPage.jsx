@@ -1,4 +1,8 @@
 import { styled } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { MainBanner } from '../components/main-page/MainBanner'
 import AnnouncementsSorter from '../components/AnnouncementsSorter'
 import AboutUs from '../components/main-page/AboutUs'
@@ -6,11 +10,7 @@ import { Button } from '../components/UI/Button'
 import { CARDS, SORT_BY_CATEGROY_OPTIONS } from '../utils/constants'
 import { CardList } from '../components/UI/Card/CardList'
 import Slider from '../components/main-page/Slider'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { getMainAds, sortPublishesRequest } from '../redux/main/mainThunk'
-import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 
 export const MainPage = () => {
    const { publishes, isLoading } = useSelector(state => state.main)

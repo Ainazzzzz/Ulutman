@@ -81,7 +81,6 @@ export const authSlice = createSlice({
          state.isLoading = false
       })
       builder.addCase(googleAuth.fulfilled, (state, action) => {
-         console.log('GoogleAuth fulfilled:', action.payload)
          state.userData = action.payload
          state.isAuth = true
          state.isLoading = false

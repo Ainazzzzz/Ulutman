@@ -1,27 +1,26 @@
 import { styled, Typography, useMediaQuery } from '@mui/material'
-import { IconButton } from '../components/IconButton'
-import { Button } from '../components/UI/Button'
-import ReusableSelect from '../components/UI/Select'
 import { useState } from 'react'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { IconButton } from '../components/IconButton'
+import { Button } from '../components/UI/Button'
+import ReusableSelect from '../components/UI/Select'
 import { renderFlag } from '../utils/general/renderFlag'
 import HeartLike from '../assets/icons/white-heart.svg?react'
 import UserLogo from '../assets/icons/user.svg?react'
 import Plus from '../assets/icons/plus.svg?react'
 import MenuIcon from '../assets/icons/menu-icon.svg?react'
 import UlutmanLogo from '../assets/icons/ulutman-logo-icon.svg?react'
-import ComeIcon from '../assets/icons/come-icon.svg?react'
 import Language from '../assets/icons/language-icon.svg?react'
 import LogOutIcon from '../assets/icons/come-icon.svg?react'
-import { logOut } from '../redux/auth/authThunk.js'
-import { useNavigate } from 'react-router-dom'
+import { logOut } from '../redux/auth/authThunk'
 import DownIcon from '../assets/icons/select-down-icon.svg?react'
-import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal.jsx'
-import { useTranslation } from 'react-i18next'
-import Modal from '../components/UI/Modal.jsx'
-import Auth from '../pages/user/auth/Auth.jsx'
+import { ConfirmLogoutModal } from '../components/UI/ConfirmLogoutModal'
+import Modal from '../components/UI/Modal'
+import Auth from '../pages/user/auth/Auth'
 
 const SearchIcon = ({ color = '#ffffff' }) => (
    <svg
@@ -140,7 +139,7 @@ export const Header = () => {
                   >
                      {!isAuth ? (
                         <MenuItemStyle onClick={handleOpenModal}>
-                           <ComeIcon /> {t('user.layout.header.enter')}
+                           <LogOutIcon /> {t('user.layout.header.enter')}
                         </MenuItemStyle>
                      ) : (
                         <MenuItemStyle onClick={logOutHandler}>
