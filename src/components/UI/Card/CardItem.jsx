@@ -123,7 +123,7 @@ export const ContainerInfo = styled(CardContent)({
 
 export const FirstBlock = styled('div')(({ theme }) => ({
    width: '240px',
-
+   padding: '0 0 0 15px ',
    display: 'flex',
    flexDirection: 'column',
    gap: theme.spacing(1.25),
@@ -170,7 +170,7 @@ export const SecondBlock = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    gap: theme.spacing(1.75),
-
+   padding: '0 15px 0 0',
    svg: {
       cursor: 'pointer',
    },

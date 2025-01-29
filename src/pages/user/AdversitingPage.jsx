@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -205,7 +206,7 @@ const ParagrahStyle = styled('p')(({ theme }) => ({
    fontWeight: '600',
    lineHeight: '17.94px',
    color: ' #000000A3',
-   [theme.breakpoints.down('sm')]: { fontSize: '10px', lineHeight: '15px' },
+   [theme.breakpoints.down('sm')]: { fontSize: '17px', lineHeight: '15px' },
 }))
 const Titile = styled('h1')(({ theme }) => ({
    fontSize: '34px',

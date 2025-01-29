@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next'
+
 import { styled } from '@mui/material'
 import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+
 import { Button } from '../UI/Button'
 import Input from '../UI/Input'
 import { profileValidation } from '../../utils/general/validation/profileValidation'

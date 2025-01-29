@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import TabContext from '@mui/lab/TabContext'
@@ -21,7 +22,7 @@ import {
    removeFromFavorites,
 } from '../../redux/categories/userCategoriesThunk'
 import { getAdvertising } from '../../redux/advertising/advertisingThunk'
-import { useTranslation } from 'react-i18next'
+
 import { Loading } from '../UI/Loading'
 
 export const CategoryTab = () => {
