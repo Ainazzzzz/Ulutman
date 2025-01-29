@@ -1,8 +1,10 @@
+/* eslint-disable import/no-cycle */
 // * eslint-disable import/no-cycle */
 import { useState } from 'react'
 import { Grid, styled, useMediaQuery } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { CardItem } from './CardItem'
 import { SceletonCard } from './SceletonCard'
 import { Advertising } from './Advertising'
@@ -12,7 +14,6 @@ import {
    deleteFavoriteStatus,
    updateFavoriteStatus,
 } from '../../../redux/main/mainThunk'
-import { useTranslation } from 'react-i18next'
 import SignUp from '../../../pages/user/auth/signUp'
 import ForgotPassword from '../../../pages/user/auth/ForgotPassword'
 import ResetPassword from '../../../pages/user/auth/ResetPassword'
@@ -118,7 +119,6 @@ export const CardList = ({ cards, advertising, loading }) => {
                   register: false,
                   forgot: false,
                   reset: false,
-                  register: false,
                })
             }
             openSignIn={() =>
@@ -138,7 +138,6 @@ export const CardList = ({ cards, advertising, loading }) => {
                   register: false,
                   forgot: false,
                   reset: false,
-                  forgot: false,
                })
             }
             toggleResetPasswordModal={() =>
@@ -147,7 +146,6 @@ export const CardList = ({ cards, advertising, loading }) => {
                   register: false,
                   forgot: false,
                   reset: false,
-                  reset: true,
                })
             }
          />
@@ -159,7 +157,6 @@ export const CardList = ({ cards, advertising, loading }) => {
                   register: false,
                   forgot: false,
                   reset: false,
-                  reset: false,
                })
             }
             toggleSignInModal={() =>
@@ -168,7 +165,6 @@ export const CardList = ({ cards, advertising, loading }) => {
                   register: false,
                   forgot: false,
                   reset: false,
-                  login: true,
                })
             }
          />

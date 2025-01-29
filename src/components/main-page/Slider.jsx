@@ -14,8 +14,6 @@ const Slider = () => {
    const dispatch = useDispatch()
    const advertising = useSelector(state => state.advertising.advertising)
 
-   console.log(advertising)
-
    useEffect(() => {
       dispatch(getAdvertising())
    }, [dispatch])

@@ -1,9 +1,9 @@
-import Breadcrumbs from './UI/Breadcrumbs'
-import SearchInput from './UI/SearchInput'
 import { styled, useMediaQuery } from '@mui/material'
-import ChevronLeft from '../assets/icons/chevron-left.svg?react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import Breadcrumbs from './UI/Breadcrumbs'
+import SearchInput from './UI/SearchInput'
+import ChevronLeft from '../assets/icons/chevron-left.svg?react'
 
 export const Categories = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
@@ -22,7 +22,7 @@ export const Categories = () => {
    }
 
    const breadcrumbs = [
-      { url: '/', title: t('user.categories.breadcrumbs.main') },
+      { url: '/user', title: t('user.categories.breadcrumbs.main') },
       {
          url: `/${subCategory}`,
          title: path[subCategory],

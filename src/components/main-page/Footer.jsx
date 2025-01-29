@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { styled } from '@mui/material'
 import React from 'react'
-import Calling from '../../assets/icons/calling.svg?react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { formatWithCursor } from 'prettier'
+import Calling from '../../assets/icons/calling.svg?react'
 
 const Footer = () => {
    const { t } = useTranslation()

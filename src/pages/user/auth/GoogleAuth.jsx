@@ -2,12 +2,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import GoogleIcon from '../../../assets/icons/google-icon.svg?react'
 import { Button } from '../../../components/UI/Button'
 import { googleAuth } from '../../../redux/auth/authThunk'
 import { autoLogin } from '../../../redux/auth/authSlice'
 import { showToast } from '../../../hooks/useToast'
-import { useTranslation } from 'react-i18next'
 
 const GoogleAuth = ({ onClose }) => {
    const dispatch = useDispatch()
@@ -41,7 +41,7 @@ const GoogleAuth = ({ onClose }) => {
          type="button"
          onClick={handleGoogleLogin}
          disabled={isLoading}
-         fullWidth={true}
+         fullWidth
       >
          <GoogleIcon />
          {isLoading ? t('signIn.googleAuth.btn1') : t('signIn.googleAuth.btn2')}

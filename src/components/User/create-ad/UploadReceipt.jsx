@@ -1,7 +1,7 @@
 import { useDropzone } from 'react-dropzone'
 import { Box, Typography, IconButton, TextField, styled } from '@mui/material'
-import PDFIcon from '../../../assets/icons/arrows.svg?react'
 import { useTranslation } from 'react-i18next'
+import PDFIcon from '../../../assets/icons/arrows.svg?react'
 
 const UploadReceipt = ({ setFileName, fileName, setReceiptFiles }) => {
    const { t } = useTranslation()

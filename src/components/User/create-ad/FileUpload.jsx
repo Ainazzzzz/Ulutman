@@ -2,9 +2,9 @@ import React from 'react'
 
 import { useDropzone } from 'react-dropzone'
 import { Box, Typography, IconButton, styled } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 import CloseIcon from '../../../assets/icons/close-icon.svg?react'
 import { CameraIcon } from '../../../pages/Admin/mailing/MailingFormStyles'
-import { useTranslation } from 'react-i18next'
 
 const FileUpload = ({ setImageFiles, imageFiles, errors }) => {
    const { t } = useTranslation()

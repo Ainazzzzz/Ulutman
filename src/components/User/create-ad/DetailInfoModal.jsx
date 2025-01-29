@@ -1,9 +1,9 @@
 import React from 'react'
-import Modal from '../../UI/Modal'
 import { styled } from '@mui/material'
 import { useTranslation } from 'react-i18next'
+import Modal from '../../UI/Modal'
 
-const DetailInfoModal = ({ open, onClose, setDetailInfo }) => {
+const DetailInfoModal = ({ open, onClose }) => {
    const { t } = useTranslation()
 
    const fields = [

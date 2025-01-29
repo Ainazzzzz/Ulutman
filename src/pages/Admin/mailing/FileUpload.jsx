@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useDropzone } from 'react-dropzone'
+import { useTranslation } from 'react-i18next'
 import CloseIcon from '../../../assets/icons/close-icon.svg?react'
 import {
    Container,
@@ -11,7 +12,6 @@ import {
    StyledDropzone,
 } from './MailingFormStyles'
 import { uploadToS3Thunks } from '../../../redux/uploadThunks'
-import { useTranslation } from 'react-i18next'
 
 const FileUpload = ({ setFieldValue, touched, errors, id, value }) => {
    const [imagePreview, setImagePreview] = useState(null)

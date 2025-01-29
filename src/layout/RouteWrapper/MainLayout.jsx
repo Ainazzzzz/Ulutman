@@ -15,7 +15,11 @@ export const MainLayout = () => {
    )
 }
 
-const OutletContent = styled('div')(() => ({
+const OutletContent = styled('div')(({ theme }) => ({
    minHeight: '100vh',
    marginTop: '84px',
+
+   [theme.breakpoints.down('md')]: {
+      marginTop: '54px',
+   },
 }))

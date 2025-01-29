@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
    deleteSelectedAds,
-   getFavoriteCount,
    getMyAds,
-   MyAds,
+   myAdvertising,
    RaisingPublication,
 } from './myAdsThunk'
 
@@ -26,7 +25,7 @@ export const myAdsSlice = createSlice({
             state.rejectedAds = action.payload.filter(ad => ad.rejected)
             state.myAds = action.payload.filter(ad => ad.myAds)
          })
-         .addCase(MyAds.fulfilled, (state, action) => {
+         .addCase(myAdvertising.fulfilled, (state, action) => {
             state.myAds = action.payload
          })
          .addCase(RaisingPublication.fulfilled, (state, action) => {
@@ -47,9 +46,6 @@ export const myAdsSlice = createSlice({
          .addCase(deleteSelectedAds.rejected, (state, action) => {
             state.errorMessage =
                action.payload || 'Произошла ошибка при удалении'
-         })
-         .addCase(getFavoriteCount.fulfilled, (state, action) => {
-            state.favoriteCounts = action.payload
          })
    },
 })

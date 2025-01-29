@@ -14,7 +14,6 @@ const Advertising = () => {
    const { isDeactivatedLoading, deactivatedAdvertising } = useSelector(
       state => state.advertising,
    )
-   console.log(deactivatedAdvertising)
 
    const handleStatusChange = item => {
       dispatch(postAdvertisingActivated(item.id))

@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useTranslation } from 'react-i18next'
+
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import { Button } from '../../components/UI/Button'
 import ChevronLeft from '../../assets/icons/chevron-left.svg?react'
@@ -13,7 +14,6 @@ import InputPay from '../../components/UI/InputPay'
 import { addAdvertisingThunks } from '../../redux/advertising/adversstitingpayThunks'
 import { Loading } from '../../components/UI/Loading'
 import FileUpload from '../Admin/mailing/FileUpload'
-
 import ReusableSelect from '../../components/UI/Select'
 
 const optionsBank = [
@@ -63,7 +63,6 @@ const AdvertisingPage = () => {
       const selectedBankLabel = optionsBank.find(
          option => option.value === bankName,
       )?.label
-      console.log(selectedBankLabel)
 
       if (!selectedBankLabel || !validBanks.includes(selectedBankLabel)) {
          setBankError(t('user.advertising.advertisingValidation.bankError'))
@@ -150,7 +149,7 @@ const AdvertisingPage = () => {
                <WrapperSelect>
                   <ReusableSelect
                      value={bankName}
-                     placeholder={'Укажите банк, на который перевели деньги'}
+                     placeholder="Укажите банк, на который перевели деньги"
                      options={optionsBank}
                      onChange={e => setBankName(e.target.value)}
                   />

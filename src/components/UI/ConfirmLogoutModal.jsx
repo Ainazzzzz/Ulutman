@@ -1,7 +1,7 @@
 import { DialogActions, DialogContent, styled } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 import Modal from './Modal'
 import { Button } from './Button'
-import { useTranslation } from 'react-i18next'
 
 export const ConfirmLogoutModal = ({ open, onClose, onConfirm }) => {
    const { t } = useTranslation()

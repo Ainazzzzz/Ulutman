@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import Modal from '../../../components/UI/Modal'
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
 import Input from '../../../components/UI/Input'
 import Spinner from '../../../components/UI/Spinner'
 import { Button } from '../../../components/UI/Button'
 import { forgotPassword } from '../../../redux/auth/authThunk'
-import { useTranslation } from 'react-i18next'
 
 const ForgotPassword = ({ open, onClose, toggleResetPasswordModal }) => {
    const dispatch = useDispatch()

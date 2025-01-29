@@ -1,12 +1,12 @@
-import { forwardRef } from 'react';
-import { Paper, InputBase, styled } from '@mui/material';
-import SearchIcon from '../../assets/icons/search.svg?react';
-import { Button } from './Button';
-import { useTranslation } from 'react-i18next';
+import { forwardRef } from 'react'
+import { Paper, InputBase, styled } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import SearchIcon from '../../assets/icons/search.svg?react'
+import { Button } from './Button'
 
 const SearchInput = forwardRef(
    ({ placeholder, onChange, value, variant, onClick, ...rest }, ref) => {
-      const { t } = useTranslation();
+      const { t } = useTranslation()
       return (
          <StyledContainer variant={variant} className="container">
             <SearchIcon />
@@ -23,9 +23,9 @@ const SearchInput = forwardRef(
                {t('global.searchButton')}
             </Button>
          </StyledContainer>
-      );
+      )
    },
-);
+)
 
 export default SearchInput
 

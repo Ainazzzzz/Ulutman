@@ -1,8 +1,8 @@
+import { styled, useMediaQuery } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { styled, useMediaQuery } from '@mui/material'
 import { MainBanner } from '../components/main-page/MainBanner'
 import AnnouncementsSorter from '../components/AnnouncementsSorter'
 import AboutUs from '../components/main-page/AboutUs'
@@ -18,7 +18,6 @@ export const MainPage = () => {
    const { t } = useTranslation()
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const { advertising } = useSelector(state => state.advertising)
-   console.log(advertising)
 
    const [sortedAds, setSortedAds] = useState([])
    const dispatch = useDispatch()

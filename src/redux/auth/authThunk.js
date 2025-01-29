@@ -27,7 +27,6 @@ export const signIn = createAsyncThunk(
 
          showToast('success', t('toast.signIn.success'))
          onClose()
-         console.log(data)
 
          return updatedData
       } catch (e) {
@@ -45,13 +44,11 @@ export const googleAuth = createAsyncThunk(
          const { user } = await signInWithPopup(auth, provider)
 
          const token = await user.getIdToken()
-         console.log('Получен токен Google:', token)
 
          const params = new URLSearchParams({ token })
          const { data } = await axiosInstance.post(
             `auth/google-login?${params}`,
          )
-         console.log('Ответ от сервера:', data)
 
          const updatedData = {
             token: data.token,
@@ -64,7 +61,6 @@ export const googleAuth = createAsyncThunk(
          }
 
          localStorage.setItem('ULUTMAN', JSON.stringify(updatedData))
-         console.log('Данные сохранены в localStorage:', updatedData)
 
          showToast('success', 'Успешно')
 
@@ -86,7 +82,6 @@ export const signUp = createAsyncThunk(
 
          showToast('success', t('toast.signUp.success'))
          handleOpenSignInModal()
-         console.log(data)
 
          return data
       } catch (e) {

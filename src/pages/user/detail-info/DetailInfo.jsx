@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import LocationIcon from '../../../assets/icons/address-icon.svg?react'
 import ClockIcon from '../../../assets/icons/clock-icon.svg?react'
@@ -22,8 +23,6 @@ import {
 } from '../../../redux/datailInfo/detailInfoThunk'
 import { PhoneModal } from '../../../components/UI/PhoneModal'
 import { SimilarAds } from './SimilarAds'
-import { useTranslation } from 'react-i18next'
-import { display, maxHeight, maxWidth } from '@mui/system'
 
 const DetailInfo = () => {
    const dispatch = useDispatch()
@@ -32,7 +31,6 @@ const DetailInfo = () => {
    const { t } = useTranslation()
 
    const detailInfo = useSelector(state => state.detailInfo)
-   console.log(detailInfo)
 
    const [isExpanded, setIsExpanded] = useState(false)
    const [openModal, setOpenModal] = useState(false)
@@ -90,18 +88,6 @@ const DetailInfo = () => {
                   </button>
                </Box>
 
-               {/* <Box className="locatio-time-box">
-                  <Typography>
-                     <LocationIcon className="location-icon" />
-                     {detailInfo?.detailInfo?.address}
-                  </Typography>
-
-                  <Typography>
-                     <ClockIcon />
-                     {detailInfo?.detailInfo?.createDate}
-                  </Typography>
-               </Box> */}
-
                <Box>
                   <Typography className="title" variant="h3">
                      {detailInfo?.detailInfo?.title}
@@ -127,7 +113,7 @@ const DetailInfo = () => {
                               <SwiperSlide key={slide}>
                                  <img
                                     className="slide-image"
-                                    alt="image"
+                                    alt=""
                                     src={slide}
                                  />
                               </SwiperSlide>
@@ -138,7 +124,7 @@ const DetailInfo = () => {
                            {detailInfo?.detailInfo?.images?.map(item => (
                               <img
                                  key={item}
-                                 alt="image"
+                                 alt=""
                                  src={item}
                                  style={{
                                     width: '60px',
@@ -174,37 +160,37 @@ const DetailInfo = () => {
                                  }}
                               />
                            </Box>
-                           <Box className="locatio-time-box">
-                              <Typography>
-                                 <LocationIcon className="location-icon" />
-                                 {detailInfo?.detailInfo?.address}
-                              </Typography>
+                           <Box className="wrapper-info">
+                              <Box className="locatio-time-box">
+                                 <Typography>
+                                    <LocationIcon className="location-icon" />
+                                    {detailInfo?.detailInfo?.address}
+                                 </Typography>
 
-                              <Typography>
-                                 <ClockIcon />
-                                 {detailInfo?.detailInfo?.createDate}
-                              </Typography>
+                                 <Typography>
+                                    <ClockIcon />
+                                    {detailInfo?.detailInfo?.createDate}
+                                 </Typography>
 
-                              <Typography>
-                                 <LocationIcon className="location-icon" />
-                                 {detailInfo?.detailInfo?.metroStation}
-                              </Typography>
-                           </Box>
-
-                           <Box className="btns-container">
+                                 <Typography>
+                                    <LocationIcon className="location-icon" />
+                                    {detailInfo?.detailInfo?.metroStation}
+                                 </Typography>
+                              </Box>
                               <Button onClick={handleShowPhoneNumber}>
                                  {t('user.detailInfo.phone')}
                               </Button>
-                              {openModal && (
-                                 <PhoneModal
-                                    handleClose={handleShowPhoneNumber}
-                                    open={openModal}
-                                    phoneNumber={
-                                       detailInfo?.detailInfo?.phoneNumber
-                                    }
-                                 />
-                              )}
                            </Box>
+
+                           {openModal && (
+                              <PhoneModal
+                                 handleClose={handleShowPhoneNumber}
+                                 open={openModal}
+                                 phoneNumber={
+                                    detailInfo?.detailInfo?.phoneNumber
+                                 }
+                              />
+                           )}
                         </Box>
                      </Box>
                   </Box>
@@ -244,16 +230,30 @@ const DetailInfo = () => {
 export default DetailInfo
 
 const StyledContainer = styled(Box)(({ theme }) => ({
-   padding: '0 3rem',
+   padding: '0.5rem 3rem',
    [theme.breakpoints.down('md')]: {
-      padding: '24px 16px',
+      padding: '10px 16px',
+   },
+
+   '& .wrapper-info': {
+      display: 'flex',
+      flexDirection: 'column',
+      [theme.breakpoints.down('md')]: {
+         flexDirection: 'row',
+         alignItems: 'center',
+         justifyContent: 'space-between',
+         '& button': {
+            fontSize: '12px',
+            fontWeight: '400',
+            padding: '5px 10px',
+         },
+      },
    },
 
    '& .locatio-time-box': {
       display: 'flex',
       flexDirection: 'column',
       color: '#A0A0A0',
-      // alignItems: 'center',
       gap: '10px',
       marginBottom: '1.3rem',
       [theme.breakpoints.down('md')]: {

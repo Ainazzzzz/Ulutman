@@ -1,6 +1,11 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { styled, useMediaQuery } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../UI/Breadcrumbs'
 import DeleteIcon from '../../assets/icons/delete.svg?react'
 import ChevronLeft from '../../assets/icons/chevron-left.svg?react'
@@ -11,8 +16,6 @@ import {
    getAllFavorites,
 } from '../../redux/users/favoriteThunk'
 import { DeleteFavoriteModal } from './DeleteFavoriteModal'
-import { useTranslation } from 'react-i18next'
-import { NavLink, useNavigate } from 'react-router-dom'
 import NoData from '../../assets/icons/empty-data.svg?react'
 import { Loading } from '../UI/Loading'
 
@@ -24,7 +27,6 @@ export const FeaturedAds = () => {
    const { favoriteProducts, isLoading } = useSelector(
       state => state.favoriteProducts || [],
    )
-   console.log(favoriteProducts)
 
    const publishResponseList = favoriteProducts?.publishResponseList || []
 
@@ -196,9 +198,6 @@ const Wrapper = styled('div')(({ theme }) => ({
    },
 }))
 
-const NoFavoritesMessage = styled('p')(() => ({
-   margin: '30px 0',
-}))
 const DeleteAll = styled('div')(({ theme }) => ({
    padding: '0px 10px 0px 10px',
    marginTop: '8px',

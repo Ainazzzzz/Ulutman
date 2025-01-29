@@ -4,12 +4,10 @@ import { showToast } from '../../hooks/useToast'
 
 export const getMyAds = createAsyncThunk(
    'myAds',
-   async (__, { getState, rejectWithValue }) => {
+   async (__, { rejectWithValue }) => {
       try {
-         const { userId } = getState().auth.userData
-
          const { data } = await axiosInstance.get(
-            `users/my-publishes/${userId}`,
+            `users/my-publishes/getAllMyPublishes`,
          )
 
          return data
@@ -19,7 +17,7 @@ export const getMyAds = createAsyncThunk(
    },
 )
 
-export const MyAds = createAsyncThunk(
+export const myAdvertising = createAsyncThunk(
    'myAds/getMyAds',
    async (__, { rejectWithValue }) => {
       try {
@@ -34,15 +32,12 @@ export const MyAds = createAsyncThunk(
 
 export const RaisingPublication = createAsyncThunk(
    'myAds/raising',
-   async (__, { getState, rejectWithValue }) => {
+   async (publishId, { getState, rejectWithValue }) => {
       try {
          const { userId } = getState().auth.userData
 
-         const { data } = await axiosInstance.get(
-            `users/my-publishes/raising-the- publication`,
-            {
-               params: { userId },
-            },
+         const { data } = await axiosInstance.put(
+            `users/my-publishes/boost/${publishId}?userId=${userId}`,
          )
 
          return data
@@ -94,26 +89,6 @@ export const getDeactivatePublishes = createAsyncThunk(
          const { data } = await axiosInstance.get(
             `users/my-publishes/inactive-publishes/${userId}`,
          )
-         return data
-      } catch (error) {
-         return rejectWithValue(error.response?.data || error.message)
-      }
-   },
-)
-
-export const getFavoriteCount = createAsyncThunk(
-   'myAds/favoriteCount',
-   async ({ publishId }, { getState, rejectWithValue }) => {
-      try {
-         const { userId } = getState().auth.userData
-
-         const { data } = await axiosInstance.get(`users/my-publishes/count`, {
-            params: {
-               userId,
-               publishId,
-            },
-         })
-
          return data
       } catch (error) {
          return rejectWithValue(error.response?.data || error.message)
