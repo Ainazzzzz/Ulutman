@@ -1,8 +1,8 @@
+import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet } from 'react-router-dom'
 import { styled } from '@mui/material'
 import { PATHS } from '../../utils/constants/paths'
 import ArrowIcon from '../../assets/icons/arrowpurpul.svg?react'
-import { useTranslation } from 'react-i18next'
 
 export const MyPage = () => {
    const { t } = useTranslation()
@@ -40,8 +40,8 @@ const Container = styled('div')(({ theme }) => ({
    padding: '40px 57px',
 
    [theme.breakpoints.down('md')]: {
-      padding: '40px 16px',
-      gap: '30px',
+      padding: '20px 10px',
+      gap: '20px',
    },
 }))
 

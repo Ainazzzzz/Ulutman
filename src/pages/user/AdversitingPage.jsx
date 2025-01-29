@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+import { useTranslation } from 'react-i18next'
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -12,7 +13,7 @@ import InputPay from '../../components/UI/InputPay'
 import { addAdvertisingThunks } from '../../redux/advertising/adversstitingpayThunks'
 import { Loading } from '../../components/UI/Loading'
 import FileUpload from '../Admin/mailing/FileUpload'
-import { useTranslation } from 'react-i18next'
+
 import ReusableSelect from '../../components/UI/Select'
 
 const optionsBank = [
@@ -206,7 +207,7 @@ const ParagrahStyle = styled('p')(({ theme }) => ({
    fontWeight: '600',
    lineHeight: '17.94px',
    color: ' #000000A3',
-   [theme.breakpoints.down('sm')]: { fontSize: '10px', lineHeight: '15px' },
+   [theme.breakpoints.down('sm')]: { fontSize: '17px', lineHeight: '15px' },
 }))
 const Titile = styled('h1')(({ theme }) => ({
    fontSize: '34px',

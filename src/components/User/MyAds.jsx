@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+import { useTranslation } from 'react-i18next'
 import { styled } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,7 +13,6 @@ import {
    RaisingPublication,
 } from '../../redux/users/myAdsThunk'
 import { PhoneModal } from '../UI/PhoneModal'
-import { useTranslation } from 'react-i18next'
 
 export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
    const dispatch = useDispatch()

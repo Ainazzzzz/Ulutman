@@ -151,18 +151,58 @@ export const CategoryTab = () => {
                      )}
                   </div>
                </BoxStyle>
+               <BoxStyle>
+                  <TabPanelStyle value={value}>
+                     {isMobile ? (
+                        <>
+                           <CardList cards={categories} />
+                           <WrapperAdvertising>
+                              {advertising?.map(image => (
+                                 <div key={image.id}>
+                                    <AdvertisingCategory
+                                       image={image.imagePath}
+                                    />
+                                 </div>
+                              ))}
+                           </WrapperAdvertising>
+                        </>
+                     ) : (
+                        <>
+                           <MiniBlock>
+                              <CategoryCard
+                                 categories={categories}
+                                 handleToggleFavorite={handleToggleFavorite}
+                              />
+                           </MiniBlock>
+                           <WrapperAdvertising>
+                              {advertising?.map(image => (
+                                 <div key={image.id}>
+                                    <AdvertisingCategory
+                                       image={image.imagePath}
+                                    />
+                                 </div>
+                              ))}
+                           </WrapperAdvertising>
+                        </>
+                     )}
+                  </TabPanelStyle>
+               </BoxStyle>
 
                <TabPanelStyle value={value}>
                   {isMobile ? (
                      <>
                         <CardList cards={categories} />
-                        <WrapperAdvertising>
-                           {advertising?.map(image => (
-                              <div key={image.id}>
-                                 <AdvertisingCategory image={image.imagePath} />
-                              </div>
-                           ))}
-                        </WrapperAdvertising>
+                        {advertising.length === 0 ? null : (
+                           <WrapperAdvertising>
+                              {advertising?.map(image => (
+                                 <div key={image.id}>
+                                    <AdvertisingCategory
+                                       image={image.imageFile}
+                                    />
+                                 </div>
+                              ))}
+                           </WrapperAdvertising>
+                        )}
                      </>
                   ) : (
                      <>
@@ -172,54 +212,23 @@ export const CategoryTab = () => {
                               handleToggleFavorite={handleToggleFavorite}
                            />
                         </MiniBlock>
-                        <WrapperAdvertising>
-                           {advertising?.map(image => (
-                              <div key={image.id}>
-                                 <AdvertisingCategory image={image.imagePath} />
-                              </div>
-                           ))}
-                        </WrapperAdvertising>
+                        {advertising.length === 0 ? null : (
+                           <WrapperAdvertising>
+                              {advertising?.map(image => (
+                                 <div key={image.id}>
+                                    <AdvertisingCategory
+                                       image={image.imageFile}
+                                    />
+                                 </div>
+                              ))}
+                           </WrapperAdvertising>
+                        )}
                      </>
                   )}
-               </div>
-            </BoxStyle>
-
-            <TabPanelStyle value={value}>
-               {isMobile ? (
-                  <>
-                     <CardList cards={categories} />
-                     {advertising.length === 0 ? null : (
-                        <WrapperAdvertising>
-                           {advertising?.map(image => (
-                              <div key={image.id}>
-                                 <AdvertisingCategory image={image.imageFile} />
-                              </div>
-                           ))}
-                        </WrapperAdvertising>
-                     )}
-                  </>
-               ) : (
-                  <>
-                     <MiniBlock>
-                        <CategoryCard
-                           categories={categories}
-                           handleToggleFavorite={handleToggleFavorite}
-                        />
-                     </MiniBlock>
-                     {advertising.length === 0 ? null : (
-                        <WrapperAdvertising>
-                           {advertising?.map(image => (
-                              <div key={image.id}>
-                                 <AdvertisingCategory image={image.imageFile} />
-                              </div>
-                           ))}
-                        </WrapperAdvertising>
-                     )}
-                  </>
-               )}
-            </TabPanelStyle>
-         </TabContext>
-      </Box>
+               </TabPanelStyle>
+            </TabContext>
+         </Box>
+      </div>
    )
 }
 const TabListStyle = styled(TabList)(({ theme }) => ({
