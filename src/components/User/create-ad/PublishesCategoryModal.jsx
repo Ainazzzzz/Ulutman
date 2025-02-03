@@ -190,6 +190,7 @@ const IconWrapper = styled('div')(({ background, theme }) => ({
    height: '50px',
    background,
    borderRadius: '50%',
+   cursor: 'pointer',
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'center',

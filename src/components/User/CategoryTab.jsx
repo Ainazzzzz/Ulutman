@@ -148,13 +148,7 @@ export const CategoryTab = () => {
                {isMobile ? (
                   <>
                      <CardList cards={categories} />
-                     <WrapperAdvertising>
-                        {advertising?.map(image => (
-                           <div key={image.id}>
-                              <AdvertisingCategory image={image.imagePath} />
-                           </div>
-                        ))}
-                     </WrapperAdvertising>
+                     {/* Mobile does not show ads */}
                   </>
                ) : (
                   <>
@@ -167,7 +161,7 @@ export const CategoryTab = () => {
                      <WrapperAdvertising>
                         {advertising?.map(image => (
                            <div key={image.id}>
-                              <AdvertisingCategory image={image.imagePath} />
+                              <AdvertisingCategory image={image.imageFile} />
                            </div>
                         ))}
                      </WrapperAdvertising>
@@ -240,6 +234,7 @@ const BoxStyle = styled('div')(() => ({
 const WrapperAdvertising = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
+
    gap: '24px',
    [theme.breakpoints.down('md')]: {
       width: '100%',

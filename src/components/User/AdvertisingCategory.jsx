@@ -6,8 +6,8 @@ export const AdvertisingCategory = ({ image }) => {
 
 const Image = styled(CardMedia)(({ theme }) => ({
    display: 'flex',
-   width: '120px',
-   height: '230px',
+   width: '287px',
+   height: '407px',
    borderRadius: '10px',
    marginTop: '40px',
    [theme.breakpoints.down('md')]: {},

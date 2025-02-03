@@ -59,6 +59,7 @@ const CategoryButton = styled(Button)({
    height: '39px',
    fontSize: '16px',
    fontWeight: '600',
+   cursor: 'pointer',
 })
 
 const SelectInfo = styled('p')({

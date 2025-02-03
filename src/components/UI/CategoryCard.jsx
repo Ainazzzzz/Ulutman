@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SumIcon from '../../assets/icons/sum-icon.svg?react'
 import Geolocation from '../../assets/icons/geolocation-icon.svg?react'
-import Home from '../../assets/icons/home-icon.svg?react'
+
 import GrayHeart from '../../assets/icons/gray-heart-icon.svg?react'
 import Call from '../../assets/icons/phone-icon.svg?react'
 import emptyImageCard from '../../assets/images/no-image.jpg'
@@ -64,9 +64,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                            {item.metro}, {item.address}
                         </p>
                      </SecondBlock>
-                     <SecondBlock>
-                        <Home />
-                     </SecondBlock>
+                     <SecondBlock>{/* <Home /> */}</SecondBlock>
                      <Description>{item.description}</Description>
                   </div>
                </Block>
@@ -118,9 +116,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                            {item.metro}, {item.address}
                         </p>
                      </SecondBlock>
-                     <SecondBlock>
-                        <Home />
-                     </SecondBlock>
+                     <SecondBlock>{/* <Home /> */}</SecondBlock>
                      <Description>{item.description}</Description>
                   </div>
                </Wrapper>

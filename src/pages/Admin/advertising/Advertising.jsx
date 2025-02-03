@@ -21,13 +21,14 @@ const Advertising = () => {
 
    const MAILING_COLUMN = [
       {
-         Header: 'Название банка',
-         accessor: 'bank',
-      },
-      {
          Header: 'id',
          accessor: 'id',
       },
+      {
+         Header: 'Название банка',
+         accessor: 'bank',
+      },
+
       {
          Header: 'Электронный адрес',
          accessor: 'userGmail',
