@@ -169,10 +169,10 @@ const Ads = () => {
          Header: 'ИМЯ',
          accessor: 'userName',
       },
-      {
-         Header: 'номер карты',
-         accessor: 'cardNumber',
-      },
+      // {
+      //    Header: 'номер карты',
+      //    accessor: 'cardNumber',
+      // },
       {
          Header: 'Валюта',
          accessor: 'Currency',

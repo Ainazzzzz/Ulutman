@@ -240,6 +240,7 @@ const NavContainer = styled('nav')(({ theme }) => ({
 const NavList = styled('ul')(({ theme }) => ({
    display: 'flex',
    gap: '20px',
+   cursor: 'pointer',
    [theme.breakpoints.down('md')]: {
       gap: '0',
    },

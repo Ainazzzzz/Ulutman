@@ -24,11 +24,12 @@ export const addAdvertisingThunks = createAsyncThunk(
             },
          )
 
-         setIsLoading(false)
          toast.success(t('toast.advertisingSuccess'), {
             position: 'top-right',
             autoClose: 5000,
          })
+
+         setIsLoading(false)
 
          return response.data
       } catch (error) {

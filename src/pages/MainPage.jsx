@@ -1,4 +1,4 @@
-import { styled, useMediaQuery } from '@mui/material'
+import { styled } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -11,13 +11,10 @@ import { SORT_BY_CATEGROY_OPTIONS } from '../utils/constants'
 import { CardList } from '../components/UI/Card/CardList'
 import { getMainAds, sortPublishesRequest } from '../redux/main/mainThunk'
 import Slider from '../components/main-page/Slider'
-import { AdvertisingCategory } from '../components/User/AdvertisingCategory'
 
 export const MainPage = () => {
    const { publishes, isLoading } = useSelector(state => state.main)
    const { t } = useTranslation()
-   const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
-   const { advertising } = useSelector(state => state.advertising)
 
    const [sortedAds, setSortedAds] = useState([])
    const dispatch = useDispatch()
@@ -65,14 +62,14 @@ export const MainPage = () => {
 
             <CardAdvetisinBox>
                <CardList cards={sortedAds.slice(0, 8)} loading={isLoading} />
-               <div>
+               {/* <div>
                   {isMobile &&
                      advertising?.map(image => (
                         <WrapperAdvertising key={image.id}>
                            <AdvertisingCategory image={image.imageFile} />
                         </WrapperAdvertising>
                      ))}
-               </div>
+               </div> */}
             </CardAdvetisinBox>
             {hasPublishes && (
                <Button variant="category-sort" onClick={seeMoreHandler}>
@@ -119,16 +116,16 @@ const SliderBox = styled('div')(({ theme }) => ({
 const CardAdvetisinBox = styled('div')(() => ({
    display: 'flex',
 }))
-const WrapperAdvertising = styled('div')(({ theme }) => ({
-   marginBottom: '48px',
-   [theme.breakpoints.down('md')]: {
-      width: '100%',
-      maxHeight: 'calc(100vh - 200px)',
-      overflowY: 'auto',
-   },
-   img: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-   },
-}))
+// const WrapperAdvertising = styled('div')(({ theme }) => ({
+//    marginBottom: '48px',
+//    [theme.breakpoints.down('md')]: {
+//       width: '100%',
+//       maxHeight: 'calc(100vh - 200px)',
+//       overflowY: 'auto',
+//    },
+//    img: {
+//       width: '100%',
+//       height: '100%',
+//       objectFit: 'cover',
+//    },
+// }))
