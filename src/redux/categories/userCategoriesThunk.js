@@ -104,15 +104,14 @@ export const filtermodalThunks = createAsyncThunk(
 
 export const searchInputThunks = createAsyncThunk(
    'searchinput/get',
-   async (serializedParams, { rejectWithValue }) => {
+   async (searchValue, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get(
-            `/main-page/search${serializedParams}`,
-         )
+         const url = `/main-page/search?titles=${encodeURIComponent(searchValue)}`
+
+         const { data } = await axiosInstance.get(url)
 
          return data
       } catch (e) {
-         console.error('Error:', e.response?.data || e.message)
          return rejectWithValue(e.response?.data || e.message)
       }
    },
@@ -128,6 +127,20 @@ export const resertFilterThunks = createAsyncThunk(
       } catch (e) {
          console.error('Error:', e.response?.data || e.message)
          return rejectWithValue(e.response?.data || e.message)
+      }
+   },
+)
+
+export const searchByName = createAsyncThunk(
+   'categories/search',
+   async (title, { rejectWithValue }) => {
+      try {
+         const { data } = await axiosInstance.get(`/main-page/search${title}`)
+         console.log(data)
+
+         return data
+      } catch (error) {
+         return rejectWithValue(error)
       }
    },
 )

@@ -4,12 +4,17 @@ import { useTranslation } from 'react-i18next'
 import Breadcrumbs from './UI/Breadcrumbs'
 import SearchInput from './UI/SearchInput'
 import ChevronLeft from '../assets/icons/chevron-left.svg?react'
+import { searchInputThunks } from '../redux/categories/userCategoriesThunk'
+import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 
 export const Categories = () => {
+   const [searchValue, setSearchValue] = useState()
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const { subCategory } = useParams()
    const { t } = useTranslation()
    const navigate = useNavigate()
+   const dispatch = useDispatch()
 
    const path = {
       WORK: t('user.categories.breadcrumbs.path.work'),
@@ -28,6 +33,19 @@ export const Categories = () => {
          title: path[subCategory],
       },
    ]
+
+   const handleInputChange = event => {
+      setSearchValue(event.target.value)
+      console.log(event.target.value)
+   }
+   const handleClick = () => {
+      if (searchValue) {
+         dispatch(searchInputThunks(searchValue))
+      } else {
+         console.warn('Поисковой запрос пуст!')
+      }
+   }
+
    return (
       <Wrapper>
          <Container>
@@ -42,9 +60,11 @@ export const Categories = () => {
                </FirstBlock>
                <SearchInputStyle
                   placeholder={t('user.categories.search.inputLabel')}
+                  onClick={handleClick}
+                  value={searchValue}
+                  onChange={handleInputChange}
                />
             </Block>
-
             <Outlet />
          </Container>
       </Wrapper>
@@ -81,8 +101,11 @@ const Wrapper = styled('div')(({ theme }) => ({
    },
 }))
 
-const SearchInputStyle = styled(SearchInput)(() => ({
+const SearchInputStyle = styled(SearchInput)(({ theme }) => ({
    height: '64px',
+   [theme.breakpoints.down('md')]: {
+      width: '100px',
+   },
 }))
 
 const BackStyle = styled('span')(() => ({
