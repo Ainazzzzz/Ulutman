@@ -27,7 +27,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
 
    const handleClose = () => setPhoneModal('')
 
-   return categories.length === 0 ? (
+   return !categories || categories.length === 0 ? (
       <NoDataContainer>
          <NoData />
       </NoDataContainer>
@@ -44,7 +44,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                   <div>
                      <FirstBlock>
                         <Price>
-                           {item.price} <SumIcon />c
+                           {item.price} <SumIcon />
                         </Price>
                         <IconButton onClick={() => handleToggleFavorite(item)}>
                            <GrayHeart
@@ -61,7 +61,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                      <SecondBlock>
                         <Geolocation />
                         <p>
-                           {item.metro}, {item.address}
+                           {item.metroStation}, {item.address}
                         </p>
                      </SecondBlock>
                      <SecondBlock>{/* <Home /> */}</SecondBlock>
@@ -113,7 +113,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                      <SecondBlock>
                         <Geolocation />
                         <p>
-                           {item.metro}, {item.address}
+                           {item.metroStation}, {item.address}
                         </p>
                      </SecondBlock>
                      <SecondBlock>{/* <Home /> */}</SecondBlock>

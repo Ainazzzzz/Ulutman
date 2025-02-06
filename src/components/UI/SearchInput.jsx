@@ -38,12 +38,6 @@ const StyledContainer = styled(Paper)(({ theme }) => ({
    borderRadius: '10px',
    boxShadow: 'none',
 
-   [theme.breakpoints.down('md')]: {
-      '& > .button': {
-         display: 'none',
-      },
-   },
-
    '& > .MuiInputBase-colorPrimary': {
       width: '100%',
       fontSize: '18px',

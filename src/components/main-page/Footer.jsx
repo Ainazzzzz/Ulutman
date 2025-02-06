@@ -13,6 +13,7 @@ const Footer = () => {
    return (
       <WrapperDiv>
          <TitleUlutman>Ulutman</TitleUlutman>
+
          <ContainerCategory>
             <div onClick={() => navigate('category/WORK')}>
                {t('user.layout.footer.work')}
@@ -58,6 +59,7 @@ const WrapperDiv = styled('footer')(({ theme }) => ({
    flexWrap: 'wrap',
 
    [theme.breakpoints.down('md')]: {
+      padding: '40px 16px',
       height: 'auto',
       gap: '40px',
       justifyContent: 'flex-start',
@@ -102,7 +104,7 @@ const TitleUlutman = styled('p')(({ theme }) => ({
       fontSize: '1.125rem',
       lineHeight: '23px',
       justifyContent: 'center',
-      padding: '24px',
+      paddingBottom: '24px',
    },
 }))
 const NumberContainer = styled('div')(({ theme }) => ({
