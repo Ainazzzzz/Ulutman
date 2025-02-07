@@ -79,6 +79,24 @@ export const CategoryTab = () => {
       }
    }
 
+   const deleteFavoriteMobile = id => {
+      dispatch(
+         removeFromFavorites({
+            id: id,
+            subCategory: subCategory.toLowerCase(),
+         }),
+      )
+   }
+
+   const handleAddFavoriteMobile = id => {
+      dispatch(
+         categoriesFavorite({
+            id: id,
+            subCategory: subCategory.toLowerCase(),
+         }),
+      )
+   }
+
    const findSubCategory = categoryTab.find(
       ({ category }) => category === subCategory,
    )
@@ -114,7 +132,6 @@ export const CategoryTab = () => {
          text: t(item.text),
       }
    })
-   console.log(categories)
 
    return (
       <Box>
@@ -134,21 +151,24 @@ export const CategoryTab = () => {
                      />
                   ))}
                </TabListStyle>
-               <div>
-                  {transformedSubCategory > 0 && !isMobile && (
-                     <AnnouncementsSorter
-                        onSortChange={handleSortChange}
-                        options={SORTY_CATEGORY_OPTIONS}
-                     />
-                  )}
-               </div>
             </BoxStyle>
+            <WrapperAnnouncementsSorter>
+               {transformedSubCategory.length > 0 && isMobile && (
+                  <AnnouncementsSorter
+                     onSortChange={handleSortChange}
+                     options={SORTY_CATEGORY_OPTIONS}
+                  />
+               )}
+            </WrapperAnnouncementsSorter>
 
             <TabPanelStyle value={value}>
                {isMobile ? (
                   <>
-                     <CardList cards={categories} />
-                     {/* Mobile does not show ads */}
+                     <CardList
+                        cards={categories}
+                        onDeleteById={deleteFavoriteMobile}
+                        onAddFavoriteById={handleAddFavoriteMobile}
+                     />
                   </>
                ) : (
                   <>
@@ -158,13 +178,13 @@ export const CategoryTab = () => {
                            handleToggleFavorite={handleToggleFavorite}
                         />
                      </MiniBlock>
-                     <WrapperAdvertising>
+                     {/* <WrapperAdvertising>
                         {advertising?.map(image => (
                            <div key={image.id}>
                               <AdvertisingCategory image={image.imageFile} />
                            </div>
                         ))}
-                     </WrapperAdvertising>
+                     </WrapperAdvertising> */}
                   </>
                )}
             </TabPanelStyle>
@@ -253,3 +273,9 @@ const MiniBlock = styled('div')(() => ({
    gap: '24px',
    width: '100%',
 }))
+
+const WrapperAnnouncementsSorter = styled('div')({
+   display: 'flex',
+   justifyContent: 'end',
+   marginTop: '30px',
+})

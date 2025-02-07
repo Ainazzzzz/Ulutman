@@ -211,7 +211,7 @@ const AddressText = styled('p')(({ theme }) => ({
    maxWidth: '180px',
 
    [theme.breakpoints.down('md')]: {
-      fontSize: '10px',
+      fontSize: '14px',
       fontWeight: '400',
    },
 }))

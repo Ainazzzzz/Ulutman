@@ -97,6 +97,7 @@ const StyledContainer = styled(Dialog)(({ theme, variant }) => ({
       [theme.breakpoints.down('md')]: {
          paddingLeft: '16px',
          paddingRight: '16px',
+         minWidth: '300px',
       },
    },
 

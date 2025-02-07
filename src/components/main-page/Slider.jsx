@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigation } from 'swiper/modules'
+import { Navigation, Autoplay } from 'swiper/modules'
 import { styled } from '@mui/material'
 import { useCallback, useEffect, useRef } from 'react'
 
@@ -32,11 +32,15 @@ const Slider = () => {
       <Wrapper>
          <StyledSwiper
             ref={sliderRef}
-            modules={[Navigation]}
+            modules={[Navigation, Autoplay]}
             slidesPerView="auto"
             spaceBetween={30}
             loop
             navigation={false}
+            autoplay={{
+               delay: 5000,
+               disableOnInteraction: false,
+            }}
          >
             {advertising.map(item => (
                <StyledSwiperSlide key={item.id}>
@@ -58,6 +62,7 @@ export default Slider
 
 const Wrapper = styled('div')({
    minHeight: '120px',
+   marginTop: '20px',
 })
 
 const StyledSwiper = styled(Swiper)(({ theme }) => ({
@@ -74,12 +79,22 @@ const StyledSwiperSlide = styled(SwiperSlide)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       width: '100%',
       height: 'auto',
+      display: 'flex',
+      justifyContent: 'center',
    },
 
    img: {
       width: '100%',
-      height: '100%',
       borderRadius: '10px',
+      objectFit: 'cover',
+      [theme.breakpoints.down('md')]: {
+         width: '90%',
+         height: '280px',
+      },
+      [theme.breakpoints.down('sm')]: {
+         width: '90%',
+         height: '180px',
+      },
    },
 }))
 
@@ -97,7 +112,7 @@ const PrevArrow = styled('div')(({ theme }) => ({
    cursor: 'pointer',
    left: '10%',
    [theme.breakpoints.down('md')]: {
-      left: '5%',
+      left: '10%',
    },
 }))
 
@@ -116,6 +131,6 @@ const NextArrow = styled('div')(({ theme }) => ({
    cursor: 'pointer',
    right: '10%',
    [theme.breakpoints.down('md')]: {
-      right: '5%',
+      right: '10%',
    },
 }))

@@ -111,32 +111,38 @@ export const CreateAdForm = () => {
    const [selectCategory, setSelectCategory] = useState({})
    const [fileName, setFileName] = useState('')
 
-   const { handleChange, errors, handleSubmit, values, setFieldValue } =
-      useFormik({
-         initialValues: {
-            title: '',
-            phoneNumber: '',
-            category: '',
-            subcategory: '',
-            images: [],
-            description: '',
-            metro: '',
-            address: '',
-            price: '',
-            bank: '',
-            paymentReceiptFile: [],
-         },
-         validationSchema: validationAdForm,
-         validateOnChange: false,
-         onSubmit: values => {
-            dispatch(
-               fetchPublishesUser({
-                  publishe: { userId: userData.userId, ...values },
-                  navigate,
-               }),
-            )
-         },
-      })
+   const {
+      handleChange,
+      errors,
+      handleSubmit,
+      values,
+      resetForm,
+      setFieldValue,
+   } = useFormik({
+      initialValues: {
+         title: '',
+         phoneNumber: '',
+         category: '',
+         subcategory: '',
+         images: [],
+         description: '',
+         metro: '',
+         address: '',
+         price: '',
+         bank: '',
+         paymentReceiptFile: [],
+      },
+      validationSchema: validationAdForm,
+      validateOnChange: false,
+      onSubmit: async values => {
+         const data = await dispatch(
+            fetchPublishesUser({
+               publishe: { userId: userData.userId, ...values },
+               navigate,
+            }),
+         ).unwrap()
+      },
+   })
 
    const onCategoryClick = useCallback(
       category => setSelectCategory(category),

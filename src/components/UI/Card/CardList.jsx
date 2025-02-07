@@ -10,18 +10,19 @@ import { SceletonCard } from './SceletonCard'
 import { Advertising } from './Advertising'
 import { SignIn } from '../../../pages/user/auth/SignIn'
 import { PATHS } from '../../../utils/constants/paths'
-import {
-   deleteFavoriteStatus,
-   updateFavoriteStatus,
-} from '../../../redux/main/mainThunk'
 import SignUp from '../../../pages/user/auth/signUp'
 import ForgotPassword from '../../../pages/user/auth/ForgotPassword'
 import ResetPassword from '../../../pages/user/auth/ResetPassword'
 
-export const CardList = ({ cards, advertising, loading }) => {
+export const CardList = ({
+   cards,
+   advertising,
+   loading,
+   onDeleteById,
+   onAddFavoriteById,
+}) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const { isAuth } = useSelector(state => state.auth)
-   const dispatch = useDispatch()
    const navigate = useNavigate()
    const { t } = useTranslation()
    const [openLogin, setOpenLogin] = useState({
@@ -33,7 +34,8 @@ export const CardList = ({ cards, advertising, loading }) => {
 
    const updateFavoriteHandler = id => {
       if (isAuth) {
-         dispatch(updateFavoriteStatus({ id, t }))
+         onAddFavoriteById(id)
+         // dispatch(updateFavoriteStatus({ id, t }))
       } else {
          setOpenLogin({
             ...openLogin,
@@ -44,7 +46,7 @@ export const CardList = ({ cards, advertising, loading }) => {
 
    const deleteFavoriteHandler = id => {
       if (isAuth) {
-         dispatch(deleteFavoriteStatus({ id, t }))
+         onDeleteById(id)
       } else {
          setOpenLogin({
             ...openLogin,

@@ -200,7 +200,7 @@ const DetailInfo = () => {
                   <Typography variant="h3" className="description_detail-info">
                      {t('user.detailInfo.description')}
                   </Typography>
-                  <Typography className="descriptioon-text">
+                  <Typography className="descriptioon-text" color="gray">
                      {isExpanded ? description : shortDescription}
                      {words.length > 20 && !isExpanded && '...'}
                   </Typography>
@@ -273,7 +273,10 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       display: 'flex',
       flexDirection: 'column',
       gap: '0.5rem',
-
+      [theme.breakpoints.down('md')]: {
+         paddingBottom: '10px',
+         borderBottom: '1px solid black',
+      },
       '& > .descriptioon-text': {
          marginTop: '0.6rem',
          fontSize: '18px',

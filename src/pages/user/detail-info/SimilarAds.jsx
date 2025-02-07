@@ -8,7 +8,11 @@ import { SORT_BY_CATEGROY_OPTIONS } from '../../../utils/constants'
 import { CardList } from '../../../components/UI/Card/CardList'
 import { Button } from '../../../components/UI/Button'
 import { getSimilarAds } from '../../../redux/datailInfo/detailInfoThunk'
-import { sortPublishesRequest } from '../../../redux/main/mainThunk'
+import {
+   deleteFavoriteStatus,
+   sortPublishesRequest,
+   updateFavoriteStatus,
+} from '../../../redux/main/mainThunk'
 
 export const SimilarAds = ({ currentCategory }) => {
    const dispatch = useDispatch()
@@ -46,6 +50,13 @@ export const SimilarAds = ({ currentCategory }) => {
       }
    }, [similarAds, currentCategory])
 
+   const handleDeleteFavorite = id => {
+      dispatch(deleteFavoriteStatus({ id, t }))
+   }
+   const handleAddFavorite = id => {
+      dispatch(updateFavoriteStatus({ id, t }))
+   }
+
    return (
       <Container>
          <div>
@@ -56,7 +67,11 @@ export const SimilarAds = ({ currentCategory }) => {
                   onSortChange={handleSortChange}
                />
             </Block>
-            <CardList cards={sortedAds.slice(0, 8)} />
+            <CardList
+               cards={sortedAds.slice(0, 8)}
+               onAddFavoriteById={handleAddFavorite}
+               onDeleteById={handleDeleteFavorite}
+            />
          </div>
          <Button variant="category-sort" onClick={seeMoreHandler}>
             {t('user.detailInfo.btn')}
@@ -78,7 +93,7 @@ const Title = styled('h2')(({ theme }) => ({
 const Block = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
-   [theme.breakpoints.down('md')]: {
+   [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
       gap: '10px',
    },

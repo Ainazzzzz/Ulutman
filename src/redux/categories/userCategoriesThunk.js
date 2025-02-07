@@ -136,7 +136,6 @@ export const searchByName = createAsyncThunk(
    async (title, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.get(`/main-page/search${title}`)
-         console.log(data)
 
          return data
       } catch (error) {
