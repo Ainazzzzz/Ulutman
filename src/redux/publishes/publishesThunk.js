@@ -28,18 +28,7 @@ export const fetchPublishesUser = createAsyncThunk(
                headers: {
                   'Content-Type': 'multipart/form-data',
                },
-               // params: {
-               //    title: 'Aziat',
-               //    description: 'description',
-               //    metro: 'БиблиотекаИмениЛенина',
-               //    address: 'Улица Крылова дом 1',
-               //    phoneNumber: '+71234567891',
-               //    price: 1234,
-               //    category: 'REAL_ESTATE',
-               //    subcategory: 'House',
-               //    bank: 'Уралсиб',
-               //    userId: 4,
-               // },
+
                params: { ...params, subcategory: params.subcategory.value },
             },
          )

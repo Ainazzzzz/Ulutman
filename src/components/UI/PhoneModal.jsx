@@ -1,8 +1,10 @@
 import React from 'react'
 import { styled } from '@mui/material'
 import Modal from './Modal'
+import { useTranslation } from 'react-i18next'
 
 export const PhoneModal = ({ handleClose, open, phoneNumber }) => {
+   const { t } = useTranslation()
    return (
       <Modal open={open} handleClose={handleClose} variant="phone">
          <Block>

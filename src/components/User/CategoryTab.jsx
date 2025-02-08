@@ -13,6 +13,7 @@ import { AdvertisingCategory } from './AdvertisingCategory'
 import AnnouncementsSorter from '../AnnouncementsSorter'
 import { CardList } from '../UI/Card/CardList'
 import { categoryTab } from '../../utils/constants/main'
+import NoData from '../../assets/icons/empty-data.svg?react'
 
 import {
    categoriesFavorite,
@@ -142,7 +143,7 @@ export const CategoryTab = () => {
                   onChange={handleChange}
                   variant={isMobile ? 'scrollable' : 'standard'}
                >
-                  <TabStyle label="Все" value="all" />
+                  <TabStyle label={t('global.sortCategory.all')} value="all" />
                   {transformedSubCategory.map(item => (
                      <TabStyle
                         key={item.id}
@@ -164,11 +165,13 @@ export const CategoryTab = () => {
             <TabPanelStyle value={value}>
                {isMobile ? (
                   <>
-                     <CardList
-                        cards={categories}
-                        onDeleteById={deleteFavoriteMobile}
-                        onAddFavoriteById={handleAddFavoriteMobile}
-                     />
+                     {categories.length > 0 ? (
+                        <CardList cards={categories} />
+                     ) : (
+                        <NoDataContainer>
+                           <NoData />
+                        </NoDataContainer>
+                     )}
                   </>
                ) : (
                   <>
@@ -273,9 +276,12 @@ const MiniBlock = styled('div')(() => ({
    gap: '24px',
    width: '100%',
 }))
-
-const WrapperAnnouncementsSorter = styled('div')({
+const NoDataContainer = styled('div')(() => ({
+   width: '100%',
    display: 'flex',
-   justifyContent: 'end',
-   marginTop: '30px',
-})
+   justifyContent: 'center',
+
+   svg: {
+      width: '40%',
+   },
+}))
