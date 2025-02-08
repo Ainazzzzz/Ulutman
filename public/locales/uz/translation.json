@@ -310,7 +310,8 @@
       "modal": {
          "title": "Siz o'chirishni xohlayotganingizga aminmisiz?",
          "cancelBtn": "Bekor qilish",
-         "deleteBtn": "O'chirish"
+         "deleteBtn": "O'chirish",
+         "phone": "Telefon raqami"
       },
       "favorite": {
          "title": "Tanlangan e'lonlar",

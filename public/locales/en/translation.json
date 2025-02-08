@@ -471,7 +471,8 @@
       "modal": {
          "title": "Are you sure you want to delete it?",
          "cancelBtn": "Cancel",
-         "deleteBtn": "Remove"
+         "deleteBtn": "Remove",
+         "phone": "Phone number"
       },
       "favorite": {
          "title": "Selected ads",

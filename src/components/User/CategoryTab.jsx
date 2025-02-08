@@ -13,6 +13,7 @@ import { AdvertisingCategory } from './AdvertisingCategory'
 import AnnouncementsSorter from '../AnnouncementsSorter'
 import { CardList } from '../UI/Card/CardList'
 import { categoryTab } from '../../utils/constants/main'
+import NoData from '../../assets/icons/empty-data.svg?react'
 
 import {
    categoriesFavorite,
@@ -142,7 +143,7 @@ export const CategoryTab = () => {
                   onChange={handleChange}
                   variant={isMobile ? 'scrollable' : 'standard'}
                >
-                  <TabStyle label="Все" value="all" />
+                  <TabStyle label={t('global.sortCategory.all')} value="all" />
                   {transformedSubCategory.map(item => (
                      <TabStyle
                         key={item.id}
@@ -164,11 +165,21 @@ export const CategoryTab = () => {
             <TabPanelStyle value={value}>
                {isMobile ? (
                   <>
+<<<<<<< HEAD
+                     {categories.length > 0 ? (
+                        <CardList cards={categories} />
+                     ) : (
+                        <NoDataContainer>
+                           <NoData />
+                        </NoDataContainer>
+                     )}
+=======
                      <CardList
                         cards={categories}
                         onDeleteById={deleteFavoriteMobile}
                         onAddFavoriteById={handleAddFavoriteMobile}
                      />
+>>>>>>> 0051cfb06da0a3541ac4313bca0c5722c6a6f501
                   </>
                ) : (
                   <>
@@ -273,9 +284,21 @@ const MiniBlock = styled('div')(() => ({
    gap: '24px',
    width: '100%',
 }))
+<<<<<<< HEAD
+const NoDataContainer = styled('div')(() => ({
+   width: '100%',
+   display: 'flex',
+   justifyContent: 'center',
+
+   svg: {
+      width: '40%',
+   },
+}))
+=======
 
 const WrapperAnnouncementsSorter = styled('div')({
    display: 'flex',
    justifyContent: 'end',
    marginTop: '30px',
 })
+>>>>>>> 0051cfb06da0a3541ac4313bca0c5722c6a6f501

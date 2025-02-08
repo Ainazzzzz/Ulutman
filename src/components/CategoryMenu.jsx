@@ -19,7 +19,7 @@ const CategoryMenu = ({ selectedCategory, setSelectedCategory }) => {
       setSelectedCategory(value)
    }
 
-   const handleCloseFn = () => handleClose('По умолчанию')
+   const handleCloseFn = () => handleClose(t('user.home.banner.form.category'))
 
    const handleCategorySearch = e => setCategorySearchText(e.target.value)
 
