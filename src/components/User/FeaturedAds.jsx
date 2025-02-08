@@ -43,7 +43,7 @@ export const FeaturedAds = () => {
       setIsOpenModal(!isOpenModal)
    }
    const onDeleteById = id => {
-      dispatch(deleteFavoritesById(id))
+      dispatch(deleteFavoritesById({ id, t }))
    }
 
    useEffect(() => {

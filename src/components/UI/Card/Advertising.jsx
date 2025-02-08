@@ -6,6 +6,7 @@ export const Advertising = ({ image }) => {
 
 const Image = styled(CardMedia)(() => ({
    width: '118px',
-   minHeight: '200px',
+   // minHeight: '200px',
    borderRadius: '8px',
+   objectFit: 'cover',
 }))

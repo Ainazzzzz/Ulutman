@@ -9,7 +9,9 @@ import Calling from '../../assets/icons/calling.svg?react'
 const Footer = () => {
    const { t } = useTranslation()
    const navigate = useNavigate()
-
+   const phoneNumber = '79032631865'
+   const message = 'Здравствуйте!'
+   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
    return (
       <WrapperDiv>
          <TitleUlutman>Ulutman</TitleUlutman>
@@ -41,7 +43,16 @@ const Footer = () => {
             <div>
                <CallingIcon />
             </div>
-            <NumverTitle>+7(903) 263 18 65</NumverTitle>
+            <NumverTitle>
+               <a
+                  style={{ color: 'rgb(40, 40, 40)', textDecoration: 'none' }}
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+               >
+                  +7(903) 263 18
+               </a>
+            </NumverTitle>
          </NumberContainer>
       </WrapperDiv>
    )
@@ -136,6 +147,9 @@ const CallingIcon = styled(Calling)(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       width: '1.125rem',
       height: '1.125rem',
+   },
+   '& a': {
+      color: 'rgb(40, 40, 40)',
    },
 }))
 
