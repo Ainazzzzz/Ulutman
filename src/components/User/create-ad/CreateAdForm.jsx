@@ -127,12 +127,13 @@ export const CreateAdForm = () => {
             paymentReceiptFile: [],
          },
          validationSchema: validationAdForm,
-         validateOnChange: false,
+         validateOnChange: true,
          onSubmit: values => {
             dispatch(
                fetchPublishesUser({
                   publishe: { userId: userData.userId, ...values },
                   navigate,
+                  t,
                }),
             )
          },

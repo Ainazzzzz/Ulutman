@@ -13,11 +13,13 @@ import { IconButton } from '../IconButton'
 import Modal from './Modal'
 import { PhoneNumberSingle, TitlePhone, WrapperPhone } from './Card/CardItem'
 import { PATHS } from '../../utils/constants/paths'
+import { useTranslation } from 'react-i18next'
 
 export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const [phoneModal, setPhoneModal] = useState('')
    const navigate = useNavigate()
+   const { t } = useTranslation()
 
    const handleNavigateDetail = id => {
       navigate(PATHS.USER.DETAILS.replace(':id', id))
@@ -102,7 +104,7 @@ export const CategoryCard = ({ categories = [], handleToggleFavorite }) => {
                            handleClose={handleClose}
                         >
                            <WrapperPhone>
-                              <TitlePhone>Номер телефона</TitlePhone>
+                              <TitlePhone>{t('user.modal.phone')}</TitlePhone>
                               <PhoneNumberSingle>
                                  {item.phoneNumber}
                               </PhoneNumberSingle>

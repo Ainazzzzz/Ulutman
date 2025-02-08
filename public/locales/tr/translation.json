@@ -310,7 +310,8 @@
       "modal": {
          "title": "Silmek istediğinize emin misiniz?",
          "cancelBtn": "İptal et",
-         "deleteBtn": "Kaldırmak"
+         "deleteBtn": "Kaldırmak",
+         "phone": "Telefon numarası"
       },
       "favorite": {
          "title": "Öne çıkan Reklamlar",
