@@ -7,7 +7,7 @@ export const PhoneModal = ({ handleClose, open, phoneNumber }) => {
       <Modal open={open} handleClose={handleClose} variant="phone">
          <Block>
             <p>Номер телефона</p>
-            <span>{phoneNumber}</span>
+            <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
          </Block>
       </Modal>
    )
@@ -24,7 +24,7 @@ const Block = styled('div')(() => ({
       fontWeight: '400',
       color: '#202020',
    },
-   span: {
+   a: {
       fontFamily: 'Inter',
       fontSize: '24px',
       fontWeight: '500',
