@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { styled, useMediaQuery } from '@mui/material'
-import AdminHeader from '../../components/Admin/AdminHeader'
 import { SideBar } from '../../components/UI/SideBar'
+import { AdminHeaderzb } from '../../components/admin/AdminHeaderZb'
 
 export const AdminLayout = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
@@ -11,7 +11,7 @@ export const AdminLayout = () => {
          {!isMobile && <SideBar />}
 
          <Cont>
-            <AdminHeader />
+            <AdminHeaderzb />
             <Outlet />
          </Cont>
       </Nav>

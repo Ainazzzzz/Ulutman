@@ -10,12 +10,11 @@ import GoOut from '../../assets/icons/goout.svg?react'
 import Users from '../../assets/icons/usersicon.svg?react'
 import Announcement from '../../assets/icons/announcement.svg?react'
 import Category from '../../assets/icons/category.svg?react'
-import Modearation from '../../assets/icons/moderation.svg?react'
 
 import LogOutModal from '../UI/LogOutModal'
 import { IconButton } from '../IconButton'
 
-const AdminHeader = () => {
+export const AdminHeaderzb = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
    const [openMenu, setOpenMenu] = useState(null)
    const [openLogOutModal, setOpenLogOutModal] = useState(false)
@@ -126,8 +125,6 @@ const AdminHeader = () => {
       </>
    )
 }
-
-export default AdminHeader
 
 const WrapperAdminHeader = styled('div')(({ theme }) => ({
    background: 'rgb(255, 255, 255);',
