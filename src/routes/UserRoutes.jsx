@@ -1,7 +1,7 @@
 import { Categories } from '../components/Categories'
-import { CategoryTab } from '../components/User/CategoryTab'
-import { FeaturedAds } from '../components/User/FeaturedAds'
-import { Profile } from '../components/User/Profile'
+import { CategoryTab } from '../components/user/CategoryTab'
+import { FeaturedAds } from '../components/user/FeaturedAds'
+import { Profile } from '../components/user/Profile'
 import { MainPage } from '../pages/MainPage'
 import AdversitingPage from '../pages/user/AdversitingPage'
 import { CreateAdPage } from '../pages/user/CreateAdPage'
@@ -11,7 +11,7 @@ import DetailInfo from '../pages/user/detail-info/DetailInfo'
 import { SearchMainPage } from '../pages/user/SearchMainPage'
 import { PATHS } from '../utils/constants/paths'
 import { PrivateAuthRouteByRole } from './private/PrivateAuthRouteByRole'
-import { Ads } from '../components/User/Ads'
+import { Ads } from '../components/user/Ads'
 
 export const UserRoutes = role => [
    {
