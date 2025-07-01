@@ -2,7 +2,7 @@
 // * eslint-disable import/no-cycle */
 import { useState } from 'react'
 import { Grid, styled, useMediaQuery } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CardItem } from './CardItem'
