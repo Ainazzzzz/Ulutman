@@ -36,7 +36,6 @@ export const Ads = () => {
 
    const secondTab = [
       { value: '1', label: `${t('user.myAds.label1')} (${activeAdsCount})` },
-      // { value: '2', label: `${t('user.myAds.label2')} (${rejectedAdsCount})` },
       { value: '3', label: `${t('user.myAds.label3')} (${myAdsCount})` },
    ]
 

@@ -79,14 +79,6 @@ export const MainPage = () => {
                   onDeleteById={handleDeleteFavorite}
                   onAddFavoriteById={handleAddFavorite}
                />
-               {/* <div>
-                  {isMobile &&
-                     advertising?.map(image => (
-                        <WrapperAdvertising key={image.id}>
-                           <AdvertisingCategory image={image.imageFile} />
-                        </WrapperAdvertising>
-                     ))}
-               </div> */}
             </CardAdvetisinBox>
             {hasPublishes && (
                <Button variant="category-sort" onClick={seeMoreHandler}>

@@ -1,10 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { styled } from '@mui/material'
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import Calling from '../../assets/icons/calling.svg?react'
+import WhatsappIcon from '../../assets/icons/whatsapp-icon.svg?react'
 
 const Footer = () => {
    const { t } = useTranslation()
@@ -50,7 +49,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                >
-                  +7(903) 263 18
+                  +7 965 151-80-04
                </a>
             </NumverTitle>
          </NumberContainer>
@@ -127,6 +126,10 @@ const NumberContainer = styled('div')(({ theme }) => ({
    gap: '8px',
    justifyContent: 'flex-start',
    alignItems: 'center',
+   '& > div': {
+      display: 'flex',
+      alignItems: 'center',
+   },
    [theme.breakpoints.down('md')]: {
       gap: '4px',
       justifyContent: 'flex-start',
@@ -141,28 +144,14 @@ const NumverTitle = styled('div')(({ theme }) => ({
       fontSize: '1rem',
    },
 }))
-const CallingIcon = styled(Calling)(({ theme }) => ({
-   width: '21px',
-   height: '21px',
+const CallingIcon = styled(WhatsappIcon)(({ theme }) => ({
+   width: '24px',
+   height: '24px',
    [theme.breakpoints.down('md')]: {
-      width: '1.125rem',
-      height: '1.125rem',
+      width: '1.225rem',
+      height: '1.225rem',
    },
    '& a': {
       color: 'rgb(40, 40, 40)',
    },
 }))
-
-// const NavItem = styled(NavLink)(() => ({
-//    color: '#222',
-//    textDecoration: 'none',
-//    cursor: 'pointer',
-
-//    ':hover': {
-//       textDecoration: 'underline',
-//    },
-
-//    '&.active': {
-//       textDecoration: 'underline',
-//    },
-// }))

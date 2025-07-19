@@ -19,7 +19,7 @@ export const MyPage = () => {
                to={PATHS.USER.MY_ADS}
                className={({ isActive }) => (isActive ? 'active' : '')}
             >
-               {t('user.myPage.myAds')}
+               {t('user.myPage.myAds')} 
             </StyledNavLink>
             <StyledNavLinkLast
                to="/user"
