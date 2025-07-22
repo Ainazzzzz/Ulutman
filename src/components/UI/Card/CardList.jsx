@@ -2,12 +2,11 @@
 // * eslint-disable import/no-cycle */
 import { useState } from 'react'
 import { Grid, styled, useMediaQuery } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CardItem } from './CardItem'
 import { SceletonCard } from './SceletonCard'
-import { Advertising } from './Advertising'
 import { SignIn } from '../../../pages/user/auth/SignIn'
 import { PATHS } from '../../../utils/constants/paths'
 import SignUp from '../../../pages/user/auth/signUp'
@@ -35,7 +34,6 @@ export const CardList = ({
    const updateFavoriteHandler = id => {
       if (isAuth) {
          onAddFavoriteById(id)
-         // dispatch(updateFavoriteStatus({ id, t }))
       } else {
          setOpenLogin({
             ...openLogin,
