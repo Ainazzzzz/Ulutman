@@ -45,6 +45,7 @@ export const CategoryTab = () => {
    const dispatch = useDispatch()
 
    const { categories, isLoading } = useSelector(state => state.userCategories)
+      const { advertising } = useSelector(state => state.advertising)
 
    const { subCategory } = useParams()
 
