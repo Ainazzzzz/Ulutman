@@ -11,7 +11,7 @@ import { Button } from '../../../components/UI/Button'
 import { createSignUpSchema } from '../../../utils/general/validation/authValidation'
 import { signUp } from '../../../redux/auth/authThunk'
 import Spinner from '../../../components/UI/Spinner'
-import GoogleAuth from './GoogleAuth'
+// import GoogleAuth from './GoogleAuth'
 
 const signUpInputs = [
    {
@@ -102,7 +102,7 @@ const SignUp = ({ open, onClose, openSignIn }) => {
             ) : (
                <Button type="submit">{t('signUp.title')}</Button>
             )}
-            <GoogleAuth />
+            {/* <GoogleAuth /> */}
 
             <Typography display="flex" gap={1}>
                {t('signUp.account')}

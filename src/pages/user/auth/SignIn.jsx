@@ -9,7 +9,7 @@ import { Button } from '../../../components/UI/Button'
 import { signIn } from '../../../redux/auth/authThunk'
 import CloseIcon from '../../../assets/icons/cross-icon.svg?react'
 import Spinner from '../../../components/UI/Spinner'
-import GoogleAuth from './GoogleAuth'
+// import GoogleAuth from './GoogleAuth'
 
 export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
    const dispatch = useDispatch()
@@ -94,7 +94,7 @@ export const SignIn = ({ open, onClose, openSignUp, openForgotPassword }) => {
                <Button type="submit">{t('signIn.enter')}</Button>
             )}
             <Wrapper>
-               <GoogleAuth onClose={onClose} />
+               {/* <GoogleAuth onClose={onClose} /> */}
                <NavLink
                   style={{
                      color: '#7E52FF',
