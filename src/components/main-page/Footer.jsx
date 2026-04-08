@@ -41,7 +41,6 @@ const Footer = () => {
          <NumberContainer>
             <div>
                <CallingIcon />
-               p
             </div>
             <NumverTitle>
                <a
