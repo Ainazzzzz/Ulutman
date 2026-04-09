@@ -1,5 +1,11 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, { useCallback, useEffect, useMemo, useReducer } from 'react'
+import React, {
+   useCallback,
+   useEffect,
+   useMemo,
+   useReducer,
+   useState,
+} from 'react'
 import { styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter'
@@ -74,7 +80,7 @@ const reducer = (state, action) => {
 const Ads = () => {
    const [state, dispatchFunc] = useReducer(reducer, initialState)
    const dispatch = useDispatch()
-
+   const [selectedAdData, setSelectedAdData] = useState(null)
    const debouncedName = useDebounce(state.inputValues.name, 1500)
 
    const { adminAdds, isLoading } = useSelector(state => state.adminAdds)
@@ -122,6 +128,10 @@ const Ads = () => {
    const toggleModal = useCallback(modalType => {
       dispatchFunc({ type: 'TOGGLE_MODAL', payload: modalType })
    }, [])
+   const openWaitingModal = ad => {
+      setSelectedAdData(ad) // сохраняем выбранное объявление
+      toggleModal('waitingModal') // открываем модалку
+   }
 
    const setValues = useCallback((field, payload) => {
       dispatchFunc({ type: 'SET_VALUES', field, payload })
@@ -189,9 +199,8 @@ const Ads = () => {
    ]
 
    const headers = useMemo(
-      () =>
-         getAdminTableHeaders(() => toggleModal('waitingModal'), ADS_COLUMNS),
-      [toggleModal],
+      () => getAdminTableHeaders(openWaitingModal, ADS_COLUMNS, 'user'),
+      [openWaitingModal],
    )
 
    return (
@@ -228,6 +237,7 @@ const Ads = () => {
 
          <WaitingModal
             isOpen={state.waitingModal}
+            adData={selectedAdData}
             onClose={() => {
                toggleModal('waitingModal')
             }}

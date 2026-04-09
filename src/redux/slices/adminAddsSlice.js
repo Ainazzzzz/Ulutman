@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAdminAdds, getName, getAdminFilter } from '../thunks/adminAddThunk'
+import {
+   getAdminAdds,
+   getName,
+   getAdminFilter,
+   activateAdminAd,
+} from '../thunks/adminAddThunk'
 
 export const addsAdminSlice = createSlice({
    name: 'adminAdds',
    initialState: {
       adminAdds: [],
+      activateLoading: false,
       isLoading: false,
    },
    reducers: {
@@ -37,7 +43,16 @@ export const addsAdminSlice = createSlice({
          .addCase(getAdminAdds.rejected, state => {
             state.isLoading = false
          })
-
+      builder
+         .addCase(activateAdminAd.pending, state => {
+            state.activateLoading = true
+         })
+         .addCase(activateAdminAd.fulfilled, state => {
+            state.activateLoading = false
+         })
+         .addCase(activateAdminAd.rejected, state => {
+            state.activateLoading = false
+         })
       builder
          .addCase(getName.fulfilled, (state, { payload }) => {
             state.adminAdds = payload

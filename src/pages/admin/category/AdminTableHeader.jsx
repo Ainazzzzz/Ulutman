@@ -23,16 +23,11 @@ export const getAdminTableHeaders = (
                const userData = row.original
 
                const openModal = () => {
-                  value === 'ОЖИДАЕТ'
-                     ? handleOpenWaitingModal()
-                     : type === 'user'
-                       ? handleOpenWaitingModal()
-                       : undefined
-
-                  if (type === 'user') {
-                     setData(userData)
+                  if (type === 'user' && value === 'ОЖИДАЕТ') {
+                     handleOpenWaitingModal(userData)
                   }
                }
+               setData
 
                let color
                let IconComponent = null
