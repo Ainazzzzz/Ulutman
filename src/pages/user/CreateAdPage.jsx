@@ -31,10 +31,11 @@ export const CreateAdPage = () => {
             <UnorderedList>
                <li>{t('user.createAds.information.infoList5')}</li>
                <li>{t('user.createAds.information.infoList6')}</li>
+               <li>{t('user.createAds.information.infoList7')}</li>
             </UnorderedList>
 
-            <Paragraph>{t('user.createAds.information.infoList7')}</Paragraph>
             <Paragraph>{t('user.createAds.information.infoList8')}</Paragraph>
+            <Paragraph>{t('user.createAds.information.infoList9')}</Paragraph>
          </Container>
          <CreateAdForm />
       </Wrapper>

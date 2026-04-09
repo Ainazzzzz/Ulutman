@@ -33,5 +33,6 @@ export const favoriteSlice = createSlice({
             const productId = action.payload
             delete state.favoriteProducts[productId]
          })
+         
    },
 })

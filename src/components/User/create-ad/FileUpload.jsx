@@ -1,26 +1,45 @@
-import React from 'react'
 
+
+import React, { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Box, Typography, IconButton, styled } from '@mui/material'
-import { useTranslation } from 'react-i18next'
 import CloseIcon from '../../../assets/icons/close-icon.svg?react'
 import { CameraIcon } from '../../../pages/Admin/mailing/MailingFormStyles'
+import { useTranslation } from 'react-i18next'
 
-const FileUpload = ({ setImageFiles, imageFiles, errors }) => {
+const FileUpload = ({ imageFiles = [], setImageFiles, errors }) => {
    const { t } = useTranslation()
+
+   const safeFiles = Array.isArray(imageFiles) ? imageFiles : []
+
+   const [previews, setPreviews] = useState([])
+
+   useEffect(() => {
+      const urls = safeFiles.map(file => ({
+         file,
+         url: URL.createObjectURL(file),
+      }))
+
+      setPreviews(urls)
+
+      return () => {
+         urls.forEach(item => URL.revokeObjectURL(item.url))
+      }
+   }, [safeFiles])
+
    const onDrop = acceptedFiles => {
-      const validFiles = acceptedFiles.filter(file =>
+      const validFiles = Array.from(acceptedFiles).filter(file =>
          ['image/jpeg', 'image/png', 'image/gif'].includes(file.type),
       )
 
-      const updatedFiles = [...imageFiles, ...validFiles]
-      setImageFiles('images', updatedFiles)
+      const updatedFiles = [...safeFiles, ...validFiles].slice(0, 6)
+
+      setImageFiles(updatedFiles) 
    }
 
    const handleRemoveImage = index => {
-      const updatedFiles = imageFiles.filter((_, i) => i !== index)
-
-      setImageFiles('images', updatedFiles)
+      const updatedFiles = safeFiles.filter((_, i) => i !== index)
+      setImageFiles(updatedFiles)
    }
 
    const { getRootProps, getInputProps } = useDropzone({
@@ -29,54 +48,48 @@ const FileUpload = ({ setImageFiles, imageFiles, errors }) => {
          'image/png': [],
          'image/gif': [],
       },
-      onDrop,
       multiple: true,
+      onDrop,
    })
 
    return (
       <Box>
          <ImageContainer>
-            {imageFiles?.map((file, i) => (
-               <ImageWrapper key={crypto.randomUUID()}>
-                  <ImagePreview
-                     src={URL.createObjectURL(file)}
-                     alt="Upload file"
-                  />
+            {previews.map((item, i) => (
+               <ImageWrapper key={item.url}>
+                  <ImagePreview src={item.url} alt="preview" />
+
                   <IconButton
                      size="small"
                      sx={{
                         position: 'absolute',
                         top: 8,
                         right: 8,
-                        color: 'white',
+                        color: '#fff',
+                        background: '#00000066',
+                        '&:hover': { background: '#00000099' },
                      }}
                      onClick={() => handleRemoveImage(i)}
                   >
-                     <CloseIcon fontSize="small" />
+                     <CloseIcon />
                   </IconButton>
-                  {file === 0 && (
-                     <MainPhotoButton>
-                        {t(
-                           'user.createAds.newCreateAdFrom.uploadPhoto.uploadImage',
-                        )}
-                     </MainPhotoButton>
-                  )}
+
+               
                </ImageWrapper>
             ))}
-            {imageFiles?.length < 6 && (
-               <StyledBox
-                  textAlign="center"
-                  p={2}
-                  borderRadius={2}
-                  {...getRootProps()}
-               >
+
+            {safeFiles.length <= 6 && (
+               <StyledBox {...getRootProps()}>
                   <input {...getInputProps()} />
+
                   <CameraIcon fontSize="large" />
-                  <Typography variant="body1">
+
+                  <Typography>
                      {t(
                         'user.createAds.newCreateAdForm.uploadPhoto.uploadTitle',
                      )}
                   </Typography>
+
                   <Typography variant="body2" color="textSecondary">
                      {t(
                         'user.createAds.newCreateAdForm.uploadPhoto.uploadDescription',
@@ -84,17 +97,13 @@ const FileUpload = ({ setImageFiles, imageFiles, errors }) => {
                   </Typography>
                </StyledBox>
             )}
-            {errors && (
-               <Typography color="error" variant="caption">
-                  {errors}
-               </Typography>
-            )}
          </ImageContainer>
       </Box>
    )
 }
 
 export default FileUpload
+
 
 const StyledBox = styled(Box)({
    background: '#7E52FF1A',
@@ -104,6 +113,8 @@ const StyledBox = styled(Box)({
    flexDirection: 'column',
    justifyContent: 'center',
    alignItems: 'center',
+   borderRadius: 8,
+   cursor: 'pointer',
 })
 
 const ImageContainer = styled(Box)(({ theme }) => ({
@@ -111,6 +122,7 @@ const ImageContainer = styled(Box)(({ theme }) => ({
    display: 'grid',
    gridTemplateColumns: 'repeat(3, 1fr)',
    gap: '20px',
+
    [theme.breakpoints.down('md')]: {
       gridTemplateColumns: 'repeat(2, 1fr)',
    },
@@ -128,27 +140,9 @@ const ImageWrapper = styled(Box)({
 })
 
 const ImagePreview = styled('img')({
-   objectFit: 'contain',
+   objectFit: 'cover',
    width: '100%',
    height: '100%',
-   borderRadius: '10px',
-   border: '1px solid #00000027',
 })
 
-const MainPhotoButton = styled(Box)({
-   width: '106px',
-   height: '29px',
-   display: 'flex',
-   alignItems: 'center',
-   justifyContent: 'center',
-   position: 'absolute',
-   bottom: '18px',
-   left: '50%',
-   transform: 'translateX(-50%)',
-   backgroundColor: '#7E52FF',
-   color: '#FFFFFF',
-   padding: '2px 6px',
-   borderRadius: 4,
-   fontSize: '0.75rem',
-   fontWeight: '400',
-})
+

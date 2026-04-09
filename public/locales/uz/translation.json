@@ -157,8 +157,9 @@
             "infoList4": " Qoidalarni buzish reklamani o'chirishga va hisobni blokirovka qilishga olib kelishi mumkin.",
             "infoList5": " Ijara va toifasi uchun: 1000 rubl.",
             "infoList6": " Mehmonxona toifasi uchun: 2000 rubl.",
-            "infoList7": " Reklama bannerining ko'rinishi: 50% dan.",
-            "infoList8": " Bannerni birinchi o'ringa ko'tarish qobiliyati: har 24 soatda."
+            "infoList7": " Ko'chmas mulk toifasi uchun: 2000 rubl.",
+            "infoList8": " Reklama bannerining ko'rinishi: 50% dan.",
+            "infoList9": " Bannerni birinchi o'ringa ko'tarish qobiliyati: har 24 soatda."
          },
          "newCreateAdForm": {
             "title": "Nomi",

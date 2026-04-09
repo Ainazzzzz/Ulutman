@@ -331,8 +331,9 @@
             "infoList4": "Violation of the rules may lead to the removal of the ad and account blocking.",
             "infoList5": "For the Rental category: 1000 rubles.",
             "infoList6": "For the Hotel category: 2000 rubles.",
-            "infoList7": "Advertising banner visibility: from 50%.",
-            "infoList8": " The opportunity to raise the banner to the first position: every 24 hours."
+            "infoList7": "For the Real estate category: 2000 rubles.",
+            "infoList8": "Advertising banner visibility: from 50%.",
+            "infoList9": " The opportunity to raise the banner to the first position: every 24 hours."
          },
          "newCreateAdForm": {
             "title": "Title",

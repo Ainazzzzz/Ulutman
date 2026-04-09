@@ -118,13 +118,13 @@ export const CreateAdForm = () => {
             phoneNumber: '',
             category: '',
             subcategory: '',
-            images: [],
             description: '',
             metro: '',
             address: '',
             price: '',
             bank: '',
             paymentReceiptFile: [],
+            images: [],
          },
          validationSchema: validationAdForm,
          validateOnChange: true,
@@ -204,9 +204,10 @@ export const CreateAdForm = () => {
 
             <div>
                <FileUpload
-                  imageFiles={values.images}
-                  setImageFiles={setFieldValue}
                   error={errors.images}
+                  imageFiles={values.images}
+                  setImageFiles={files => setFieldValue('images', files)}
+                  errors={errors.images}
                />
                {errors.images && (
                   <ErrorText color="error" variant="caption">

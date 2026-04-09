@@ -33,7 +33,7 @@ export const deleteFavoritesById = createAsyncThunk(
    'favorite/deleteFavoritesById',
    async ({ id, t }, { rejectWithValue, dispatch }) => {
       try {
-         const { data } = axiosInstance.delete(`/deleteFromFavorites/${id}`)
+         const { data } =  await axiosInstance.delete(`/deleteFromFavorites/${id}`)
          showToast('success', t('toast.favorite.deleteSuccess'))
          dispatch(getAllFavorites())
          return data

@@ -158,8 +158,9 @@
             "infoList4": " Kuralların ihlali, reklamın silinmesine ve hesabın askıya alınmasına neden olabilir.",
             "infoList5": " Kategori için Kiralama: 1000 ruble.",
             "infoList6": " Kategori için Otel: 2000 ruble.",
-            "infoList7": " Reklam afişinin görünürlüğü:% 50'den itibaren.",
-            "infoList8": " Afişi ilk konuma kaldırma yeteneği: her 24 saatte bir."
+            "infoList7": " Kategori için Gayrimenkul : 2000 ruble.",
+            "infoList8": " Reklam afişinin görünürlüğü:% 50'den itibaren.",
+            "infoList9": " Afişi ilk konuma kaldırma yeteneği: her 24 saatte bir."
          },
          "newCreateAdForm": {
             "title": "Ad",
