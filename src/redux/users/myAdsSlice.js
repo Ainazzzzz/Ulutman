@@ -10,7 +10,7 @@ export const myAdsSlice = createSlice({
    name: 'myAds',
    initialState: {
       activeAds: [],
-      rejectedAds: [],
+      myAdvertising: [],
       myAds: [],
       favoriteCounts: 0,
       raisingPublication: [],
@@ -26,14 +26,16 @@ export const myAdsSlice = createSlice({
             state.myAds = action.payload.filter(ad => ad.myAds)
          })
          .addCase(myAdvertising.fulfilled, (state, action) => {
-            state.myAds = action.payload
+            state.myAdvertising = action.payload
          })
+
          .addCase(RaisingPublication.fulfilled, (state, action) => {
             state.raisingPublication = action.payload
          })
 
          .addCase(deleteSelectedAds.fulfilled, (state, action) => {
             const idsToDelete = action.payload
+
             state.activeAds = state.activeAds.filter(
                ad => !idsToDelete.includes(ad.id),
             )

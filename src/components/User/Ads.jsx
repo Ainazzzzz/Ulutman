@@ -8,11 +8,7 @@ import DeleteIcon from '../../assets/icons/delete.svg?react'
 import { MyAds } from './MyAds'
 import TabsUi from '../UI/TabsUi'
 import { DeleteMyAdsModal } from './DeleteMyAdsModal'
-import {
-   getMyAds,
-   getRejectedPublishes,
-   myAdvertising,
-} from '../../redux/users/myAdsThunk'
+import { getMyAds, myAdvertising } from '../../redux/users/myAdsThunk'
 
 export const Ads = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
@@ -27,16 +23,16 @@ export const Ads = () => {
 
    const activeAdsCount = useSelector(state => state.myAds.activeAds.length)
 
-   const rejectedAdsCount = useSelector(state => state.myAds.rejectedAds.length)
-   const myAdsCount = useSelector(state => state.myAds.rejectedAds.length)
+   const myAdsCount = useSelector(state => state.myAds.myAdvertising.length)
 
-   const myAds = useSelector(state =>
-      activeTab === '1' ? state.myAds.activeAds : state.myAds.rejectedAds,
-   )
+   const myAds = useSelector(state => {
+      if (activeTab === '1') return state.myAds.activeAds
+      if (activeTab === '3') return state.myAds.myAdvertising
+      return []
+   })
 
    const secondTab = [
       { value: '1', label: `${t('user.myAds.label1')} (${activeAdsCount})` },
-      // { value: '2', label: `${t('user.myAds.label2')} (${rejectedAdsCount})` },
       { value: '3', label: `${t('user.myAds.label3')} (${myAdsCount})` },
    ]
 
@@ -49,11 +45,11 @@ export const Ads = () => {
    const handleTabChange = tabValue => {
       setActiveTab(tabValue)
 
-      tabValue === '1'
-         ? dispatch(getMyAds())
-         : tabValue === '2'
-           ? dispatch(getRejectedPublishes())
-           : dispatch(myAdvertising())
+      if (tabValue === '1') {
+         dispatch(getMyAds())
+      } else if (tabValue === '3') {
+         dispatch(myAdvertising())
+      }
    }
 
    useEffect(() => {
@@ -127,6 +123,7 @@ export const Ads = () => {
             selectedIds={selectedIds}
             setSelectedIds={setSelectedIds}
             myAds={myAds}
+            variant={activeTab === '3' ? 'image' : 'full'}
          />
          {isModalOpen && (
             <DeleteMyAdsModal userId={userId} selectedIds={selectedIds} />

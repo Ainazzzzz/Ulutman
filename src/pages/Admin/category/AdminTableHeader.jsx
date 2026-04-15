@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-expressions */
 import { styled } from '@mui/material'
 import { green, red, orange } from '@mui/material/colors'
-import WaitIcon from '../../../assets/icons/address-icon.svg?react'
+// import WaitIcon from '../../../assets/icons/address-icon.svg?react'
 
 export const getAdminTableHeaders = (
    handleOpenWaitingModal,
@@ -50,7 +50,7 @@ export const getAdminTableHeaders = (
                      break
                   case 'ОЖИДАЕТ':
                      color = orange[500]
-                     IconComponent = WaitIcon
+                     // IconComponent = WaitIcon
                      break
                   default:
                      color = 'inherit'

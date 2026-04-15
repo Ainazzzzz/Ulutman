@@ -12,7 +12,12 @@ import Call from '../../assets/icons/call-icon.svg?react'
 import { RaisingPublication } from '../../redux/users/myAdsThunk'
 import { PhoneModal } from '../UI/PhoneModal'
 
-export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
+export const MyAds = ({
+   selectedIds,
+   setSelectedIds,
+   myAds,
+   variant = 'full',
+}) => {
    const dispatch = useDispatch()
    const [openPhoneModal, setOpenPhoneModal] = useState(false)
    const { t } = useTranslation()
@@ -31,66 +36,82 @@ export const MyAds = ({ selectedIds, setSelectedIds, myAds }) => {
       setOpenPhoneModal(!openPhoneModal)
    }
 
+  
    return (
       <CONTAINER>
          {myAds.length === 0 ? (
             <p>{t('user.myAds.myAdsMessage')}</p>
+         ) : variant === 'image' ? (
+            <WrapperAdvertising>
+               {myAds.map(item => (
+                  <WrapperAdvertisingCard key={item.id}>
+                     <CheckBox
+                        checked={selectedIds.includes(item.id)}
+                        onChange={() => handleCheckboxChange(item.id)}
+                     />
+                     <ImageStyleAdvertising
+                        src={item.images?.[0] || item.imageFile}
+                        alt="room-image"
+                     />
+                  </WrapperAdvertisingCard>
+               ))}
+            </WrapperAdvertising>
          ) : (
-            myAds.map(item => {
-               return (
-                  <Wrapper key={item.id}>
-                     <BigBox>
-                        <CheckBox
-                           checked={selectedIds.includes(item.id)}
-                           onChange={() => handleCheckboxChange(item.id)}
+            myAds.map(item => (
+               <Wrapper key={item.id}>
+                  <BigBox>
+                     <CheckBox
+                        checked={selectedIds.includes(item.id)}
+                        onChange={() => handleCheckboxChange(item.id)}
+                     />
+                     <Box>
+                        <ImageStyle
+                           src={item.images?.[0] || item.imageFile}
+                           alt="room-image"
                         />
-                        <Box>
-                           <ImageStyle src={item.images[0]} alt="room-image" />
-                           <Container>
-                              <Title>{item.title}</Title>
-                              <FirstBlock>
-                                 <MiniBlock>
-                                    <Clock />
-                                    <span>{item.createDate}</span>
-                                 </MiniBlock>
-                              </FirstBlock>
-                              <SecondBlock>
-                                 <SecondMiniBlock>
-                                    <Favorite />
-                                    <span>{item.favoriteCount}</span>
-                                 </SecondMiniBlock>
-                                 <SecondMiniBlock>
-                                    <Call onClick={handleOpenPhoneModal} />
-                                    {openPhoneModal && <PhoneModal />}
-                                 </SecondMiniBlock>
-                              </SecondBlock>
-                           </Container>
-                        </Box>
-                     </BigBox>
-                     <AnotherContainer>
-                        <AnotherBlock>
-                           <p
-                              onClick={() => {
-                                 handleRaising(item.id)
-                              }}
-                              style={{
-                                 cursor: !item.timeToNextBoost
-                                    ? 'pointer'
-                                    : 'not-allowed',
-                                 color: !item.timeToNextBoost
-                                    ? 'black'
-                                    : 'gray',
-                              }}
-                           >
-                              {!item.timeToNextBoost
-                                 ? 'Поднять'
-                                 : item.timeToNextBoost}
-                           </p>
-                        </AnotherBlock>
-                     </AnotherContainer>
-                  </Wrapper>
-               )
-            })
+                        <Container>
+                           <Title>{item.title}</Title>
+                           <FirstBlock>
+                              <MiniBlock>
+                                 <Clock />
+                                 <span>{item.createDate}</span>
+                              </MiniBlock>
+                           </FirstBlock>
+                           <SecondBlock>
+                              <SecondMiniBlock>
+                                 <Favorite />
+                                 <span>{item.favoriteCount}</span>
+                              </SecondMiniBlock>
+                              <SecondMiniBlock>
+                                 <Call onClick={handleOpenPhoneModal} />
+                                 {openPhoneModal && <PhoneModal />}
+                              </SecondMiniBlock>
+                           </SecondBlock>
+                        </Container>
+                     </Box>
+                  </BigBox>
+
+                  <AnotherContainer>
+                     <AnotherBlock>
+                        <p
+                           onClick={() =>
+                              !item.timeToNextBoost && handleRaising(item.id)
+                           }
+                           style={{
+                              cursor: !item.timeToNextBoost
+                                 ? 'pointer'
+                                 : 'not-allowed',
+                              color: !item.timeToNextBoost ? 'black' : 'gray',
+                           }}
+                        >
+                           {!item.timeToNextBoost
+                              ? 'Поднять'
+                              : item.timeToNextBoost}
+                        </p>
+                     </AnotherBlock>
+                  </AnotherContainer>
+               </Wrapper>
+            ))
          )}
       </CONTAINER>
    )
@@ -103,6 +124,15 @@ const ImageStyle = styled('img')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       width: '94px',
       height: '74px',
+   },
+}))
+const ImageStyleAdvertising = styled('img')(({ theme }) => ({
+   width: '354px',
+   height: '224px',
+   borderRadius: '8px',
+   [theme.breakpoints.down('md')]: {
+      width: '154px',
+      height: '94px',
    },
 }))
 const Title = styled('p')(({ theme }) => ({
@@ -183,6 +213,23 @@ const Wrapper = styled('div')(({ theme }) => ({
    },
    [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
+      gap: '18px',
+   },
+}))
+const WrapperAdvertisingCard = styled('div')(({ theme }) => ({
+   display: 'flex',
+   svg: {
+      cursor: 'pointer',
+   },
+}))
+const WrapperAdvertising = styled('div')(({ theme }) => ({
+   display: 'flex',
+   gap: '25px',
+   flexWrap: 'wrap',
+   svg: {
+      cursor: 'pointer',
+   },
+   [theme.breakpoints.down('md')]: {
       gap: '18px',
    },
 }))
