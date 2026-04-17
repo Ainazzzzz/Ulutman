@@ -36,7 +36,6 @@ export const MyAds = ({
       setOpenPhoneModal(!openPhoneModal)
    }
 
-  
    return (
       <CONTAINER>
          {myAds.length === 0 ? (
@@ -45,10 +44,6 @@ export const MyAds = ({
             <WrapperAdvertising>
                {myAds.map(item => (
                   <WrapperAdvertisingCard key={item.id}>
-                     <CheckBox
-                        checked={selectedIds.includes(item.id)}
-                        onChange={() => handleCheckboxChange(item.id)}
-                     />
                      <ImageStyleAdvertising
                         src={item.images?.[0] || item.imageFile}
                         alt="room-image"
@@ -224,7 +219,7 @@ const WrapperAdvertisingCard = styled('div')(({ theme }) => ({
 }))
 const WrapperAdvertising = styled('div')(({ theme }) => ({
    display: 'flex',
-   gap: '25px',
+   gap: '95px',
    flexWrap: 'wrap',
    svg: {
       cursor: 'pointer',

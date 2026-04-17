@@ -467,7 +467,7 @@
       "error": "Parollar mos kelishi kerak"
    },
    "toast": {
-      "advertisingSuccess": "Reklama muvaffaqiyatli yaratildi!",
+      "advertisingSuccess": "Reklama muvaffaqiyatli yaratildi! Iltimos, reklama faollashishini kuting.",
       "signIn": {
          "success": "Muvaffaqiyatli!",
          "error": "Biror narsa noto'g'ri ketdi"

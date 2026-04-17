@@ -5,27 +5,48 @@ import { useTranslation } from 'react-i18next'
 import Modal from '../UI/Modal'
 import { deleteSelectedAds } from '../../redux/users/myAdsThunk'
 
-export const DeleteMyAdsModal = ({ userId, selectedIds }) => {
+export const DeleteMyAdsModal = ({
+   userId,
+   selectedIds,
+   setSelectedIds,
+   setIsModalOpen,
+}) => {
    const dispatch = useDispatch()
    const errorMessage = useSelector(state => state.myAds.errorMessage)
-   const [isOpen, setIsOpen] = useState(true)
+   // const [isOpen, setIsOpen] = useState(true)
    const { t } = useTranslation()
 
-   const handleDeleteSelectedAds = () => {
+   // const handleDeleteSelectedAds = () => {
+   //    if (selectedIds.length > 0) {
+   //       dispatch(deleteSelectedAds({ userId, selectedIds, t }))
+   //    }
+   //    setIsOpen(false)
+   // }
+
+   const handleDeleteSelectedAds = async () => {
       if (selectedIds.length > 0) {
-         dispatch(deleteSelectedAds({ userId, selectedIds, t }))
+         await dispatch(
+            deleteSelectedAds({
+               userId,
+               selectedIds,
+               t,
+            }),
+         )
+
+         setSelectedIds([]) // ✅ очистить чекбоксы
       }
-      setIsOpen(false)
+
+      setIsModalOpen(false)
    }
 
    const handleCloseModal = () => {
-      setIsOpen(!isOpen)
+      setIsOpen(false)
    }
    return (
-      <Modal open={isOpen} handleClose={handleCloseModal} variant="delete">
+      <Modal open={true} handleClose={handleCloseModal} variant="delete">
          <Container>
             <Title>{t('user.modal.title')}</Title>
-            {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
+            {/* {errorMessage && <ErrorText>{errorMessage}</ErrorText>} */}
             <div>
                <FirstButton onClick={handleCloseModal}>
                   {t('user.modal.cancelBtn')}

@@ -467,7 +467,7 @@
       "error": "Şifreler eşleşmelidir"
    },
    "toast": {
-      "advertisingSuccess": "Reklamlar başarıyla oluşturuldu!",
+      "advertisingSuccess": "Reklamlar başarıyla oluşturuldu! Lütfen reklamın etkinleşmesini bekleyin.",
       "signIn": {
          "success": "Başarılı!!",
          "error": "Bir şeyler ters gitti"

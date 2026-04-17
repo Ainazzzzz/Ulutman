@@ -33,8 +33,9 @@ export const myAdsSlice = createSlice({
             state.raisingPublication = action.payload
          })
 
+       
          .addCase(deleteSelectedAds.fulfilled, (state, action) => {
-            const idsToDelete = action.payload
+            const idsToDelete = action.meta.arg.selectedIds
 
             state.activeAds = state.activeAds.filter(
                ad => !idsToDelete.includes(ad.id),
@@ -43,11 +44,18 @@ export const myAdsSlice = createSlice({
             state.rejectedAds = state.rejectedAds.filter(
                ad => !idsToDelete.includes(ad.id),
             )
+
+            state.myAdvertising = state.myAdvertising.filter(
+               ad => !idsToDelete.includes(ad.id),
+            )
+
+            state.myAds = state.myAds.filter(ad => !idsToDelete.includes(ad.id))
+
             state.errorMessage = ''
          })
-         .addCase(deleteSelectedAds.rejected, (state, action) => {
-            state.errorMessage =
-               action.payload || 'Произошла ошибка при удалении'
-         })
+      // .addCase(deleteSelectedAds.rejected, (state, action) => {
+      //    state.errorMessage =
+      //       action.payload || 'Произошла ошибка при удалении'
+      // })
    },
 })

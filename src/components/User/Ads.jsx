@@ -69,17 +69,9 @@ export const Ads = () => {
                   />
                </div>
 
-               {isMobile ? (
-                  <DeleteAll
-                     onClick={handleDelete}
-                     style={{
-                        cursor:
-                           selectedIds.length > 0 ? 'pointer' : 'not-allowed',
-                        opacity: selectedIds.length > 0 ? 1 : 0.5,
-                     }}
-                  >
-                     <DeleteIcon />
-                     <p
+               {activeTab === '1' &&
+                  (isMobile ? (
+                     <DeleteAll
                         onClick={handleDelete}
                         style={{
                            cursor:
@@ -89,20 +81,21 @@ export const Ads = () => {
                            opacity: selectedIds.length > 0 ? 1 : 0.5,
                         }}
                      >
-                        {t('user.myAds.delete')}
-                     </p>
-                  </DeleteAll>
-               ) : (
-                  <DeleteAll
-                     onClick={handleDelete}
-                     style={{
-                        cursor:
-                           selectedIds.length > 0 ? 'pointer' : 'not-allowed',
-                        opacity: selectedIds.length > 0 ? 1 : 0.5,
-                     }}
-                  >
-                     <DeleteIcon />
-                     <p
+                        <DeleteIcon />
+                        <p
+                           style={{
+                              cursor:
+                                 selectedIds.length > 0
+                                    ? 'pointer'
+                                    : 'not-allowed',
+                              opacity: selectedIds.length > 0 ? 1 : 0.5,
+                           }}
+                        >
+                           {t('user.myAds.delete')}
+                        </p>
+                     </DeleteAll>
+                  ) : (
+                     <DeleteAll
                         onClick={handleDelete}
                         style={{
                            cursor:
@@ -112,10 +105,20 @@ export const Ads = () => {
                            opacity: selectedIds.length > 0 ? 1 : 0.5,
                         }}
                      >
-                        {t('user.myAds.delete')}
-                     </p>
-                  </DeleteAll>
-               )}
+                        <DeleteIcon />
+                        <p
+                           style={{
+                              cursor:
+                                 selectedIds.length > 0
+                                    ? 'pointer'
+                                    : 'not-allowed',
+                              opacity: selectedIds.length > 0 ? 1 : 0.5,
+                           }}
+                        >
+                           {t('user.myAds.delete')}
+                        </p>
+                     </DeleteAll>
+                  ))}
             </Block>
          </Container>
 
@@ -126,7 +129,12 @@ export const Ads = () => {
             variant={activeTab === '3' ? 'image' : 'full'}
          />
          {isModalOpen && (
-            <DeleteMyAdsModal userId={userId} selectedIds={selectedIds} />
+            <DeleteMyAdsModal
+               userId={userId}
+               selectedIds={selectedIds}
+               setSelectedIds={setSelectedIds}
+               setIsModalOpen={setIsModalOpen}
+            />
          )}
       </Wrapper>
    )

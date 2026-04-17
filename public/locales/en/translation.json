@@ -629,7 +629,7 @@
       "error": "Passwords must match"
    },
    "toast": {
-      "advertisingSuccess": "The ad was successfully created!",
+      "advertisingSuccess": "The ad was successfully created! Please wait for the ad to activate.",
       "signIn": {
          "success": "Successfully!",
          "error": "Something went wrong."
