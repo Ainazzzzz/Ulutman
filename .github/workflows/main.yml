@@ -1,1 +1,15 @@
+name: Deploy
 
+on:
+  push:
+    branches:
+      - development
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: echo "Здесь ваши команды"
