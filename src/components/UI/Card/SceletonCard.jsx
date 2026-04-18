@@ -3,7 +3,7 @@
 import { Grid } from '@mui/material'
 import Skeleton from 'react-loading-skeleton'
 import { memo } from 'react'
-import { CardListBox } from '../Card/CardList'
+import { CardListBox } from './CardList'
 import { ContainerInfo, FirstBlock, SecondBlock, StyledCard } from './CardItem'
 
 export const SceletonCard = memo(() => {

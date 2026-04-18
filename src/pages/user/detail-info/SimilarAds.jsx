@@ -5,7 +5,7 @@ import { styled } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import AnnouncementsSorter from '../../../components/AnnouncementsSorter'
 import { SORT_BY_CATEGROY_OPTIONS } from '../../../utils/constants'
-import { CardList } from '../../../components/UI/Card/CardList'
+import { CardList } from '../../../components/UI/card/CardList'
 import { Button } from '../../../components/UI/Button'
 import { getSimilarAds } from '../../../redux/datailInfo/detailInfoThunk'
 import {

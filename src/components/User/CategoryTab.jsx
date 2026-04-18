@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { CategoryCard } from '../UI/CategoryCard'
 import AnnouncementsSorter from '../AnnouncementsSorter'
-import { CardList } from '../UI/Card/CardList'
+import { CardList } from '../UI/card/CardList'
 import { categoryTab } from '../../utils/constants/main'
 import NoData from '../../assets/icons/empty-data.svg?react'
 

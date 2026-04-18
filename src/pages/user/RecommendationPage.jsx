@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
-import { CardList } from '../../components/UI/Card/CardList'
+import { CardList } from '../../components/UI/card/CardList'
 import { Container } from '../MainPage'
 import { useTranslation } from 'react-i18next'
 import {

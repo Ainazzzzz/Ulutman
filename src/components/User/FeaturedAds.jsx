@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../UI/Breadcrumbs'
 import DeleteIcon from '../../assets/icons/delete.svg?react'
 import ChevronLeft from '../../assets/icons/chevron-left.svg?react'
-import { CardList } from '../UI/Card/CardList'
+import { CardList } from '../UI/card/CardList'
 import {
    deleteAllFavorites,
    deleteFavoritesById,
