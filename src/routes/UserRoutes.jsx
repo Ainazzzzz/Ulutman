@@ -1,5 +1,5 @@
 import { Categories } from '../components/Categories'
-import { CategoryTab } from '../components/user/CategoryTab'
+import { CategoryTab } from '../components/User/CategoryTab'
 import { FeaturedAds } from '../components/User/FeaturedAds'
 import { Profile } from '../components/User/Profile'
 import { MainPage } from '../pages/MainPage'
