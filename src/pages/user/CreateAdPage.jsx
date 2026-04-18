@@ -1,7 +1,7 @@
 import { styled } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
-import { CreateAdForm } from '../../components/user/create-ad/CreateAdForm'
+import { CreateAdForm } from '../../components/User/create-ad/CreateAdForm'
 
 export const CreateAdPage = () => {
    const { t } = useTranslation()
