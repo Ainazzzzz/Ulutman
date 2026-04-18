@@ -15,6 +15,7 @@ import { addAdvertisingThunks } from '../../redux/advertising/adversstitingpayTh
 import { Loading } from '../../components/UI/Loading'
 import FileUpload from '../Admin/mailing/FileUpload'
 import ReusableSelect from '../../components/UI/Select'
+import ExampleAdvertisingImage from '../../assets/images/slider-images/advertising.png'
 
 const optionsBank = [
    { value: 'SBERBANK', label: 'Сбербанк' },
@@ -179,12 +180,24 @@ const AdvertisingPage = () => {
                   {t('user.advertising.uploadPhotoLabel')}
                </PragrafTitile>
             </BoxSyleTitle>
-            <FileUpload
-               value={imageFile}
-               setFieldValue={(field, value) => {
-                  if (field === 'imageFile') setImageFile(value)
-               }}
-            />
+
+            <UploadSection>
+               <FileUpload
+                  value={imageFile}
+                  setFieldValue={(field, value) => {
+                     if (field === 'imageFile') setImageFile(value)
+                  }}
+               />
+
+               <ExampleBlock>
+                  <ExampleImage
+                     src={ExampleAdvertisingImage}
+                     alt="пример рекламы"
+                  />
+
+                  <WarningText>⚠️ Пример фото рекламы.</WarningText>
+               </ExampleBlock>
+            </UploadSection>
             {imageError && <p style={{ color: 'red' }}>{imageError}</p>}
          </ContainerAddImage>
 
@@ -196,6 +209,39 @@ const AdvertisingPage = () => {
 }
 
 export default AdvertisingPage
+
+const UploadSection = styled('div')(({ theme }) => ({
+   display: 'flex',
+   gap: '24px',
+   alignItems: 'flex-start',
+
+   [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+   },
+}))
+
+const ExampleBlock = styled('div')(() => ({
+   width: '350px',
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '12px',
+}))
+
+const ExampleImage = styled('img')(() => ({
+   width: '100%',
+   height: '180px',
+   objectFit: 'cover',
+   borderRadius: '10px',
+   border: '1px solid #e0e0e0',
+}))
+
+const WarningText = styled('p')(() => ({
+   color: '#ff0000',
+   fontSize: '14px',
+   fontWeight: '500',
+   lineHeight: '20px',
+   margin: 0,
+}))
 
 const WrapperContainer = styled('div')(({ theme }) => ({
    padding: '30px 60px',
