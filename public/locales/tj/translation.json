@@ -595,6 +595,7 @@
          "emailRequired": "Почта ҳатмист",
          "password": "Гузарвожа набояд аз 6 аломат кӯтоҳтар бошад",
          "passwordRequired": "Гузарвожа ҳатмист",
+         "passwordMatches": "Рамз бояд ҳарфҳо ва рақамҳоро дар бар гирад",
          "confirmPassword": "Паролҳо бояд мувофиқат кунанд",
          "confirmPasswordRequired": "Паролҳо бояд мувофиқат кунанд"
       }

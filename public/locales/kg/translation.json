@@ -442,6 +442,7 @@
          "emailRequired": "Email милдеттүү",
          "password": "Сыр сөз 6 белгиден кем болбошу керек",
          "passwordRequired": "Сыр сөз милдеттүү ",
+         "passwordMatches": "Сыр сөздө тамга жана сан болушу керек",
          "confirmPassword": "Сыр сөздөр дал келиши керек",
          "confirmPasswordRequired": "Сыр сөздөр дал келиши керек"
       }

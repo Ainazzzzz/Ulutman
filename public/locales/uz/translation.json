@@ -442,6 +442,7 @@
          "emailRequired": "Pochta majburiy",
          "password": "Parol kamida 6 belgidan iborat bo'lishi kerak",
          "passwordRequired": "Parol talab qilinadi",
+         "passwordMatches": "Parol harf va raqamlardan iborat bo‘lishi kerak",
          "confirmPassword": "Parollar mos kelishi kerak",
          "confirmPasswordRequired": "Parollar mos kelishi kerak"
       }

@@ -604,6 +604,7 @@
          "emailRequired": "Mail is required",
          "password": "The password must be at least 6 characters long.",
          "passwordRequired": "A password is required",
+         "passwordMatches": "Password must contain letters and numbers",
          "confirmPassword": "Passwords must match",
          "confirmPasswordRequired": "Passwords must match"
       }

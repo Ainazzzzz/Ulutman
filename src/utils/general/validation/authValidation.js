@@ -12,8 +12,15 @@ export const createSignUpSchema = t =>
             t('signUp.signUpValidation.emailMatches'),
          )
          .required(t('signUp.signUpValidation.emailRequired')),
+      // password: Yup.string()
+      //    .min(6, t('signUp.signUpValidation.password'))
+      //    .required(t('signUp.signUpValidation.passwordRequired')),
       password: Yup.string()
          .min(6, t('signUp.signUpValidation.password'))
+         .matches(
+            /^(?=.*[A-Za-z])(?=.*\d).+$/,
+            t('signUp.signUpValidation.passwordMatches'),
+         )
          .required(t('signUp.signUpValidation.passwordRequired')),
       confirmPassword: Yup.string()
          .oneOf(

@@ -442,6 +442,7 @@
          "emailRequired": "Posta zorunludur",
          "password": "Şifre 6 karakterden kısa olmamalıdır",
          "passwordRequired": "Şifre zorunludur",
+         "passwordMatches": "Şifre harf ve rakam içermelidir",
          "confirmPassword": "Şifreler eşleşmelidir",
          "confirmPasswordRequired": "Şifreler eşleşmelidir"
       }
