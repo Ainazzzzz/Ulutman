@@ -1,7 +1,7 @@
 import { useMemo, useReducer, useCallback } from 'react'
 import { styled } from '@mui/material'
 import { getAdminTableHeaders } from '../category/AdminTableHeader'
-import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter'
+import { AdminHeaderFilter } from '../../../components/admin/AdminHeaderFilter'
 import Table from '../../../components/UI/Table'
 import { AdsDeleteModal } from '../ads/AdsDeleteModal'
 import { WaitingModal } from '../ads/WaitingModal'

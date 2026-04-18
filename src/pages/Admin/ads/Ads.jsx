@@ -8,7 +8,7 @@ import React, {
 } from 'react'
 import { styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter'
+import { AdminHeaderFilter } from '../../../components/admin/AdminHeaderFilter'
 import { getAdminTableHeaders } from '../category/AdminTableHeader'
 import Table from '../../../components/UI/Table'
 import { AdsDeleteModal } from './AdsDeleteModal'

@@ -11,7 +11,7 @@ import NoData from '../../assets/icons/empty-data.svg?react'
 
 import { IconButton } from '../IconButton'
 import Modal from './Modal'
-import { PhoneNumberSingle, TitlePhone, WrapperPhone } from './Card/CardItem'
+import { PhoneNumberSingle, TitlePhone, WrapperPhone } from './card/CardItem'
 import { PATHS } from '../../utils/constants/paths'
 import { useTranslation } from 'react-i18next'
 
