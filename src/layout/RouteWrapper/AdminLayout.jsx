@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { styled, useMediaQuery } from '@mui/material'
 import { SideBar } from '../../components/UI/SideBar'
-import { AdminHeaderzb } from '../../components/admin/AdminHeaderZb'
+import { AdminHeaderzb } from '../../components/Admin/AdminHeaderZb'
 
 export const AdminLayout = () => {
    const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'))
