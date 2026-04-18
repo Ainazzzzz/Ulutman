@@ -7,6 +7,7 @@ import { AdminLayout } from '../layout/routeWrapper/AdminLayout'
 import { PrivateAuthRouter } from './private/PrivateAuthRoute'
 import { UserRoutes } from './UserRoutes'
 import NotFoundPage from '../pages/NotFound'
+
 import { PATHS } from '../utils/constants/paths'
 
 export const AppRoutes = () => {
