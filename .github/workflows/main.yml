@@ -6,6 +6,9 @@ on:
       - development
       - main
 
+permissions:
+  contents: write   # 👈 ВОТ ЭТО НУЖНО ДОБАВИТЬ
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
