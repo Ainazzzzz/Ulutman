@@ -9,7 +9,6 @@ export const MainLayout = () => {
       <div>
          <Header />
          <ScrollToTop />
-
          <OutletContent>
             <Outlet />
          </OutletContent>

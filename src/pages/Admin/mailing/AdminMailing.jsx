@@ -12,7 +12,7 @@ import Table from '../../../components/UI/Table'
 import { Button } from '../../../components/UI/Button'
 import Plus from '../../../assets/icons/plus.svg?react'
 import { CheckBox } from '../../../components/UI/Checkbox'
-import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter'
+import { AdminHeaderFilter } from '../../../components/admin/AdminHeaderFilter'
 import { useDebounce } from '../../../hooks/useDebounce'
 import {
    filterMailing,

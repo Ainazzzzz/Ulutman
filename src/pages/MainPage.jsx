@@ -8,7 +8,7 @@ import AnnouncementsSorter from '../components/AnnouncementsSorter'
 import AboutUs from '../components/main-page/AboutUs'
 import { Button } from '../components/UI/Button'
 import { SORT_BY_CATEGROY_OPTIONS } from '../utils/constants'
-import { CardList } from '../components/UI/card/CardList'
+import { CardList } from '../components/UI/Card/CardList'
 import {
    deleteFavoriteStatus,
    getMainAds,

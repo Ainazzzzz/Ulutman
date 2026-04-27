@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Table from '../../../components/UI/Table'
 import { AdsDeleteModal } from '../ads/AdsDeleteModal'
 import { WaitingModal } from '../ads/WaitingModal'
-import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter'
+import { AdminHeaderFilter } from '../../../components/admin/AdminHeaderFilter'
 import { getAdminTableHeaders } from '../category/AdminTableHeader'
 import {
    deleteComments,

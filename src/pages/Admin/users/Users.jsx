@@ -14,7 +14,7 @@ import { useDebounce } from '../../../hooks/useDebounce'
 import Table from '../../../components/UI/Table'
 import { getAdminTableHeaders } from '../category/AdminTableHeader'
 import { AdsDeleteModal } from '../ads/AdsDeleteModal'
-import { AdminHeaderFilter } from '../../../components/Admin/AdminHeaderFilter'
+import { AdminHeaderFilter } from '../../../components/admin/AdminHeaderFilter'
 import { Button } from '../../../components/UI/Button'
 
 import Plus from '../../../assets/icons/plus.svg?react'

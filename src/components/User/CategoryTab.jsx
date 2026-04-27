@@ -9,7 +9,6 @@ import { styled, useMediaQuery } from '@mui/system'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { CategoryCard } from '../UI/CategoryCard'
-import { AdvertisingCategory } from './AdvertisingCategory'
 import AnnouncementsSorter from '../AnnouncementsSorter'
 import { CardList } from '../UI/Card/CardList'
 import { categoryTab } from '../../utils/constants/main'
@@ -45,7 +44,7 @@ export const CategoryTab = () => {
    const dispatch = useDispatch()
 
    const { categories, isLoading } = useSelector(state => state.userCategories)
-      const { advertising } = useSelector(state => state.advertising)
+   const { advertising } = useSelector(state => state.advertising)
 
    const { subCategory } = useParams()
 
