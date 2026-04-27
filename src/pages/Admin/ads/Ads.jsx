@@ -184,7 +184,7 @@ const Ads = () => {
       //    accessor: 'cardNumber',
       // },
       {
-         Header: 'Валюта',
+         Header: 'Категория',
          accessor: 'Currency',
          Cell: ({ row }) => <p>{translateCategory[row.original.category]}</p>,
       },

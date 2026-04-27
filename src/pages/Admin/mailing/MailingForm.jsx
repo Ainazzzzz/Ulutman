@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
 import ReusableSelect from '../../../components/UI/Select'
 import Input from '../../../components/UI/Input'
-import FileUpload from './FileUpload'
 import {
    WrapperInputSelect,
    Container,
@@ -202,12 +201,6 @@ export const MailingForm = ({ mailingType, recipients }) => {
                />
             </Container>
          </WrapperInputSelect>
-
-         <FileUpload
-            setFieldValue={formik.setFieldValue}
-            touched={formik.touched.image}
-            errors={formik.errors.image}
-         />
 
          <StyledButton type="submit" disabled={isLoading}>
             {isLoading ? <Spinner /> : 'Отправить'}

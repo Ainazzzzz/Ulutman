@@ -105,12 +105,12 @@ export const AdminHeaderzb = () => {
                </div>
             ) : (
                <SehondBigContainer>
-                  <InputStyle>
+                  {/* <InputStyle>
                      <SearchIconStyle>
                         <SearchIcon />
                      </SearchIconStyle>
                      <InputBase placeholder="Поиск" sx={{ width: '100%' }} />
-                  </InputStyle>
+                  </InputStyle> */}
 
                   <MiddleContainerBox>
                      <ContainerProfileTitle>
@@ -144,7 +144,8 @@ const WrapperAdminHeader = styled('div')(({ theme }) => ({
 }))
 const SehondBigContainer = styled('div')(() => ({
    display: 'flex',
-   justifyContent: 'space-around',
+   justifyContent: 'end',
+   paddingRight: '30px',
    width: '100%',
 }))
 const MobileSearch = styled('div')(({ theme }) => ({

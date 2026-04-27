@@ -41,11 +41,7 @@ const AddMailingPage = () => {
                   label: 'Все пользователи',
                   id: 'opt4',
                },
-               {
-                  value: 'Определенные',
-                  label: 'Определенные',
-                  id: 'opt5',
-               },
+               
             ]}
          />
       </Container>
