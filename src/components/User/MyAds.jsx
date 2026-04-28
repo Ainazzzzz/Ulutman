@@ -3,14 +3,13 @@
 
 import { styled } from '@mui/material'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { CheckBox } from '../UI/Checkbox'
 import Clock from '../../assets/icons/clock-icon.svg?react'
 import Favorite from '../../assets/icons/gray-heart.svg?react'
-import Call from '../../assets/icons/call-icon.svg?react'
 import { RaisingPublication } from '../../redux/users/myAdsThunk'
-import { PhoneModal } from '../UI/PhoneModal'
+import { showToast } from '../../hooks/useToast'
 
 export const MyAds = ({
    selectedIds,
@@ -19,7 +18,6 @@ export const MyAds = ({
    variant = 'full',
 }) => {
    const dispatch = useDispatch()
-   const [openPhoneModal, setOpenPhoneModal] = useState(false)
    const { t } = useTranslation()
 
    const handleCheckboxChange = id => {
@@ -27,13 +25,14 @@ export const MyAds = ({
          prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
       )
    }
+   const handleRaising = async id => {
+      try {
+         const res = await dispatch(RaisingPublication(id)).unwrap()
 
-   const handleRaising = adId => {
-      dispatch(RaisingPublication(adId))
-   }
-
-   const handleOpenPhoneModal = () => {
-      setOpenPhoneModal(!openPhoneModal)
+         showToast('success', res?.timeToNextBoost)
+      } catch (error) {
+         showToast('error', error)
+      }
    }
 
    return (
@@ -52,61 +51,51 @@ export const MyAds = ({
                ))}
             </WrapperAdvertising>
          ) : (
-            myAds.map(item => (
-               <Wrapper key={item.id}>
-                  <BigBox>
-                     <CheckBox
-                        checked={selectedIds.includes(item.id)}
-                        onChange={() => handleCheckboxChange(item.id)}
-                     />
-                     <Box>
-                        <ImageStyle
-                           src={item.images?.[0] || item.imageFile}
-                           alt="room-image"
+            myAds.map(item => {
+               return (
+                  <Wrapper key={item.id}>
+                     <BigBox>
+                        <CheckBox
+                           checked={selectedIds.includes(item.id)}
+                           onChange={() => handleCheckboxChange(item.id)}
                         />
-                        <Container>
-                           <Title>{item.title}</Title>
-                           <FirstBlock>
-                              <MiniBlock>
-                                 <Clock />
-                                 <span>{item.createDate}</span>
-                              </MiniBlock>
-                           </FirstBlock>
-                           <SecondBlock>
-                              <SecondMiniBlock>
-                                 <Favorite />
-                                 <span>{item.favoriteCount}</span>
-                              </SecondMiniBlock>
-                              <SecondMiniBlock>
-                                 <Call onClick={handleOpenPhoneModal} />
-                                 {openPhoneModal && <PhoneModal />}
-                              </SecondMiniBlock>
-                           </SecondBlock>
-                        </Container>
-                     </Box>
-                  </BigBox>
 
-                  <AnotherContainer>
-                     <AnotherBlock>
-                        <p
-                           onClick={() =>
-                              !item.timeToNextBoost && handleRaising(item.id)
-                           }
-                           style={{
-                              cursor: !item.timeToNextBoost
-                                 ? 'pointer'
-                                 : 'not-allowed',
-                              color: !item.timeToNextBoost ? 'black' : 'gray',
-                           }}
-                        >
-                           {!item.timeToNextBoost
-                              ? 'Поднять'
-                              : item.timeToNextBoost}
-                        </p>
-                     </AnotherBlock>
-                  </AnotherContainer>
-               </Wrapper>
-            ))
+                        <Box>
+                           <ImageStyle
+                              src={item.images?.[0] || item.imageFile}
+                              alt="room-image"
+                           />
+
+                           <Container>
+                              <Title>{item.title}</Title>
+
+                              <FirstBlock>
+                                 <MiniBlock>
+                                    <Clock />
+                                    <span>{item.createDate}</span>
+                                 </MiniBlock>
+                              </FirstBlock>
+
+                              <SecondBlock>
+                                 <SecondMiniBlock>
+                                    <Favorite />
+                                    <span>{item.favoriteCount}</span>
+                                 </SecondMiniBlock>
+                              </SecondBlock>
+                           </Container>
+                        </Box>
+                     </BigBox>
+
+                     <AnotherContainer>
+                        <AnotherBlock>
+                           <p onClick={() => handleRaising(item.id)}>
+                              {t('user.myAds.boost')}
+                           </p>
+                        </AnotherBlock>
+                     </AnotherContainer>
+                  </Wrapper>
+               )
+            })
          )}
       </CONTAINER>
    )
