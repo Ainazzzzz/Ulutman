@@ -1,10 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { updateUserProfile } from './profileThunk'
 
-export const profileSlice = createSlice({
-   name: 'profile',
-   initialState: {},
+const initialState = {
+   userData: {},
+}
+
+export const authSlice = createSlice({
+   name: 'auth',
+   initialState,
+   reducers: {},
    extraReducers: builder => {
-      builder.addCase(updateUserProfile.fulfilled, () => {})
+      builder.addCase(updateUserProfile.fulfilled, (state, action) => {
+         state.userData = {
+            ...state.userData,
+            ...action.payload,
+         }
+      })
    },
 })
