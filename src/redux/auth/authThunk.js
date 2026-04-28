@@ -115,19 +115,16 @@ export const addAdmin = createAsyncThunk(
 
 export const forgotPassword = createAsyncThunk(
    'auth/forgotPassword',
-   async (
-      { email, toggleResetPasswordModal, onClose, t },
-      { rejectWithValue },
-   ) => {
+   async ({ email, openResetPassword, onClose, t }, { rejectWithValue }) => {
       try {
          const { data } = await axiosInstance.get(
             `/auth/sendPasswordResetCode?email=${email}`,
          )
 
          showToast('success', `${t('toast.forgot.success')} ${email}`)
-         toggleResetPasswordModal()
+         // toggleResetPasswordModal()
          onClose()
-         toggleResetPasswordModal()
+         openResetPassword()
 
          return data
       } catch (e) {
@@ -151,8 +148,8 @@ export const resetPassword = createAsyncThunk(
          )
          showToast('success', t('toast.reset.success'))
 
-         toggleSignInModal()
          onClose()
+         toggleSignInModal()
 
          return data
       } catch (e) {

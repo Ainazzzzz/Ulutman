@@ -11,7 +11,9 @@ const Auth = ({ openModal, toggleSignInModal }) => {
 
    const toggleSignUpModal = () => setSignUpModal(prev => !prev)
    const toggleForgotPasswordModal = () => setForgotPasswordModal(prev => !prev)
-   const toggleResetPasswordModal = () => setResetPasswordModal(prev => !prev)
+   const openResetPasswordModal = () => setResetPasswordModal(true)
+   const closeResetPasswordModal = () => setResetPasswordModal(false)
+   const closeForgotPasswordModal = () => setForgotPasswordModal(false)
 
    return (
       <>
@@ -35,17 +37,18 @@ const Auth = ({ openModal, toggleSignInModal }) => {
          {forgotPasswordModal && (
             <ForgotPassword
                open={forgotPasswordModal}
-               onClose={toggleForgotPasswordModal}
-               toggleResetPasswordModal={toggleResetPasswordModal}
+               onClose={closeForgotPasswordModal}
+               openResetPassword={openResetPasswordModal}
             />
          )}
 
          {resetPasswordModal && (
             <ResetPassword
-               open={resetPasswordModal}
-               onClose={toggleResetPasswordModal}
                toggleSignInModal={toggleSignInModal}
+               open={resetPasswordModal}
+               onClose={closeResetPasswordModal}
             />
+            
          )}
       </>
    )

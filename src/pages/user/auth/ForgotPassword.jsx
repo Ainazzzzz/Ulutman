@@ -9,7 +9,7 @@ import Spinner from '../../../components/UI/Spinner'
 import { Button } from '../../../components/UI/Button'
 import { forgotPassword } from '../../../redux/auth/authThunk'
 
-const ForgotPassword = ({ open, onClose, toggleResetPasswordModal }) => {
+const ForgotPassword = ({ open, onClose, openResetPassword }) => {
    const dispatch = useDispatch()
    const { isLoading } = useSelector(state => state.auth)
    const { t } = useTranslation()
@@ -38,7 +38,7 @@ const ForgotPassword = ({ open, onClose, toggleResetPasswordModal }) => {
       dispatch(
          forgotPassword({
             email,
-            toggleResetPasswordModal,
+            openResetPassword,
             onClose,
             t,
          }),
