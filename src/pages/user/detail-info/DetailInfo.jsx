@@ -6,6 +6,7 @@ import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../../components/UI/Breadcrumbs'
+import SEO from '../../../components/SEO'
 import LocationIcon from '../../../assets/icons/address-icon.svg?react'
 import ClockIcon from '../../../assets/icons/clock-icon.svg?react'
 import 'swiper/css'
@@ -71,6 +72,13 @@ const DetailInfo = () => {
 
    return (
       <div>
+         <SEO
+            title={detailInfo?.detailInfo?.title}
+            description={shortDescription}
+            image={detailInfo?.detailInfo?.images?.[0]}
+            url={`/user/details/${id}`}
+            type="article"
+         />
          {!detailInfo || Object.keys(detailInfo).length === 0 ? (
             <p>{t('user.detailInfo.message')} </p>
          ) : (

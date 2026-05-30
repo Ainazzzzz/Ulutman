@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
+import SEO from '../../components/SEO'
 import { CategoryCard } from '../../components/UI/CategoryCard'
 import { useMainCategoryParams } from '../../hooks/useSearchParams'
 import { searchCategoryAndMetroRequest } from '../../redux/main/mainThunk'
@@ -58,6 +59,12 @@ export const SearchMainPage = () => {
 
    return (
       <Wrapper>
+         <SEO
+            title={category ? `Поиск: ${category}` : 'Поиск объявлений'}
+            description={`Найдите объявления по категории ${category || ''} в Кыргызстане на Ulutman`}
+            url="/user/main.php"
+            noindex
+         />
          <Container>
             <Block>
                <FirstBlock>

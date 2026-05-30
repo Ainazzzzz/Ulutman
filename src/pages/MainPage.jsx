@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import SEO from '../components/SEO'
 import { MainBanner } from '../components/main-page/MainBanner'
 import AnnouncementsSorter from '../components/AnnouncementsSorter'
 import AboutUs from '../components/main-page/AboutUs'
@@ -57,6 +58,11 @@ export const MainPage = () => {
 
    return (
       <div>
+         <SEO
+            title="Объявления в Кыргызстане"
+            description="Ulutman — бесплатные объявления в Кыргызстане. Недвижимость, авто, работа, услуги и многое другое."
+            url="/user"
+         />
          <MainBanner />
          <SliderBox>
             <Slider />

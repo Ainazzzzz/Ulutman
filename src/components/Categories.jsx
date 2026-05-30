@@ -2,6 +2,7 @@ import { styled, useMediaQuery } from '@mui/material'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from './UI/Breadcrumbs'
+import SEO from './SEO'
 import SearchInput from './UI/SearchInput'
 import ChevronLeft from '../assets/icons/chevron-left.svg?react'
 import { searchInputThunks } from '../redux/categories/userCategoriesThunk'
@@ -47,6 +48,11 @@ export const Categories = () => {
 
    return (
       <Wrapper>
+         <SEO
+            title={path[subCategory]}
+            description={`${path[subCategory]} в Кыргызстане — объявления на Ulutman`}
+            url={`/user/category/${subCategory}`}
+         />
          <Container>
             <Block>
                <FirstBlock>
