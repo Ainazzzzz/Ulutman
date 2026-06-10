@@ -11,7 +11,7 @@ const AboutUs = () => {
          <Title>{t('user.home.about.title')}</Title>
          <SecondContainer>
             <div>
-               <SecondTitle>ulutman.ru</SecondTitle>
+               <SecondTitle>Ulutman | Улутман</SecondTitle>
                <Description>{t('user.home.about.description1')}</Description>
                <Description>{t('user.home.about.description2')}</Description>
             </div>

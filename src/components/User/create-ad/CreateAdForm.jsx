@@ -39,7 +39,7 @@ export const CreateAdForm = () => {
             phoneNumber: Yup.string()
                .required(t('user.createAds.validationForm.phoneNumberRequired'))
                .matches(
-                  /^\+7\d{10}$/,
+                  /^\+[1-9]\d{6,14}$/,
                   t('user.createAds.validationForm.phoneNumberMatches'),
                ),
             category: Yup.string().required(

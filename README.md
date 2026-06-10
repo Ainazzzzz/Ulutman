@@ -1,8 +1,32 @@
-# React + Vite
+# 🌍 Ulutman — Платформа объявлений в России и СНГ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <img src="https://ulutman.up.railway.app/preview.jpg" alt="Ulutman Banner" width="100%">
+</p>
 
-Currently, two official plugins are available: TEST
+**Ulutman** — это современный веб-сервис бесплатных объявлений, разработанный для пользователей из России и стран СНГ. Платформа объединяет в себе удобный поиск работы, недвижимости, автомобилей, услуг и гостиниц, а также предоставляет эффективные инструменты для размещения рекламы и продвижения локального бизнеса.
 
--  [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
--  [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 **Живой проект:** [https://ulutman.up.railway.app](https://ulutman.up.railway.app)
+
+---
+
+## 🚀 Основные возможности
+
+-  **Многофункциональный поиск:** Удобная фильтрация объявлений по категориям (Работа, Аренда, Гостиница, Услуги, Недвижимость, Авто, Продам) и геолокации.
+-  **Реклама для бизнеса:** Специальные инструменты для интеграции и публикации коммерческих предложений.
+-  **Личный кабинет пользователя:** Управление своими публикациями, профилем и списком "Избранного".
+-  **Интернационализация (i18n):** Поддержка нескольких языков для удобства граждан из разных стран СНГ.
+-  **Адаптивный интерфейс:** Сайт полностью оптимизирован как для десктопных браузеров, так и для мобильных устройств.
+
+---
+
+## 🛠 Стек технологий
+
+Проект построен на базе современных и производительных инструментов фронтенд-разработки:
+
+-  **Ядро:** [React](https://react.dev/) + [Vite](https://vitejs.dev/) (для быстрой сборки и HMR)
+-  **Управление состоянием:** Redux Toolkit / React Context
+-  **Работа с формами:** Formik + Валидация
+-  **Стилизация:** CSS / Tailwind CSS / Стилизованные компоненты
+-  **Локализация:** i18next (поддержка мультиязычности)
+-  **Деплой и хостинг:** [Railway App](https://railway.app/)

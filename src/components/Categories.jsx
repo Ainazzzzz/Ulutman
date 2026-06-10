@@ -50,7 +50,7 @@ export const Categories = () => {
       <Wrapper>
          <SEO
             title={path[subCategory]}
-            description={`${path[subCategory]} в Кыргызстане — объявления на Ulutman`}
+            description={`${path[subCategory]} в России — объявления на Ulutman`}
             url={`/user/category/${subCategory}`}
          />
          <Container>

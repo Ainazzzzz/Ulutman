@@ -61,7 +61,7 @@ export const SearchMainPage = () => {
       <Wrapper>
          <SEO
             title={category ? `Поиск: ${category}` : 'Поиск объявлений'}
-            description={`Найдите объявления по категории ${category || ''} в Кыргызстане на Ulutman`}
+            description={`Найдите объявления по категории ${category || ''} в России на Ulutman`}
             url="/user/main.php"
             noindex
          />

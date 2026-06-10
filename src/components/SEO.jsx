@@ -12,7 +12,7 @@ const SEO = ({
    type = 'website',
    noindex = false,
 }) => {
-   const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — объявления в Кыргызстане`
+   const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — объявления в России`
    const fullUrl = url ? `${BASE_URL}${url}` : BASE_URL
 
    return (

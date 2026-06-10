@@ -105,13 +105,6 @@ export const AdminHeaderzb = () => {
                </div>
             ) : (
                <SehondBigContainer>
-                  {/* <InputStyle>
-                     <SearchIconStyle>
-                        <SearchIcon />
-                     </SearchIconStyle>
-                     <InputBase placeholder="Поиск" sx={{ width: '100%' }} />
-                  </InputStyle> */}
-
                   <MiddleContainerBox>
                      <ContainerProfileTitle>
                         <TitleAdmin>{userData.name}</TitleAdmin>
