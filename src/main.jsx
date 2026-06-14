@@ -17,6 +17,7 @@ import './i18n'
 import { injectStore } from './config/axiosInstance'
 
 injectStore(store)
+console.log('app')
 
 ReactDOM.createRoot(document.getElementById('root')).render(
    <React.StrictMode>
