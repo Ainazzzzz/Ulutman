@@ -44,6 +44,8 @@ export const Header = () => {
    const confirmLogout = () => {
       dispatch(logOut({ navigate, toggleModal: handleClose }))
       setOpenLogoutConfirm(false)
+      console.log("Aidana");
+      
    }
 
    const handleSelect = event => {
