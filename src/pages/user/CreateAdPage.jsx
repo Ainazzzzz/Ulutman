@@ -36,7 +36,20 @@ export const CreateAdPage = () => {
 
             <Paragraph>{t('user.createAds.information.infoList8')}</Paragraph>
             <Paragraph>{t('user.createAds.information.infoList9')}</Paragraph>
+         <ContainerBank>
+            <TitleBank>Сбербанк</TitleBank>
+            <NumberBunkStyle>2202 2081 2356 1699</NumberBunkStyle>
+            <TitleBank>Тбанк</TitleBank>
+            <NumberBunkStyle>2200 7009 8116 9526</NumberBunkStyle>
+            <TitleBank> Альфа-банк</TitleBank>
+            <NumberBunkStyle>4584 4328 2524 1376</NumberBunkStyle>
+            <TitleBank>ВТБ</TitleBank>
+            <NumberBunkStyle>2200 2480 8913 7201</NumberBunkStyle>
+            <TitleBank>Почта банк</TitleBank>
+            <NumberBunkStyle>2200770419928124</NumberBunkStyle>
+         </ContainerBank>
          </Container>
+
          <CreateAdForm />
       </Wrapper>
    )
@@ -119,4 +132,29 @@ const Paragraph = styled('p')(({ theme }) => ({
    [theme.breakpoints.down('md')]: {
       marginBottom: theme.spacing(1),
    },
+}))
+
+const ContainerBank = styled('div')(() => ({
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '8px',
+
+   '.css-evt46c-MuiFormControl-root-MuiTextField-root .MuiInputBase-root': {
+      width: '365px',
+   },
+}))
+
+const TitleBank = styled('div')(() => ({
+   color: '#282828',
+   fontWeight: '600',
+}))
+const NumberBunkStyle = styled('div')(() => ({
+   width: '365px',
+   height: '44px',
+   border: '1px solid #cfcfcf',
+   borderRadius: '10px',
+   display: 'flex',
+   alignItems: 'center',
+   paddingLeft: '20px',
+   color: ' #000000A3',
 }))
