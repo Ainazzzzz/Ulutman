@@ -28,7 +28,7 @@ export const SearchInputSelect = ({
                   </InputAdornment>
                ),
 
-               endAdornment: isMobile || (
+               endAdornment: isMobile ? null : (
                   <InputAdornment position="end">
                      <StyledSelect
                         value={selectValue}

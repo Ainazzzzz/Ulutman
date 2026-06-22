@@ -2,22 +2,31 @@ import dayjs from 'dayjs'
 import * as Yup from 'yup'
 
 export const validationSchema = Yup.object().shape({
-   title: Yup.string().required('Название рассылки обязательно'),
+   title: Yup.string().trim().required('Название рассылки обязательно'),
+
    mailingType: Yup.string().required('Тип рассылки обязателен'),
-   message: Yup.string().required('Описание рассылки обязательно'),
-   recipientsAllValue: Yup.string().required('Получатели обязательны'),
-   image: Yup.mixed().required('Загрузите фото'),
-   promotionStartDate: Yup.string().required('Дата рассылки обязательно'),
-   promotionEndDate: Yup.string()
-      .required('Дата рассылки обязательно')
+
+   message: Yup.string().trim().required('Описание рассылки обязательно'),
+
+   // recipientsAllValue: Yup.string()
+   //    .required('Получатели обязательны'),
+
+   promotionStartDate: Yup.mixed().required('Дата начала рассылки обязательна'),
+
+   promotionEndDate: Yup.mixed()
+      .required('Дата окончания рассылки обязательна')
       .test(
          'dates-test',
          'Дата окончания должна быть после даты начала',
-         (value, context) => {
-            const startDate = dayjs(context.parent.promotionStartDate)
-            const endDate = dayjs(value)
+         function (value) {
+            const { promotionStartDate } = this.parent
 
-            return endDate > startDate
+            if (!promotionStartDate || !value) return true
+
+            const start = dayjs(promotionStartDate)
+            const end = dayjs(value)
+
+            return end.isAfter(start, 'day')
          },
       ),
 })

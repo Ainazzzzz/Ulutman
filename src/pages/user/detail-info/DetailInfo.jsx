@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import SEO from '../../../components/SEO'
 import LocationIcon from '../../../assets/icons/address-icon.svg?react'
+import LocationMetroIcon from '../../../assets/icons/detail-metro.svg?react'
 import ClockIcon from '../../../assets/icons/clock-icon.svg?react'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -176,12 +177,17 @@ const DetailInfo = () => {
                                  </Typography>
 
                                  <Typography>
-                                    <ClockIcon />
+                                    <ClockIcon
+                                       style={{ width: '16px', height: '16px' }}
+                                    />
                                     {detailInfo?.detailInfo?.createDate}
                                  </Typography>
 
                                  <Typography>
-                                    <LocationIcon className="location-icon" />
+                                    <LocationMetroIcon
+                                       className="location-icon-metro"
+                                       style={{ width: '16px', height: '16px' }}
+                                    />
                                     {detailInfo?.detailInfo?.metroStation}
                                  </Typography>
                               </Box>
