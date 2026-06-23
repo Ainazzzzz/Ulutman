@@ -49,43 +49,42 @@ export const MailingForm = ({ mailingType, recipients }) => {
 
    const formik = useFormik({
       initialValues: {
-         mailingType: 'НОВОСТИ',
-         recipientsAllValue: 'Все пользователи',
-
          title: '',
          message: '',
+         mailingType: 'НОВОСТИ',
          mailingStatus: 'ОТПРАВЛЕНО',
-         image: '',
          promotionStartDate: dayjs(new Date()),
          promotionEndDate: dayjs(new Date()).add(7, 'day'),
-         recipientsIds: [],
+         recipientIds: [],
+         recipientsAllValue: 'Все пользователи',
       },
       validationSchema,
       onSubmit: values => {
-         const { promotionStartDate, promotionEndDate, image, ...restValue } =
-            values
+         const formattedStartDate = values.promotionStartDate
+            ? values.promotionStartDate.format('YYYY-MM-DD')
+            : dayjs().format('YYYY-MM-DD')
 
-         dispatch(postFile(image))
-            .unwrap()
-            .then(res => {
-               const startDate = new Date(promotionStartDate)
-               const formattedStartDate = dayjs(startDate).format('YYYY-MM-DD')
+         const formattedEndDate = values.promotionEndDate
+            ? values.promotionEndDate.format('YYYY-MM-DD')
+            : dayjs().format('YYYY-MM-DD')
 
-               const endDate = new Date(promotionEndDate)
-               const formattedEndDate = dayjs(endDate).format('YYYY-MM-DD')
+         const backendData = {
+            title: values.title,
+            message: values.message,
+            mailingType: values.mailingType,
+            mailingStatus: values.mailingStatus,
+            promotionStartDate: formattedStartDate,
+            promotionEndDate: formattedEndDate,
+            createDate: dayjs().format('YYYY-MM-DD'),
+            recipientIds: [],
+         }
 
-               dispatch(
-                  postMailing({
-                     mailingData: {
-                        ...restValue,
-                        promotionStartDate: formattedStartDate,
-                        promotionEndDate: formattedEndDate,
-                        image: res[0],
-                     },
-                     navigate,
-                  }),
-               )
-            })
+         dispatch(
+            postMailing({
+               mailingData: backendData,
+               navigate,
+            }),
+         )
       },
    })
 
@@ -121,27 +120,10 @@ export const MailingForm = ({ mailingType, recipients }) => {
                   <ErrorMessage>{formik.errors.mailingType}</ErrorMessage>
                ) : null}
             </Container>
-
-            <Container>
-               <ReusableSelect
-                  name="recipientsAllValue"
-                  value={formik.values.recipientsAllValue}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  touched={formik.touched.recipientsAllValue?.toString()}
-                  errors={formik.errors.recipientsAllValue}
-                  label="Получатели"
-                  options={recipients}
-                  disabled={isLoading}
-               />
-               {formik.touched.recipientsAllValue &&
-               Boolean(formik.errors.recipientsAllValue) ? (
-                  <ErrorMessage>
-                     {formik.errors.recipientsAllValue}
-                  </ErrorMessage>
-               ) : null}
-            </Container>
-
+            <h3>Получатели:</h3>
+            <h4 style={{ marginBottom: '20px' }}>
+               все пользователи платформы, которые подписаны на рассылку
+            </h4>
             <Container>
                <label htmlFor="message">Описание рассылки</label>
                <StyledWriting
