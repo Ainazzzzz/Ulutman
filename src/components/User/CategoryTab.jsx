@@ -58,8 +58,9 @@ export const CategoryTab = () => {
    }, [dispatch])
 
    useEffect(() => {
+      setValue('all')
       dispatch(categoryFilter({ categories: [subCategory] }))
-   }, [dispatch])
+   }, [dispatch, subCategory])
 
    const handleToggleFavorite = adsData => {
       if (adsData.detailFavorite) {
