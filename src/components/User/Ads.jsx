@@ -180,7 +180,8 @@ const DeleteAll = styled('div')(({ theme }) => ({
    alignItems: 'center',
    justifyContent: 'center',
    [theme.breakpoints.down('md')]: {
-      width: '343px',
+      width: '100%',
+      maxWidth: '343px',
    },
    p: {
       fontWeight: '500',

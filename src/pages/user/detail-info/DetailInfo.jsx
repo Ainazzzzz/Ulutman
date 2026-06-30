@@ -368,12 +368,13 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       gap: '1rem',
       borderRadius: '10px',
       width: '460px',
+      maxWidth: '100%',
       padding: '15px',
       paddingTop: '20px',
       boxShadow: ' 0px 7px 12px 1px rgba(34, 60, 80, 0.14)',
       backgroundColor: 'white',
       [theme.breakpoints.down('md')]: {
-         maxWidth: '350px',
+         width: '100%',
          backgroundColor: 'initial',
          boxShadow: 'none',
       },
@@ -429,7 +430,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       maxWidth: '760px !important',
       maxHeight: '446px !important',
       [theme.breakpoints.down('md')]: {
-         width: '343px',
+         width: '100%',
          height: '202px',
       },
    },
@@ -458,10 +459,11 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       flexDirection: 'column',
       alignItems: 'flex-start',
       width: '760px !important',
+      maxWidth: '100%',
       gap: '1rem',
       [theme.breakpoints.down('md')]: {
-         width: '343px !important',
-         height: '202px !important',
+         width: '100% !important',
+         height: 'auto !important',
       },
 
       '& .images': {
@@ -474,11 +476,12 @@ const StyledContainer = styled(Box)(({ theme }) => ({
 
       '& .swiper': {
          width: '760px !important',
+         maxWidth: '100%',
          display: 'flex',
          borderRadius: '10px',
          justifyContent: 'start',
          [theme.breakpoints.down('md')]: {
-            width: '343px !important',
+            width: '100% !important',
          },
       },
 
@@ -492,8 +495,8 @@ const StyledContainer = styled(Box)(({ theme }) => ({
          width: '760px !important',
          height: '446px !important',
          [theme.breakpoints.down('md')]: {
-            width: '343px !important',
-            height: '202px !important',
+            width: '100% !important',
+            height: '220px !important',
          },
       },
 

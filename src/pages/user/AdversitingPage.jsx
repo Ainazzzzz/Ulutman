@@ -246,7 +246,8 @@ const WarningText = styled('p')(() => ({
 
 const WrapperContainer = styled('div')(({ theme }) => ({
    padding: '30px 60px',
-   [theme.breakpoints.down('sm')]: { padding: '30px' },
+   [theme.breakpoints.down('md')]: { padding: '20px 24px' },
+   [theme.breakpoints.down('sm')]: { padding: '16px' },
 }))
 const ParagrahStyle = styled('p')(({ theme }) => ({
    fontSize: '12px',
@@ -287,7 +288,14 @@ const BoxSyleTitle = styled('div')(() => ({
    gap: '10px',
    paddingTop: '24px',
 }))
-const WrapperSelect = styled('div')({ maxWidth: '400px', marginTop: '20px' })
+const WrapperSelect = styled('div')(({ theme }) => ({
+   maxWidth: '400px',
+   width: '100%',
+   marginTop: '20px',
+   [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%',
+   },
+}))
 const FirstBlock = styled('div')(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
@@ -329,8 +337,9 @@ const TitleBank = styled('div')(() => ({
    color: '#282828',
    fontWeight: '600',
 }))
-const NumberBunkStyle = styled('div')(() => ({
-   width: '365px',
+const NumberBunkStyle = styled('div')(({ theme }) => ({
+   maxWidth: '365px',
+   width: '100%',
    height: '44px',
    border: '1px solid #cfcfcf',
    borderRadius: '10px',
@@ -338,4 +347,7 @@ const NumberBunkStyle = styled('div')(() => ({
    alignItems: 'center',
    paddingLeft: '20px',
    color: ' #000000A3',
+   [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%',
+   },
 }))

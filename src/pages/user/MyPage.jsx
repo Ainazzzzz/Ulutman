@@ -45,31 +45,40 @@ const Container = styled('div')(({ theme }) => ({
    },
 }))
 
-const StyledNav = styled('nav')({
+const StyledNav = styled('nav')(({ theme }) => ({
    display: 'flex',
    gap: '20px',
    alignItems: 'center',
    backgroundColor: '#f5f5f8',
-})
+   flexWrap: 'wrap',
+   [theme.breakpoints.down('sm')]: {
+      gap: '12px',
+   },
+}))
 
-const StyledNavLink = styled(NavLink)({
+const StyledNavLink = styled(NavLink)(({ theme }) => ({
    color: '#282828',
    textDecoration: 'none',
    fontWeight: '500',
    fontSize: '20px',
-
+   [theme.breakpoints.down('sm')]: {
+      fontSize: '16px',
+   },
    '&.active': {
       color: '#7E52FF',
       textDecoration: 'underline',
       textUnderlineOffset: '2px',
    },
-})
+}))
 
-const StyledNavLinkLast = styled(NavLink)({
+const StyledNavLinkLast = styled(NavLink)(({ theme }) => ({
    textDecoration: 'none',
    fontWeight: '400',
    fontSize: '16px',
    color: '#7E52FF',
    display: 'flex',
    alignItems: 'center',
-})
+   [theme.breakpoints.down('sm')]: {
+      fontSize: '14px',
+   },
+}))

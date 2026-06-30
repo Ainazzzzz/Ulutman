@@ -173,9 +173,12 @@ export const CardList = ({
 }
 
 const StyledContainer = styled('div')(({ theme }) => ({
-   padding: theme.breakpoints.down('md') ? '0' : '0 60px',
+   padding: '0 60px',
    gap: '10px',
    width: '100%',
+   [theme.breakpoints.down('md')]: {
+      padding: '0 16px',
+   },
 }))
 
 export const CardListBox = styled(Grid)({
