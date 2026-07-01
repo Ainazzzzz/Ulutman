@@ -2,6 +2,7 @@ import { styled } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import { CreateAdForm } from '../../components/User/create-ad/CreateAdForm'
+import SEO from '../../components/SEO'
 
 export const CreateAdPage = () => {
    const { t } = useTranslation()
@@ -16,6 +17,12 @@ export const CreateAdPage = () => {
 
    return (
       <Wrapper>
+         <SEO
+            title="Подать объявление"
+            description="Разместите бесплатное объявление в Кыргызстане."
+            url="/user/create-ad"
+            noindex
+         />
          <Breadcrumbs path={path} />
          <PageTitle>{t('user.createAds.title')}</PageTitle>
          <Container>

@@ -11,17 +11,24 @@ const SEO = ({
    url,
    type = 'website',
    noindex = false,
+   schema,
 }) => {
    const fullTitle = title
       ? `${title} | ${SITE_NAME}`
-      : `${SITE_NAME} — объявления в России`
+      : `${SITE_NAME} — объявления в Кыргызстане`
    const fullUrl = url ? `${BASE_URL}${url}` : BASE_URL
 
-   const schemaSchema = {
+   const defaultSchema = {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: SITE_NAME,
       url: BASE_URL,
+      description: 'Доска объявлений в Кыргызстане',
+      potentialAction: {
+         '@type': 'SearchAction',
+         target: `${BASE_URL}/user/search?search={search_term_string}`,
+         'query-input': 'required name=search_term_string',
+      },
    }
 
    return (
@@ -41,7 +48,10 @@ const SEO = ({
          <meta property="og:url" content={fullUrl} />
          <meta property="og:type" content={type} />
          <meta property="og:image" content={image} />
+         <meta property="og:site_name" content={SITE_NAME} />
+         <meta property="og:locale" content="ru_KG" />
 
+         <meta name="twitter:card" content="summary_large_image" />
          <meta name="twitter:title" content={fullTitle} />
          {description && (
             <meta name="twitter:description" content={description} />
@@ -49,7 +59,7 @@ const SEO = ({
          <meta name="twitter:image" content={image} />
 
          <script type="application/ld+json">
-            {JSON.stringify(schemaSchema)}
+            {JSON.stringify(schema || defaultSchema)}
          </script>
       </Helmet>
    )

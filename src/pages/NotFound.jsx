@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { Button } from '../components/UI/Button'
+import SEO from '../components/SEO'
 
 const NotFoundPage = () => {
    return (
@@ -15,6 +16,7 @@ const NotFoundPage = () => {
             backgroundColor: '#f5f5f5',
          }}
       >
+         <SEO title="404 — Страница не найдена" noindex />
          <Typography variant="h1" component="h1" gutterBottom>
             404
          </Typography>

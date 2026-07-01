@@ -79,6 +79,19 @@ const DetailInfo = () => {
             image={detailInfo?.detailInfo?.images?.[0]}
             url={`/user/details/${id}`}
             type="article"
+            schema={{
+               '@context': 'https://schema.org',
+               '@type': 'Product',
+               name: detailInfo?.detailInfo?.title,
+               description: shortDescription,
+               image: detailInfo?.detailInfo?.images,
+               offers: {
+                  '@type': 'Offer',
+                  price: detailInfo?.detailInfo?.price,
+                  priceCurrency: 'KGS',
+                  availability: 'https://schema.org/InStock',
+               },
+            }}
          />
          {!detailInfo || Object.keys(detailInfo).length === 0 ? (
             <p>{t('user.detailInfo.message')} </p>

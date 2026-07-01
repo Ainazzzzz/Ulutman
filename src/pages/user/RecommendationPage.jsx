@@ -3,6 +3,7 @@ import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import { CardList } from '../../components/UI/Card/CardList'
 import { Container } from '../MainPage'
 import { useTranslation } from 'react-i18next'
+import SEO from '../../components/SEO'
 import {
    deleteFavoriteStatus,
    getMainAds,
@@ -32,6 +33,11 @@ export const RecommendationPage = () => {
    }
    return (
       <Container>
+         <SEO
+            title="Все объявления"
+            description="Все актуальные объявления в Кыргызстане — работа, аренда, недвижимость, авто и услуги."
+            url="/user/recommendations"
+         />
          <Breadcrumbs path={path} />
          <CardList
             cards={publishes}

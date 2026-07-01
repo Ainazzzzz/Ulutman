@@ -1,13 +1,13 @@
 User-agent: *
+Allow: /
 Allow: /user
 Allow: /user/category/
 Allow: /user/details/
-Allow: /user/main.php
+Allow: /user/recommendations
 Disallow: /admin/
 Disallow: /user/my-page/
 Disallow: /user/create-ad
 Disallow: /user/favorite
-Disallow: /user/recommendations
 Disallow: /user/advertising_page
 
 Sitemap: https://ulutman.com/sitemap.xml
