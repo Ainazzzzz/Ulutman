@@ -15,7 +15,7 @@ const SEO = ({
 }) => {
    const fullTitle = title
       ? `${title} | ${SITE_NAME}`
-      : `${SITE_NAME} — объявления в Кыргызстане`
+      : `${SITE_NAME} — объявления в России`
    const fullUrl = url ? `${BASE_URL}${url}` : BASE_URL
 
    const defaultSchema = {
@@ -23,7 +23,7 @@ const SEO = ({
       '@type': 'WebSite',
       name: SITE_NAME,
       url: BASE_URL,
-      description: 'Доска объявлений в Кыргызстане',
+      description: 'Доска объявлений в России',
       potentialAction: {
          '@type': 'SearchAction',
          target: `${BASE_URL}/user/search?search={search_term_string}`,
