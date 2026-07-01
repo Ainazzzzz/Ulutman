@@ -10,4 +10,4 @@ Disallow: /user/create-ad
 Disallow: /user/favorite
 Disallow: /user/advertising_page
 
-Sitemap: https://ulutman.com/sitemap.xml
+Sitemap: https://ulutman-api.com/sitemap.xml

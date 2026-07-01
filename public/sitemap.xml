@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
-      <loc>https://ulutman.com/user</loc>
+      <loc>https://ulutman-api.com/user</loc>
       <lastmod>2026-07-01</lastmod>
       <changefreq>daily</changefreq>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://ulutman.com/user/category/WORK</loc>
+      <loc>https://ulutman-api.com/user/category/WORK</loc>
       <lastmod>2026-07-01</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://ulutman.com/user/category/RENT</loc>
+      <loc>https://ulutman-api.com/user/category/RENT</loc>
       <lastmod>2026-07-01</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://ulutman.com/user/category/HOTEL</loc>
+      <loc>https://ulutman-api.com/user/category/HOTEL</loc>
       <lastmod>2026-07-01</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://ulutman.com/user/category/SERVICES</loc>
+      <loc>https://ulutman-api.com/user/category/SERVICES</loc>
       <lastmod>2026-07-01</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://ulutman.com/user/category/REAL_ESTATE</loc>
+      <loc>https://ulutman-api.com/user/category/REAL_ESTATE</loc>
       <lastmod>2026-07-01</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://ulutman.com/user/category/AUTO</loc>
+      <loc>https://ulutman-api.com/user/category/AUTO</loc>
       <lastmod>2026-07-01</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://ulutman.com/user/category/SELL</loc>
+      <loc>https://ulutman-api.com/user/category/SELL</loc>
       <lastmod>2026-07-01</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://ulutman.com/user/recommendations</loc>
+      <loc>https://ulutman-api.com/user/recommendations</loc>
       <lastmod>2026-07-01</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.6</priority>

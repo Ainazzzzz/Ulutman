@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 
-const BASE_URL = 'https://ulutman.com'
+const BASE_URL = 'https://ulutman-api.com'
 const DEFAULT_IMAGE = `${BASE_URL}/og-image.png`
 const SITE_NAME = 'Ulutman'
 
